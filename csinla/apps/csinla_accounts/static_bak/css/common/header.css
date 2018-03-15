@@ -1,0 +1,57 @@
+/*header部分开始*/
+.header {
+    width: 70%;
+    height: 86px;
+}
+
+.header .logo {
+    float: left;
+    width: 240px;
+    height: 86px;
+    padding: 13px 0;
+}
+
+.header .user {
+    float: right;
+    width: 230px;
+    height: 36px;
+    padding: 30px 0 20px 4px;
+}
+
+.user a {
+    position: relative;
+    text-align: center;
+}
+
+.user .login {
+    float: left;
+}
+
+.user span {
+    position: absolute;
+    font-size: 14px;
+    font-family: "Microsoft YaHei", "微软雅黑";
+
+}
+
+.user .login span {
+    top: 7px;
+    left: 25px;
+    color: #feedef;
+}
+
+.user .register {
+    float: right;
+}
+
+.user .register span {
+    top: 7px;
+    left: 30px;
+    color: #cac8cb;
+}
+
+.footer .w {
+    width: 70%;
+}
+
+/*header部分结束*/

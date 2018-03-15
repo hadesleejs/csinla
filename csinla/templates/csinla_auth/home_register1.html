@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalabe=no">
+<meta name="renderer" content="ie-stand">
+    <title>首页-注册</title>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-97624179-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+    <link rel="stylesheet" href="{% static "css/home-register.css" %}">
+    <link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}">
+     <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+     <link rel="shortcut icon" href="/static/images/logo1.png">
+    <script src="{% static "js/angular.min.js" %}"></script>
+</head>
+<body>
+
+<script>
+    var type = "student";
+    function selectType(sId) {
+        if (sId == "chooseRegister_Company") {
+            type = "company";
+            document.getElementById("select_Student").src = "{% static "images/unselect.png" %}";
+            document.getElementById("select_Company").src = "{% static "images/select.png" %}";
+
+        }
+        else if (sId == "chooseRegister_Student") {
+            type = "student";
+            document.getElementById("select_Student").src = "{% static "images/select.png" %}";
+            document.getElementById("select_Company").src = "{% static "images/unselect.png" %}";
+        }
+    }
+</script>
+
+<script>
+    var app = angular.module('registerApp', []);
+    app.controller('divCtrl', function ($scope) {
+        $scope.studentRegisterDiv = true;
+        $scope.companyRegisterDiv = true;
+        $scope.chooseTypeDiv = false;
+        $scope.toggle = function () {
+            if (type == "student") {
+                $scope.studentRegisterDiv = !$scope.studentRegisterDiv;
+                $scope.chooseTypeDiv = !$scope.chooseTypeDiv;
+            }
+            else if (type == "company") {
+                // $scope.companyRegisterDiv = !$scope.companyRegisterDiv;
+                // $scope.chooseTypeDiv = !$scope.chooseTypeDiv;
+            alert("此功能开发中！");
+            }
+
+        };
+        $scope.back = function () {
+            $scope.studentRegisterDiv = true;
+            $scope.companyRegisterDiv = true;
+            $scope.chooseTypeDiv = !$scope.chooseTypeDiv;
+        };
+    });
+</script>
+
+    <!--header部分-->
+   <div class="u-container">
+    <div class="u-header clearfix">
+        <div class="logo fl">
+            <a href="/"><img class="img-responsive" src="{% static "images/01-home-logo.png" %}" alt="logo"></a>
+        </div>
+
+    </div>
+    <div class="header w">
+        
+        <a href="/" class="home-link">
+            <div class="logo">
+                <img src="{% static "images/home-logo.png" %}" alt="" class="img-responsive">
+            </div>
+        </a>
+        
+        
+    </div> 
+    <!--主要内容部分-->
+    <div class="content">
+        <div class="content-left">
+           
+              <span>"Got it, show us something about you, wouldn't you"</span>
+          
+        </div>
+        <div class="content-right">
+            
+              
+                    
+                       
+                        
+                   
+                    <!-- 企业注册页面 -->
+                    <div ng-hide="companyRegisterDiv" class="transparent_bg table_center">
+                        <div>
+                  <a href="{% url 'accounts:register' %}"><input type="image" src="{% static "images/back-icon.png" %}" style="width:25px; height: 25px;margin:10px;"></a>
+              </div>
+              <div style="width:100%;text-align:center;margin-top:10px;font-size:25px;font-family:'宋体';color:#FFF;">
+                  企业注册
+              </div>
+                        <form class="companyForm">
+                        <div class="form-con">
+                        <!--<div class="remind" style="width:100%;font-size:12px;color:#FF0000;text-align:center;">*逻辑判断</div>-->
+                                    用户名：<input type="text" id="username2" size="40" style="font-size:12px;border:0;border-bottom:1px solid #999;background:none;text-indent:0.5em;" placeholder="请输入用户名">
+                                </div>
+                            <div class="form-con">
+                                    密码：<input type="password" id="password2" size="40" style="font-size:12px;border:0;border-bottom:1px solid #999;background:none;text-indent:0.5em;" placeholder="请输入密码">
+                                </div>
+                                
+                                 <div class="form-con">
+                                    重复密码：<input type="password" id="repeat_password2" size="40" style="font-size:12px;border:0;border-bottom:1px solid #999;background:none;text-indent:0.5em;" placeholder="请再次输入密码">
+                                </div>
+                                <div class="form-con">
+                                    公司邮箱：<input type="text" id="email2" size="40" style="font-size:12px;border:0;border-bottom:1px solid #999;background:none;text-indent:0.5em;" placeholder="输入公司邮箱地址">
+                                </div>
+                                
+                          <div class="form-con">
+                                    公司类型：<input type="text" size="40" style="font-size:12px;border:0;border-bottom:1px solid #999;background:none;text-indent:0.5em; width:33%" placeholder="盈利／非盈利"><input type="password" id="email2" size="40" style="font-size:12px;border:0;border-bottom:1px solid #999;background:none;text-indent:0.5em;width:31%" placeholder="服务／产品">
+                                </div>
+                         <div class="form-con">
+                                    公司介绍：<input type="about" id="email2" size="40" style="font-size:12px;border:0;border-bottom:1px solid #999;background:none;text-indent:0.5em;" placeholder="介绍一下您的公司吧">
+                                </div>
+                           
+
+                             <div style="color:#FFF;font-size:14px;margin-left:33px;margin-top:10px;">     
+验证码：<input type="text" id="code" style="font-size:12px;border:0;border-bottom:1px solid #999;width:32%;background:none; text-indent:0.5em;margin-top:10px;height:30px;" placeholder="右侧验证码"><img src="{% static "images/security_image.png" %}" style="margin-left:5px;position:absolute;margin-top:10px;">
+                           </div>
+                             <div style="font-size:12px;text-align:center;color:#FFF;margin-top:10px;"><input type="checkbox" style="width:14px;height:14px;"/>&nbsp;&nbsp;我已阅读并同意相关条约</div>
+                           
+                            <div style="text-align:center;margin-top:10px;">
+                                <input class="lacs-color-btn" type="submit" name="Student_Register" style="background-image:url(../../static/images/01-home-login3.png);border-radius:20px;border:0px;width:70%;height:35px;color:#FFF;margin-bottom:20px;"
+                                       value="注册，并去邮箱验证">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+ 
+</div>
+
+</div>
+
+   
+
+    <!--页面底部-->
+    
+
+
+</body>
+</html>

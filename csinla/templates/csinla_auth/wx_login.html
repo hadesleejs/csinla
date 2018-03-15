@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<title>测试</title>
+	<script src="http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>
+</head>
+<body>
+	<div id='wx_qr_container'>
+		
+	</div>
+	<script type="text/javascript">
+		var obj = new WxLogin({
+          id:"wx_qr_container", 
+          appid: "{{wx_config.appid}}", 
+          scope: "{{wx_config.scope}}", 
+          redirect_uri: "{{wx_config.redirect_uri}}",
+          state: "{{wx_config.state}}",
+          style: "black",
+          href: ""
+        });
+	</script>
+</body>
+</html>

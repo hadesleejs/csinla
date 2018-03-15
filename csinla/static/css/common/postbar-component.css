@@ -1,0 +1,356 @@
+@import "base.css";
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    font: 100% "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #444;
+    background-image: url(../../images/background.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: #464646;
+}
+.navbar-nav>li {
+    float: left;
+}
+.u-container {
+    width: 75%;
+    margin: auto;
+}
+
+/*header*/
+.u-header {
+    padding: 15px 10px 10px;
+}
+
+.u-header .logo {
+    width: 200px;
+}
+
+.u-header .login-status {
+    width: 232px;
+    margin-top: 16px;
+}
+
+.u-header .avatar-wrapper {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.u-header .avatar {
+    margin-top: -5px;
+    width: 42px;
+    height: 42px;
+}
+
+.u-header .dropdown {
+    margin-right: 10px;
+}
+
+.u-header .dropdown-menu {
+    left: -8px;
+    min-width: 80px;
+}
+
+.u-header .dropdown-menu:before {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 15px;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-bottom: 8px solid #fff;
+    border-right: 4px solid transparent;
+}
+
+.u-header .dropdown-menu-right {
+    left: auto;
+    right: -8px;
+}
+
+.u-header .dropdown-menu-right:before {
+    left: auto;
+    right: 15px;
+}
+
+.header-btn {
+    display: block;
+    border: none;
+    background-color: rgba(255, 255, 255, 0);
+    color: #fff;
+    position: relative;
+}
+
+.header-btn i {
+    display: block;
+    width: 25px;
+    height: 25px;
+    font-size: 18px;
+    opacity: 0.8;
+}
+
+.header-btn .redpoint {
+    position: absolute;
+    right: -10px;
+    top: -10px;
+}
+
+.u-header .new-post-wrapper {
+    margin-left: 5px;
+}
+
+.u-header .new-post {
+    display: block;
+    width: 90px;
+    height: 32px;
+    font-size: 14px;
+    background-image: url(../../images/01-home-login.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    color: #fff;
+    text-align: center;
+    line-height: 32px;
+}
+
+.redpoint {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.redpoint i {
+    display: inline-block;
+    height: 22px;
+    line-height: 22px;
+    min-width: 22px;
+    width: auto;
+    padding: 0 3px;
+    font-size: 12px;
+    text-align: center;
+    color: #fff;
+    background-color: #ec6200;
+    opacity: 1;
+    border-radius: 11px;
+}
+
+/*/header*/
+
+.u-main {
+    padding: 0;
+    border: 0;
+}
+
+.u-main-title img {
+    width: 100%;
+}
+
+.u-main-content {
+    margin: 0;
+}
+
+.u-bar-info {
+    position: relative;
+   /* border-bottom: 1px solid #ddd;*/
+
+}
+
+
+
+.u-bar-follow {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.u-bar-count {
+    margin: 0 5px;
+}
+
+.u-sign-box > div {
+    display: inline-block;
+    font-size: 20px;
+    margin-right: 6px;
+    background-color: #fff;
+    height: 55px;
+    padding: 3px 10px;
+    text-align: center;
+    border-radius: 10px;
+    margin-top: 3px;
+    cursor: pointer;
+}
+
+.u-sign-box .sign {
+    line-height: 55px;;
+    padding: 3px 20px;
+}
+
+.u-sign-box .sign-info {
+    font-size: 18px;
+}
+
+/*sidebar*/
+.sidebar {
+    border-left: 5px solid #f1f1f1;
+    padding-bottom: 40px;
+    border-radius: 10px;
+}
+
+.sidebar-icon img {
+    width: 70px;
+    height: 70px;
+}
+
+.sidebar .username {
+    font-size: 15px;
+    margin-top: 7px;
+}
+
+.user-level {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.level-title {
+    width: 28%;
+    margin-left: -10px;
+}
+
+.level-detail {
+    position: relative;
+    width: 65%;
+    margin-left: 10px;
+}
+
+.progress {
+    margin-top: 5px;
+    height: 12px;
+}
+
+.progress-bar {
+    background: #5ddcb3;
+    background: linear-gradient(to right, #e6ed5f, #5ddcb3);
+}
+
+.level-num {
+    top: -12px;
+    position: absolute;
+    color: #5ddcb3;
+}
+
+.level-indicator {
+    position: absolute;
+    top: 18px;
+    right: 0;
+}
+
+/*content*/
+.u-main-section {
+    min-height: 500px;
+    background-color: #fff;
+    /*padding: 0 15px 20px 30px;*/
+}
+
+/*颜色渐变的按钮*/
+.lacs-color-btn {
+    background: linear-gradient(to right, #f49e2f 0%, #f94e70 100%);
+    background: -webkit-gradient(linear, 0% 0%, 50% 0%, from(#F49E2F), to(#F94E70));
+    color: #fff;
+    border: 0;
+    border-radius: 17px !important;
+    padding: 3px 10px;
+    /*display: inline-block;*/
+}
+
+.lacs-color-btn:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+.lacs-color-btn2 {
+    color: #5bddb4;
+    border: 1px solid #5bddb4;
+    padding: 1px 5px;
+    border-radius: 10px;
+}
+
+.lacs-color-btn2:hover, .lacs-color-btn2:visited {
+    color: #5bddb4;
+    text-decoration: none;
+}
+
+/*bootstrap*/
+.dropdown-menu {
+    min-width: 0;
+}
+
+.collapse {
+    padding-left: 40px;
+}
+
+.navbar-nav a {
+    color: #444;
+    font-size: 18px;
+}
+
+.nav > li > a {
+    padding: 10px 45px;
+}
+
+.nav > li > a:focus, .nav > li > a:hover {
+    text-decoration: none;
+    /*background-color: white;*/
+}
+
+@media (max-width: 767px){
+.u-bar-info > img {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    top: -50px;
+    left: 7%;
+}
+
+.u-bar-info > .u-bar-name {
+    font-size: 20px;
+    margin-left:40%;
+    line-height: 60px;
+    height: 60px;
+    margin-right: 10px;
+}
+.u-main-section {
+    min-height: 500px;
+    background-color: #fff;
+    padding: 0px; 
+}
+.nav > li > a:focus, .nav > li > a:hover {
+    text-decoration: none;
+    background-color: #ddd;
+   /* width: 40%;*/
+}
+
+.collapse {
+     display: block; 
+     visibility:visible; 
+}
+  }
+  @media (min-width: 768px){
+    .u-bar-info > img {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    top: -70px;
+    left: 50px;
+}
+
+.u-bar-info > .u-bar-name {
+    font-size: 25px;
+    margin-left: 220px;
+    line-height: 60px;
+    height: 60px;
+    margin-right: 10px;
+}
+  }

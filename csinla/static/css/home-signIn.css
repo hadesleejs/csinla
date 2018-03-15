@@ -1,0 +1,146 @@
+@import "common/base.css";
+@import "common/form-module.css";
+@import "common/header.css";
+@import "common/slogan-text.css";
+@import "common/footer.css";
+
+/*main部分开始*/
+
+.main{width: 70%;}
+.main .slogan {
+    width: 60%;
+    height: inherit;
+    float: left;
+    position: relative;
+}
+
+.main .box {
+    width: 50%;
+    height: inherit;
+    float: right;
+    
+    position: relative;
+}
+
+.loginBtn {
+    background: url(../images/home-login.png) center no-repeat;
+    width: 90px;
+    height: 50px;
+    font-weight: bold;
+    font-family:"Times New Roman",Georgia,Serif; 
+    letter-spacing:1px;
+    margin-left:-20px; 
+    margin-top:-20px; 
+}
+
+.box .loginCard {
+    width: 280px;
+    height:370px;
+    margin-top:40px;
+    padding-top:10px; 
+    background: rgba(255, 255, 255, 0.1);
+    filter: Alpha(opacity=10); /* 只支持IE6、7、8、9 */
+    position: static; /* IE6、7、8只能设置position:static(默认属性) ，否则会导致子元素继承Alpha值 */
+    *zoom: 1; /* 激活IE6、7的haslayout属性，让它读懂Alpha */
+}
+
+.box .loginCard .top {
+    width: 250px;
+    height: 200px;
+}
+
+.box .loginCard form {
+    width:78%;
+    text-align: center;
+    margin: 0 auto;
+    margin-top:-70px; 
+}
+
+.loginCard .link {
+    height: 40px;
+    margin-top:-15px; 
+}
+
+.loginCard .link a {
+    height: auto;
+    font-size: 6px;
+    color: #999;
+    font-weight: bold;
+}
+.loginCard .link .password {
+    float: left;
+}
+.loginCard .link .regist {
+    float: right;
+}
+
+.loginCard h1 {
+    font: 55px "Pelmeshka", "Microsoft YaHei";
+    font-weight: 100;
+    text-align: center;
+    color: white;
+    opacity: 1.0;
+    margin: 30px;
+}
+
+.loginCard input[type=text], input[type=password] {
+    font-family: FontAwesome;
+    height: 33px;
+    margin: 0 auto;
+    font-size: 16px;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom:20px;
+    -webkit-appearance: none;
+    color: #fff;
+    border: 1px solid #d9d9d9;
+    border-top: 1px solid #c0c0c0;
+    border-radius: 12px;
+   line-height: 33px;
+
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+.loginCard input[type=text]:hover, input[type=password]:hover {
+    border: 1px solid #b9b9b9;
+    border-top: 1px solid #a0a0a0;
+    border-radius: 12px;
+    background:rgba(255,255,255,0.4);
+      filter: Alpha(opacity=10); 
+    -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.loginCard i {
+    margin-top: -10px;
+}
+
+.loginCard a {
+    text-decoration: none;
+    font-weight: 400;
+    color: white;
+    opacity: 1.0;
+    transition: opacity ease 0.5s;
+}
+
+.loginCard a:hover {
+    opacity: 1;
+}
+
+.list-inline {
+    float: right;
+    list-style: none;
+}
+
+.list-inline li {
+    display: inline;
+}
+
+i {
+    border: 1px solid;
+    border-radius: 50%;
+    padding: 3px;
+}
+

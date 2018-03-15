@@ -1,0 +1,188 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="x-rim-auto-match" content="none">
+    <meta id="metaDescription" name="description" content="">
+     <link rel="stylesheet" type="text/css" href="/static/css/paper.min.css">
+
+    <script>
+        document.documentElement.setAttribute('data-useragent', navigator.userAgent);
+    </script>
+
+    <title>除了免费停车，我们还有更重磅的好消息！</title>
+
+    <link rel="shortcut icon" href="/static/images/logo1.png">
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-97624179-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?6784d0adea487eefbe595d28dbb08efb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript">
+    wx.config({
+       debug: false,  //调式模式，设置为ture后会直接在网页上弹出调试信息，用于排查问题
+       appId: 'wx910b80a91781c9df',
+       timestamp: {{ timestamp }},
+       nonceStr: '{{ nonceStr }}',
+       signature: '{{ signature }}',
+       jsApiList: [  //需要使用的网页服务接口
+           'checkJsApi',  //判断当前客户端版本是否支持指定JS接口
+           'onMenuShareTimeline', //分享给好友
+           'onMenuShareAppMessage', //分享到朋友圈
+           'onMenuShareQQ',  //分享到QQ
+           'onMenuShareWeibo' //分享到微博
+       ]
+     });
+     wx.ready(function () {   //ready函数用于调用API，如果你的网页在加载后就需要自定义分享和回调功能，需要在此调用分享函数。//如果是微信游戏结束后，需要点击按钮触发得到分值后分享，这里就不需要调用API了，可以在按钮上绑定事件直接调用。因此，微信游戏由于大多需要用户先触发获取分值，此处请不要填写如下所示的分享API
+                // 1 判断当前版本是否支持指定 JS 接口，支持批量判断
+                    wx.checkJsApi({
+                        jsApiList: [
+                          'onMenuShareAppMessage'
+                        ],
+                        success: function (res) {
+                          //alert(JSON.stringify(res));
+                        }
+                    });
+    wx.onMenuShareTimeline({  //例如分享到朋友圈的API  
+        title: '暑假停车+寄卖，随时可提车！！', // 分享标题
+        desc: '最合理的价格卖给最合适的人，MCS让你在停车期间寄卖不停。', // 分享描述
+        link: 'http://csinla.com/accounts/salecar/', // 分享链接
+        imgUrl: 'http://csinla.com/static/images/sale3.jpg', // 分享图标
+        success: function () {
+           // 用户确认分享后执行的回调函数
+        },
+        cancel: function () {
+           // 用户取消分享后执行的回调函数
+        }
+    });
+    wx.onMenuShareAppMessage({
+        title: '暑假停车+寄卖，随时可提车！！', // 分享标题
+        desc: '最合理的价格卖给最合适的人，MCS让你在停车期间寄卖不停。', // 分享描述
+        link: 'http://csinla.com/accounts/salecar/', // 分享链接
+        imgUrl: 'http://csinla.com/static/images/WechatIMG3.jpeg', // 分享图标
+        type: '', // 分享类型,music、video或link，不填默认为link
+        dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+        success: function () { 
+            // 用户确认分享后执行的回调函数
+        },
+        cancel: function () { 
+            // 用户取消分享后执行的回调函数
+        }
+    });
+    wx.onMenuShareQQ({
+        title: '暑假停车+寄卖，随时可提车！！', // 分享标题
+        desc: '最合理的价格卖给最合适的人，MCS让你在停车期间寄卖不停。', // 分享描述
+        link: 'http://csinla.com/accounts/salecar/', // 分享链接
+        imgUrl: 'http://csinla.com/static/images/sale3.jpg', // 分享图标
+        success: function () { 
+           // 用户确认分享后执行的回调函数
+        },
+        cancel: function () { 
+           // 用户取消分享后执行的回调函数
+        }
+    });
+    }); 
+    wx.error(function (res) {
+     alert(res.errMsg);  //打印错误消息。及把 debug:false,设置为debug:ture就可以直接在网页上看到弹出的错误提示
+    });
+</script>
+
+  <!--   <script id="__pre_data">
+      window.injectedData          = window.injectedData || {};
+      injectedData.SYSTEM_SETTINGS = {"templateRootPath":"//sd.xiumius.com/tpls","addGAForShow":2};
+      injectedData.showInfo        = {"show_id":46797402,"type":2,"version":5,"title":"%E9%99%A4%E4%BA%86%E5%85%8D%E8%B4%B9%E5%81%9C%E8%BD%A6%EF%BC%8C%E6%88%91%E4%BB%AC%E8%BF%98%E6%9C%89%E6%9B%B4%E9%87%8D%E7%A3%85%E7%9A%84%E5%A5%BD%E6%B6%88%E6%81%AF%EF%BC%81","desc":"","cover":"http://img.xiumi.us/xmi/ua/H9ue/i/4b869d6cfccd5d18d57f11d3eb5bf4de-sz_53643.JPG?x-oss-process=style/xm","loading_icon":null,"show_data_name":"H9ue/e5063c8d8e83d9d66d08fceaf0e55f67","show_data_url":"//sd.xiumius.com/xmi/pd/H9ue/e5063c8d8e83d9d66d08fceaf0e55f67.json?_ver=1497346237000","show_url":"http://c.xiumi.us/board/v5/2zCJV/46797402","no_logo":0,"no_advert":0,"freeshow":0,"traffic":912776,"points":1465,"history_hits":5,"cur_hits":11,"hit_count":16,"high_peak":50000,"created_at":"2017-06-13T09:23:53.000Z","updated_at":"2017-06-13T17:55:15.000Z","owner":{"nickname":"小小小小小号","avatar_url":"http://q.qlogo.cn/qqapp/101147695/482D6A1A6405AEACF50B495039137FAF/100","brand_name":null,"agreement_access":1,"level":1,"level_remain_life":0}};
+      injectedData.wxSign          = {"appId":"wxfae5a1b61337030e","timestamp":1497404653,"nonceStr":"0CNcFXlizL7eGWtx","signature":"f86c25b815ebc1fb5118222a5fcd682abca3caae"};
+      injectedData.advertList      = [];
+  </script>
+  
+  <script id="__delete_pre_data">
+  var __pre_data = document.getElementById('__pre_data');
+  if (!!__pre_data) {
+      __pre_data.parentNode.removeChild(__pre_data);
+  }
+  var __pre_connect = document.getElementById('__pre_connect');
+  if (!!__pre_connect) {
+      __pre_connect.parentNode.removeChild(__pre_connect);
+  }
+  var __delete_pre_data = document.getElementById('__delete_pre_data');
+  if (!!__delete_pre_data) {
+      __delete_pre_data.parentNode.removeChild(__delete_pre_data);
+  }
+  </script> -->
+</head>
+
+<body class="tn-transition-end tn-platform-class tn-platform-desktop">
+
+<div id="shareImage" style="display: none;">
+    <img src="http://img.xiumi.us/xmi/ua/H9ue/i/4b869d6cfccd5d18d57f11d3eb5bf4de-sz_53643.JPG?x-oss-process=style/xm">
+</div>
+
+<div class="tn-reader-paper container ng-scope" style="-webkit-box-shadow: 0 2px 4px #fff;-moz-box-shadow: 0 2px 4px #fff;box-shadow: 0 2px 4px #fff;" ng-controller="PaperReaderController" tn-scroll-touch="onPaperScroll($event)" tn-scroll-touch-for="document">
+
+    <section class="row tn-board-head" ng-show="displaySystemTitle" style="">
+        <h3 ng-bind="showInfo.title || '无标题'" class="ng-binding">除了免费停车，我们还有更重磅的好消息！</h3>
+        <div class="tn-head-info">
+           <!--  <span class="time ng-binding" ng-bind="showInfo.created_at | date:'yyyy-M-d'">2017-6-13</span>
+            <span class="hor-sep"></span>
+            <span class="brand ng-binding" ng-bind="showInfo.owner.brand_name"></span> -->
+        </div>
+
+        <hr>
+    </section>
+
+    <section class="row tn-board-head-space ng-hide" ng-show="!displaySystemTitle" style=""></section>
+
+    <div class="loading-progress ng-hide" ng-show="!isReady" style="">
+        <span class="item"></span>
+        <span class="item"></span>
+        <span class="item"></span>
+    </div>
+
+    <section class="row tn-article-body" ng-show="isReady" tn-opera-house="" tn-atom-context="{ type: 'paper', inReader: true, animationEnabled: false }" style="">
+        <article class="dock-loader tn-scene-paper tn-show-root ng-scope tn-comp-inst tn-comp tn-from-house-reader_paper-cp ng-hide" tn-bind-comp-tpl-id="reader_paper-cp:sys/loader-flow-paper" tn-comp-role="root" ng-show="!htmlForPreview" tn-comp="cubes[0]" tn-comp-pose="compAttr.pose" style=""><!-- ngInclude: compTemplatePath --><section class="tn-comp-pin tn-comp-style-pin tn-comp-anim-pin ng-scope" ng-include="compTemplatePath" tn-link="compAttr.link || comp.link" tn-link-frame="compAttr.linkFrame || comp.linkFrame" tn-sound="compAttr.sound" ng-style="compAttr.style" tn-pre-load-image="compAttr.style.backgroundImage" tn-animate="compAttr.anim"><ul class="dock paper tn-page-slot ng-scope tn-cell-inst tn-cell tn-cell-group tn-child-position-absolute group-empty" tn-cell-type="group" tn-cell="pages" tn-link="cell.link" tn-link-frame="cell.linkFrame" ng-style="cell.style" tn-animate="(!cell ? '__NOT_MOUNT__' : cell.anim)" tn-animate-on-self="true" tn-sound="cell.sound" ng-class="{ 'group-empty': !(cellGroupItems.length) }"> <!-- ngRepeat: chd in cellGroupItems track by $index --> </ul></section></article>
+         <p style="white-space: normal;"><br  /></p><p style="white-space: normal;"><span style="font-size: 16px;">有二手课本一直卖不出去？ 二手商品屯在家里，懒得刷群又想出手？&nbsp;</span></p><p style="white-space: normal;"><span style="font-size: 16px;">点击这里，<span style="font-size: 15px;">立即</span></span><span style="color: rgb(2, 30, 170);"><a href="/posts/add/" style="font-size: 17px;">发布二手信息。</a></span></p><p style="white-space: normal;"><span style="color: rgb(2, 30, 170);"><br  /></span></p><p class="p1" style="white-space: normal;"><span style="font-size: 16px;">租房，买车，二手家具，二手书尽在&nbsp;</span><span style="color: rgb(2, 30, 170); font-size: 17px;"><a href="/">CSinLA.com</a></span><span style="font-size: 16px;">，点击查看更多留学生活咨询内容。</span></p><br  />
+        <div class="dock-loader tn-scene-paper tn-show-root ng-binding ng-scope" tn-renderer-accelerate="htmlForPreview" ng-bind-html="htmlForPreview | unsafe" ng-show="!!htmlForPreview" style=""><section style="background-color: rgb(255, 255, 255); box-sizing: border-box;" class="ng-scope"><section class="Powered-by-XIUMI V5" style="position: static; box-sizing: border-box;" powered-by="xiumi.us"><section class="" style="position: static; box-sizing: border-box;"><section class="" style="box-sizing: border-box;"><p style="margin: 0px; padding: 0px; box-sizing: border-box;">多姿多彩的暑假又开始了，不管你想怎样度过这漫长的假期，其实总会有一个横在你心头的问题，那就是你留在加州的爱车怎么办。</p><p style="margin: 0px; padding: 0px; box-sizing: border-box;"><br style="box-sizing: border-box;"></p><p style="margin: 0px; padding: 0px; box-sizing: border-box;">随随便便把爱车丢在公寓楼里，一旦发生剐蹭现象，你会寄希望于肇事者留一张字条给你然后在足足两个月之后还会积极的做出赔偿吗？</p></section></section></section><section class="Powered-by-XIUMI V5" style="position: static; box-sizing: border-box;" powered-by="xiumi.us"><section class="" style="text-align: center; margin-top: 10px; margin-bottom: 10px; position: static; box-sizing: border-box;"><img style="max-width: 100%; vertical-align: middle; box-sizing: border-box;" class="" src="/static/images/sale1.jpg" data-ratio="0.665625" data-w="640"></section></section><section class="Powered-by-XIUMI V5" style="position: static; box-sizing: border-box;" powered-by="xiumi.us"><section class="" style="position: static; box-sizing: border-box;"><section class="" style="box-sizing: border-box;"><p style="margin: 0px; padding: 0px; box-sizing: border-box;"><br style="box-sizing: border-box;"></p><p style="margin: 0px; padding: 0px; box-sizing: border-box;">更可怕的是如果没有停车位，那就意味着要把爱车停在加州七月的酷暑艳阳下暴晒。相信爱车的你们是明白高温会对汽车造成怎样不可逆的伤害的，例如对油路的损伤，内饰易融化，甚至会造成汽车自燃。</p></section></section></section><section class="Powered-by-XIUMI V5" style="position: static; box-sizing: border-box;" powered-by="xiumi.us"><section class="" style="text-align: center; margin-top: 10px; margin-bottom: 10px; position: static; box-sizing: border-box;"><img style="max-width: 100%; vertical-align: middle; width: 100%; box-sizing: border-box;" class="" src="/static/images/sale2.jpg" data-w="430" _width="100%"></section></section><section class="Powered-by-XIUMI V5" style="position: static; box-sizing: border-box;" powered-by="xiumi.us"><section class="" style="position: static; box-sizing: border-box;"><section class="" style="box-sizing: border-box;"><p style="margin: 0px; padding: 0px; box-sizing: border-box;"><br style="box-sizing: border-box;"></p><p style="margin: 0px; padding: 0px; box-sizing: border-box;">而对于买了辆小破车的我们，空出公寓楼的停车位能够让我们在漫长的假期中把短租的公寓以更高的价格租出去。</p><p style="margin: 0px; padding: 0px; box-sizing: border-box;"><br style="box-sizing: border-box;"></p><p style="margin: 0px; padding: 0px; box-sizing: border-box;">所以，CSinLA.com携手MCS Auto为您提供最贴心的服务，免费停车，最长可达四个月！不要以为免费的就是不好的，我们的免费停车服务不仅仅是提供室内停车，更厉害的是你的爱车将由专人看护，期间产生的一切停车费用均由我们帮您承担。看看我们的豪华车库！</p></section></section></section><section class="Powered-by-XIUMI V5" style="position: static; box-sizing: border-box;" powered-by="xiumi.us"><section class="" style="text-align: center; margin-top: 10px; margin-bottom: 10px; position: static; box-sizing: border-box;"><img style="max-width: 100%; vertical-align: middle; box-sizing: border-box;" class="" src="/static/images/sale3.jpg" data-ratio="0.553125" data-w="640"></section></section><section class="Powered-by-XIUMI V5" style="position: static; box-sizing: border-box;" powered-by="xiumi.us"><section class="" style="position: static; box-sizing: border-box;"><section class="" style="box-sizing: border-box;"><p style="margin: 0px; padding: 0px; box-sizing: border-box;"><br style="box-sizing: border-box;"></p><p style="margin: 0px; padding: 0px; box-sizing: border-box;">暑假对于很多社区大学的学生来说是一个重要的转折点，经历了各种挫折和失败之后成功的转学到了心仪的大U。</p></section></section></section><section class="Powered-by-XIUMI V5" style="position: static; box-sizing: border-box;" powered-by="xiumi.us"><section class="" style="text-align: center; margin-top: 10px; margin-bottom: 10px; position: static; box-sizing: border-box;"><img style="max-width: 100%; vertical-align: middle; width: 50%; box-sizing: border-box;" class="" src="/static/images/sale4.jpg" data-ratio="0.9744898" data-w="196" _width="50%"></section></section><section class="Powered-by-XIUMI V5" style="position: static; box-sizing: border-box;" powered-by="xiumi.us"><section class="" style="position: static; box-sizing: border-box;"><section class="" style="box-sizing: border-box;"><p style="margin: 0px; padding: 0px; box-sizing: border-box;"><span style="letter-spacing: 0px; box-sizing: border-box;">但是如何处理无法轻易运输的爱车就成了一个大问题。对于学校距离太远的同学，我们也提供了一项便利的服务，随时寄卖爱车。</span><br style="box-sizing: border-box;"></p><p style="margin: 0px; padding: 0px; box-sizing: border-box;"><br style="box-sizing: border-box;"></p><p style="margin: 0px; padding: 0px; box-sizing: border-box;">对于已经做好准备卖车的同学，请直接联系我们进行估价。</p><p style="margin: 0px; padding: 0px; box-sizing: border-box;"><br style="box-sizing: border-box;"></p><p style="margin: 0px; padding: 0px; box-sizing: border-box;"><span style="letter-spacing: 0px; box-sizing: border-box;">对于不太清楚自己是否需要卖车的同学，我们建议你可以先申请将车免费停在我们的停车场。一旦下定决心需要卖车，我们将和你进行密切的沟通，确保你可以以个人的名义，以最心仪价格卖给最放心的人。MCS车行寄卖杜绝dearler收车，如果寄卖成功，和买家之间可以走gift渠道，免税交易。</span></p><p style="margin: 0px; padding: 0px; box-sizing: border-box;"><span style="letter-spacing: 0px; box-sizing: border-box;"><br style="box-sizing: border-box;"></span></p><p style="margin: 0px; padding: 0px; box-sizing: border-box;">而且，MCS对您承诺，停车期间绝不使用您的车辆，可以在提车时检查里程数以便确认。</p></section></section></section><section class="Powered-by-XIUMI V5" style="position: static; box-sizing: border-box;" powered-by="xiumi.us"><section class="" style="text-align: center; margin-top: 10px; margin-bottom: 10px; position: static; box-sizing: border-box;"><img style="max-width: 100%; vertical-align: middle; box-sizing: border-box;" class="" src="/static/images/sale5.jpg" data-ratio="1.4793388" data-w="121"></section></section><section class="Powered-by-XIUMI V5" style="position: static; box-sizing: border-box;" powered-by="xiumi.us"><section class="" style="position: static; box-sizing: border-box;"><section class="" style="box-sizing: border-box;"><p style="margin: 0px; padding: 0px; box-sizing: border-box;"><span style="letter-spacing: 0px; box-sizing: border-box;">即使最后还是决定不卖，那么在您回到美国之后，也可以随时联系我们将车提走，方便快捷。</span></p></section></section></section><section class="Powered-by-XIUMI V5" style="position: static; box-sizing: border-box;" powered-by="xiumi.us"><section class="" style=" transform: translate3d(0px, 0px, 0px); -webkit-transform: translate3d(0px, 0px, 0px); -moz-transform: translate3d(0px, 0px, 0px); -o-transform: translate3d(0px, 0px, 0px); position: static; box-sizing: border-box;"><section class="" style="display: inline-block; vertical-align: top; width: 61.8%; padding: 0px 5px 0px 0px; box-sizing: border-box;"> <section class="Powered-by-XIUMI V5" style="position: static; box-sizing: border-box;" powered-by="xiumi.us"><section class="" style="margin: 18px 0% 8px; text-align: right; transform: translate3d(0px, 0px, 0px); -webkit-transform: translate3d(0px, 0px, 0px); -moz-transform: translate3d(0px, 0px, 0px); -o-transform: translate3d(0px, 0px, 0px); position: static; box-sizing: border-box;"><section class="" style="display: inline-block; border-radius: 1em; background-color: rgb(98, 42, 54); padding: 0.3em 0.8em; color: rgb(255, 255, 255); font-size: 14px; box-sizing: border-box;"><p style="margin: 0px; padding: 0px; box-sizing: border-box;">请用以下方式联系我们</p></section></section></section> </section><section class="" style="display: inline-block; vertical-align: top; width: 38.2%; padding: 0px 0px 0px 5px; box-sizing: border-box;"> <section class="Powered-by-XIUMI V5" style="position: static; box-sizing: border-box;" powered-by="xiumi.us"><section class="" style="margin: 10px 0%; transform: translate3d(0px, 0px, 0px); -webkit-transform: translate3d(0px, 0px, 0px); -moz-transform: translate3d(0px, 0px, 0px); -o-transform: translate3d(0px, 0px, 0px); font-size: 17.6px; position: static; box-sizing: border-box;"><img style="max-width: 100%; vertical-align: middle; width: 70%; box-sizing: border-box;" class="" src="http://statics.xiumi.us/stc/images/templates-assets/tpl-paper/image/2016-8-31-2.gif" data-ratio="0.4552632" data-w="380" _width="70%"></section></section> </section></section></section><section class="Powered-by-XIUMI V5" style="box-sizing: border-box;" powered-by="xiumi.us"><section class="" style="position: static; box-sizing: border-box;"><section class="" style="box-sizing: border-box;"><p style="margin: 0px; padding: 0px; box-sizing: border-box;"><br style="box-sizing: border-box;"></p><p style="margin: 0px; padding: 0px; box-sizing: border-box;">☎️电话：(626) 662-3809</p></section></section></section><section class="Powered-by-XIUMI V5" style="position: static; box-sizing: border-box;" powered-by="xiumi.us"><section class="" style="text-align: center; margin-top: 10px; margin-bottom: 10px; position: static; box-sizing: border-box;"><img style="max-width: 100%; vertical-align: middle; box-sizing: border-box;" class="" src="/static/images/sale6.jpg" data-ratio="1.2965964" data-w="617"></section></section></section>
+        <p style="white-space: normal;"><span style="color:#000;font-weight:600;font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;有二手课本一直卖不出去？ 二手商品屯在家里，懒得刷群又想出手？&nbsp;</span></p><p style="white-space: normal;"><span style="font-size: 15px;color:#000;font-weight:600">点击这里，<span style="font-size: 14px;">立即</span></span><span style="color: rgb(2, 30, 170);"><a href="/posts/add/">发布二手信息。</a></span></p><p class="p1" style="white-space: normal;">&nbsp; &nbsp;&nbsp;</p><p style="white-space: normal;"><span style="font-size: 15px;color:#000">&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 16px;"><a href="/posts/listRent/">租房</a>，<a href="/posts/Car/">买车</a>，<a href="/posts/usedgoods/view/">二手家具</a>，<a href="/posts/usedbook/view/">二手书</a></span><span style="color:#000;font-weight:600">尽在&nbsp;<!-- <span style="color: rgb(2, 30, 170); font-size: 15px;"><a href="/"> -->CSinLA.com<!-- </a></span> -->，点击查看更多留学生活咨询内容。</span></span></p><p style="text-align: left;"><span style="font-size: 15px;"></span><br  /></p><p style="text-align: left;"><span style="font-size: 15px;"><br  /></span></p><p style="text-align: left;"><span style="font-size: 15px;"><br  /></span></p><section style="color: rgb(92, 92, 92); line-height: 25px; font-size: 16px; margin-left: 5px; float: left;" data-brushtype="text"><p style="text-align: center;"><span style="color: rgb(255, 41, 65);"><strong><br  /></strong></span></p><p style="text-align: center;"><br  /></p><p style="text-align: center;"><br  /></p><section style="text-align: center; color: rgb(92, 92, 92); line-height: 25px; font-size: 16px; font-weight: bold; margin-left: 5px; float: left;" data-brushtype="text"><br  /></section><p><br  /></p><section style="color: rgb(92, 92, 92); line-height: 25px; font-size: 16px; margin-left: 5px; float: left;" data-brushtype="text"><strong><br  /></strong></section><p><br  /></p></section><p style="text-align: center;"><br  /></p></div>
+    </section>
+
+    
+   
+
+</div>
+
+<section class="tn-scripts tn-last-block">
+    <script src="//res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+
+    <script src="//stc.xiumius.com/views/app/reader/22b0eb.ng-tpl.min.js"></script>
+
+    <script type="text/javascript" src="//stc.xiumius.com/template/v5/paper/comp/ng-tpl.js?host=c.xiumi.us&amp;_ver=1498054160357"></script>
+
+    <script src="//stc.xiumius.com/scripts/app/reader/entries/paper/9b8e76.main.min.js"></script>
+
+</section>
+
+
+</body>
+</html>

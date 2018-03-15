@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="{% static "css/font-awesome.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/common/base.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/userCenter.css" %}">
+    <title>个人中心</title>
+</head>
+<body>
+    <div class="u-container">
+        <div class="u-header clearfix">
+            <div class="logo fl">
+                <a href="#"><img class="img-responsive" src="{% static "images/logo.png" %}" alt="logo"></a>
+            </div>
+            <div class="login-status fr">
+                <div class="avatar-wrapper">
+                    <img src="{% static "images/avatar.jpg" %}" class="img-circle avatar" alt="Cinque Terre">
+                </div>
+                <div class="dropdown" style="display:inline-block;">
+                    <button class="header-btn dropdown-toggle" type="button" data-toggle="dropdown">
+                        <i class="fa fa-cog" aria-hidden="true"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li><a href="#">修改密码</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li><a href="#">密保问题</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li><a href="#">人工申述</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li><a href="#">帮助中心</a></li>
+                    </ul>
+                </div>
+                <div class="dropdown" style="display:inline-block;">
+                    <button class="header-btn dropdown-toggle" type="button" data-toggle="dropdown">
+                        <i class="fa fa-bell-o" aria-hidden="true"></i>
+                        <span class="redpoint"><i>2</i></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">我的私信<span class="redpoint"><i>2</i></span></a>
+                        </li>
+                        <li role="presentation" class="divider"></li>
+                        <li><a href="#">我的回复<span class="redpoint"><i>99+</i></span></a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li><a href="#">查看@提到我<span class="redpoint"><i>12</i></span></a></li>
+                    </ul>
+                </div>
+                <div class="new-post-wrapper fr">
+                    <a class="new-post" href="#">
+                        <span>发表新帖</span>
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="u-main well well-lg">
+            <h2 class="u-main-title ac">个人中心</h2>
+
+            <ul class="u-main-nav clearfix">
+                <li role="presentation" class="active ac"><a href="#"><i class="fa fa-clipboard fa-lg" aria-hidden="true"></i><span>我的帖子</span></a></li>
+                <li role="presentation" class="ac"><a href="#"><i class="fa fa-star-o fa-lg" aria-hidden="true"></i>
+                <span>我的收藏</span></a></li>
+                <li role="presentation" class="ac"><a href="#"><i class="fa fa-bell fa-lg" aria-hidden="true"></i>
+                <span>我的消息</span></a></li>
+                <li role="presentation" class="ac"><a href="#"><i class="fa fa-shield fa-lg" aria-hidden="true"></i>
+                <span>账户安全</span></a></li>
+                <li role="presentation" class="ac"><a href="#"><i class="fa fa-lightbulb-o fa-lg" aria-hidden="true"></i><span>帮助中心</span></a></li>
+            </ul>
+
+
+            <div class="u-main-content row">
+                <div class="col-md-9">
+                    <div class="u-main-section">
+                        <div style="font-size:14px;color:#333;margin-bottom:5px;">全部粉丝&nbsp;<span style="font-size:12px;color:#999;">265</span></div>
+                        <div class="u-search">
+                            <form action="{% url 'Fansearch' %}" method="get" onKeyPress="return checkSubmit(event)">
+                                <div class="input-wrapper">
+                                <span class="fa fa-search fa-lg"></span>
+                                    <div>
+                                        <input type="text" name="fansname" placeholder="输入昵称或备注">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="person-item-container row">
+                        <div class="col-sm-6">
+                        <div class="person-item">
+                            <span class="image-container">
+                            <img src="{% static "images/other.jpg" %}" alt="">
+                            </span>
+                            <div class="text-container">
+                            <div class="username">
+                                <span style="vertical-align:middle;" href="#">欧鸥鹏</span>
+                                <span style="margin-left:6px;"><img src="{% static "images/man.png" %}" alt=""></span>
+                                <div class="dropdown pull-right" style="display:inline-block;">
+                                    <button class="header-btn dropdown-toggle" type="button" data-toggle="dropdown">
+                                        <i class="fa fa-cog" aria-hidden="true"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li><a href="#" data-toggle="modal" data-target="#myModal">私信</a></li>
+                                        <li role="presentation" class="divider"></li>
+                                        <li><a href="#">设置备注</a></li>
+                                        <li role="presentation" class="divider"></li>
+                                        <li><a href="#">取消关注</a></li>
+                                    </ul>
+                                </div>
+                                <a href="#" onclick="following("lly")" class="person-item-action btn1 pull-right"><i class="fa fa-plus" aria-hidden="true"></i>加关注</a>
+                            </div>
+                            <div>简介：在我的天空星星是不会坠落的。</div>
+                            <div style="font-size:12px;">发帖:112&nbsp;&nbsp;关注:100&nbsp;&nbsp;粉丝:102</div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="col-sm-6">
+                        <div class="person-item">
+                            <span class="image-container">
+                            <img src="{% static "images/other.jpg" %}" alt="">
+                            </span>
+                            <div class="text-container">
+                            <div class="username">
+                                <span style="vertical-align:middle;" href="#">欧鸥鹏</span>
+                                <span style="margin-left:6px;"><img src="{% static "images/man.png" %}" alt=""></span>
+                                <div class="dropdown pull-right" style="display:inline-block;">
+                                    <button class="header-btn dropdown-toggle" type="button" data-toggle="dropdown">
+                                        <i class="fa fa-cog" aria-hidden="true"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li><a href="#" data-toggle="modal" data-target="#myModal">私信</a></li>
+                                        <li role="presentation" class="divider"></li>
+                                        <li><a href="#">设置备注</a></li>
+                                        <li role="presentation" class="divider"></li>
+                                        <li><a href="#">取消关注</a></li>
+                                    </ul>
+                                </div>
+                                <span class="person-item-action btn2 pull-right"><i class="fa fa-retweet" aria-hidden="true"></i>互相关注</a>
+                            </div>
+                            <div>简介：在我的天空星星是不会坠落的。</div>
+                            <div style="font-size:12px;">发帖:112&nbsp;&nbsp;关注:100&nbsp;&nbsp;粉丝:102</div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="col-sm-6">
+                        <div class="person-item">
+                            <span class="image-container">
+                            <img src="{% static "images/other.jpg" %}" alt="">
+                            </span>
+                            <div class="text-container">
+                            <div class="username">
+                                <span style="vertical-align:middle;" href="#">欧鸥鹏</span>
+                                <span style="margin-left:6px;"><img src="{% static "images/man.png" %}" alt=""></span>
+                                <div class="dropdown pull-right" style="display:inline-block;">
+                                    <button class="header-btn dropdown-toggle" type="button" data-toggle="dropdown">
+                                        <i class="fa fa-cog" aria-hidden="true"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li><a href="#" data-toggle="modal" data-target="#myModal">私信</a></li>
+                                        <li role="presentation" class="divider"></li>
+                                        <li><a href="#">设置备注</a></li>
+                                        <li role="presentation" class="divider"></li>
+                                        <li><a href="#">取消关注</a></li>
+                                    </ul>
+                                </div>
+                                <a href="#" class="person-item-action btn1 pull-right"><i class="fa fa-plus" aria-hidden="true"></i>加关注</a>
+                            </div>
+                            <div>简介：在我的天空星星是不会坠落的。</div>
+                            <div style="font-size:12px;">发帖:112&nbsp;&nbsp;关注:100&nbsp;&nbsp;粉丝:102</div>
+                            </div>
+                        </div>
+                        </div>
+                        </div>
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination">
+                            <li class="disabled">
+                              <a href="#" aria-label="Previous">上一页
+                              </a>
+                            </li>
+                            <li><a href="#">首页</a></li>
+                            <li class="active"><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                            <li><a href="#">尾页</a></li>
+                            <li>
+                              <a href="#" aria-label="Next">
+                                下一页
+                              </a>
+                            </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div><!-- end of col-xs-9 -->
+
+                <div class="col-md-3 sidebar ac">
+                        <div class="ac"><img src="{% static "images/avatar.jpg" %}" class="img-circle" alt="dummy-head" width="95" height="95"></div>
+                        <h4 class="username"><a style="vertical-align:middle;" href="#">欧鸥鹏</a><span style="margin-left:6px;"><img src="{% static "images/man.png" %}" alt="man icon"></span></h4>
+                        <div style="font-size:12px;">吧龄:1年&nbsp;&nbsp;发帖:100&nbsp;&nbsp;所属学校:UCLA</div>
+
+                        <div class="user-level clearfix">
+                            <div class="level-title fl"><i class="fa fa-smile-o" aria-hidden="true"></i>&nbsp;<p style="font-size:0.7em;display: inline;">个人等级</p>
+                            </div>
+                            <div class="level-detail fl">
+                                <div class="progress"><div class="progress-bar" role="progressbar" style="width:70%"></div>
+                                </div>
+                                <span class="level-num" style="left:70%;">18</span>
+                                <span class="level-indicator">1058/1800</span>
+                            </div>
+                        </div>
+                        <div class="user-level user-level2 clearfix">
+                            <div class="level-title fl"><i class="fa fa-graduation-cap" aria-hidden="true" style="margin-left:-2px;"></i>&nbsp;<p style="font-size:0.7em;display: inline;">学术等级</p>
+                            </div>
+                            <div class="level-detail fl">
+                                <div class="progress"><div class="progress-bar progress-bar-success" role="progressbar" style="width:40%"></div></div>
+                                <span class="level-num" style="left:40%;">9</span>
+                                <span class="level-indicator">253/900</span>
+                            </div>
+                        </div>
+                        <div>
+                          <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#follow" aria-controls="follow" role="tab" data-toggle="tab">关注<br><span style="color:#999;">11232</span></a></li>
+                            <li role="presentation"><a href="#fan" aria-controls="fan" role="tab" data-toggle="tab">粉丝<br><span style="color:#999;">234</span></a></li>
+                          </ul>
+
+                          <div class="tab-content clearfix">
+                            <div role="tabpanel" class="tab-pane active" id="follow">
+                                <div class="col-xs-6 col-md-4">
+                                <a href="#" class="avatar"><img class="img-circle" class="img-responsive" src="{% static "images/avatar.jpg" %}" alt="avatar"><br><span class="oe ac">JOHNSON</span></a>
+                                </div>
+                                <div class="col-xs-6 col-md-4">
+                                <a href="#" class="avatar"><img class="img-circle" src="{% static "images/avatar.jpg" %}" alt="avatar"><br><span class="oe ac">BENTZ</span></a>
+                                </div>
+                                <div class="col-xs-6 col-md-4">
+                                <a href="#" class="avatar"><img class="img-circle" src="{% static "images/avatar.jpg" %}" alt="avatar"><br><span class="oe ac">MEYERFELD</span></a>
+                                </div>
+                                <div class="col-xs-6 col-md-4">
+                                <a href="#" class="avatar"><img class="img-circle" class="img-responsive" src="{% static "images/avatar.jpg" %}" alt="avatar"><br><span class="oe ac">JOHNSON</span></a>
+                                </div>
+                                <div class="col-xs-6 col-md-4">
+                                <a href="#" class="avatar"><img class="img-circle" src="{% static "images/avatar.jpg" %}" alt="avatar"><br><span class="oe ac">BENTZ</span></a>
+                                </div>
+                                <div class="col-xs-6 col-md-4">
+                                <a href="#" class="avatar"><img class="img-circle" src="{% static "images/avatar.jpg" %}" alt="avatar"><br><span class="oe ac">MEYERFELD</span></a>
+                                </div>
+                                <div class="col-xs-6 col-md-4">
+                                <a href="#" class="avatar"><img class="img-circle" class="img-responsive" src="{% static "images/avatar.jpg" %}" alt="avatar"><br><span class="oe ac">JOHNSON</span></a>
+                                </div>
+                                <div class="col-xs-6 col-md-4">
+                                <a href="#" class="avatar"><img class="img-circle" src="{% static "images/avatar.jpg" %}" alt="avatar"><br><span class="oe ac">BENTZ</span></a>
+                                </div>
+                                <div class="col-xs-6 col-md-4">
+                                    <a href="#" class="avatar-more ac">查看全部</a>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="fan">
+                                <div class="col-xs-6 col-md-4">
+                                <a href="#" class="avatar"><img class="img-circle" class="img-responsive" src="{% static "images/avatar.jpg" %}" alt="avatar"><br><span class="oe ac">BENTZ</span></a>
+                                </div>
+                                <div class="col-xs-6 col-md-4">
+                                <a href="#" class="avatar"><img class="img-circle" src="{% static "images/avatar.jpg" %}" alt="avatar"><br><span class="oe ac">BENTZ</span></a>
+                                </div>
+                                <div class="col-xs-6 col-md-4">
+                                <a href="#" class="avatar"><img class="img-circle" src="{% static "images/avatar.jpg" %}" alt="avatar"><br><span class="oe ac">MEYERFELD</span></a>
+                                </div>
+                                <div class="col-xs-6 col-md-4">
+                                <a href="#" class="avatar"><img class="img-circle" class="img-responsive" src="{% static "images/avatar.jpg" %}" alt="avatar"><br><span class="oe ac">JOHNSON</span></a>
+                                </div>
+                                <div class="col-xs-6 col-md-4">
+                                <a href="#" class="avatar"><img class="img-circle" src="{% static "images/avatar.jpg" %}" alt="avatar"><br><span class="oe ac">BENTZ</span></a>
+                                </div>
+                                <div class="col-xs-6 col-md-4">
+                                <a href="#" class="avatar"><img class="img-circle" src="{% static "images/avatar.jpg" %}" alt="avatar"><br><span class="oe ac">MEYERFELD</span></a>
+                                </div>
+                                <div class="col-xs-6 col-md-4">
+                                <a href="#" class="avatar"><img class="img-circle" class="img-responsive" src="{% static "images/avatar.jpg" %}" alt="avatar"><br><span class="oe ac">JOHNSON</span></a>
+                                </div>
+                                <div class="col-xs-6 col-md-4">
+                                <a href="#" class="avatar"><img class="img-circle" src="{% static "images/avatar.jpg" %}" alt="avatar"><br><span class="oe ac">BENTZ</span></a>
+                                </div>
+                                <div class="col-xs-6 col-md-4">
+                                    <a href="#" class="avatar-more ac">查看全部</a>
+                                </div>
+                            </div>
+                          </div>
+
+                        </div>
+                      
+                    </div>  <!-- end of sidebar -->
+            </div>  <!-- end of main-content -->
+            <div class="modal fade private-message" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title ac" id="myModalLabel">与欧欧鹏对话中</h4>
+                  </div>
+                  <div class="modal-body">
+                    <div class="ac"><a href="#" class="more-message">查看更多消息</a></div>
+                    <div class="ac help-text"><span>8月22日&nbsp;8:45</span></div>
+                    <div class="dialog-item clearfix">
+                        <div class="image-wrapper">
+                            <img src="{% static "images/other.jpg" %}">
+                        </div>
+                        <div class="dialog-text">
+                        <span>哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</span>
+                        <span>呵呵</span>
+                        </div>
+                    </div>
+                    <div class="dialog-item dialog-right-item clearfix">
+                        <div class="image-wrapper">
+                            <img src="{% static "images/other.jpg" %}">
+                        </div>
+                        <div class="dialog-text">
+                        <span>哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</span>
+                        <span>呵呵</span>
+                        </div>
+                    </div>
+                    <div class="ac help-text"><span>以上为历史消息</span></div>
+                  </div>
+                  <div class="modal-footer">
+                    <form class="form-horizontal">
+                          <div class="col-sm-10 send-text-input">
+                          <input type="text" class="form-control" id="" placeholder="">
+                          </div>
+                          <div class="col-sm-2">
+                              <button type="submit" class="save-form">发送</button>
+                          </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+    </div>
+    </div>
+    <div class="u-main-footer ac">
+        <span>洛杉矶留学生资讯网&nbsp;版权所有</span>
+    </div>
+
+    <div id="results"></div>
+
+    <script src="{% static "js/jquery-1.11.1.min.js" %}"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+    <script src="{% static "js/main.js" %}"></script>
+
+    <script>
+        // AJAX for posting
+        function following(username) {
+            // csrf ajax post request
+            $.ajaxSetup({
+                beforeSend: function(xhr, settings) {
+                    function getCookie(name) {
+                        var cookieValue = null;
+                        if (document.cookie && document.cookie != '') {
+                            var cookies = document.cookie.split(';');
+                            for (var i = 0; i < cookies.length; i++) {
+                                var cookie = jQuery.trim(cookies[i]);
+                                // Does this cookie string begin with the name we want?
+                                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                    break;
+                                }
+                            }
+                        }
+                        return cookieValue;
+                    }
+                    if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+                        // Only send the token to relative URLs i.e. locally.
+                        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+                    }
+                }
+            });
+
+            // sanity check
+            console.log("following post request is working!")
+            $.ajax({
+                url : "/accounts/follow/add/", // the endpoint
+                type : "POST",
+                data : { follows : username }, // filter data
+
+                // handle a successful response
+                success : function(json) {
+                    $('#' + username).text('已关注');
+                    console.log(json);
+                    console.log("success");
+                },
+
+                // handle a non-successful response
+                error : function(xhr,errmsg,err) {
+                    // display error message
+                    $('#results').html("<div class='alert-box alert radius' data-alert>发生错误啦: "+errmsg+
+                        " <a href='#' class='close'>&times;</a></div>");
+                    console.log(xhr.status + ": " + xhr.responseText);
+                }
+            });
+        };
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,471 @@
+/*header*/
+.u-header {
+    width: 70%;
+    margin: auto;
+    padding: 15px 10px 10px;
+}
+
+.u-header .logo {
+    width: 220px;
+}
+
+.u-header .login-status {
+    width: 232px;
+    margin-top: 16px;
+}
+
+.u-header .avatar-wrapper {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.u-header .avatar {
+    margin-top: -5px;
+    width: 42px;
+    height: 42px;
+}
+
+.u-header .dropdown {
+    margin-right: 10px;
+}
+
+.u-header .dropdown-menu {
+    left: -8px;
+    min-width: 80px;
+}
+
+.u-header .dropdown-menu:before {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 15px;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-bottom: 8px solid #fff;
+    border-right: 4px solid transparent;
+}
+
+.u-header .dropdown-menu-right {
+    left: auto;
+    right: -8px;
+}
+
+.u-header .dropdown-menu-right:before {
+    left: auto;
+    right: 15px;
+}
+
+.header-btn {
+    display: block;
+    border: none;
+    background-color: rgba(255, 255, 255, 0);
+    color: #fff;
+    position: relative;
+}
+
+.header-btn i {
+    display: block;
+    width: 25px;
+    height: 25px;
+    font-size: 18px;
+    opacity: 0.8;
+}
+
+.header-btn .redpoint {
+    position: absolute;
+    right: -10px;
+    top: -10px;
+}
+
+.u-header .new-post-wrapper {
+    margin-left: 5px;
+}
+
+.u-header .new-post {
+    display: block;
+    width: 90px;
+    height: 32px;
+    font-size: 14px;
+    background-image: url(../images/01-home-login.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    color: #fff;
+    text-align: center;
+    line-height: 32px;
+}
+
+.redpoint {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.redpoint i {
+    display: inline-block;
+    height: 22px;
+    line-height: 22px;
+    min-width: 22px;
+    width: auto;
+    padding: 0 3px;
+    font-size: 12px;
+    text-align: center;
+    color: #fff;
+    background-color: #ec6200;
+    opacity: 1;
+    border-radius: 11px;
+}
+
+/*/header*/
+
+.u-vote {
+    width: 70%;
+    height: 520px;
+    overflow: scroll;
+    overflow-x: hidden;
+    margin: auto;
+    border: 0;
+}
+
+.u-vote-title {
+    height: 70px;
+    line-height: 70px;
+    color: #000;
+}
+
+.u-vote-content {
+    min-height: 450px;
+    margin: 0;
+    margin-bottom: 70px;
+    background-color: #fff;
+}
+
+.u-vote-content .vote-number {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.u-vote-content .vote-info {
+    text-align: center;
+    font-size: 15px;
+}
+
+.vote-info img {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+}
+
+.u-vote-content .vote-rank {
+    text-align: center;
+}
+
+.vote-rank .rank-box {
+    text-align: left;
+    display: inline-block;
+    margin-right: 20px;
+    margin-top: 20px;
+}
+
+.rank-box .percentage {
+    line-height: 28px;
+}
+
+.rank-box .voteBtn {
+    position: relative;
+}
+
+.voteBtn > span {
+    position: absolute;
+    top: 1px;
+    left: 15px;
+    color: #fff;
+    font-size: 14px;
+}
+
+.vote-comment {
+    width: 90%;
+    margin-top: 20px;
+    padding-left: 30px;
+}
+
+.vote-comment > p {
+    display: inline-block;
+    font-size: 15px;
+    padding: 3px;
+    border: 1px solid #000000;
+}
+
+.vote-comment .username {
+    margin: 8px auto;
+}
+
+.vote-comment .u-comment-content {
+    min-height: 140px;
+}
+
+.vote-comment .u-comment-text {
+    font-size: 14px;
+    min-height: 120px;
+}
+
+.vote-comment .u-comment-foot {
+    width: 100%;
+    text-align: right;
+    margin-top: 10px;
+}
+
+.vote-comment .u-comment-foot {
+    display: inline-block;
+}
+
+.vote-comment .add {
+    padding: 5px;
+    border: 1px solid #dddddd;
+    text-decoration: none;
+}
+
+.u-reply .media {
+    border-bottom: 1px solid #dfdfdf;
+    padding: 5px 0;
+}
+
+.u-reply .media .media-left > img {
+    width: 40px;
+    height: 40px;
+}
+
+.u-reply .u-second-level-reply {
+    width: 100%;
+    text-align: left;
+}
+
+.u-reply .u-second-level-info {
+    width: 100%;
+    text-align: right;
+}
+
+.u-reply .u-second-level-control > span {
+    margin-top: 25px;
+}
+
+.u-second-level-new-comment {
+    text-align: left;
+}
+
+.u-second-level-new-comment button {
+    margin-top: 15px;
+}
+
+.u-new-comment > form {
+    width: 100%;
+    padding: 0 20px;
+    border: 1px solid #a4a5a5;
+}
+
+.u-new-comment > form div:nth-child(1) a {
+    display: inline;
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    margin-left: 15px;
+}
+
+.u-new-comment > form button {
+    margin: 10px 0;
+}
+
+.u-icon {
+    padding: 0;
+}
+
+.u-icon > div > img {
+    width: 70px;
+    height: 70px;
+}
+
+.replyButton {
+    padding: 2px 3px 0 3px;
+}
+
+.u-comment-foot .u-reply {
+    margin-top: 8px;
+    border: 1px solid #dfdfdf;
+    padding: 10px 10px 30px 15px;
+    display: none;
+}
+
+.u-comment-foot .u-reply .media {
+    border-bottom: 1px solid #dfdfdf;
+    padding: 5px 0;
+}
+
+.u-reply .media .media-left > img {
+    width: 40px;
+    height: 40px;
+}
+
+.u-reply .u-second-level-reply {
+    width: 100%;
+    text-align: left;
+}
+
+.u-reply .u-second-level-info {
+    width: 100%;
+    text-align: right;
+}
+
+.u-reply .u-second-level-control > span {
+    margin-top: 25px;
+}
+
+.u-second-level-new-comment {
+    text-align: left;
+}
+
+.u-second-level-new-comment button {
+    margin-top: 15px;
+}
+
+.u-new-comment > form {
+    width: 100%;
+    padding: 0 20px;
+    border: 1px solid #a4a5a5;
+}
+
+.u-new-comment > form div:nth-child(1) a {
+    display: inline;
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    margin-left: 15px;
+}
+
+.u-new-comment > form button {
+    margin: 10px 0;
+}
+
+/*右侧*/
+.u-vote-content .film-list {
+}
+
+.film-list .film-item {
+    width: 100%;
+    min-height: 120px;
+    display: inline-block;
+    background-color: #7b7b7b;
+    text-align: left;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.film-item .film-title {
+    color: #fff;
+    font-size: 20px;
+    margin: 10px 0 20px 0;
+}
+
+.film-item span {
+    color: #fff;
+}
+
+.film-item .time {
+    color: #d9d9d9;
+}
+
+.u-search {
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.input-wrapper {
+    position: relative;
+    border: 1px solid #f5f5f5;
+    height: 32px;
+    font-size: 14px;
+    width: 260px;
+    background-color: #5f5f5f;
+    opacity: .4;
+}
+
+.input-wrapper span {
+    position: absolute;
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    top: 8px;
+    left: 6px;
+    color: #fff;
+}
+
+.input-wrapper div {
+    position: absolute;
+    left: 32px;
+    top: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.input-wrapper input {
+    display: block;
+    width: 100%;
+    height: 32px;
+    /*line-height: 32px;*/
+    font-size: 14px;
+    background-color: rgba(255, 255, 255, 0);
+    vertical-align: baseline;
+    color: #fff;
+}
+
+/*
+    bootstrap
+*/
+.well {
+    padding: 0;
+    /*overflow: hidden;*/
+}
+
+.vote-title .progress {
+    height: 90px;
+    margin-bottom: 5px;
+    overflow: hidden;
+    background-color: #f5f5f5;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+}
+
+.vote-title .progress-bar {
+    font-size: 30px;
+    line-height: 90px;
+    font-family: "Microsoft YaHei", "微软雅黑";
+}
+
+.vote-title .progress-bar-info {
+    background-color: #75c3ca;
+}
+
+.vote-title .progress-bar-striped, .vote-title .progress-striped .progress-bar {
+    background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+    background-image: -o-linear-gradient(-45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+    background-image: linear-gradient(-45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+    -webkit-background-size: 40px 40px;
+    background-size: 40px 40px;
+}
+
+.vote-rank .progress {
+    width: 200px;
+    height: 6px;
+    margin: 3px 0;
+}
+
+.vote-rank .progress-bar {
+    background: #5ddcb3;
+    background: linear-gradient(to right, #e6ed5f, #5ddcb3);
+}
+
+.divider {
+    margin: 0 !important;
+}
+
+.dropdown {
+    display: inline;
+}

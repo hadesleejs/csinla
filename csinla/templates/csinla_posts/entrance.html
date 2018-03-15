@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+
+<html lang="zh-cn">
+
+{% load static %}
+
+
+
+  <head>
+
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalabe=no">
+
+    <title>新闻资讯</title>
+
+    <link rel="shortcut icon" href="/static/images/logo1.png">
+    <link rel="stylesheet" type="text/css" href="/UE/third-party/SyntaxHighlighter/shCoreDefault.css"> 
+    <script type="text/javascript" src="/UE/third-party/SyntaxHighlighter/shCore.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/UE/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/UE/ueditor.all.min.js"> </script>
+    <script type="text/javascript" charset="utf-8" src="/UE/lang/zh-cn/zh-cn.js"></script>
+
+<script>
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+
+
+  ga('create', 'UA-97624179-1', 'auto');
+
+  ga('send', 'pageview');
+
+
+
+</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?6784d0adea487eefbe595d28dbb08efb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+    <!-- Bootstrap -->
+
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">  
+
+    <link href="/static/css/newstudent.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="/static/css/font-awesome.min.css"> 
+
+    <link rel="stylesheet" type="text/css" href="{% static "css/flatpickr.min.css" %}">
+
+    <link rel="stylesheet" href="/static/css/jquery-sinaEmotion.css">
+
+
+
+
+
+    
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+
+    <!--[if lt IE 9]>
+
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+
+    <![endif]-->
+
+<!--    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+
+<script type="text/javascript">
+
+    wx.config({
+
+       debug: false,  //调式模式，设置为ture后会直接在网页上弹出调试信息，用于排查问题
+
+       appId: 'wx910b80a91781c9df',
+
+       timestamp: {{ timestamp }},
+
+       nonceStr: '{{ nonceStr }}',
+
+       signature: '{{ signature }}',
+
+       jsApiList: [  //需要使用的网页服务接口
+
+           'checkJsApi',  //判断当前客户端版本是否支持指定JS接口
+
+           'onMenuShareTimeline', //分享给好友
+
+           'onMenuShareAppMessage', //分享到朋友圈
+
+           'onMenuShareQQ',  //分享到QQ
+
+           'onMenuShareWeibo' //分享到微博
+
+       ]
+
+     });
+
+     wx.ready(function () {   //ready函数用于调用API，如果你的网页在加载后就需要自定义分享和回调功能，需要在此调用分享函数。//如果是微信游戏结束后，需要点击按钮触发得到分值后分享，这里就不需要调用API了，可以在按钮上绑定事件直接调用。因此，微信游戏由于大多需要用户先触发获取分值，此处请不要填写如下所示的分享API
+
+                // 1 判断当前版本是否支持指定 JS 接口，支持批量判断
+
+                    wx.checkJsApi({
+
+                        jsApiList: [
+
+                          'onMenuShareAppMessage'
+
+                        ],
+
+                        success: function (res) {
+
+                          //alert(JSON.stringify(res));
+
+                        }
+
+                    });
+
+    wx.onMenuShareTimeline({  //例如分享到朋友圈的API  
+
+       title: '回国之前，你给你的爱车找好归宿了吗？', // 分享标题
+
+       link: 'http://csinla.com/accounts/parking2/', // 分享链接
+
+       imgUrl: 'http://csinla.com/static/images/WechatIMG13.jpeg', // 分享图标
+
+       success: function () {
+
+           // 用户确认分享后执行的回调函数
+
+       },
+
+       cancel: function () {
+
+           // 用户取消分享后执行的回调函数
+
+       }
+
+    });
+
+    wx.onMenuShareAppMessage({
+
+        title: '回国之前，你给你的爱车找好归宿了吗？', // 分享标题
+
+        desc: 'CSinLA携手MCS为你的爱车打造最安全的港湾，免费停车，随时寄卖', // 分享描述
+
+        link: 'http://csinla.com/accounts/parking2/', // 分享链接
+
+        imgUrl: 'http://csinla.com/static/images/WechatIMG13.jpeg', // 分享图标
+
+        type: '', // 分享类型,music、video或link，不填默认为link
+
+        dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+
+        success: function () { 
+
+            // 用户确认分享后执行的回调函数
+
+        },
+
+        cancel: function () { 
+
+            // 用户取消分享后执行的回调函数
+
+        }
+
+    });
+
+    wx.onMenuShareQQ({
+
+        title: '回国之前，你给你的爱车找好归宿了吗？', // 分享标题
+
+        desc: 'CSinLA携手MCS为你的爱车打造最安全的港湾，免费停车，随时寄卖', // 分享描述
+
+        link: 'http://csinla.com/accounts/parking2/', // 分享链接
+
+        imgUrl: 'http://csinla.com/static/images/WechatIMG13.jpeg', // 分享图标
+
+        success: function () { 
+
+           // 用户确认分享后执行的回调函数
+
+        },
+
+        cancel: function () { 
+
+           // 用户取消分享后执行的回调函数
+
+        }
+
+    });
+
+    }); 
+
+    wx.error(function (res) {
+
+     alert(res.errMsg);  //打印错误消息。及把 debug:false,设置为debug:ture就可以直接在网页上看到弹出的错误提示
+
+    });
+
+</script> -->
+
+  </head>
+
+  <body>
+
+  <!-- 顶部部分开始 -->
+
+      <div id="pctisi" style="width:100%;height:100%;background:rgba(0,0,0,.5);position:fixed;top:0;display:none;z-index: 1000;">
+
+           <div style="width: 30%;margin-left: 35%;margin-top: 15%;border-radius:10px">
+
+                <div style="height:50px;text-align:center;background:#ccc;font-size:16px;color:#000;line-height:50px">提示</div>
+
+                <div style="height:150px;background:#fff;font-size:14px;padding:10px 20px;color:#000">
+
+                   <p style="text-indent:2em;line-height:27px">你所提交的内容需要审核，通过后会显示在页面上，请耐心等待...
+
+                   </p>
+
+                   <div style="text-align:center"><input type="button" name="" id="tisi" value="确定" class="tisibtn"></div>
+
+                </div>
+
+                
+
+           </div>
+
+      </div>
+
+      <div class="content" style="margin-bottom:150px">
+
+        <div style="text-align:right;float: right;margin-top: 13px;"><a href="/accounts/newstudent" id="returnlast" style="display: none;color:#fff;font-size:16px;"><img src="/static/images/returnlast.png" style="width: 24px;margin-top: -5px;margin-right: 5px;">返回上一页</a><a href="/" style="color:#fff;font-size:16px;margin-left: 10px;"><img src="/static/images/newret.png" style="width:35px;margin-top:-5px">返回CSinLA.com</a></div>
+
+        <ul id="myTab" class="nav nav-tabs">
+
+          <li>
+
+            <a href="/accounts/newstudent">
+
+               入学与选课指南
+
+            </a>
+
+          </li>
+
+          <li class="active">
+
+            <a href="/accounts/entrance">
+
+               新闻资讯
+
+            </a>
+
+          </li>
+
+          <li>
+
+            <a href="/accounts/license">
+
+               驾照与交通
+
+            </a>
+
+          </li>
+
+          <li>
+
+            <a href="/accounts/activity">
+
+               LA饮食娱乐咨询
+
+            </a>
+
+          </li>
+
+        </ul>
+
+        <div id="myTabContent" class="tab-content">
+
+          <div class="tab-pane fade in active" id="Prochooser">
+
+          <div class="Airport">
+
+           <!--  <p class="line"></p>
+
+              <p class="smalltitle">申请接机</p> -->
+
+             <!--  <ul id="myTab1" class="nav nav-tabs">
+
+                <li class="active">
+
+                  <a href="#Prochooser_USC" data-toggle="tab" style="z-index:4">
+
+                     USC
+
+                  </a>
+
+                </li>
+
+                <li>
+
+                  <a href="#Prochooser_UCLA" data-toggle="tab" style="z-index:3">
+
+                     UCLA
+
+                  </a>
+
+                </li>
+
+                <li>
+
+                  <a href="#Prochooser_SMC" data-toggle="tab" style="z-index:2">
+
+                     SMC
+
+                  </a>
+
+                </li>
+
+                <li>
+
+                  <a href="#Prochooser_UCCB" data-toggle="tab" style="z-index:1">
+
+                     UCCB
+
+                  </a>
+
+                </li>
+
+                <li>
+
+                  <a href="#Prochooser_UCI" data-toggle="tab" style="z-index:0">
+
+                     UCI
+
+                  </a>
+
+                </li>
+
+              </ul> -->
+
+              <!-- <div id="myTabContent1" class="tab-content" style="background:none;">
+
+                <div class="tab-pane fade in active" id="Prochooser_USC">
+
+               -->   <!--  <p class="USC_content USC_content_title">介绍：</p><p class="USC_content">与往年一样，接机志愿者由USC在读的极度热情的学长、学姐以及具有相应接机经验的华人团体和企业组成。需要接机的同学，请至少提前一周通过</p>
+
+                 <p class="USC_content1 USC_content_title">费用：</p><p class="USC_content1">由于是学生会招募的志愿者，为了补偿他们油费停车费所以并不能免费接机，费用是每人/$15，届时请直接支付给对应志愿者。学生会不收取任何费用。</p>
+
+                 <div class="apply">
+
+                     <input type="button" class="btn_apply" name="" value="现在申请">
+
+                 </div>
+
+                 <div class="apply">
+
+                     <img src="/static/images/newdown.png" style="width: 20px;height: 10px;margin-bottom: 10px;"> 
+
+                 </div> -->
+
+
+
+               <!--  </div> -->
+
+               <!--  <div class="tab-pane fade" id="Prochooser_UCLA">
+
+                  <p>iOS 是一个由苹果公司开发和发布的手机操作系统。最初是于 2007 年首次发布 iPhone、iPod Touch 和 Apple 
+
+                    TV。iOS 派生自 OS X，它们共享 Darwin 基础。OS X 操作系统是用在苹果电脑上，iOS 是苹果的移动版本。</p>
+
+                </div>
+
+                <div class="tab-pane fade" id="Prochooser_SMC">
+
+                  <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
+
+                </div>
+
+                <div class="tab-pane fade" id="Prochooser_UCCB">
+
+                  <p>Enterprise Java Beans（EJB）是一个创建高度可扩展性和强大企业级应用程序的开发架构，部署在兼容应用程序服务器（比如 JBOSS、Web Logic 等）的 J2EE 上。
+
+                  </p>
+
+                </div>
+
+                <div class="tab-pane fade" id="Prochooser_UCI">
+
+                  <p>Enterprise Java Beans（EJB）是一个创建高度可扩展性和强大企业级应用程序的开发架构，部署在兼容应用程序服务器（比如 JBOSS、Web Logic 等）的 J2EE 上。
+
+                  </p>
+
+                </div>
+
+              </div> -->
+
+              <div class="Airport_chat" style="margin-top:20px">
+
+                <a href="" id="myscroll" class="btn Airport_chat1"><img src="/static/images/newtalk.png" id="newtalk"><img src="/static/images/newtalk1.png" id="newtalk1" style="display:none">我也说一句</a>
+
+               
+
+                <a href="javascript:" id="newemailw" onclick="stuedit()" class="btn Airport_chat2"><img src="/static/images/newemail.png" id="newemail"><img src="/static/images/newemail1.png" style="display:none" id="newemail1">为留学生投稿</a>
+
+              </div>
+
+              <p class="line1"></p>
+
+              <p class="smalltitle1" style="margin-bottom: -30px;">学术问题解决</p>
+
+                        {% for su in sub %}
+
+
+
+              <a href="{{su.url}}" target="_blank"><ul class="road" style="margin-top: 50px">
+              <p class="road_title">{{ su.title }}</p>
+
+                <li class="road_content">{{ su.content }}</li>
+
+                <!-- <li class="road_content">2.建议大家提早订票，在学校Move In时间提前1-2天到达美国，近两年海关检查较严，难免出现滞留情况。以防错过Move in时间，提早到达美国是十分保险的选择。详细过海关须知请打开以下网</li> -->
+
+                <p class="road_footer">——{{ su.user.username }}</p>
+
+
+
+              </ul></a>
+              <div class="imgmore">
+
+
+              <img src="/media/{{ su.img }}" class="img3">
+              </div>
+
+{#              <img src="/static/images/floor.png" class="img2">#}
+
+{#              <img src="/static/images/floor.png" class="img3">#}
+
+                           {% endfor %}
+
+
+
+              {% for com in comments %}
+
+                 
+
+              <div class="good">
+
+                <div class="user">
+
+                   <img src="/static/images/friend_1.png">
+
+                   <p class="name">{{ com.user.username }}</p>
+
+                </div>
+
+                
+
+                <div class="good_content" id="road">
+
+                   <div><img src="/static/images/newleft.png" style="position: absolute;margin-left: -12px;width: 12px;margin-top: 15px;"></div>
+
+                   <img src="/static/images/commentgood.png"><p class="num">{{ com.fav_nums }}</p>
+
+                   <p class="good_content1">{{ com.comments }}</p>
+
+                   
+
+                </div>
+
+              </div>
+
+               {% endfor %}
+
+              
+
+              <div class="good" style="border-top: 1px solid #fff;clear: both;">
+
+                <p class="line1"></p>
+
+                <p class="smalltitle1">我也说一句</p>
+
+              
+
+                
+
+                
+
+                <form style="height: 100%;" action="{% url 'csinla_accounts:add_comments' %}" method="post">
+
+                
+
+                <textarea type="text" name="comments" style="background: rgba(255,255,255,.7);padding: 0 70px 0px 20px;font-size: 14px;color:#000;text-align:left;width:100%;height:82px;float:left" placeholder="说出你想说的吧~"></textarea>
+
+                <a href="javascript:;" class="emotion"><img src="/static/images/newstudent_icon.png" style="width: 20px;height: 20px;margin-left: -40px;margin-top: 30px;"></a>
+
+                   <input type="hidden" name="belong" value="rx">
+
+
+
+                    <input type="submit" name="" id="applybtn" value="提交">
+
+                {% csrf_token %}
+
+                </form>
+
+
+
+                
+
+                
+
+                
+
+              </div>
+
+              </div>
+
+              <div style="clear: both;display:none" id="stuedit">
+
+                  <p class="line"></p>
+
+                  <p class="smalltitle">为学生投稿</p>
+
+                  <div class="studentposts" style="padding-bottom: 40px;">
+
+                    <form  method="post" enctype="multipart/form-data" target='frameFile'>
+                       <input type="hidden" name="belong" value="rx">
+
+                       <div class="edit-content-form studentpostsdiv">
+
+                      
+
+                                <input type="text"  id="ati_title" placeholder="请填写标题" name="title">
+
+                                <!--{{ rentForm.contactor}}-->
+
+                       </div>
+
+                       <!-- <div class="edit-content-form studentpostsdiv">
+
+                      
+
+                                      <div style="height: 30px;line-height: 30px;margin-top: 20px;background: #fff;">
+
+                                          
+
+                                          
+                                          <lable for="upload_input" style="margin: 0px 10px;"><img src="/static/images/newstudent_img.png" class="upload_image" style="width: 20px;">&nbsp;<span style="font-size:14px;color:#000">图片</span></lable>
+
+                                          <input type="file" id="upload_input" multiple="multiple" name="img" onchange="preview(this)" style="width: 30px;">
+
+                                          <a href="javascript:;" class="emotion"><img src="/static/images/newwstudent_icon.png" style="width: 20px;margin-left: 20px;margin-top: -3px;" class="upload_image"><span style="font-size:14px;color:#000">表情</span></a>
+
+                                          <br>
+
+                                      </div>
+
+                                      
+
+                             <textarea class="form-control emo" name='content' rows="8"></textarea>
+
+           
+
+      
+
+
+
+                       </div> -->
+                       <div class="studentpostsdiv" style="margin-top:20px">
+                          <script id="editor" type="text/plain" style="width:100%;height:400px;"></script>
+                      </div>
+
+
+                       <div class="edit-content-form studentpostsdiv">
+
+                                <label class="checkbox" style="display:inline-block;color: #000;font-size: 12px;margin-top: 15px;">文章链接</label>
+
+                                <input type="text" id="atiurl" name="">
+
+                                <!--{{ rentForm.contactor}}-->
+
+                       </div>
+
+                       <div name="content" id="contenttxt" contentEditable="true"></div>
+
+                       <div style="margin:0 auto;width:70%">     
+
+                            <button type="button" id="publish" class="btn btn-primary" style="background: #398bfc;border: 1px solid #fff;color:#fff;background:#635753;padding:5px 20px">发 布</button><span class="hiht" style="margin-left: 20px;">本投稿需要审核内容，内容通过后即可显示。请耐心等待...</span>
+
+                                  
+
+                       </div>
+
+                    </form>
+
+                  </div>
+
+              </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+     <!-- 手机版 -->
+
+     <div class="m-content" style="margin-top:60px">
+
+        <div class="header w" style="position: fixed;width: 100%;z-index: 100;top: 0px;left: 0;">
+
+        <a href="#" class="mobile-nav-btn pull-right" style="color:#fff;padding:0px"><i class="fa fa-bars" aria-hidden="true" style="font-size: 30px !important;line-height: 50px !important;margin-right: 10px !important;"></i></a>
+
+        <a href="/">
+
+            <div class="logo" style="background:#666;padding:0px">
+
+                <img src="{% static "images/carfaxleft.png" %}" alt="" class="img-responsive" width="50px" style="padding:17px">
+
+                
+
+            </div>
+
+            
+
+        </a>
+
+        <div style="text-align:left;margin-top: -34px;font-size: 14px;margin-left: 40px;color:#fff">
+
+                返回CSinLA.com首页
+
+                
+
+            </div>
+
+    <div class="user">
+
+        
+
+            <a href="/" class="remove-nav pull-right"><img src="{% static "./images/times.png" %}" alt="" class="img-responsive"></a>
+
+            
+
+            
+
+                
+
+                <a href="/accounts/newstudent" class="login home-nav-item">
+
+                    <span>入学与选课指南</span>
+
+                </a>
+
+                <a href="/accounts/entrance" class="register home-nav-item">
+
+                    <span>新闻资讯</span>
+
+                </a>
+
+                <a href="/accounts/license" class="register home-nav-item">
+
+                    <span>驾照与交通</span>
+
+                    <img src="{% static "images/home-register.png" %}" alt="">
+
+                </a>
+
+                <a href="/accounts/activity" class="register home-nav-item">
+
+                    <span>LA饮食娱乐咨询</span>
+
+                    <img src="{% static "images/home-register.png" %}" alt="">
+
+                </a>
+
+            <a href="/" class="home-nav-item special">
+
+                <span>CSinLA.com首页</span>
+
+            </a>
+
+       
+
+         <!--    <a href="{% url "accounts:accountSecurity" %}" class="home-nav-item has-sub-item">
+
+                <span>设置</span>
+
+            </a> -->
+
+            
+
+           <!--  <a href="{% url 'accounts:logout' %}"  class="home-nav-item special">
+
+                <span>Sign out</span></a>
+
+            
+
+            </a> -->
+
+        </div>
+
+  
+
+</div>
+
+           
+
+          <p style="float:right;text-align:right;margin-top: 0px;">
+
+          <input type="button" name="" class="mbtn" value="我也说一句">
+
+          <input type="button" name="" class="mbtn" value="为学生投稿" style="margin-left:10px"></p>
+
+          <p class="line1"></p>
+
+          <p class="smalltitle4" style="margin-top: 19px;">学术问题解决</p>
+          {%for sub in sub%}
+
+
+          <div style="position:absolute;width:90%;">
+           <h1 style="font-size: 22px;text-align: center;color:#fff;overflow:hidden;display: -webkit-box;-webkit-line-clamp:1 !important;-webkit-box-orient:vertical;">{{ sub.title }}</h1>
+           <p style="font-size: 14px;text-align: right;color:#fff;padding:0px 10px;margin-top:50px">From {{ sub.user.username }}</p>
+           <p style="font-size: 14px;text-align: right;color:#fff;padding:0px 10px;margin-top: -10px;">{{ sub.add_time|date:'Y-m-d' }}</p>
+           </div>
+
+           <div style="height:130px;width:100%;overflow:hidden;border-radius: 5px;"><img src="/media/{{ sub.img }}">
+              
+
+           </div>
+          <a href="{{sub.url}}" target="_blank"><div style="width:95%;background:#fff;font-size:12px;color:#000;margin:0 auto;padding:5px 10px;margin-top: -1px;margin-bottom: 20px;border-radius: 0px 0px 5px 5px;">
+
+            <p>{{sub.content}}</p>
+
+            <p>{{sub.content_detail}}</p>
+
+          </div></a>
+          {%endfor%}
+          <!-- <div style="margin:20px 0px 65px 0px">
+
+            <div style="background:#fff;border-radius:3px;width:85%;padding:10px 10px;color:#000;float:right;font-size: 12px;text-indent:2em">建议大家提早订票，在学校Move In时间提前1-2天到达美国，近两年海关检查较严，难免出现滞留情况。以防错过Move in时间，提早到达美国是十分保险的选择。<img src="/static/images/commentgood.png" style="width: 26px;position: absolute;float: right;right: 7%;"></div>
+
+            <img src="/static/images/friend_1.png" style="width:12%;border-radius:5px;"><p style="color: #fff;width: 12%;text-align: center;">Owen</p>
+
+              
+
+          </div> -->
+
+          <div class="good" style="border-top: 1px solid #fff;padding-top: 10px;">
+
+                <p class="line1"></p>
+
+                <p class="smalltitle" style="margin-top: 0px;">我也说一句</p>
+
+                <form style="height: 100%;width: 100%;float: right;">
+
+                <textarea type="text" name="" style="background: #fff;padding: 0 70px 0px 20px;font-size: 14px;color:#000;text-align:left;width:100%;min-height: 80px;border-radius:3px;" placeholder="说出你想说的吧~"></textarea>
+
+                <a href="javascript:;" class="emotion"><img src="/static/images/newstudent_icon.png" style="position: absolute;right: 7%;margin-top: -27px;width: 20px;height: 20px;"></a>
+
+
+
+                </form>
+
+                
+
+            
+
+                
+
+                </div>
+
+                
+
+              </div>
+
+
+
+     </div>
+
+
+
+       
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+
+    <script src="/static/js/jquery.min.js"></script>
+
+    <script src="{% static "js/jquery-1.11.1.min.js" %}"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+
+    <script src="/static/js/bootstrap.min.js"></script>
+
+    <script src="/static/js/flatpickr.min.js"></script>
+
+    <script src="/static/js/newStudent.js"></script>
+     
+     
+     <script type="text/javascript" src="/static/js/newstudentedit.js"></script>
+
+
+
+    <!-- <script src="{% static "js/menu.js" %}"></script> -->
+
+    <script src="http://down.hovertree.com/jquery/jquery-1.12.3.min.js" type="text/javascript"></script>
+
+    <script src="/static/js/jquery-sinaEmotion.min.js"></script>
+
+    <script src="/static/js/entrance.js"></script>
+
+
+
+   
+
+  </body>
+
+</html>
+

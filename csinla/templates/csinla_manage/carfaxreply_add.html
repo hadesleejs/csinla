@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>增加 carfax回复 | Django 站点管理员</title>
+<link rel="stylesheet" type="text/css" href="/static/admin/css/base.css">
+<link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css">
+
+
+<script type="text/javascript" src="/admin/jsi18n/"></script>
+<script type="text/javascript" src="/static/admin/js/core.js"></script>
+<script type="text/javascript" src="/static/admin/js/admin/RelatedObjectLookups.js"></script>
+<script type="text/javascript" src="/static/admin/js/vendor/jquery/jquery.js"></script>
+<script type="text/javascript" src="/static/admin/js/jquery.init.js"></script>
+<script type="text/javascript" src="/static/admin/js/actions.js"></script>
+<script type="text/javascript" src="/static/admin/js/urlify.js"></script>
+<script type="text/javascript" src="/static/admin/js/prepopulate.js"></script>
+<script type="text/javascript" src="/static/admin/js/vendor/xregexp/xregexp.min.js"></script>
+
+<meta name="robots" content="NONE,NOARCHIVE">
+</head>
+
+
+<body class=" app-csinla_accounts model-carfaxreply change-form" data-admin-utc-offset="-25200">
+
+<!-- Container -->
+<div id="container">
+
+    
+    <!-- Header -->
+    <div id="header">
+        <div id="branding">
+        
+<h1 id="site-name">{% if error_str %}{{error_str}}{% else %}用户【{{carfax.name}}】查询vin为{{carfax.vin}}的carfax回复添加 {% if carfax.is_reply %}(回复已成功无法继续编辑，只有首次添加回复才会邮件通知用户){% endif %}{% endif %}</h1>
+
+        </div>
+        
+        
+        
+    </div>
+    <!-- END Header -->
+
+    
+
+    
+        
+    
+
+    <!-- Content -->
+    <div id="content" class="colM">
+        
+        <h1>增加 carfax回复</h1>
+        <div id="content-main">
+
+
+
+<form enctype="multipart/form-data" action="" method="post" id="carfaxreply_form" novalidate=""><input name="csrfmiddlewaretoken" value="fHnrtuDnPWT7PCMJUAheFoTs1bGKyq0B" type="hidden">
+<div>
+
+
+
+
+
+
+
+  <fieldset class="module aligned ">
+    
+       
+        <div class="form-row field-reply_text">
+            
+            
+                <div>
+                    
+                    
+                        <label class="required" for="id_reply_text">回复文本:</label>
+                        
+                            <input class="vTextField" {% if carfax.is_reply %}disabled="true" value="{{carfax.carfaxreply.reply_text}}" {% endif %} id="id_reply_text" maxlength="512" name="reply_text" type="text">
+                        
+                    
+                    
+                </div>
+            
+        </div>
+    
+        <div class="form-row field-reply_file">
+            
+            
+                <div>
+                    
+                    
+                        <label class="required" for="id_reply_file">附件:</label>
+                            {% if carfax.is_reply %}
+                                {% if carfax.carfaxreply.reply_file %}
+                                    <a href="{{carfax.carfaxreply.reply_file.url}}">点击下载附件</a>
+                                {% else %}
+                                    无附件
+                                {% endif %}
+                            {% else %}
+                                <input id="id_reply_file" name="reply_file" {% if carfax.is_reply %}disabled="true"{% endif %} type="file">
+                            {% endif %}
+                        
+                        
+                    
+                    
+                </div>
+            
+        </div>
+    
+</fieldset>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="submit-row">
+<input value="保存" class="default" name="_save" type="submit">
+</div>
+
+
+
+    <script type="text/javascript">
+        (function($) {
+            $(document).ready(function() {
+                $('.add-another').click(function(e) {
+                    e.preventDefault();
+                    var event = $.Event('django:add-another-related');
+                    $(this).trigger(event);
+                    if (!event.isDefaultPrevented()) {
+                        showAddAnotherPopup(this);
+                    }
+                });
+                $('.related-lookup').click(function(e) {
+                    e.preventDefault();
+                    var event = $.Event('django:lookup-related');
+                    $(this).trigger(event);
+                    if (!event.isDefaultPrevented()) {
+                        showRelatedObjectLookupPopup(this);
+                    }
+                });
+                $('body').on('click', '.related-widget-wrapper-link', function(e) {
+                    e.preventDefault();
+                    if (this.href) {
+                        var event = $.Event('django:show-related', {href: this.href});
+                        $(this).trigger(event);
+                        if (!event.isDefaultPrevented()) {
+                            showRelatedObjectPopup(this);
+                        }
+                    }
+                });
+                $('body').on('change', '.related-widget-wrapper select', function(e) {
+                    var event = $.Event('django:update-related');
+                    $(this).trigger(event);
+                    if (!event.isDefaultPrevented()) {
+                        updateRelatedObjectLinks(this);
+                    }
+                });
+                $('.related-widget-wrapper select').trigger('change');
+
+            
+                $('form#carfaxreply_form :input:visible:enabled:first').focus()
+            
+            });
+        })(django.jQuery);
+    </script>
+
+
+
+
+<script type="text/javascript">
+(function($) {
+    var field;
+
+
+})(django.jQuery);
+</script>
+
+
+</div>
+</form></div>
+
+        
+        <br class="clear">
+    </div>
+    <!-- END Content -->
+
+    <div id="footer"></div>
+</div>
+<!-- END Container -->
+
+
+
+</body>
+</html>

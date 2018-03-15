@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/common/base.css" %}">
+    <link href="http://cdn.bootcss.com/summernote/0.8.2/summernote.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static "css/awesome-bootstrap-checkbox.css" %}">
+    <link rel="stylesheet" href="{% static "css/userCenter.css" %}">
+
+    <title>发帖中心</title>
+
+</head>
+<body>
+    <div class="u-container">
+        <div class="u-header clearfix">
+            <div class="logo fl">
+                <a href="/"><img class="img-responsive" src="{% static "images/home-logo.png" %}" alt="logo"></a>
+            </div>
+            <div class="login-status fr">
+                <div class="avatar-wrapper">
+                    <img src="{% static "images/avatar.jpg" %}" class="img-circle avatar" alt="Cinque Terre">
+                </div>
+                <div class="dropdown" style="display:inline-block;">
+                    <button class="header-btn dropdown-toggle" type="button" data-toggle="dropdown">
+                        <i class="fa fa-cog" aria-hidden="true"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li><a href="#">修改密码</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li><a href="#">密保问题</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li><a href="#">人工申述</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li><a href="#">联系我们</a></li>
+                    </ul>
+                </div>
+                <div class="dropdown" style="display:inline-block;">
+                    <button class="header-btn dropdown-toggle" type="button" data-toggle="dropdown">
+                        <i class="fa fa-bell-o" aria-hidden="true"></i>
+                        <span class="redpoint"><i>2</i></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">我的私信<span class="redpoint"><i>2</i></span></a>
+                        </li>
+                        <li role="presentation" class="divider"></li>
+                        <li><a href="#">我的回复<span class="redpoint"><i>99+</i></span></a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li><a href="#">查看@提到我<span class="redpoint"><i>12</i></span></a></li>
+                    </ul>
+                </div>
+                <div class="new-post-wrapper fr">
+                    <a class="new-post" href={% url 'posts:add' %}>
+                        <span>发表新帖</span>
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="u-main well well-lg">
+            <h2 class="u-main-title ac">发帖中心</h2>
+
+
+            <div class="u-main-content new-post-main-content">
+                <div class="new-post-section row">
+                    <div class="ac form-image"><img src="{% static "images/steps-icon.png" %}" alt="steps"></div>
+                    <div class="col-sm-offset-1 col-sm-10">
+                    <form class="form-horizontal rect-form" method="post">
+                        {% csrf_token %}
+
+                    <div class="form-part form-part1 active">
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label">三朋四友</label>
+                            <div class="col-xs-10">
+                            <div class="radio">
+                                <label><input type="radio" name="choice1" id="" value=""><span>运动健身<i></i></span></label>
+                                <label><input type="radio" name="choice1" id="" value=""><span>娱乐休闲<i></i></span></label>
+                                <label><input type="radio" name="choice1" id="" value=""><span>班车出行<i></i></span></label>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label">生活服务</label>
+                            <div class="col-xs-10">
+                            <div class="radio">
+                                <label><input type="radio" name="choice2" id="" value=""><span>商务服务<i></i></span></label>
+                                <label><input type="radio" name="choice2" id="" value=""><span>维修服务<i></i></span></label>
+                                <label><input type="radio" name="choice2" id="" value=""><span>需要服务<i></i></span></label>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label">二手商品</label>
+                            <div class="col-xs-10">
+                            <div class="radio">
+                                <label><input type="radio" name="choice3" id="" value=""><span>复习资料/教材<i></i></span></label>
+                                <label><input type="radio" name="choice3" id="" value=""><span>家具电器<i></i></span></label>
+                                <label><input type="radio" name="choice3" id="" value=""><span>电子产品<i></i></span></label>
+                                <label><input type="radio" name="choice3" id="" value=""><span>其它<i></i></span></label>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label">美食</label>
+                            <div class="col-xs-10">
+                            <div class="radio">
+                                <label><input type="radio" name="choice4" id="" value=""><span>校园外卖<i></i></span></label>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label">汽车</label>
+                            <div class="col-xs-10">
+                            <div class="radio">
+                                <label><input type="radio" name="choice5" id="" value=""><span>汽车买卖<i></i></span></label>
+                                <label><input type="radio" name="choice5" id="" value=""><span>车辆租赁<i></i></span></label>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label">教育</label>
+                            <div class="col-xs-10">
+                            <div class="radio">
+                                <label><input type="radio" name="choice6" id="" value=""><span>looking for help<i></i></span></label>
+                                <label><input type="radio" name="choice6" id="" value=""><span>学术问题<i></i></span></label>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label">租房</label>
+                            <div class="col-xs-10">
+                            <div class="radio">
+                                <label><input type="radio" name="choice7" id="" value=""><span>长租<i></i></span></label>
+                                <label><input type="radio" name="choice7" id="" value=""><span>短租<i></i></span></label>
+                                <label><input type="radio" name="choice7" id="" value=""><span>求租<i></i></span></label>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label">贴吧</label>
+                            <div class="col-xs-10">
+                            <div class="radio">
+                                <label><input type="radio" name="choice2" id="" value=""><span>SMC<i></i></span></label>
+                                <label><input type="radio" name="choice2" id="" value=""><span>PCC<i></i></span></label>
+                                <label><input type="radio" name="choice2" id="" value=""><span>UCLA<i></i></span></label>
+                                <label><input type="radio" name="choice2" id="" value=""><span>USC<i></i></span></label>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-top:50px;">
+                            <div class="col-xs-offset-2 col-xs-3">
+                            <div class="col-xs-12">
+                              <button type="submit" class="save-form next-step-form">NEXT</button>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-part form-part2">
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label">标题:</label>
+                            <div class="col-xs-10">
+                            <!--<div class="radio col-xs-2">-->
+                                <!--<input type="radio" name="xxx1" id="type1" value="" checked="">-->
+                                <!--<label for="type1">校名</label>-->
+                            <!--</div>-->
+                            <!--<div class="radio col-xs-2">-->
+                                <!--<input type="radio" name="xxx1" id="type2" value="">-->
+                                <!--<label for="type2">校名</label>-->
+                            <!--</div>-->
+                            <!--<div class="radio col-xs-2">-->
+                                <!--<input type="radio" name="xxx1" id="type3" value="">-->
+                                <!--<label for="type3">校名</label>-->
+                            <!--</div>-->
+                            <!--<div class="radio col-xs-2">-->
+                                <!--<input type="radio" name="xxx1" id="type3" value="">-->
+                                <!--<label for="type3">其他</label>-->
+                            <!--</div>-->
+                                {{ form.title }}
+                            </div>
+                          </div>
+
+                        <div class="form-group">
+
+                            <label class="col-xs-2 control-label">持续时间:</label>
+                            <div class="col-xs-3">
+
+                            <!--<select class="form-control">-->
+                            <!--<option value="">7天</option>-->
+                            <!--</select>-->
+                            <!--</div>-->
+                            <!--<div class="col-xs-3">-->
+                            <!--<select class="form-control">-->
+                            <!--<option value="">0小时</option>-->
+                            <!--</select>-->
+                                 {{ form.expire_date}}
+
+                            </div>
+                        </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label">发帖时间:</label>
+                            <div class="col-xs-3">
+
+                            <!--<select class="form-control">-->
+                            <!--<option value="">7天</option>-->
+                            <!--</select>-->
+                            <!--</div>-->
+                            <!--<div class="col-xs-3">-->
+                            <!--<select class="form-control">-->
+                            <!--<option value="">0小时</option>-->
+                            <!--</select>-->
+                                 {{ form.post_date}}
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label">类型:</label>
+                            <div class="col-xs-10">
+                            <div class="radio col-xs-2">
+                                <input type="radio" name="xxx" id="type1" value="" checked="">
+                                <label for="type1">长租</label>
+                            </div>
+                            <div class="radio col-xs-2">
+                                <input type="radio" name="xxx" id="type2" value="">
+                                <label for="type2">短租</label>
+                            </div>
+                            <div class="radio col-xs-2">
+                                <input type="radio" name="xxx" id="type3" value="">
+                                <label for="type3">求租</label>
+                            </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label">方式:</label>
+                            <div class="col-xs-10">
+                            <div class="radio col-xs-3">
+                                <input type="radio" name="xxx2" id="type1" value="" checked="">
+                                <label for="type1">private</label>
+                            </div>
+                            <div class="radio col-xs-3">
+                                <input type="radio" name="xxx2" id="type2" value="">
+                                <label for="type2">share</label>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-xs-2 control-label">月租:</label>
+                            <div class="col-xs-3">
+                              <input type="text" class="form-control" id="" placeholder="">
+                            </div>
+                            <span class="col-xs-3" style="padding-top:4px;margin-left:-25px;">/month</span>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label">出租其中:</label>
+                            <div class="col-xs-10">
+                            <div class="radio col-xs-2">
+                                <input type="radio" name="xxx4" id="type5" value="" checked="">
+                                <label for="type5">客厅</label>
+                            </div>
+                            <div class="radio col-xs-2">
+                                <input type="radio" name="xxx4" id="type6" value="">
+                                <label for="type6">卧室</label>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-xs-2 control-label">联系人:</label>
+                            <div class="col-xs-6">
+                              <!--<input type="text" class="form-control" id="" placeholder="">-->
+                              {{ form.author }}
+                            </div>
+                        </div>
+                        <!--<div class="form-group">-->
+                            <!--<label for="" class="col-xs-2 control-label">联系方式:</label>-->
+                            <!--<div class="col-xs-6">-->
+                              <!--&lt;!&ndash;<input type="text" class="form-control" id="" placeholder="">&ndash;&gt;-->
+                              <!--{{ form.author.phone }}-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <div class="form-group">
+                            <label for="" class="col-xs-2 control-label">类型:</label>
+                            <div class="col-xs-6">
+                              <!--<input type="text" class="form-control" id="" placeholder="">-->
+                              {{ form.belong_to }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-xs-2 control-label">详细内容:</label>
+
+
+                            <div class="col-xs-7">
+                            <div class="new-post-detail">
+                              <div id="summernote">{{form.content}}</div>
+                            </div>
+                            </div>
+                            <div class="col-xs-3">
+                            <div class="new-post-image">
+                                <div>预览图片</div>
+                                <div class="new-post-image-preview row">
+                                    <div class="col-xs-6">
+                                    <img class="img-responsive" src="images/sample.jpg" alt="">
+                                    </div>
+                                    <div class="col-xs-6">
+                                    <img class="img-responsive" src="images/success.png" alt="">
+                                    </div>
+                                    <div class="col-xs-6">
+                                    <img class="img-responsive" src="images/sample.jpg" alt="">
+                                    </div>
+                                </div>
+                                <div>
+                                <label for="image-select"><input type="file" id="image-select"><span class="ac">本地上传</span></label>
+                                </div>
+                                <div>
+                                <a class="image-internet ac">网络图片</a>
+                                </div>
+                                <div class="ac">
+                                还可以上传0张图片
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-top:50px;">
+                            <div class="col-xs-offset-2 col-xs-2">
+                              <button type="submit" class="save-form">发表</button>
+                            </div>
+                            <div class="col-xs-2">
+                              <a href={% url 'posts:add' %} class="cancel-form ac">取消</a>
+                            </div>
+                          </div>
+                    </div>
+                    </form>
+                    </div>
+                </div>
+            </div>  <!-- end of main-content -->
+
+    </div>
+    </div>
+    <div class="u-main-footer ac">
+        <span>洛杉矶留学生资讯网&nbsp;版权所有</span>
+    </div>
+    <script src="{% static "js/jquery-1.11.1.min.js" %}"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+    <script src="http://cdn.bootcss.com/summernote/0.8.2/summernote.min.js"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+    <script src="{% static "js/main.js" %}"></script>
+    <script type="text/javascript">
+    $(function($) {
+        $('#summernote').summernote({
+            height:150
+        });
+        $('.next-step-form').click(function(e) {
+            e.preventDefault();
+            $('.form-part1').hide();
+            $('.form-part2').show();
+            $('.form-image').addClass('step2');
+            $('html, body').animate({scrollTop: 0}, '10', 'swing', function() {
+
+            })
+        });
+    });
+    </script>
+</body>
+</html>

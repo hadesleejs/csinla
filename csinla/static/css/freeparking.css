@@ -1,0 +1,507 @@
+@import "common/base.css";
+@import "common/header.css";
+@import "common/house-renting-component.css";
+@charset "utf-8";
+/* CSS Document */
+
+*{margin:0 px;padding:0px;}
+body{
+	
+    font: 100% "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #999;
+    background-image: url(../images/bg.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: #464646;
+}
+
+.paring-title{margin: 0 auto;margin-top: 50px;width: 60%;text-align: center;}
+
+.paring-content-title{text-indent:2em;font-size:34px;color:#fff}
+/*.paring-left{width: 50%;}
+.paring-right{width: 50%;}*/
+.paring-content{
+    margin-top: 30px;
+    
+}
+.c_right {
+    margin-right: 3%;
+    float: right;
+}
+.paring-footer{clear:both;padding:30px 0px;font-size:26px;text-align: center;font-family:'微软雅黑';color:#fff}
+#id_captcha_1{width: 60%;background: none;border-bottom: 1px solid #999;}
+a:hover{text-decoration: none;}
+.register_checkbox{opacity:0;}
+.fl {
+    float: left
+}.fr {
+    float: right
+}
+@media (max-width: 767px) {
+.mobile-nav-btn {
+    font-size: 2.6em;
+    color: #fff;
+}
+.login-status {
+    display: none;
+}
+.u-header {
+    display: none;
+}
+.header {
+    width: 100%;
+    padding: 0;
+    height: 80px;
+}
+.home-link {
+    display: block;
+    width: 200px;
+}
+.header .logo {
+    margin-left: 10px;
+    padding: 13px 0;
+}
+.header .logo img {
+    /*width: 200px;
+    height: 80px;*/
+    max-width:200px;
+}
+.mobile-nav-btn {
+    color: #fff!important;
+    margin-right: 10px;
+    padding: 18px 0;
+
+}
+.home-nav-item img {
+    display: none;
+}
+.home-nav-sub-item {
+    display: none;
+}
+.home-nav-sub-item a {
+    display: block;
+    margin: auto;
+    width: 80%;
+    height: 40px;
+    line-height: 40px;
+    color: #999;
+    text-align: center;
+    font-size: 14px;
+    border-bottom: 1px solid #ccc;
+}
+.home-nav-sub-item a:last-child {
+    width: 100%;
+}
+.header .user {
+    display: none;
+    width: 100%;
+    background-color: #666;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 40px 40px 50px;
+    z-index: 9999;
+}
+.user span {
+    font-family: "Microsoft YaHei", "微软雅黑";
+}
+.user .home-nav-item {
+    display: block;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    color: #ddd;
+    text-align: center;
+    font-size: 16px;
+    border-bottom: 1px solid #ccc;
+    text-decoration: none;
+}
+.user .remove-nav {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    width: 20px;
+    height: 20px;
+}
+.user .home-nav-item:last-child {
+    border-bottom: 0px;
+}
+.u-block::after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent;
+    border-top-color: #5bddb2;
+    position: absolute;
+    top: 38px;
+    left: 42px;
+}
+}
+@media (min-width: 769px) {
+    .m-btu{display: none;}
+.header {
+    display: none;
+}
+.user span {
+     position: absolute; 
+     font-size: 14px; 
+     font-family: "Microsoft YaHei", "微软雅黑"; 
+}
+.user .login span {
+     line-height: 30px; 
+     left: 15px;
+     color: #feedef; 
+}
+.user .register span {
+    line-height: 30px;
+    left: 30px;
+    color: #cac8cb;
+}
+.user a {
+    position: relative;
+    text-align: center;
+}
+.u-container {
+    width: 70%;
+    margin: auto;
+}
+/*header*/
+.u-header {
+    padding: 15px 10px 10px;
+}
+
+.u-header .logo {
+    width: 200px;
+}
+
+.u-header .login-status {
+    width: 232px;
+    margin-top: 16px;
+}
+
+.u-header .avatar-wrapper {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.u-header .avatar {
+    margin-top: -5px;
+    width: 42px;
+    height: 42px;
+}
+
+.u-header .dropdown {
+    margin-right: 10px;
+}
+
+.u-header .dropdown-menu {
+    left: -8px;
+    min-width: 80px;
+}
+
+.u-header .dropdown-menu:before {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 15px;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-bottom: 8px solid #fff;
+    border-right: 4px solid transparent;
+}
+
+.u-header .dropdown-menu-right {
+    left: auto;
+    right: -8px;
+}
+
+.u-header .dropdown-menu-right:before {
+    left: auto;
+    right: 15px;
+}
+
+.header-btn {
+    display: block;
+    border: none;
+    background-color: rgba(255, 255, 255, 0);
+    color: #fff;
+    position: relative;
+}
+
+
+
+.header-btn .redpoint {
+    position: absolute;
+    right: -10px;
+    top: -10px;
+}
+
+.u-header .new-post-wrapper {
+    margin-left: 5px;
+}
+
+.u-header .new-post {
+    display: block;
+    width: 90px;
+    height: 32px;
+    font-size: 14px;
+    background-image: url(../../static/images/01-home-login.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    color: #fff;
+    text-align: center;
+    line-height: 32px;
+}
+
+
+}
+.redpoint {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.redpoint i {
+    display: inline-block;
+    height: 22px;
+    line-height: 22px;
+    min-width: 22px;
+    width: auto;
+    padding: 0 3px;
+    font-size: 12px;
+    text-align: center;
+    color: #fff;
+    background-color: #ec6200;
+    opacity: 1;
+    border-radius: 11px;
+}
+
+@media (max-width: 767px) {
+    .content{width: 90%;margin: 0 auto}
+.paring-title {
+    margin: 0 auto;
+    margin-top: 10px;
+    width: 80%;
+    text-align: center;
+}
+.paring-title img{width: 100%;}
+
+.paring-content {
+    margin-top: -10px;
+}
+.paring-left{    margin-top: 35px;}
+.paring-content-title{font-size:30px;color:#fff;text-align: right;text-indent: 0px;}
+.mobile-nav-btn {
+    font-size: 2.6em;
+    color: #fff;
+}
+.login-status {
+    display: none;
+}
+.u-header {
+    display: none;
+}
+#id_captcha_1{width: 60%;background: none;border-bottom: 1px solid #999;}
+
+.captcha{position: absolute;margin-left: 32%;}
+.header {
+    width: 100%;
+    padding: 0;
+    height: 80px;
+}
+
+.header .logo {
+    margin-left: 10px;
+    padding: 13px 0;
+}
+.header .logo img {
+   max-width:200px;
+}
+
+}
+@media (min-width: 768px) {
+.header {
+    display: none;
+}
+.paring-title {
+    margin: 0 auto;
+    margin-top: 10px;
+    width: 40%;
+    text-align: center;
+}
+.paring-title img{
+  
+    width: 100%;
+   
+}
+#id_captcha_1{width: 60%;background: none;border-bottom: 1px solid #999;}
+.va{text-align: right;}
+.captcha{position: absolute;margin-left: 12%;}
+.user span {
+     position: absolute; 
+     font-size: 14px; 
+     font-family: "Microsoft YaHei", "微软雅黑"; 
+}
+.user .login span {
+     line-height: 30px; 
+     left: 25px;
+     color: #feedef; 
+}
+.user .register span {
+    line-height: 30px;
+    left: 30px;
+    color: #cac8cb;
+}
+.user a {
+    position: relative;
+    text-align: center;
+}
+.u-container {
+    width: 70%;
+    margin: auto;
+}
+/*header*/
+.u-header {
+    padding: 15px 10px 10px;
+}
+
+.u-header .logo {
+    width: 200px;
+}
+
+.u-header .login-status {
+    width: 232px;
+    margin-top: 16px;
+}
+
+.u-header .avatar-wrapper {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.u-header .avatar {
+    margin-top: -5px;
+    width: 42px;
+    height: 42px;
+}
+
+.u-header .dropdown {
+    margin-right: 10px;
+}
+
+.u-header .dropdown-menu {
+    left: -8px;
+    min-width: 80px;
+}
+
+.u-header .dropdown-menu:before {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 15px;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-bottom: 8px solid #fff;
+    border-right: 4px solid transparent;
+}
+
+.u-header .dropdown-menu-right {
+    left: auto;
+    right: -8px;
+}
+
+.u-header .dropdown-menu-right:before {
+    left: auto;
+    right: 15px;
+}
+
+.header-btn {
+    display: block;
+    border: none;
+    background-color: rgba(255, 255, 255, 0);
+    color: #fff;
+    position: relative;
+}
+
+
+
+.header-btn .redpoint {
+    position: absolute;
+    right: -10px;
+    top: -10px;
+}
+
+.u-header .new-post-wrapper {
+    margin-left: 5px;
+}
+
+.u-header .new-post {
+    display: block;
+    width: 90px;
+    height: 32px;
+    font-size: 14px;
+    background-image: url(../../static/images/01-home-login.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    color: #fff;
+    text-align: center;
+    line-height: 32px;
+}
+
+
+}
+
+
+@media (max-width:1024px) and (min-width:768px){
+	.u-container {
+    width: 80%;
+    margin: auto;}
+    .paring-content-title{font-size:30px;color:#fff;text-align: right;text-indent: 0px;}
+    .paring-title img{width: 100%;}
+
+}
+@media (max-width: 1269px) and (min-width:768px){
+        .paring-content-title{font-size:30px;color:#fff;text-align: right;text-indent: 0px;}
+
+}
+@media (width:768px){
+	.u-container {
+    width: 100%;
+    margin: auto;}
+    .header{
+        display: none;
+    }
+    .u-header {
+    padding: 15px 10px 10px;
+}
+    .content{
+        width: 80%;
+        margin: 0 auto;
+    }
+    .paring-title {
+    margin: 0 auto;
+    margin-top: 10px;
+    width: 70%;
+    text-align: center;
+}
+    .paring-title img{width: 100%;}
+
+}
+@media (max-width: 640px){
+    .c_right{
+        width:25px;
+    }
+    .c_left{
+        width:25px;
+    }
+    .paring-footer{clear:both;padding:50px 0px;font-size:20px;text-align: center;font-family:'微软雅黑';color:#fff}
+}
+
+
+
+

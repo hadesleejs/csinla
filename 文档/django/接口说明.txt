@@ -1,0 +1,162 @@
+接口说明大致提醒：所有接口起初都是参照正常提交时候来写，参数名字等尽量保持一致。接口返回值根据用户所需自行设定
+
+公共部分：
+	所有post访问都会有返回值，所有返回值必有code和msg内容，分别存储结果代码和处理信息
+	有登录验证的接口，登录验证部分在view里面做，如果未登录会报code为2的错误（code==2，就是需要前端做登录后才可以访问此页面）
+	有些url只是给html显示用，不接受提交，也不需要初始化的数据，那些不需要api接口前端自行定义即可（小程序的访问界面前端可控制）
+
+accounts相关（csinla_accounts）
+    /api/accounts/
+    	account主页内容，当前没有返回任何初始化的值，后期根据需要返回个人信息等
+    	输入参数：
+    		无
+    	输出参数：
+    		已登录返回个人信息，未登录无返回
+    
+    /api/accounts/registerstu/
+		对应csinla_accounts.views.RegisterView 的view，注册接口（小程序的注册可能没必要，无用的话可以自行删除）
+    	输入参数：
+    		同对应view
+    	输出参数：
+    		get访问有协议和错误提示等信息
+    		post提交返回提交处理结果
+
+    /api/accounts/active/+激活码
+    	小程序可能用不到这个，对应csinla_acounts.views.ActiveUserView,
+    	输入参数：
+    		同对应view（激活码在url上携带）
+    	输出参数：
+    		get访问无初始化数据
+    		post提交返回激活结果
+
+    /api/accounts/resetpassword/
+    	小程序可能用不到这个，对应csinla_acounts.views.ResetPassword,
+    	输入参数：
+    		同对应view，post提交携带新密码以及密码确认密码
+    	输出参数：
+    		get访问无初始化数据
+    		post提交返回密码更新结果
+
+    /api/accounts/resetpass/
+
+    /api/accounts/myPosts/list
+    /api/accounts/myinfo/
+    /api/accounts/Feedback1/
+
+    /api/accounts/Feedback2/
+
+    /api/accounts/Feedback3/
+
+    /api/accounts/Feedback4/
+
+    /api/accounts/accountsecurity/
+
+    /api/accounts/changeavatar/
+
+    /api/accounts/password/change/
+
+    /api/accounts/sendemail/
+
+    /api/accounts/contactservice/
+
+    /api/accounts/protocol_get/
+
+    
+选课（csinla_curricular）
+    /api/curricular/
+
+    /api/curricular/subjects_compare
+
+
+帖子（csinla_posts）
+    /api/posts/search/
+
+	/api/posts/listrent/
+		租房列表，租房帖的列表
+		传入参数：
+			page int 非必填 当前第几页，默认返回第一页
+			locat str 非必填 所属地区，默认显示全部
+			type str 非必填 租房类型 默认显示全部
+			price str 非必填 价格 默认显示全部
+
+		输出json:
+		{
+			'rent_array':[//租房帖子列表
+				{
+					'id': , 帖子id
+		            'district':,帖子地区
+		            'district_other': ,地区为其他时候填写的地区
+		            'is_top':,是否置顶
+		            'title':,帖子标题
+		            'rentpicture_count':,帖子图片数目
+		            'fee':,价格
+		            'house_type':,房子类型
+		            'house_type_other':,房子类型是其他时候的房子类型
+		            'room_type':,出租房间型
+		            'room_type_other':,出租房间型是其他时候显示的
+		            'parking':,停车类型
+		            'get_date':self.get_date(),获取截止时间
+				}
+			],
+			filter_dic:{存储的筛选条件，保存当前筛选条件
+				'page':,
+				'local':,
+				'type':,
+				'price':,   ///这些条件不穿过来就没有，传过来就有
+			}
+			ad_A{n}:{广告，可参考当前广告内容来用
+	            'id': ,
+	            'belong_to':,
+	            'text':,
+	            'url': ,
+	            'img':,
+	        }
+			ad_B{n}:{广告，可参考当前广告内容来用
+	            'id': ,
+	            'belong_to':,
+	            'text':,
+	            'url': ,
+	            'img':,
+	        }
+		}
+    /api/posts/roommate/
+
+    /api/posts/car/
+
+    /api/posts/usedgoods/view/
+
+    /api/posts/usedgoods/add/
+
+    /api/posts/usedbook/view/
+
+    /api/posts/usedbook/add/
+
+    /api/posts/exposure/view/
+
+    /api/posts/exposure/add/
+
+    /api/posts/(?P<posts_id>[0-9]+)/
+
+    /api/post/delete/(?P<pid>[0-9]+)/
+
+    /api/post/add/(?P<types>(rent|car|shared))/
+
+    /api/post/carinspect/(?P<ciid>[0-9]+)/
+
+    /api/post/buycar/
+
+    /api/post/delete/(?P<pk>[0-9]+)
+
+    /api/post/changepost/(?P<posts_id>[0-9]+)/
+
+    /api/post/poststop/(?P<posts_id>[0-9]+)
+
+    /api/post/postmessage/leave/
+
+    /api/post/postmessage/listview/(?P<pmid>[0-9]+)/
+
+操作（operations）
+    /api/operations/off/(?P<posts_id>[0-9]+)/(?P<code>.*)/
+
+    /api/operations/stop/(?P<posts_id>[0-9]+)/(?P<code>.*)/
+

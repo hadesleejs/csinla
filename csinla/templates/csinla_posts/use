@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="{% static "css/font-awesome.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/common/base.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/userCenter.css" %}">
+    <title>个人中心</title>
+</head>
+<body>
+    <div class="u-container">
+        <div class="u-header clearfix">
+            <div class="logo fl">
+                <a href="#"><img class="img-responsive" src="{% static "images/logo.png" %}" alt="logo"></a>
+            </div>
+            <div class="login-status fr">
+                <div class="avatar-wrapper">
+                    <img src="{% static "images/avatar.jpg" %}" class="img-circle avatar" alt="Cinque Terre">
+                </div>
+                <div class="dropdown" style="display:inline-block;">
+                    <button class="header-btn dropdown-toggle" type="button" data-toggle="dropdown">
+                        <i class="fa fa-cog" aria-hidden="true"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li><a href="#">修改密码</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li><a href="#">密保问题</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li><a href="#">人工申述</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li><a href="#">帮助中心</a></li>
+                    </ul>
+                </div>
+                <div class="dropdown" style="display:inline-block;">
+                    <button class="header-btn dropdown-toggle" type="button" data-toggle="dropdown">
+                        <i class="fa fa-bell-o" aria-hidden="true"></i>
+                        <span class="redpoint"><i>2</i></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">我的私信<span class="redpoint"><i>2</i></span></a>
+                        </li>
+                        <li role="presentation" class="divider"></li>
+                        <li><a href="#">我的回复<span class="redpoint"><i>99+</i></span></a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li><a href="#">查看@提到我<span class="redpoint"><i>12</i></span></a></li>
+                    </ul>
+                </div>
+                <div class="new-post-wrapper fr">
+                    <a class="new-post" href="#">
+                        <span>发表新帖</span>
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="u-main well well-lg">
+            <h2 class="u-main-title ac">个人中心</h2>
+
+            <ul class="u-main-nav clearfix">
+                <li role="presentation" class="active ac"><a href="#"><i class="fa fa-clipboard fa-lg" aria-hidden="true"></i><span>我的帖子</span></a></li>
+                <li role="presentation" class="ac"><a href="#"><i class="fa fa-star-o fa-lg" aria-hidden="true"></i>
+                <span>我的收藏</span></a></li>
+                <li role="presentation" class="ac"><a href="#"><i class="fa fa-bell fa-lg" aria-hidden="true"></i>
+                <span>我的消息</span></a></li>
+                <li role="presentation" class="ac"><a href="#"><i class="fa fa-shield fa-lg" aria-hidden="true"></i>
+                <span>账户安全</span></a></li>
+                <li role="presentation" class="ac"><a href="#"><i class="fa fa-lightbulb-o fa-lg" aria-hidden="true"></i><span>帮助中心</span></a></li>
+            </ul>
+
+
+            <div class="u-main-content row">
+                <div class="col-md-9">
+                    <div class="u-main-section">
+                        <div class="u-search">
+                            <form>
+                                <div class="input-wrapper">
+                                <span class="fa fa-search fa-lg"></span>
+                                <div><input type="text" placeholder="输入关键词"></div>
+                                </div>
+                            </form>
+                        </div>
+                        <table class="u-table table table-hover ac">
+                            <thead>
+                                <tr><td>标题</td><td>分类</td><td>回复数</td><td>有效时间</td><td>编辑</td><td>删除</td></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td class="title"><div><a href="#">帖子标题帖子标题帖子标题帖子标题帖子标题帖子标题</a></div></td><td><a href="#">三朋四友</a></td><td>125条</td><td class="time">仅剩2天3:30:15</td><td><a href="#"><i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a></td><td><a href="#"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></a></td></tr>
+                                <tr><td class="title"><div><a href="#">帖子标题帖子标题帖子标题帖子标题帖子标题帖子标题</a></div></td><td><a href="#">三朋四友</a></td><td>125条</td><td class="time">仅剩2天3:30:15</td><td><a href="#"><i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a></td><td><a href="#"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></a></td></tr>
+                                <tr><td class="title"><div><a href="#">帖子标题帖子标题帖子标题帖子标题帖子标题帖子标题</a></div></td><td><a href="#">三朋四友</a></td><td>125条</td><td class="time">仅剩2天3:30:15</td><td><a href="#"><i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a></td><td><a href="#"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></a></td></tr>
+                                <tr><td class="title"><div><a href="#">帖子标题帖子标题帖子标题帖子标题帖子标题帖子标题</a></div></td><td><a href="#">三朋四友</a></td><td>125条</td><td class="time">仅剩2天3:30:15</td><td><a href="#"><i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a></td><td><a href="#"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></a></td></tr>
+                                <tr><td class="title"><div><a href="#">帖子标题帖子标题帖子标题帖子标题帖子标题帖子标题</a></div></td><td><a href="#">三朋四友</a></td><td>125条</td><td class="time">仅剩2天3:30:15</td><td><a href="#"><i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a></td><td><a href="#"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></a></td></tr>
+                                <tr><td class="title"><div><a href="#">帖子标题帖子标题帖子标题帖子标题帖子标题帖子标题</a></div></td><td><a href="#">三朋四友</a></td><td>125条</td><td class="time">仅剩2天3:30:15</td><td><a href="#"><i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a></td><td><a href="#"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></a></td></tr>
+                                <tr><td class="title"><div><a href="#">帖子标题帖子标题帖子标题帖子标题帖子标题帖子标题</a></div></td><td><a href="#">三朋四友</a></td><td>125条</td><td class="time">仅剩2天3:30:15</td><td><a href="#"><i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a></td><td><a href="#"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></a></td></tr>
+                                <tr><td class="title"><div><a href="#">帖子标题帖子标题帖子标题帖子标题帖子标题帖子标题</a></div></td><td><a href="#">三朋四友</a></td><td>125条</td><td class="time">仅剩2天3:30:15</td><td><a href="#"><i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a></td><td><a href="#"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></a></td></tr>
+                                <tr><td class="title"><div><a href="#">帖子标题帖子标题帖子标题帖子标题帖子标题帖子标题</a></div></td><td><a href="#">三朋四友</a></td><td>125条</td><td class="time">仅剩2天3:30:15</td><td><a href="#"><i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a></td><td><a href="#"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></a></td></tr>
+                                <tr><td class="title"><div><a href="#">帖子标题帖子标题帖子标题帖子标题帖子标题帖子标题</a></div></td><td><a href="#">三朋四友</a></td><td>125条</td><td class="time">仅剩2天3:30:15</td><td><a href="#"><i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a></td><td><a href="#"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></a></td></tr>
+                                <tr><td class="title"><div><a href="#">帖子标题帖子标题帖子标题帖子标题帖子标题帖子标题</a></div></td><td><a href="#">三朋四友</a></td><td>125条</td><td class="time">仅剩2天3:30:15</td><td><a href="#"><i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a></td><td><a href="#"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></a></td></tr>
+                            </tbody>
+                        </table>
+                        <div class="fr" style="margin-top:20px;color:#999;">共发表帖子&nbsp;<span style="color:red;">235</span>&nbsp;篇</div>
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination">
+                            <li class="disabled">
+                              <a href="#" aria-label="Previous">上一页
+                              </a>
+                            </li>
+                            <li><a href="#">首页</a></li>
+                            <li class="active"><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                            <li><a href="#">尾页</a></li>
+                            <li>
+                              <a href="#" aria-label="Next">
+                                下一页
+                              </a>
+                            </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div><!-- end of col-xs-9 -->
+
+                <div class="col-md-3 sidebar ac">
+                        <div class="ac"><img src="{% static "images/avatar.jpg" %}" class="img-circle" alt="dummy-head" width="95" height="95"></div>
+                        <h4 class="username"><a style="vertical-align:middle;" href="#">欧鸥鹏</a><span style="margin-left:6px;"><img src="{% static "images/man.png" %}" alt="man icon"></span></h4>
+                        <div style="font-size:12px;">吧龄:1年&nbsp;&nbsp;发帖:100&nbsp;&nbsp;所属学校:UCLA</div>
+
+                        <div class="user-level clearfix">
+                            <div class="level-title fl"><i class="fa fa-smile-o" aria-hidden="true"></i>&nbsp;<p style="font-size:0.7em;display: inline;">个人等级</p>
+                            </div>
+                            <div class="level-detail fl">
+                                <div class="progress"><div class="progress-bar" role="progressbar" style="width:70%"></div>
+                                </div>
+                                <span class="level-num" style="left:70%;">18</span>
+                                <span class="level-indicator">1058/1800</span>
+                            </div>
+                        </div>
+                        <div class="user-level user-level2 clearfix">
+                            <div class="level-title fl"><i class="fa fa-graduation-cap" aria-hidden="true" style="margin-left:-2px;"></i>&nbsp;<p style="font-size:0.7em;display: inline;">学术等级</p>
+                            </div>
+                            <div class="level-detail fl">
+                                <div class="progress"><div class="progress-bar progress-bar-success" role="progressbar" style="width:40%"></div></div>
+                                <span class="level-num" style="left:40%;">9</span>
+                                <span class="level-indicator">253/900</span>
+                            </div>
+                        </div>
+                        <div>
+                          <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#follow" aria-controls="follow" role="tab" data-toggle="tab">关注<br><span style="color:#999;">11232</span></a></li>
+                            <li role="presentation"><a href="#fan" aria-controls="fan" role="tab" data-toggle="tab">粉丝<br><span style="color:#999;">234</span></a></li>
+                          </ul>
+
+                          <div class="tab-content clearfix">
+                            <div role="tabpanel" class="tab-pane active" id="follow">
+                                <div class="col-xs-6 col-md-4">
+                                <a href="#" class="avatar"><img class="img-circle" class="img-responsive" src="{% static "images/avatar.jpg" %}" alt="avatar"><br><span class="oe ac">JOHNSON</span></a>
+                                </div>
+                                <div class="col-xs-6 col-md-4">
+                                <a href="#" class="avatar"><img class="img-circle" src="{% static "images/avatar.jpg" %}" alt="avatar"><br><span class="oe ac">BENTZ</span></a>
+                                </div>
+                                <div class="col-xs-6 col-md-4">
+                                <a href="#" class="avatar"><img class="img-circle" src="{% static "images/avatar.jpg" %}" alt="avatar"><br><span class="oe ac">MEYERFELD</span></a>
+                                </div>
+                                <div class="col-xs-6 col-md-4">
+                                <a href="#" class="avatar"><img class="img-circle" class="img-responsive" src="{% static "images/avatar.jpg" %}" alt="avatar"><br><span class="oe ac">JOHNSON</span></a>
+                                </div>
+                                <div class="col-xs-6 col-md-4">
+                                <a href="#" class="avatar"><img class="img-circle" src="{% static "images/avatar.jpg" %}" alt="avatar"><br><span class="oe ac">BENTZ</span></a>
+                                </div>
+                                <div class="col-xs-6 col-md-4">
+                                <a href="#" class="avatar"><img class="img-circle" src="{% static "images/avatar.jpg" %}" alt="avatar"><br><span class="oe ac">MEYERFELD</span></a>
+                                </div>
+                                <div class="col-xs-6 col-md-4">
+                                <a href="#" class="avatar"><img class="img-circle" class="img-responsive" src="{% static "images/avatar.jpg" %}" alt="avatar"><br><span class="oe ac">JOHNSON</span></a>
+                                </div>
+                                <div class="col-xs-6 col-md-4">
+                                <a href="#" class="avatar"><img class="img-circle" src="{% static "images/avatar.jpg" %}" alt="avatar"><br><span class="oe ac">BENTZ</span></a>
+                                </div>
+                                <div class="col-xs-6 col-md-4">
+                                    <a href="#" class="avatar-more ac">查看全部</a>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="fan">
+                                <div class="col-xs-6 col-md-4">
+                                <a href="#" class="avatar"><img class="img-circle" class="img-responsive" src="{% static "images/avatar.jpg" %}" alt="avatar"><br><span class="oe ac">BENTZ</span></a>
+                                </div>
+                                <div class="col-xs-6 col-md-4">
+                                <a href="#" class="avatar"><img class="img-circle" src="{% static "images/avatar.jpg" %}" alt="avatar"><br><span class="oe ac">BENTZ</span></a>
+                                </div>
+                                <div class="col-xs-6 col-md-4">
+                                <a href="#" class="avatar"><img class="img-circle" src="{% static "images/avatar.jpg" %}" alt="avatar"><br><span class="oe ac">MEYERFELD</span></a>
+                                </div>
+                                <div class="col-xs-6 col-md-4">
+                                <a href="#" class="avatar"><img class="img-circle" class="img-responsive" src="{% static "images/avatar.jpg" %}" alt="avatar"><br><span class="oe ac">JOHNSON</span></a>
+                                </div>
+                                <div class="col-xs-6 col-md-4">
+                                <a href="#" class="avatar"><img class="img-circle" src="{% static "images/avatar.jpg" %}" alt="avatar"><br><span class="oe ac">BENTZ</span></a>
+                                </div>
+                                <div class="col-xs-6 col-md-4">
+                                <a href="#" class="avatar"><img class="img-circle" src="{% static "images/avatar.jpg" %}" alt="avatar"><br><span class="oe ac">MEYERFELD</span></a>
+                                </div>
+                                <div class="col-xs-6 col-md-4">
+                                <a href="#" class="avatar"><img class="img-circle" class="img-responsive" src="{% static "images/avatar.jpg" %}" alt="avatar"><br><span class="oe ac">JOHNSON</span></a>
+                                </div>
+                                <div class="col-xs-6 col-md-4">
+                                <a href="#" class="avatar"><img class="img-circle" src="{% static "images/avatar.jpg" %}" alt="avatar"><br><span class="oe ac">BENTZ</span></a>
+                                </div>
+                                <div class="col-xs-6 col-md-4">
+                                    <a href="#" class="avatar-more ac">查看全部</a>
+                                </div>
+                            </div>
+                          </div>
+
+                        </div>
+                      
+                    </div>  <!-- end of sidebar -->
+            </div>  <!-- end of main-content -->
+            
+    </div>
+    </div>
+    <div class="u-main-footer ac">
+        <span>洛杉矶留学生资讯网&nbsp;版权所有</span>
+    </div>
+    <script src="{% static "js/jquery-1.11.1.min.js" %}"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+    <script src="{% static "js/main.js" %}"></script>
+</body>
+</html>

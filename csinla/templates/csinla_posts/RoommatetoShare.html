@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+{% load static %}
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="ie-stand">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalabe=no">
+    <title>我的帖子</title>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-97624179-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?6784d0adea487eefbe595d28dbb08efb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    <link rel="shortcut icon" href="/static/images/logo1.png">
+
+    <!-- Bootstrap -->
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">  
+    <link href="{% static "css/EditCar.css" %}" rel="stylesheet">
+        <link href="{% static "css/PersonalRent.css" %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static "css/font-awesome.min.css" %}"> 
+    <link rel="stylesheet" type="text/css" href="{% static "css/awesome-bootstrap-checkbox2.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/flatpickr.min.css" %}">
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" charset="utf-8" src="../umeditor.config.js"></script>  
+  
+    <!--使用版-->  
+    <!--<script type="text/javascript" charset="utf-8" src="../umeditor.all.js"></script>-->  
+  
+    <!--开发版-->  
+    <script type="text/javascript" charset="utf-8" src="{% static "editor_api.js" %}"></script>  
+    <script type="text/javascript" src="../lang/zh-cn/zh-cn.js"></script> 
+   
+  </head>
+  <body>
+  <!-- 顶部部分开始 -->
+<div class="u-container">
+{% if request.user.is_authenticated %}
+    <div class="u-header clearfix">
+        <div class="logo fl">
+            <a href="/"><img class="img-responsive" src="{% static "images/01-home-logo.png" %}" alt="logo"></a>
+        </div>
+        <div class="login-status fr">
+            <div class="avatar-wrapper">
+              <a href="{% url "accounts:myPosts" %}">
+                <img src={{ user.avatar_url }} class="img-circle avatar" alt="Cinque Terre">
+              </a>
+            </div>
+            <div class="dropdown" style="display:inline-block;">
+                <button class="header-btn dropdown-toggle" type="button" data-toggle="dropdown">
+                    <i class="fa fa-cog" aria-hidden="true"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li><a href="{% url 'accounts:accountSecurity' %}">账户安全</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <!-- <li><a href="#">人工申述</a></li>
+                    <li role="presentation" class="divider"></li> -->
+                    <li><a href="{% url 'accounts:myhelpcenter' %}">联系我们</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="{% url 'accounts:logout' %}">登出</a></li>
+                </ul>
+            </div>
+            <div class="dropdown" style="display:inline-block;">
+                <a href="{% url "accounts:myPosts" %}" class="header-btn dropdown-toggle">
+                    <i class="fa fa-bell-o" aria-hidden="true"></i>
+                    {% if user.unread_message %}<span class="redpoint"><i>{{ user.unread_message }} </i></span>{% endif %}
+                </a>
+               <!--  <ul class="dropdown-menu">
+                    <li><a href="#">我的私信<span class="redpoint"><i>2</i></span></a>
+                    </li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="#">我的回复<span class="redpoint"><i>99+</i></span></a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="#">查看@提到我<span class="redpoint"><i>12</i></span></a></li>
+                </ul> -->
+            </div>
+            <div class="new-post-wrapper fr">
+                <a class="new-post" href="/posts/add">
+                    <span>发表新帖</span>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="header w">
+        <a href="#" class="mobile-nav-btn pull-right"><i class="fa fa-bars" aria-hidden="true"></i></a>
+        <a href="/" class="home-link">
+            <div class="logo">
+                <img src="{% static "images/home-logo.png" %}" alt="" class="img-responsive">
+            </div>
+        </a>
+    <div class="user">
+            <a href="#" class="remove-nav pull-right"><img src="{% static "./images/times.png" %}" alt="" class="img-responsive"></a>
+            <a href="/" class="home-nav-item special">
+                <span>首页</span>
+            </a>
+            <a href="/posts/add" class="home-nav-item special">
+                <span>发表新帖</span>
+            <a href="{% url "accounts:myPosts" %}" class="home-nav-item special">
+                <span>个人中心</span>
+            </a>
+         <!--    <a href="{% url "accounts:accountSecurity" %}" class="home-nav-item has-sub-item">
+                <span>设置</span>
+            </a> -->
+            
+            <a href="{% url 'accounts:logout' %}"  class="home-nav-item special">
+                <span>Sign out</span></a>
+            
+            </a>
+        </div>
+    {% else %}
+    <div class="u-header clearfix">
+        <div class="logo fl">
+            <a href="/"><img class="img-responsive" src="{% static "images/01-home-logo.png" %}" alt="logo"></a>
+        </div>
+        <div class="user" style="margin-top:18px;text-align:right;">
+            <a href="{% url 'accounts:login' %}" class="login home-nav-item">
+                <span>Log in</span>
+                <img src="{% static "images/home-login.png" %}" alt="">
+            </a>
+            <a href="{% url 'accounts:register' %}" class="register home-nav-item" style="margin-left:10px;">
+                <span>Register</span>
+                <img src="{% static "images/home-register.png" %}" alt="">
+            </a>
+
+        </div>
+
+    </div>
+    <div class="header w">
+        <a href="#" class="mobile-nav-btn pull-right"><i class="fa fa-bars" aria-hidden="true"></i></a>
+        <a href="/" class="home-link">
+            <div class="logo">
+                <img src="{% static "images/home-logo.png" %}" alt="" class="img-responsive">
+            </div>
+        </a>
+        
+        <div class="user">
+            <a href="#" class="remove-nav pull-right"><img src="{% static "./images/times.png" %}" alt="" class="img-responsive"></a>
+            <a href="/" class="home-nav-item special">
+                <span>首页</span>
+            </a>
+            
+            
+            <a href="{% url 'accounts:login' %}" class="login home-nav-item">
+                <span>Log in</span>
+                <img src="{% static "images/home-login.png" %}" alt="">
+            </a>
+            <a href="{% url 'accounts:register' %}" class="register home-nav-item">
+                <span>Register</span>
+                <img src="{% static "images/home-register.png" %}" alt="">
+            </a>
+            <!-- <a href="#" class="home-nav-item special">
+                <span>Live and Love</span>
+            </a> -->
+        </div>
+
+       {% endif %}
+    </div> 
+     <!-- 顶部部分结束 -->
+     <!-- 个人中心内容开始 -->
+   
+     <div class="content" style="border-radius:10px;background-color:#fff;">
+     <!-- <input type="image" src="{% static "images/back-icon1.png" %}" onclick="window.history.back();" style="width:25px; height: 25px;margin:10px;position:absolute;"> -->
+     <div id="pageurl"><a href="/">首页</a> <img src="{% static "images/url-lef.png" %}"> <a href="/posts/add">发帖中心</a> <img src="{% static "images/url-lef.png" %}">  <a href="/posts/add/shared">找室友合租</a></div>
+          <div class="content-title">
+          找室友合租
+          </div>
+         <div class="edit-content">
+            <form class="rentForm" method="post" action="" enctype="multipart/form-data">
+              {% csrf_token %}
+           <div class="edit-content-form radio" >
+               
+               标题:
+               
+                  <input type="text" class="" style="width:35%;margin-left:44px;" name="title" {% if sharedForm.title.value %} value={{ sharedForm.title.value }} {% endif %}><span style="color:red">*</span>{{ sharedForm.title.errors }}
+               
+            </div>
+            <!-- <div class="edit-content-form radio">
+               房屋编号：
+              <input type="text" class="" style="width:35%;margin-left:0px;" name="house_id" {% if sharedForm.house_id.value %} value={{ sharedForm.house_id.value }} {% endif %}><span style="color:red">*</span>{{ sharedForm.house_id.errors }}
+            </div> -->
+           <div class="edit-content-form radio" name="mask">
+               
+               价格:
+               <input onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')" style="width:35%;margin-left:44px;" placeholder="" name="fee" {% if sharedForm.fee.value %} value={{ sharedForm.fee.value }} {% endif %}><span style="color:red">*</span>{{ sharedForm.fee.errors }}
+          <!--  <input name=txt1 onchange="if(/\D/.test(this.value)){alert('只能输入数字');this.value='';}"> -->
+                  
+               
+            </div>
+           <div class="edit-content-form radio">
+               租期:
+                   <input type="text" id="birthday" style="margin-left:44px"  placeholder="" name="rent_begins" {% if sharedForm.rent_begins.value %} value={{ sharedForm.rent_begins.value }} {% endif %} >{{ sharedForm.rent_begins.errors }}
+                  ——                
+                  <input type="text" id="birthday1" placeholder="" name="rent_ends" {% if sharedForm.rent_ends.value %} value={{ sharedForm.rent_ends.value }} {% endif %}><span style="color:red">*</span>{{ sharedForm.rent_ends.errors }}
+            </div>
+            
+                 
+            
+            <div class="edit-content-form radio">
+               整套房型:&nbsp;&nbsp;
+                  <input type="radio" id="house1" class="" name="house_type" value="1b1b" {% if sharedForm.house_type.value == "1b1b" %} checked {% endif %}>
+                  <label for="house1" class="form-con">1b1b</label>
+                
+                  <input type="radio" id="house2" name="house_type" value="2b1b" {% if sharedForm.house_type.value == "2b1b" %} checked {% endif %}>
+                  <label for="house2" class="form-con">2b1b</label>
+               
+                  <input type="radio" id="house3" name="house_type" value="2b2b" {% if sharedForm.house_type.value == "2b2b" %} checked {% endif %}> 
+                  <label for="house3" class="form-con">2b2b</label>
+                  
+                  <input type="radio" id="house4" name="house_type" value="3b2b" {% if sharedForm.house_type.value == "3b2b" %} checked {% endif %}> 
+                  <label for="house4" class="form-con">3b2b</label>
+                
+                  <input type="radio" id="house5" name="house_type" value="other" {% if sharedForm.house_type.value == "other" %} checked {% endif %}> 
+                  <label for="house5" class="form-con">other</label>
+                   <input type="text" name="house_type_other" id="house5txt" style="display:none;" {% if sharedForm.house_type.value == "other" %} value={{ sharedForm.house_type_other.value }} {% endif %}>
+                
+               {{ sharedForm.house_type.errors }}
+            </div>
+            <div class="edit-content-form radio">
+               出租其中:&nbsp;&nbsp; 
+                
+                 <input type="radio" class="" id="type1" name="room_type" value="livingroom" {% if sharedForm.room_type.value == "livingroom" %} checked {% endif %}>
+                  <label for="type1" class="form-con">livingroom</label>
+                
+                  <input type="radio" id="type2" name="room_type" value="1b" {% if sharedForm.room_type.value == "1b" %} checked {% endif %}>
+                  <label for="type2" class="form-con">1b&nbsp;</label>
+                 
+                  <input type="radio" id="type3" name="room_type" value="1b1b" {% if sharedForm.room_type.value == "1b1b" %} checked {% endif %}> 
+                  <label for="type3" class="form-con">1b1b</label>
+                 
+                  <input type="radio" id="type4" name="room_type" value="other" {% if sharedForm.room_type.value == "other" %} checked {% endif %}> 
+                  <label for="type4" class="form-con">other</label>
+                  <input type="text" name="room_type_other" id="type4txt" style="display:none;" {% if sharedForm.room_type.value == "other" %} value={{ sharedForm.room_type_other.value }} {% endif %}>
+            </div>
+{{ sharedForm.room_type.errors }}
+            <div class="edit-content-form radio">
+               室友:&nbsp;&nbsp;
+                  <input type="radio" class="" id="friend1" name="gender_require" style="margin-left:32px;" value="male_only"{% if sharedForm.gender_require.value == "male_only" %} checked {% endif %}>
+                  <label for="friend1" class="form-con" style="margin-left:32px;">限男生</label>
+                
+                  <input type="radio" id="friend2" name="gender_require" value="female_only"{% if sharedForm.gender_require.value == "female_only" %} checked {% endif %}>
+                  <label for="friend2" class="form-con">限女生</label>
+
+                  <input type="radio" id="friend2" name="gender_require" value="no_requirement"{% if sharedForm.gender_require.value == "gender_require" %} checked {% endif %}>
+                  <label for="friend2" class="form-con">不限制</label>
+               {{ sharedForm.gender_require.errors }}
+            </div>
+             <div class="edit-content-form radio">
+               宠物:&nbsp;&nbsp;
+                   <input type="radio" class="" id="pets1" name="pet" value="允许" {% if sharedForm.pet.value == "允许" %} checked {% endif %}>
+                  <label for="pets1" class="form-con" style="margin-left:31px;">允许</label>
+                 
+                  <input type="radio" id="pets2" name="pet" value="不允许" {% if sharedForm.pet.value == "不允许" %} checked {% endif %}>
+                  <label for="pets2" class="form-con">不允许</label>
+                
+                {{ sharedForm.pet.errors }}
+            </div>
+             <div class="edit-content-form radio" >
+                 抽烟:&nbsp;&nbsp;
+                
+                  <input type="radio" class="" id="smoke1" name="smoke" value="允许" {% if sharedForm.smoke.value == "允许" %} checked {% endif %}>
+                  <label for="smoke1" class="form-con" style="margin-left:31px;">允许</label>
+                 
+                  <input type="radio" id="smoke2" name="smoke" value="不允许" {% if sharedForm.smoke.value == "不允许" %} checked {% endif %}>
+                  <label for="smoke2" class="form-con">不允许</label>
+                
+                
+            </div>
+            
+            <div class="edit-content-form  radio">
+               车位:&nbsp;&nbsp;
+               
+                  <input type="radio" class="" id="car1" name="parking" value="有" {% if sharedForm.parking.value == "有" %} checked {% endif %}>
+                  <label for="car1" class="form-con"  style="margin-left:31px;">有</label>
+                
+                  <input type="radio" name="parking" id="car2" value="无" {% if sharedForm.parking.value == "无" %} checked {% endif %}>
+                  <label for="car2" class="form-con">无</label>
+                
+                  <input type="radio" name="parking"id="car3" value="street parking" {% if sharedForm.parking.value == "street parking" %} checked {% endif %}>
+                  <label for="car3" class="form-con">street parking</label>
+                 
+            </div>
+            <div class="edit-content-form radio" >
+               开车至学校时间: 
+               <select id='hour_start_select' style="color:#000;width:25%;margin-left:35px;">
+               <option value="a" selected>请选择1</option>
+
+               </select>
+                 <select id="hour_end_select" style="color:#000;width:25%;">
+                 <option value="a" selected>请选择1</option>
+                 </select><span style="color:red">*</span>{{ rentForm.transit_time_toschool.errors }}
+                  <!-- <input type="text" name="driving_time_toschool" style="width:35%;margin-left:10px;" {% if sharedForm.driving_time_toschool.value %} value={{ sharedForm.driving_time_toschool.value }} {% endif %}>小时 {{ sharedForm.driving_time_toschool.errors }} -->
+                
+            </div>
+            <div class="edit-content-form radio" >
+               公交至学校时间:
+              <select id='hour_start_select1' style="color:#000;width:25%;margin-left:35px;">
+              <option value="a" selected>请选择1</option>
+              </select>
+                 <select id="hour_end_select1" style="color:#000;width:25%;">
+                 <option value="a" selected>请选择1</option>
+                 </select><span style="color:red">*</span>{{ rentForm.transit_time_toschool.errors }}
+                 <!--  <input type="text" name="transit_time_toschool" style="width:35%;margin-left:10px;" {% if sharedForm.transit_time_toschool.value %} value={{ sharedForm.transit_time_toschool.value }} {% endif %}>小时 {{ sharedForm.transit_time_toschool.errors }} -->
+                
+            </div>
+            <div class="edit-content-form radio" >
+               地址:
+                  <input type="text" name="address" style="width:35%;margin-left:89px;"  {% if sharedForm.address.value %} value={{ sharedForm.address.value }} {% endif %}><span style="color:red">*</span>{{ sharedForm.address.errors }}
+                
+            </div>
+            <div class="edit-content-form radio" >
+               联系人:
+                  <input type="text" name="contactor" style="width:35%;margin-left:73px;"  {% if sharedForm.contactor.value %} value={{ sharedForm.contactor.value }} {% endif %}><span style="color:red">*</span>{{ sharedForm.contactor.errors }}
+                
+            </div>
+            <!--<div class="edit-content-form radio" >
+               联系方式:
+                  <input type="text" name="contact_way" style="width:35%;margin-left:55px;"  {% if sharedForm.contact_way.value %} value={{ sharedForm.contact_way.value }} {% endif %}>{{ sharedForm.contact_way.errors }}
+                
+            </div>-->
+            <div class="edit-content-form radio" >
+               联系电话:
+                  <input type="text" name="phone" style="width:35%;margin-left:55px;"  {% if sharedForm.phone.value %} value={{ sharedForm.phone.value }} {% else %} {% if user.is_phone %} value={{ user.phone }} {% endif %}{% endif %}><span style="color:red">*</span>{{ sharedForm.phone.errors }}
+                {% if not user.is_phone %}<a href="{% url "accounts:accountSecurity" %}" class="set">设置发帖时自动填写</a>{% endif %}
+            </div>
+            <div class="edit-content-form radio" >
+               联系微信:
+                  <input type="text" name="weixin" style="width:35%;margin-left:55px;"  {% if sharedForm.weixin.value %} value={{ sharedForm.weixin.value }} {% else %} {% if user.is_weixin %} value={{ user.weixin }} {% endif %} {% endif %}><span style="color:red">*</span>{{ sharedForm.weixin.errors }}
+                {% if not user.is_weixin %}<a href="{% url "accounts:accountSecurity" %}" class="set">设置发帖时自动填写</a>{% endif %}
+            </div>
+             <div class="edit-content-form radio" >
+               详细内容:<br>
+                <textarea name="content" id="myEditor" style="width:35%;height:280px;margin-left:129px;margin-top:-20px;">{% if sharedForm.content.value %} {{ sharedForm.content.value }} {% endif %}</textarea> {{ rentForm.content.errors }}
+                <!--{{ rentForm.content }}-->
+            </div>
+            <div class="edit-content-form photo" style="clear:both;border:1px solid #ccc;">
+                <label class="checkbox" style="margin-top:-5px;text-align:left;width:90%;font-size:14px;">预览照片：</label>
+                <ul id="dd" class="photo-img" style="width:90%;margin:0 auto;"></ul>
+                
+                <label for="avatar-selector" class="avatar-btn ac">
+                   
+                   <input type="file" class="form-control" name="image" id="avatar-selector" accept="image/*"  multiple="multiple" style="padding: 0px;" placeholder="&nbsp;上传文件">
+                   <div style="color:#000;border:1px solid #CCC;border-radius:5px;background-color:#FFF; width:90%;margin: 0 auto; height:30px;font-size:14px;text-align:center;line-height:30px;">本地上传</div> 
+
+                </label>
+    
+    
+        
+  
+                   <input type="button" value="网络上传" style="color:#000;border:1px solid #ccc;border-radius:5px;background-color:#FFF; width:90%;height:30px;font-size:14px;margin-top:5px;">
+                   <div id="dd1" style="margin-top:5px;text-align:center;width:90%;font-size:14px;;margin-bottom:5px;">
+                   
+                   </div>
+            </div>
+            <div class="btu" style="width:100%;text-align:center;clear:both;padding-top:50px;">
+              <button type="submit" class="save-form">提交</button><a href="{% url "posts:roommate" %}"><button type="button" class="cancel-form">取消</button></a>
+              </div>
+            </form>
+            <form class="rentForm" method="post" action="" enctype="multipart/form-data">
+              {% csrf_token %}
+             <div class="m-edit-content-form">
+                <label class="checkbox check-title" style="margin-top:-5px;">标题：</label>
+               <input type="text" name="title" style="width:40%;margin-left:33%;margin-top:-35px;height:30px;position:absolute;" {% if sharedForm.rent_ends.value %} value={{ sharedForm.title.value }} {% endif %}> {{ sharedForm.title.errors }}
+            </div>
+
+             <!-- <div class="m-edit-content-form">
+                <label class="checkbox check-title" style="margin-top:-5px;">房屋编号：</label>
+               <input type="text" name="house_id" style="width:40%;margin-left:33%;margin-top:-35px;height:30px;position:absolute;" {% if sharedForm.house_id.value %} value={{ sharedForm.house_id.value }} {% endif %}> {{ sharedForm.house_id.errors }}
+            </div> -->
+          
+                
+            <div class="m-edit-content-form" >
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;">价格：</label>
+                
+                <input type="text" name="fee" style="width:40%;margin-left:33%;margin-top:-35px;height:30px;position:absolute;" {% if sharedForm.fee.value %} value={{ sharedForm.fee.value }} {% endif %}> {{ sharedForm.fee.errors }}
+                
+                
+                
+            </div>
+            <div class="m-edit-content-form">
+             
+               <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;">租期：</label>
+                
+               
+                <input type="text" id="birthday2" placeholder=""  name="rent_begins" {% if sharedForm.rent_begins.value %} value={{ sharedForm.rent_begins.value }} {% endif %} >{{ sharedForm.rent_begins.errors }}
+                  ——                
+                <input type="text" id="birthday3" placeholder="" name="rent_ends" {% if sharedForm.rent_ends.value %} value={{ sharedForm.rent_ends.value }} {% endif %}>{{ sharedForm.rent_ends.errors }}
+        
+                
+            </div>
+            
+                 
+            
+            <div class="m-edit-content-form">
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;">整套房型:</label>
+                 <select name="house_type" id="mhouse" onchange="selectother()">
+                  <option {% if sharedForm.house_type.value == "1b1b" %} selected {% endif %}>1b1b</option>
+                  <option {% if sharedForm.house_type.value == "2b1b" %} selected {% endif %}>2b1b</option>
+                  <option {% if sharedForm.house_type.value == "2b2b" %} selected {% endif %}>2b2b</option>
+                  <option {% if sharedForm.house_type.value == "3b2b" %} selected {% endif %}>3b2b</option>
+                  <option {% if sharedForm.house_type.value == "other" %} selected {% endif %}>other</option>
+                </select>{{ sharedForm.house_type.errors }}
+                <input type="text" name="house_type_other" id="mhousetxt" style="width:40%;margin-left:33%;margin-top:-35px;height:30px;position:absolute;display:none;" {% if sharedForm.house_type.value == "other" %} value={{ sharedForm.house_type_other.value }} {% endif %}>  
+               
+            </div>
+            <div class="m-edit-content-form" >
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;">出租其中：</label>
+                
+                <select name="room_type" id="mtype" onchange="selectother()">
+                  <option {% if sharedForm.room_type.value == "livingroom" %} selected {% endif %}>livingroom</option>
+                  <option {% if sharedForm.room_type.value == "1b" %} selected {% endif %}>1b</option>
+                  <option {% if sharedForm.room_type.value == "1b1b" %} selected {% endif %}>1b1b</option>
+                  <option {% if sharedForm.room_type.value == "other" %} selected {% endif %}>other</option>
+                </select>{{ sharedForm.room_type.errors }}
+                 <input type="text" name="room_type_other" id="mtypetxt" style="width:40%;margin-left:33%;margin-top:-35px;height:30px;position:absolute;display:none;" {% if sharedForm.room_type.value == "other" %} value={{ sharedForm.room_type_other.value }} {% endif %}>   
+            </div>
+            <div class="m-edit-content-form" >
+                <label class="checkbox check-title" style="font-family:"微软雅黑"">室友:</label>
+                
+                <select class="form-select" name="gender_require">
+                  <option {% if sharedForm.gender_require.value == "male_only" %} selected {% endif %}>限男生</option>
+                  <option {% if sharedForm.gender_require.value == "female_only" %} selected {% endif %}>限女生</option>
+                  <option {% if sharedForm.gender_require.value == "no_requirement" %} selected {% endif %}>不限制</option>
+                </select>{{ sharedForm.gender_require.errors }}
+                
+                
+            </div>
+           
+            <div class="m-edit-content-form" >
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;">宠物:</label>
+                
+                <select class="form-select" name="pet">
+                  <option {% if sharedForm.pet.value == "允许" %} selected {% endif %}>允许</option>
+                  <option {% if sharedForm.pet.value == "不允许" %} selected {% endif %}>不允许</option>
+                 
+                </select>{{ sharedForm.pet.errors }}
+                
+                
+            </div>
+            <div class="m-edit-content-form" >
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;">抽烟：</label>
+               
+                <select class="form-select" name="smoke">
+                  <option {% if sharedForm.smoke.value == "允许" %} selected {% endif %}>允许</option>
+                  <option {% if sharedForm.smoke.value == "不允许" %} selected {% endif %}>不允许</option>
+                 
+                </select>{{ sharedForm.smoke.errors }}
+                
+            </div>
+            
+            <div class="m-edit-content-form" >
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;">车位：</label>
+               
+                <select class="form-select" name="parking">
+                  <option {% if sharedForm.parking.value == "有" %} selected {% endif %}>有</option>
+                  <option {% if sharedForm.parking.value == "无" %} selected {% endif %}>无</option>
+                  <option {% if sharedForm.parking.value == "street parking" %} selected {% endif %}>street parking</option>
+                 
+                </select>{{ sharedForm.parking.errors }}
+                
+            </div>
+            <div class="m-edit-content-form" >
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;">开车至学校时间：</label>
+               <select id='mhour_start_select' style="color:#000;width:70px;margin-left:150px;">
+               <option value="a" selected>请选择1</option>
+               </select>
+                 <select id="mhour_end_select" style="color:#000;width:70px;position:none;margin-left:220px">
+                 <option value="a" selected>请选择1</option>
+                 </select>
+                 <!-- <input type="text" name="driving_time_toschool" style="width:40%;margin-left:150px;margin-top:-35px;height:30px;position:absolute;" {% if sharedForm.driving_time_toschool.value %} value={{ sharedForm.driving_time_toschool.value }} {% endif %}> {{ sharedForm.driving_time_toschool.errors }} -->
+                  
+            </div>
+            <div class="m-edit-content-form">
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:16px;text-align:center;">公交至学校时间：</label>
+               <select id='mhour_start_select1' style="color:#000;width:70px;margin-left:150px;">
+               <option value="a" selected>请选择1</option>
+               </select>
+                 <select id="mhour_end_select1" style="color:#000;width:70px;position:none;margin-left:220px">
+                 <option value="a" selected>请选择1</option>
+                 </select> <!-- <input type="text" name="transit_time_toschool" style="width:40%;margin-left:150px;margin-top:-35px;height:30px;position:absolute;" {% if sharedForm.transit_time_toschool.value %} value={{ sharedForm.transit_time_toschool.value }} {% endif %}> {{ sharedForm.transit_time_toschool.errors }} -->
+                  
+            </div>
+            <div class="m-edit-content-form" >
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;">地址：</label>
+               
+                 <input type="text" name="address" style="width:40%;margin-left:150px;margin-top:-35px;height:30px;position:absolute;" {% if sharedForm.address.value %} value={{ sharedForm.address.value }} {% endif %}> {{ sharedForm.address.errors }}
+                  
+            </div>
+      <div class="m-edit-content-form" >
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;">联系人：</label>
+               
+                 <input type="text" name="contactor" style="width:40%;margin-left:150px;margin-top:-35px;height:30px;position:absolute;" {% if sharedForm.contactor.value %} value={{ sharedForm.contactor.value }} {% endif %}> {{ sharedForm.contactor.errors }}
+                  
+            </div>
+           
+            <!--<div class="m-edit-content-form" >
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;">联系方式：</label>
+               
+                 <input type="text" name="contact_way" style="width:40%;margin-left:150px;margin-top:-35px;height:30px;position:absolute;" {% if sharedForm.contact_way.value %} value={{ sharedForm.contact_way.value }} {% endif %}> {{ sharedForm.contact_way.errors }}
+                  
+            </div>-->
+            <div class="m-edit-content-form" >
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;">联系电话：</label>
+               
+                 <input type="text" name="phone" style="width:40%;margin-left:150px;margin-top:-35px;height:30px;position:absolute;" {% if sharedForm.phone.value %} value={{ sharedForm.phone.value }} {% else %} value={{ user.phone }} {% endif %}> {{ sharedForm.phone.errors }}
+                  
+            </div>
+            <div class="m-edit-content-form" >
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;">联系微信：</label>
+               
+                 <input type="text" name="weixin" style="width:40%;margin-left:150px;margin-top:-35px;height:30px;position:absolute;" {% if sharedForm.weixin.value %} value={{ sharedForm.weixin.value }} {% else %} value={{ user.weixin }}  {% endif %}> {{ sharedForm.weixin.errors }}
+                  
+            </div>
+            <div class="m-edit-content-form" >
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;">详细内容:</label>
+                <br>
+                <textarea name="content" id="myEditor" style="width:40%;height:280px;margin-left:150px;margin-top:-45px;">
+{% if sharedForm.content.value %} {{ sharedForm.content.value }} {% endif %}
+                </textarea>
+            </div>
+            <div class="m-edit-content-form photo" style="clear:both;border:1px solid #ccc;width:80%;">
+                <label class="checkbox" style="margin-top:-5px;text-align:left;width:90%;font-size:14px;margin-left:0px;">预览照片：</label><br><br>
+               
+                <ul id="dd3" class="photo-img" style="width:90%;margin:0 auto;">
+                  
+                </ul>
+               <label for="avatar-selector1" class="avatar-btn ac">
+                   
+                   <input type="file" class="form-control" name="image" id="avatar-selector1" accept="image/*" onchange="javascript:setImagePreviews();"  multiple="multiple" style="padding: 0px;" placeholder="&nbsp;上传文件">
+                   <div style="color:#000;border:1px solid #CCC;border-radius:5px;background-color:#FFF; width:90%;margin: 0 auto; height:30px;font-size:14px;text-align:center;line-height:30px;">本地上传</div> 
+
+                </label>
+                                       <input type="button" value="网络上传" style="color:#000;border:1px solid #ccc;border-radius:5px;background-color:#FFF; width:90%;margin-top:-100px;height:30px;font-size:14px;margin-top:5px;">
+                                       <div id="upnumber" style="margin-top:15px;text-align:center;width:90%;font-size:14px;;margin-bottom:20px;"><!-- 还可以上传0张 --></div>
+            </div>
+            
+             <div class="m-btu" style="width:100%;text-align:center;clear:both;padding-top:20px;">
+            <button type="submit" class="save-form">提交</button><a href="{% url "posts:roommate" %}"><button type="button" class="cancel-form">取消</button></a>
+            </div>
+	</form>
+</div></div>
+
+          
+         
+     
+     
+     
+     
+     <div style="margin-top:50px;"></div>
+     
+     
+
+       
+    <script src="{% static "js/jquery-1.4.1.js" %}"></script>
+    
+    <script src="{% static "js/File.js" %}"></script>   
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{% static "js/jquery.min.js" %}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+
+   
+    <script src="{% static "js/flatpickr.min.js" %}"></script>
+    <script src="{% static "js/main.js" %}"></script>
+    <script src="{% static "js/menu.js" %}"></script>
+    <script src="{% static "js/qtime.js" %}"></script>
+    <script>
+var params = {
+  fileInput: $("#avatar-selector").get(0),
+  //dragDrop: $("#fileDragArea").get(0),
+  // upButton: $("#fileSubmit").get(0),
+  // url: $("#uploadForm").attr("action"),
+  filter: function(files) {
+    var arrFiles = [];
+    for (var i = 0, file; file = files[i]; i++) {
+      if (file.type.indexOf("image") == 0 && i<9) {
+        // if (file.size >= 3512000) {
+        //   alert('您这张"'+ file.name +'"图片大小过大，应小于500k');  
+        // } else {
+          arrFiles.push(file);  
+        // }     
+      } else {
+        // alert('文件"' + file.name + '"不是图片。');  
+      }
+    }
+    return arrFiles;
+  },
+  onSelect: function(files) {
+    var html = '', i = 0;
+    $("#dd").html('<div class="upload_loading"></div>');
+    var funAppendImage = function() {
+      file = files[i];
+      if (file&&i<9) {
+        var reader = new FileReader()
+        reader.onload = function(e) {
+          html = html + '<li id="uploadList_'+ i +'" class="upload_append_list">'+ 
+            '<a href="javascript:" class="upload_delete" title="删除" data-index="'+ i +'"><img src="/static/images/imgdele.png" style="height:16px"></a><br />' +
+            '<img id="uploadImage_' + i + '" src="' + e.target.result + '" class="upload_image" />'+ 
+             
+          '</li>';
+          
+          i++;
+          funAppendImage();
+
+        }
+       
+        reader.readAsDataURL(file);
+      } else {
+        $("#dd").html(html);
+        var num=9-i;
+        $("#dd1").html("还可以上传"+num+"张");
+
+        if (html) {
+          //删除方法
+          $(".upload_delete").click(function() {
+            ZXXFILE.funDeleteFile(files[parseInt($(this).attr("data-index"))]);
+            return false; 
+          });
+          //提交按钮显示
+          //$("#fileSubmit").show();  
+        } else {
+          //提交按钮隐藏
+         // $("#fileSubmit").hide();  
+        }
+      }
+    };
+    funAppendImage();   
+  },
+  onDelete: function(file) {
+    $("#uploadList_" + file.index).fadeOut();
+  },
+  onDragOver: function() {
+    $(this).addClass("upload_drag_hover");
+  },
+  onDragLeave: function() {
+    $(this).removeClass("upload_drag_hover");
+  },
+  onProgress: function(file, loaded, total) {
+    // var eleProgress = $("#uploadProgress_" + file.index), percent = (loaded / total * 100).toFixed(2) + '%';
+    // eleProgress.show().html(percent);
+  },
+  onSuccess: function(file, response) {
+   // $("#uploadInf").append("<p>上传成功，图片地址是：" + response + "</p>");
+  },
+  onFailure: function(file) {
+   // $("#uploadInf").append("<p>图片" + file.name + "上传失败！</p>");  
+   // $("#uploadImage_" + file.index).css("opacity", 0.2);
+  },
+  //onComplete: function() {
+    //提交按钮隐藏
+    //$("#fileSubmit").hide();
+    //file控件value置空
+   // $("#fileImage").val("");
+    //$("#uploadInf").append("<p>当前图片全部上传完毕，可继续添加上传。</p>");
+  //}
+};
+ZXXFILE = $.extend(ZXXFILE, params);
+ZXXFILE.init();
+</script>
+<script type="text/javascript">
+
+    //下面用于多图片上传预览功能
+
+    function setImagePreviews(avalue) {
+
+        var docObj = document.getElementById("avatar-selector1");
+
+        var dd3 = document.getElementById("dd3");
+
+        dd3.innerHTML = "";
+
+        var fileList = docObj.files;
+
+        for (var i = 0; i < 9; i++) {            
+
+
+
+            dd3.innerHTML += "<li style='float:left;margin-top:30px' > <img id='img" + i + "'  /> </li>";
+
+            var imgObjPreview = document.getElementById("img"+i); 
+            if(i<8){
+            var nu=9-i;
+            document.getElementById("upnumber").innerHTML="还可以上传"+nu+"张";}
+            else{
+              var nu=8-i;
+            document.getElementById("upnumber").innerHTML="还可以上传"+nu+"张";
+          }
+            
+            
+
+            if (docObj.files && docObj.files[i]) {
+
+                //火狐下，直接设img属性
+
+                imgObjPreview.style.display = 'block';
+
+                imgObjPreview.style.width = '100%';
+
+                imgObjPreview.style.height = '100%';
+
+                //imgObjPreview.src = docObj.files[0].getAsDataURL();
+
+                //火狐7以上版本不能用上面的getAsDataURL()方式获取，需要一下方式
+
+                imgObjPreview.src = window.URL.createObjectURL(docObj.files[i]);
+
+            }
+
+            else {
+
+                //IE下，使用滤镜
+
+                docObj.select();
+
+                var imgSrc = document.selection.createRange().text;
+
+                alert(imgSrc)
+
+                var localImagId = document.getElementById("img" + i);
+
+                //必须设置初始大小
+
+                localImagId.style.width = "100%";
+
+                localImagId.style.height = "100%";
+
+                //图片异常的捕捉，防止用户修改后缀来伪造图片
+
+                try {
+
+                    localImagId.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+
+                    localImagId.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;
+
+                }
+
+                catch (e) {
+
+                    alert("您上传的图片格式不正确，请重新选择!");
+
+                    return false;
+
+                }
+
+                imgObjPreview.style.display = 'none';
+
+                document.selection.empty();
+
+
+            }
+
+        }  
+
+
+
+        return true;
+
+    }
+
+
+
+</script>
+<script language="javascript">
+     $(function(){
+             var jq_hour_start_select = $('#hour_start_select');
+             var jq_hour_end_select = $('#hour_end_select');
+             var jq_hour_start_select1 = $('#hour_start_select1');
+             var jq_hour_end_select1 = $('#hour_end_select1');
+             //初始化
+             jq_hour_start_select_init();
+             jq_hour_end_select_init();
+             jq_hour_start_select_init1();
+             jq_hour_end_select_init1();
+             
+            
+                 //结束时间初始化
+                 
+                 function jq_hour_end_select_init(){
+                     jq_hour_end_select.empty();
+                     jq_hour_end_select.append($('<option value="" selected>请选择</option>'));
+                     for(var i =1;i<260;i++ ){
+                                 jq_hour_end_select.append($('<option value='+i+'>'+i+'分钟</option>'));
+                     }
+                 }
+                 //开始时间初始化
+                 function jq_hour_start_select_init(){
+                     jq_hour_start_select.empty();
+                     jq_hour_start_select.append($('<option value="" selected>请选择</option>'));
+                     for(var i =0;i<24;i++ ){
+                                 jq_hour_start_select.append($('<option value='+i+'>'+i+'时</option>'));
+                     }
+                 }
+                  function jq_hour_end_select_init1(){
+                     jq_hour_end_select1.empty();
+                     jq_hour_end_select1.append($('<option value="" selected>请选择</option>'));
+                     for(var i =1;i<260;i++ ){
+                                 jq_hour_end_select1.append($('<option value='+i+'>'+i+'分钟</option>'));
+                     }
+                 }
+                 //开始时间初始化
+                 function jq_hour_start_select_init1(){
+                     jq_hour_start_select1.empty();
+                     jq_hour_start_select1.append($('<option value="" selected>请选择</option>'));
+                     for(var i =0;i<24;i++ ){
+                                 jq_hour_start_select1.append($('<option value='+i+'>'+i+'时</option>'));
+                     }
+                 }
+         });
+         
+     </script>
+    <script>
+$(function($) {
+    
+    $('#birthday').flatpickr({
+          
+        });
+    $('#birthday1').flatpickr({
+          
+        });
+    $('#birthday2').flatpickr({
+          
+        });
+    $('#birthday3').flatpickr({
+          
+        });
+});
+</script>
+    <script type="text/javascript">
+   
+    $('#house5').click(function(){
+      $('#house5txt').show();
+    });
+     $('#type4').click(function(){
+      $('#type4txt').show();
+    });
+     function selectother(){
+     var a= $('#mtype option:selected');
+     var b=$('#mhouse option:selected');
+    
+    if (a.val()=="other") {
+      $('#mtypetxt').show();
+      $('#mtype').hide();
+    }
+    if (b.val()=="other") {
+      $('#mhousetxt').show();
+      $('#mhouse').hide();
+    }
+    
+  }
+    </script>
+    
+  
+  </body>
+</html>

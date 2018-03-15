@@ -1,0 +1,104 @@
+@import "common/postbar-component.css";
+
+.u-main-section {
+    min-height: 500px;
+    background-color: #fff;
+    padding: 10px 15px 20px 30px;
+}
+
+.bar-statistics {
+    margin-top: 15px;
+    border-top: 1px solid #ddd;
+    margin-bottom: 25px;
+}
+
+.bar-statistics > span {
+    display: inline-block;
+    padding: 0 20px;
+}
+
+.u-table {
+    font-size: 14px;
+}
+
+.u-table td {
+    max-width: 0;
+}
+
+.u-table tbody td {
+    height: 44px;
+    vertical-align: middle !important;
+}
+
+.u-table div {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.rank-up {
+    color: red;
+}
+
+.rank-down {
+    color: #2fabdc;
+}
+
+.rank-no-change {
+    color: #bfbfbf;
+}
+
+.top-three {
+    position: relative;
+}
+
+.top-three:before {
+    content: "";
+    display: inline-block;
+    width: 25px;
+    height: 22px;
+    border-radius: 4px;
+    position: absolute;
+    left: 50%;
+    margin-left: -10px;
+    background: linear-gradient(to right, #f49e2f 0%, #f94e70 100%);
+    background: -webkit-gradient(linear, 0% 0%, 50% 0%, from(#F49E2F), to(#F94E70));
+}
+
+.one:before {
+    content: '01';
+    color: #fff;
+}
+
+.two:before {
+    content: '02';
+    color: #fff;
+}
+
+.three:before {
+    content: '03';
+    color: #fff;
+}
+
+.rank-num {
+    color: #fff;
+    position: relative;
+}
+
+.rank-num:before {
+    content: url(../images/rank.png);
+    position: absolute;
+    left: 40%;
+}
+
+.rank-num:after {
+    content: attr(data-rank);
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    color: #ffdfb1;
+    font-weight: bolder;
+    font-size: 15px;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #e37d01;
+}

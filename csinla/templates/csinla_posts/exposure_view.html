@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="ie-stand">
+    <link rel="shortcut icon" href="/static/images/logo1.png">
+    <link rel="stylesheet" type="text/css" href="{% static "css/font-awesome.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/awesome-bootstrap-checkbox.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/postbar-items.css" %}">
+
+    <script type="text/javascript" src="../../static/js/house.js"></script>
+    <title>贴吧列表</title>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-97624179-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?6784d0adea487eefbe595d28dbb08efb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    <script type="text/javascript">
+     wx.config({
+   debug: false,  //调式模式，设置为ture后会直接在网页上弹出调试信息，用于排查问题
+   appId: 'wx910b80a91781c9df',
+   timestamp: {{ timestamp }},
+   nonceStr: '{{ nonceStr }}',
+   signature: '{{ signature }}',
+   jsApiList: [  //需要使用的网页服务接口
+       'checkJsApi',  //判断当前客户端版本是否支持指定JS接口
+       'onMenuShareTimeline', //分享给好友
+       'onMenuShareAppMessage', //分享到朋友圈
+       'onMenuShareQQ',  //分享到QQ
+       'onMenuShareWeibo' //分享到微博
+   ]
+ });
+ wx.ready(function () {   //ready函数用于调用API，如果你的网页在加载后就需要自定义分享和回调功能，需要在此调用分享函数。//如果是微信游戏结束后，需要点击按钮触发得到分值后分享，这里就不需要调用API了，可以在按钮上绑定事件直接调用。因此，微信游戏由于大多需要用户先触发获取分值，此处请不要填写如下所示的分享API
+            // 1 判断当前版本是否支持指定 JS 接口，支持批量判断
+                wx.checkJsApi({
+                    jsApiList: [
+                      'onMenuShareAppMessage'
+                    ],
+                    success: function (res) {
+                      //alert(JSON.stringify(res));
+                    }
+                });
+wx.onMenuShareTimeline({  //例如分享到朋友圈的API  
+   title: 'CSinLA.com留学生网站', // 分享标题
+   link: 'http://csinla.com/posts/exposure/view/', // 分享链接
+   imgUrl: 'http://www.csinla.com/media/bg.jpg', // 分享图标
+   success: function () {
+       // 用户确认分享后执行的回调函数
+   },
+   cancel: function () {
+       // 用户取消分享后执行的回调函数
+   }
+});
+wx.onMenuShareAppMessage({
+    title: 'CSinLA.com留学生网站', // 分享标题
+    desc: '洛杉矶留学生最潮最热门话题尽在这里！', // 分享描述
+    link: 'http://csinla.com/posts/exposure/view/', // 分享链接
+    imgUrl: 'http://www.csinla.com/media/bg.jpg', // 分享图标
+    type: '', // 分享类型,music、video或link，不填默认为link
+    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+    success: function () { 
+        // 用户确认分享后执行的回调函数
+    },
+    cancel: function () { 
+        // 用户取消分享后执行的回调函数
+    }
+});
+wx.onMenuShareQQ({
+    title: 'CSinLA.com留学生网站', // 分享标题
+    desc: '洛杉矶留学生最潮最热门话题尽在这里！', // 分享描述
+    link: 'http://csinla.com/posts/exposure/view/', // 分享链接
+    imgUrl: 'http://www.csinla.com/media/bg.jpg', // 分享图标
+    success: function () { 
+       // 用户确认分享后执行的回调函数
+    },
+    cancel: function () { 
+       // 用户取消分享后执行的回调函数
+    }
+});
+}); 
+wx.error(function (res) {
+ alert(res.errMsg);  //打印错误消息。及把 debug:false,设置为debug:ture就可以直接在网页上看到弹出的错误提示
+});
+</script>
+<style type="text/css">
+.nav>li>a:hover, .nav>li>a:focus {
+    text-decoration: none;
+    background-color: #ddd;
+}
+.carousel-inner .active{                                             
+width:800px;height:550px !important;
+margin:0 auto;
+display:table-cell;
+text-align:center;
+vertical-align:middle;
+}
+a:hover{
+    text-decoration: none;
+}
+
+</style>
+</head>
+<body>
+
+<div class="u-container">
+{% if request.user.is_authenticated %}
+    <div class="u-header clearfix">
+        <div class="logo fl">
+            <a href="/"><img class="img-responsive" src="{% static "images/01-home-logo.png" %}" alt="logo"></a>
+        </div>
+        <div class="login-status fr">
+            <div class="avatar-wrapper">
+              <a href="{% url "accounts:myPosts" %}">
+                <img src={{ user.avatar_url }} class="img-circle avatar" alt="Cinque Terre">
+              </a>
+            </div>
+            <div class="dropdown" style="display:inline-block;">
+                <button class="header-btn dropdown-toggle" type="button" data-toggle="dropdown">
+                    <i class="fa fa-cog" aria-hidden="true"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li><a href="{% url 'accounts:accountSecurity' %}">账户安全</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <!-- <li><a href="#">人工申述</a></li>
+                    <li role="presentation" class="divider"></li> -->
+                    <li><a href="{% url 'accounts:myhelpcenter' %}">联系我们</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="{% url 'accounts:logout' %}">登出</a></li>
+                </ul>
+            </div>
+            <div class="dropdown" style="display:inline-block;">
+                <a href="{% url "accounts:myInfo" %}" class="header-btn dropdown-toggle">
+                    <i class="fa fa-bell-o" aria-hidden="true"></i>
+                    {% if user.unread_message %}<span class="redpoint"><i>{{ user.unread_message }} </i></span>{% endif %}
+                </a>
+               <!--  <ul class="dropdown-menu">
+                    <li><a href="#">我的私信<span class="redpoint"><i>2</i></span></a>
+                    </li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="#">我的回复<span class="redpoint"><i>99+</i></span></a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="#">查看@提到我<span class="redpoint"><i>12</i></span></a></li>
+                </ul> -->
+            </div>
+            <div class="new-post-wrapper fr">
+                <a class="new-post" href="/posts/add">
+                    <span>发表新帖</span>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="header w">
+        <a href="#" class="mobile-nav-btn pull-right"><i class="fa fa-bars" aria-hidden="true"></i></a>
+        <a href="/" class="home-link">
+            <div class="logo">
+                <img src="{% static "images/home-logo.png" %}" alt="" class="img-responsive">
+            </div>
+        </a>
+    <div class="user">
+            <a href="#" class="remove-nav pull-right"><img src="{% static "./images/times.png" %}" alt="" class="img-responsive"></a>
+            <a href="/" class="home-nav-item special">
+                <span>首页</span>
+            </a>
+            <a href="/posts/add" class="home-nav-item special">
+                <span>发表新帖</span>
+            <a href="{% url "accounts:myPosts" %}" class="home-nav-item special">
+                <span>个人中心</span>
+            </a>
+         <!--    <a href="{% url "accounts:accountSecurity" %}" class="home-nav-item has-sub-item">
+                <span>设置</span>
+            </a> -->
+            
+            <a href="{% url 'accounts:logout' %}"  class="home-nav-item special">
+                <span>Sign out</span></a>
+            
+            </a>
+        </div>
+    {% else %}
+    <div class="u-header clearfix">
+        <div class="logo fl">
+            <a href="/"><img class="img-responsive" src="{% static "images/01-home-logo.png" %}" alt="logo"></a>
+        </div>
+        <div class="user" style="margin-top:18px;text-align:right;">
+            <a href="{% url 'accounts:login' %}" class="login home-nav-item">
+                <span>Log in</span>
+                <img src="{% static "images/home-login.png" %}" alt="">
+            </a>
+            <a href="{% url 'accounts:register' %}" class="register home-nav-item" style="margin-left:10px;">
+                <span>Register</span>
+                <img src="{% static "images/home-register.png" %}" alt="">
+            </a>
+
+        </div>
+
+    </div>
+    <div class="header w">
+        <a href="#" class="mobile-nav-btn pull-right"><i class="fa fa-bars" aria-hidden="true"></i></a>
+        <a href="/" class="home-link">
+            <div class="logo">
+                <img src="{% static "images/home-logo.png" %}" alt="" class="img-responsive">
+            </div>
+        </a>
+        
+        <div class="user">
+            <a href="#" class="remove-nav pull-right"><img src="{% static "./images/times.png" %}" alt="" class="img-responsive"></a>
+            <a href="/" class="home-nav-item special">
+                <span>首页</span>
+            </a>
+            
+            
+            <a href="{% url 'accounts:login' %}" class="login home-nav-item">
+                <span>Log in</span>
+                <img src="{% static "images/home-login.png" %}" alt="">
+            </a>
+            <a href="{% url 'accounts:register' %}" class="register home-nav-item">
+                <span>Register</span>
+                <img src="{% static "images/home-register.png" %}" alt="">
+            </a>
+            <!-- <a href="#" class="home-nav-item special">
+                <span>Live and Love</span>
+            </a> -->
+        </div>
+
+       {% endif %}
+    </div> 
+
+    <div class="u-main well well-lg mwell">
+        <!--贴吧标题背景-->
+        <h2 class="u-main-title ac">
+            <img src="/static/images/postsbar.png" class="partitle" style="border-top-left-radius:5px;border-top-right-radius:5px" alt="bar-bg">
+            <img src="/static/images/m-postsbar.png" class="m-partitle" style="border-top-left-radius:5px;border-top-right-radius:5px;" alt="bar-bg">
+        </h2>
+        <!--/贴吧标题背景-->
+
+        <!--贴吧标题-->
+        <div class="u-bar-info">
+            <img src="/static/images/friend_1.png" alt="">
+            <script type="text/javascript">
+                function sys_show() {
+                    $(".sys_show_p").toggle();
+                }
+            </script>
+            <span class="u-bar-name" style="color:#353c45">万能的朋友圈{% if user.is_superuser %}<a href="#" onclick="sys_show()" style="color: red;border: 1px solid red;">显示系统用户信息</a>{% endif %}</span>
+            <!-- <div class="u-bar-follow">
+                <a href="#" class="lacs-color-btn" id="follow">+关注此贴吧</a>
+                <div class="hide" id="unfollow">
+                    <a href="#" class="lacs-color-btn2">√已关注</a>
+                    <div class="dropdown" style="display:inline-block;color: #444;">
+                        <button class="header-btn dropdown-toggle" type="button" data-toggle="dropdown">
+                            <i class="fa fa-cog" aria-hidden="true" style="color: #444;"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a href="#">取消关注</a></li>
+                            <li role="presentation" class="divider"></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <span class="u-bar-count">关注：29801</span>
+            <span class="u-bar-count">帖子：9382</span> -->
+            <!-- <div class="u-sign-box fr">
+                <div class="sign fl">签到</div>
+                <div class="sign-info fr">
+                    <p>2016年09月01日</p>
+                    <p>漏签 <i style="color:red;">0</i> 天</p>
+                </div>
+            </div> -->
+        </div>
+        <!--/贴吧标题-->
+
+        <!--导航条-->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:0px;border-top: 1px solid #DBDCE0;border-bottom: 1px solid #DBDCE0;background-image: linear-gradient(to bottom,#EEEFF3 0,#EAEEF1 100%);">
+            <ul class="nav navbar-nav" style="margin:0px">
+                <li class="active"><a href="#" style="color:#353c45;padding:15px 18px">看帖</a></li>
+                <li><a href="/posts/exposure/add" style="color:#353c45;padding:15px 18px">发帖</a></li>
+                <!-- <li><a href="/" style="color:#353c45;padding:15px 18px">返回贴吧</a></li> -->
+                
+              <!--   <li><a href="#">精品</a></li>
+                <li><a href="#">投票</a></li> -->
+            </ul>
+            <!-- <ul class="nav navbar-nav navbar-right">
+                <li><p class="navbar-text">贴吧快速导航</p></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">点击选择贴吧 <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                    </ul>
+                </li>
+            </ul> -->
+            <a href="/" class="m-one back"><img src="/static/images/index_tab_l.png" style="width:7px;display:inline">&nbsp;&nbsp;返回CSinLA.com</a>
+        </div>
+        <!--/导航条-->
+
+        <div class="u-main-content row">
+            <div class="col-md-9 u-main-section" style="padding: 0px;">
+           <!--  <div id="pageurl" style="    position: relative;"><a href="/">首页</a> <img src="{% static "images/url-lef.png" %}"> <a href="/posts/exposure/view/">万能的朋友圈</a></div> -->
+                <table class="u-table table table-hover ac">
+                    <tbody>
+                    {% for exposure in exposure_list.object_list %}
+                        <tr class="bar_table">
+                            <td class="msg">
+                                <a class="msg-box">{{exposure.reply_message_list|length}}</a>
+                            </td>
+                            <td class="title">
+                                <div class="content">
+                                    
+                                    <!-- <span class="good">精品</span> -->
+                                    <a href="/posts/{{exposure.id}}" class="content-link" style="color:#2d64b3;font-size:14px;font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;display: block;width: 100%;">{% if exposure.is_top %}
+                                        <span class="top"></span>
+                                    {% endif %}{{exposure.title}}{% if exposure.is_sys and user.is_superuser %}<p class="sys_show_p" style="display:none"><span style="color: #ff5400;font-size:16px;">（{{exposure.sys_reply_str}}）</span></p>{% endif %}</a>
+                                </div>
+                                <div class="tagBox">
+                                   
+                                    <p>
+                                        <a href="/posts/{{exposure.id}}" style="color:#666;line-height: 22px;font-size:12px;font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;">{{exposure.content}}</a>
+                                        
+                                    </p>
+
+                                </div>
+                                {% if exposure.rentpicture_set.all.count  %}
+                                    <div class="imgBox">
+                                        <div class="u-img-container">
+                                            <!--缩略图-->
+                                            <div class="img-wrapper">
+                                                {% for pic in exposure.rentpicture_set.all %}
+                                                    <img src="{{pic.image.url}}" alt="">
+                                                {% endfor %}
+                                            </div>
+                                            <!--/缩略图-->
+
+                                            <!--大图-->
+                                            <div class="gallery hide">
+                                                <div class="u-panel">
+                                                    <a href="#" class="fl closeBtn">收起</a>
+                                                    <a href="#" class="fr rotateR">向右转</a>
+                                                    <a href="#" class="fr rotateL">向左转</a>
+                                                </div>
+                                                <div class="img-big-wrapper">
+                                                    <div class="to-prev"></div>
+                                                    <div class="to-next"></div>
+                                                    {% for pic in exposure.rentpicture_set.all %}
+                                                        <img src="{{pic.image.url}}" alt="" style="display:none;">
+                                                    {% endfor %}
+                                                    <a href="/posts/{{exposure.id}}" class="btn_default btn_small inpost">进入贴子</a>
+                                                </div>
+
+                                            </div>
+                                            <!--/大图-->
+                                        </div>
+                                    </div>
+
+                                    
+                                {% endif %}
+                            </td>
+                            <td class="time">
+                              <a href="/posts/{{exposure.id}}">
+                                <div class="username pc-user" style="font-size:12px;color:#999;font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;">
+                                    <span>&nbsp;<i class="fa fa-user"></i>&nbsp;{{exposure.author}}</span>
+                                </div>
+                                <div class="info pc-user" style="font-size:12px;color:#999;font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;">
+                                    <span><img src="/static/images/par.png" style="width: 15px;height: 12px;">&nbsp;{{exposure.last_reply.creator}}</span>
+                                </div>
+                              </a>  
+
+                            </td>
+
+                            <td style="width:0px;vertical-align: top !important;padding:39px 0px 8px 0px;">
+                              <a href="/posts/{{exposure.id}}">
+ 
+                               <span style="color:#999">{{exposure.last_reply.create_time|date:'m-d'}}</span>
+                              </a>
+
+                            </td>
+
+                        </tr>
+                    {% endfor %}
+                        {% for exposure in exposure_list.object_list %}
+                        <!-- <tr class="bar_mtable" style="">
+
+                       
+                           <td colspan="3"> -->
+                           <div class="bar_mtable" style="">
+                            <!-- <div><img src=""><span>{{exposure.author}}</span></div> -->
+                            <div class="title" style="clear:both;border-top:1px solid #ddd;">
+                             
+                                
+                                <!-- <span class="msg">
+                                <a class="msg-box" href="" style="color:#000;font-size:13px;display: inline;"><img src="{{ exposure.author.avatar_url }}" style="width: 50px;height: 50px;border-radius: 25px;"></a>
+                                <span style="color:#000;font-size:13px;position:absolute;margin-top: 10px;">&nbsp;&nbsp;{{exposure.author}}</span><span style="color:#999;font-size:12px;margin-top: 30px;position:absolute;">&nbsp;&nbsp;{{exposure.post_date|date:'Y-m-d H:i'}}</span></span> -->
+
+                                <div class="content">
+                                    
+                                    <!-- <span class="good">精品</span> -->
+                                    <a href="/posts/{{exposure.id}}" class="content-link" style="color:#000;font-size:14px;line-height: 35px;display: block;width: 100%;">{% if exposure.is_top %}
+                                        <span class="top"></span>
+                                    {% endif %}{{exposure.title}}</a>
+                                </div>
+                                <div class="tagBox">
+                                  <a href="/posts/{{exposure.id}}">
+                                    <p style="color:#666;font-size:12px;line-height: 22px;">
+                                        {{exposure.content}}
+                                    </p>
+                                  </a>
+                                </div>
+                                {% if exposure.rentpicture_set.all.count  %}
+                                    <div class="imgBox">
+                                        <div class="u-img-container">
+                                            <!--缩略图-->
+                                            <div class="img-wrapper1">
+                                                {% for pic in exposure.rentpicture_set.all %}
+                                                    <img src="{{pic.image.url}}" alt="" data-target="#myCarousel{{forloop.parentloop.counter }}" onclick="carousel({{forloop.parentloop.counter }})" data-slide-to="{{forloop.counter}}">
+                                                {% endfor %}
+                                            </div>
+                                            <!--/缩略图-->
+
+                                            <!--大图-->
+                                            <!-- <div class="gallery hide">
+                                                <div class="u-panel">
+                                                    <a href="#" class="fl closeBtn">收起</a>
+                                                    <a href="#" class="fr rotateR">向右转</a>
+                                                    <a href="#" class="fr rotateL">向左转</a>
+                                                </div>
+                                                <div class="img-big-wrapper">
+                                                    <div class="to-prev"></div>
+                                                    <div class="to-next"></div>
+                                                    {% for pic in exposure.rentpicture_set.all %}
+                                                        <img src="{{pic.image.url}}" alt="" style="display:none;">
+                                                    {% endfor %}
+                                                </div>
+                                            </div> -->
+                                            <!--/大图-->
+                                        </div>
+                                    </div>
+                                    <div id="myCarousel{{forloop.counter }}" class="carousel slide" style="display:none;position: fixed;z-index: 1000;top: 0px;width: 100%;height: 100%;background: #000;margin-left: -10px;">
+                                    <!-- <a class="carousel1" style="background:#fff;background: url(/static/images/carouselright.png) no-repeat;
+                                            background-position: center center;width: 40px;height: 30px;margin-top: 55px;"></a>
+ -->
+  <!-- 轮播（Carousel）指标 --> 
+                                             
+  <!-- 轮播（Carousel）项目 -->
+                                          <div class="carousel-inner" id="carousel-inner{{forloop.counter }}" style="height:100%">
+                                           <div class="item active" style="width:800px;height:550px">
+                                             
+                                                <img src="{{pic.image.url}}" alt="" style="margin: 0 auto;max-width:100%;min-width:auto;max-height:100%;min-height:auto">
+                                         </div>
+                                           {% for pic in exposure.rentpicture_set.all %}
+                                            <div class="item">
+                                             
+                                                <img src="{{pic.image.url}}" alt="" style="margin: 0 auto;max-width:100%;min-width:auto;max-height:100%;min-height:auto">
+                                             
+                                            </div>
+                                            {% endfor %}
+                                                     
+                                          </div>
+                                          <!-- 轮播（Carousel）导航 -->
+                                          <a class="carousel-control left" href="#myCarousel{{forloop.counter }}" 
+                                             data-slide="prev" style="background:#fff;background: url(/static/images/carcarouselleft.png) no-repeat;
+                                            background-position: center center;width: 40px;height: 30px;margin-top: 70%;"></a>
+                                          <a class="carousel-control right" href="#myCarousel{{forloop.counter }}" 
+                                             data-slide="next" style="background:#fff;background: url(/static/images/carcarouselright.png) no-repeat;
+                                            background-position: center center;width: 40px;height: 30px;margin-top: 70%;"></a>
+                                        </div> 
+                                {% endif %}
+                            </div>
+
+                       
+                       
+                           
+                                <div class="username" style="font-size:12px;float:left">
+                                    <span>&nbsp;<i class="fa fa-user"></i>&nbsp;{{exposure.author}}</span>
+                                    {% if exposure.is_today %}
+                                        <span style="color:#999;font-size:12px;">&nbsp;&nbsp;{{exposure.post_date|date:'H:i'}}</span>
+                                     {% else %}
+                                        <span style="color:#999;font-size:12px;">&nbsp;&nbsp;{{exposure.post_date|date:'Y-m-d'}}</span>
+                                    {% endif %}
+                                </div>
+                                <div class="info">
+                                    <span><img src="/static/images/par.png" style="width: 15px;height: 12px;">&nbsp;&nbsp;&nbsp;<span style="color:#838383;">{{exposure.reply_message_list|length}}&nbsp;&nbsp;</span></span>
+                                </div>
+                          <!-- </td>
+                        </tr> -->
+                        </div>
+                         {% endfor %}
+                    </tbody>
+                </table>
+                <a href="/posts/add" class="bar_mtable" style="position:fixed;bottom:30px;border:0;padding: 0px 5px;right:10px"><img src="/static/images/fastposts.png" style="width:50px"></a>
+                    <nav aria-label="Page navigation">
+                                    <ul class="pagination">
+                                        {% load i18n %}
+                                            <li><a href="?page=1">首页</a></li>
+
+                                            {% if exposure_list.has_previous %}
+                                                <li class="long" ><a href="?{{ exposure_list.previous_page_number.querystring }}" class="prev">&lsaquo;&lsaquo; {% trans "上一页" %}</a>
+                                                </li>
+
+                                            {% endif %}
+                                            {% for page in exposure_list.pages %}
+                                                {% if page %}
+                                                    {% ifequal page exposure_list.number %}
+                                                        <li class="active"><a href="?{{ page.querystring }}">{{ page }}</a></li>
+                                                    {% else %}
+                                                        <li ><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>
+                                                    {% endifequal %}
+                                                    {% else %}
+                                                        <li class="none"><a href="">...</a></li>
+                                                    {% endif %}
+                                            {% endfor %}
+                                            {% if exposure_list.has_next %}
+                                                    <li class="long"><a href="?{{ exposure_list.next_page_number.querystring }}">下一页</a></li>
+
+                                            {% endif %}
+                                            <li><a href="?page={{ numb }}">尾页</a></li>
+
+                                        </ul>
+                    </nav>
+            </div><!-- end of col-xs-9 -->
+{% if request.user.is_authenticated %}
+            <div class="col-md-3 sidebar ac" style="background-color: white;">
+                <h4 style="margin: 40px 0 20px 0;">个人信息</h4>
+                <div class="ac sidebar-icon"><a href="{% url "accounts:accountSecurity" %}"><img src={{ user.avatar_url }} class="img-circle" alt="dummy-head"></div>
+                <h4 style="margin-top: 5px;">
+                    <span class="username"><a style="vertical-align:middle;padding-left:30px;" href="#">{{ user.username }}</a></span>
+                    <span style="margin-left:6px;">
+                        {% if user.gender != "null" %}<img src={% if user.gender == "male" %} "{% static "images/man.png" %}" {% else %} "{% static "images/girl.png" %}" {% endif %} alt="man icon">{% endif %}
+                    </span>
+                </h4>
+
+                <!-- <div class="clearfix" style="margin-top: 25px;">
+                    <span class="fl">当前排名：299</span>
+                    <span class="fl" style="margin-left: 20px;">查看<a href="#"
+                                                                     style="text-decoration: underline;color: #444;">牛人排行榜</a></span>
+                </div>
+                <div class="user-level clearfix">
+                    <div class="level-title fl">
+                        <p style="font-size:0.7em;display: inline;">经验：</p>
+                    </div>
+                    <div class="level-detail fl">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width:70%"></div>
+                        </div>
+                        <span class="level-num" style="left:70%;">18</span>
+                        <span class="level-indicator">1058/1800</span>
+                    </div>
+                </div> -->
+            </div>{% endif %}
+        </div>  <!-- end of main-content -->
+
+    </div>
+</div>
+<!-- <script src="https://cdn.rawgit.com/hammerjs/touchemulator/master/touch-emulator.js"></script>
+ --><!-- <script> TouchEmulator(); </script> -->
+<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+<script src="/static/js/hammer.js""></script>
+
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/jquery-1.11.1.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/postbarComponent.js"></script>
+<script src="/static/js/imageViewer.js"></script>
+<script src="{% static "js/menu.js" %}"></script>
+<script src="/static/js/exposureview.js"></script>
+
+
+
+
+
+      
+
+
+</body>
+</html>

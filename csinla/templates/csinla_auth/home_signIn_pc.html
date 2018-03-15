@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+{% load static %}
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalabe=no">
+    <meta name="renderer" content="ie-stand">
+    <title>登录</title>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-97624179-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?6784d0adea487eefbe595d28dbb08efb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    <!-- Bootstrap -->
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">  
+    <link href="{% static "css/ResetPassword.css" %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static "css/font-awesome.min.css" %}"> 
+    <script src="{% static "js/jquery-1.11.1.min.js" %}"></script>
+    <link rel="shortcut icon" href="/static/images/logo1.png">
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+   
+  </head>
+  <body>
+  <!-- 顶部部分开始 -->
+      <div class="u-container">
+    <div class="u-header clearfix">
+        <div class="logo fl">
+            <a href="/"><img class="img-responsive" src="{% static "images/01-home-logo.png" %}" alt="logo"></a>
+        </div>
+
+    </div>
+    <div class="header w">
+        
+        <a href="/" class="home-link">
+            <div class="logo">
+                <img src="{% static "images/home-logo.png" %}" alt="" class="img-responsive">
+            </div>
+        </a>
+        
+        
+    </div> 
+      <div class="content">
+          <div class="content-left">
+              <span>"You are not alone in Los Angeles, nice to meet you" </span>
+          </div>
+          <div class="content-right">
+
+             <a href="https://open.weixin.qq.com/connect/qrconnect?status=20170720184424_94&scope=snsapi_login%2Csnsapi_base%2Csnsapi_userinfo&redirect_uri=http%3A%2F%2Fwww.csinla.com%2Fwx_login&response_type=code&appid=wx338fa9b6b1183c16" target="_blank"><img src="/static/images/loginweixin.png" id="weixin" style="width: 60px;height: 60px;position: absolute;margin-left: 240px;margin-top:0px"></a>
+             <!-- <img src="/static/images/return.png" id="ret" style="width: 30px;height: 30px;position: absolute;margin-left: 260px;margin-top:7px;display:none"> -->
+              <div>
+                  <a href="/"><input type="image" src="{% static "images/back-icon.png" %}" style="width:25px; height: 25px;margin:10px;"></a>
+              </div>
+              <p style="color: #fff;font-size: 14px;text-align: center;margin-top: -30px;margin-bottom: 40px;">二维码扫描登录→</p>
+              <div style="width:100%;text-align:center;margin-top:10px;font-size:36px;font-family:'Times New Roman';color:#FFF;font-weight:bold">
+                  Sign&nbsp;&nbsp;in
+              </div>
+              <!-- <div id="ber" style="width:100%;margin-top:20px;text-align:center;padding-bottom: 30px;display:none">
+                <img src="/static/images/loginweixin.jpg" style="width:70%">
+
+              </div> -->
+
+
+              <form action="" method="post">
+               {% csrf_token %}
+                
+              <div id="pcform" style="color:#FFF;font-size:28px;font-family:'Times New Roman';text-align:center;">
+                  <div style="margin-top:55px;font-size:16px;text-align:center;">
+                  <div style="width:100%;color:red;font-size:12px;margin-bottom:5px;">{{ error }}</div>
+                        <!-- <img src="{% static "images/email.png" %}" style="width:25px;height:25px;position:absolute;margin-left:10px;margin-top:7px;"> -->
+                        <input type="text" name="username" id="username" onPropertyChange="fun()" style="border:1px solid #FFF;border-radius:18px;width:80%;height:38px;background: url(/static/images/email.png) no-repeat 0 0 !important;background-position:10px 5px !important;padding: 0 10px 0 40px;" placeholder="Your Email "><br />
+
+                       <!--  <img src="{% static "images/pw.png" %}" style="width:20px;height:20px;position:absolute;margin-top:24px;margin-left:12px;"> -->
+                        <input  type="password" name="password" id="password" style="border:1px solid #FFF;border-radius:18px;width:80%;height:38px;background: url(/static/images/pw.png) no-repeat 0 0 !important;background-position:7px 3px !important;margin-top:15px;padding: 0 10px 0 40px;" placeholder="Password"><br>
+                        <input type="checkbox" name="checkbox" value="记住用户名和密码" id="rmbUser" style="font-size:12px;;margin: 10px 4px 10px 0px;" /><span style="font-family:'微软雅黑';font-size:14px">记住用户名和密码</span><br /> 
+
+                        <div style="text-align:left;margin-top:3px;">
+                            <a href="{% url 'password_reset' %}" class="password" style="margin-left:30px;color:#999;">forgot password?</a>
+                            <a href="{% url 'accounts:register' %}" class="regist" style="margin-left:24%;color:#999;">register</a>
+                        </div>
+                  </div>
+              </div>
+
+              <div id="pcbtn" style="text-align:center;margin-top:35px;/*margin-left:30px;*/padding-bottom:20px;">
+                <input style="width:36%;height:35px;border:0;border-radius:20px;font-size:18px;color:#fff;background-image:url(../../static/images/01-home-login3.png) !important;letter-spacing:1px;font-family:'Times New Roman'"  onclick="save()" type="submit" value="Login">
+                <!-- <ul class="list-inline" style="float:right;margin-right:30px;">
+                  <li>
+                      <a href="#"><img src="{% static "images/weibo.png" %}" width="35px" height="35px"/></a>
+                  </li>
+                  <li>
+                      <a href="#"><img src="{% static "images/qq.png" %}" width="35px" height="35px"/></a>
+                  </li>
+                </ul> -->
+              </div>
+              </form>
+          </div>
+      </div>
+       <div class="m-content">
+          <div class="m-content-left">
+              <span>"You are not alone in Los Angeles, nice to meet you" </span>
+          </div>
+          <div class="m-content-right">
+              <a href="https://open.weixin.qq.com/connect/qrconnect?status=20170720184424_94&scope=snsapi_login%2Csnsapi_base%2Csnsapi_userinfo&redirect_uri=http%3A%2F%2Fwww.csinla.com%2Fwx_login&response_type=code&appid=wx338fa9b6b1183c16" target="_blank"><img src="/static/images/loginweixin.png" id="weixin" style="width: 60px;height: 60px;position: absolute;margin-left: 68%;margin-top:0px"></a>
+              <!-- <img src="/static/images/return.png" id="mret" style="width: 30px;height: 30px;position: absolute;margin-left: 72%;margin-top: 7px;display:none"> -->
+              <div>
+                  <a href="/"><input type="image" src="{% static "images/back-icon.png" %}" style="width:25px; height: 25px;margin:10px;"></a>
+              </div>
+              <p style="text-align: center;margin-top: -30px;color: #fff;font-size: 14px;margin-bottom: 40px;">二维码扫描登录→</p>
+              <div id="mtitle" style="width:100%;text-align:center;margin-top:10px;font-size:36px;font-family:'Times New Roman';color:#FFF;font-weight:bold">
+                  Sign&nbsp;&nbsp;in
+              </div>
+              <!-- <div id="mber" style="width:100%;margin-top:20px;text-align:center;display:none">
+                <img src="/static/images/loginweixin.jpg" style="width:70%">
+
+              </div>   -->
+              <div id="mbform" style="color:#FFF;font-size:28px;font-family:'Times New Roman';text-align:center;">
+
+                  <div style="margin-top:55px;font-size:16px;text-align:center;">
+                  <div style="width:100%;color:red;font-size:12px;margin-bottom:5px;">{{ error }}</div>
+                     <form action="" method="post">
+                      {% csrf_token %}
+                     <!-- <img src="{% static "images/email.png" %}" style="width:25px;height:25px;position:absolute;margin-left:10px;margin-top:7px;"> -->
+                     <input type="text" name="username" id="musername" style="border:1px solid #FFF;border-radius:18px;width:80%;height:38px;background: url(/static/images/email.png) no-repeat 0 0 !important;background-position:10px 5px !important;padding: 0 10px 0 40px;" placeholder="Your Email"><br />{{ login_form.username.error }}
+                     <!-- <img src="{% static "images/pw.png" %}" style="width:20px;height:20px;position:absolute;margin-top:24px;margin-left:12px;"> -->
+                        <input  type="password" name="password" id="mpassword" style="border:1px solid #FFF;border-radius:18px;width:80%;height:38px;background: url(/static/images/pw.png) no-repeat 0 0 !important;background-position:7px 3px !important;margin-top:15px;padding: 0 10px 0 40px;" placeholder="Password">
+{{ login_form.password.error }}<br>
+<input type="checkbox" name="checkbox" value="记住用户名和密码" style="font-size:14px;margin: 10px 4px 10px 0px;" /><span style="font-family:'微软雅黑';font-size:14px">记住用户名和密码</span><br /> 
+                        <div style="text-align:left;margin-top:3px;">
+                            <a href="{% url 'password_reset' %}" class="password" style="margin-left:30px;color:#999;">forgot password?</a>
+                            <a href="{% url 'accounts:register' %}" class="regist" style="margin-left:24%;color:#999;">register</a>
+                        </div>
+
+                  </div>
+                  
+                  
+              </div>
+              <div id="mbbtn" style="text-align:center;margin-top:12px;/*margin-left:30px;*/padding-bottom:40px;"><input style="width:36%;height:35px;border:0;border-radius:20px;font-size:18px;color:#fff;background-image:url(../../static/images/01-home-login3.png) !important;letter-spacing:1px;font-family:'Times New Roman'" onclick="msave()" type="submit" value="Login" >
+             <!-- <ul class="list-inline" style="float:right;margin-right:30px;">
+                   <li>
+                      <a href="#"><img src="{% static "images/weibo.png" %}"/></a>
+                  </li>
+                  <li>
+                      <a href="#"><img src="{% static "images/qq.png" %}" /></a>
+                  </li> 
+              </ul>-->
+              </div>
+              </form>
+          </div>
+      </div>
+     </div>
+     
+     <div style="margin-top:50px;"></div>
+     
+     
+
+       
+       
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="/static/js/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/signin.js"></script>
+    
+    <!-- <script type="text/javascript">
+       $("#mweixin").click(function(){
+        $("#mbform").hide();
+        $("#mbbtn").hide();
+        $("#mber").show();
+        $("#mret").show();
+        $("#mweixin").hide();
+       });
+      $("#mret").click(function(){
+        $("#mbform").show();
+        $("#mbbtn").show();
+        $("#mber").hide();
+        $("#mret").hide();
+        $("#mweixin").show();
+       });
+      $("#weixin").click(function(){
+        $("#pcform").hide();
+        $("#pcbtn").hide();
+        $("#ber").show();
+        $("#ret").show();
+        $("#weixin").hide();
+       });
+      $("#ret").click(function(){
+        $("#pcform").show();
+        $("#pcbtn").show();
+        $("#ber").hide();
+        $("#ret").hide();
+        $("#weixin").show();
+       });
+    </script> -->
+
+  </body>
+</html>

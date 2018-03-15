@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+{% load static %}
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="renderer" content="ie-stand">
+        <link rel="stylesheet" href="{% static "fun/css/bootstrap.css" %}" />
+        <link rel="stylesheet" href="{% static "fun/css/fun.css" %}" />
+        <title>主页</title>
+        
+    </head>
+
+    <body style="margin-top:-10px">
+        <div class="header">
+            <ul>
+                <li><a href="/fun/">主页</a></li>
+                <li class="list"><a href="/fun/activity/view">CSinLA fun</a></li>
+                <li><a href="/fun/contact">联系</a></li>
+            </ul>
+        </div>
+    <div class="content"> 
+        <div class="content-1">{{activity.name}}</div>
+        <img src="{% static "fun/image/fun-2.png" %}" class="content-img">
+        
+        <div class="content-header"><img src="{{activity.hoster.photo.url}}" style="width:60px;webkit-box-shadow: #ccc 0px 0px 15px;-moz-box-shadow: #ccc 0px 0px 15px;box-shadow: #ccc 0px 0px 15px;"></div>
+        <div class="content-name">{{activity.hoster.name}}</div>
+        <div class="content-email"><img src="{% static "fun/image/emil1.png" %}"><div class="content-chat">联系我</div></div>
+        <div id="less" style="width:100%;text-align:left;margin-top:30px;font-family:'微软雅黑';font-size:14px;color:#666;overflow: hidden;">{{activity.hoster.desc}}
+        </div>
+        <div id="more" style="display: none;width:100%;text-align:left;margin-top:30px;height:50px;font-family:'微软雅黑';font-size:14px;color:#666;">{{activity.hoster.desc}}</div>
+        <h2 style="width:100%;text-align:left;font-family:'微软雅黑';color:#645c52;margin:15px 0px;font-size:30px;font-weight:100;">Detil Plan</h2>
+        <div style="width:98%;height:700px;overflow-y: scroll;border:1px solid #ccc;border-radius:8px;">
+            <div style="width:95%;text-align:left;color:#666;font-family:'微软雅黑';font-size:14px;word-wrap:break-word;">
+                {% for paragraph in activity.paragraph_set.all %}
+                    {% if paragraph.content_text %}
+                        <p>{{paragraph.content_text|linebreaksbr}}</p>
+                    {% endif %}
+                    {% if paragraph.content_img %}
+                        <img src="{{paragraph.content_img.url}}" style="width:100%">
+                    {% endif %}
+                    <br>
+                {% endfor %}
+            </div>
+        </div>
+        <form>
+            <div style="width:100%;text-align:center;color:#666;font-family:'微软雅黑';">
+                <ul class="content-pay">
+                    <li>
+                        <input type="hidden" name="email">
+                        <input type="hidden" name="name">
+                        <div style="font-size:14px;float:left;margin-left:10px;">选择人数</div>
+                        <div style="font-size:8px;float:left;margin-left:25%;margin-top:4px;">已报{{activity.current_time_item.1.join_count}}人</div><br>
+                       
+                        <div class="dropdown" style="width:83%;margin-top: 5px;margin-left:0px;" name="join_count">
+                        <button type="button" class="btn dropdown-toggle paytype" id="dropdownMenu1" 
+                                data-toggle="dropdown">3
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="width:100%;border-radius:10px">
+                            <li role="presentation" style="width: 100%;">
+                                <a role="menuitem" tabindex="-1" href="#">1</a>
+                            </li>
+                            <li role="presentation" style="width: 100%;">
+                                <a role="menuitem" tabindex="-1" href="#">2</a>
+                            </li>
+                            <li role="presentation" style="width: 100%;">
+                                <a role="menuitem" tabindex="-1" href="#">3</a>
+                            </li>
+                           
+                        </ul>
+                    </div>
+                    </li>
+                    <li>
+                        <div style="font-size:14px;text-align:left;margin-left:10px;margin-top:1px;">选择时间</div>
+                        <select style="width:100%">
+                            {% for item in activity.current_time_item %}
+                                <option value="{{item.id}}">{{item.activity_time}}</option>
+                            {% endfor %}
+                        </select>
+                    </li>
+                </ul>
+                <div class="content-pay1">
+                    <div style="font-size:14px;margin-top:20px;float:left;width:50%;margin-left:10px;text-align:left;">支付方式</div>
+                    <div style="font-size:14px;margin-top:20px;float:right;color:#666;font-family:'微软雅黑';font-weight: bold;margin-right:20px;">Entry fee:${{activity.pre_price}}</div>
+                    <br>
+                   
+                   
+                    <div class="dropdown pay" style="clear:both">
+                        <button type="button" class="btn dropdown-toggle paytype" id="dropdownMenu1" 
+                                data-toggle="dropdown">
+                            支付方式
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="width:100%;border-radius:10px">
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="#">支付宝</a>
+                            </li>
+                            <li role="presentation" class="divider"></li>
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="#">支付宝</a>
+                            </li>
+                            <li role="presentation" class="divider"></li>
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="#">支付宝</a>
+                            </li>
+                           
+                        </ul>
+                    </div>
+                    <br>
+                    <textarea name="remark" placeholder="请填写备注信息" style="width: 100%;min-height: 100px;margin-top: 10px;border: 1px solid #ccc;border-radius:8px;text-indent:5px;padding:3px"></textarea>
+                    <input type="submit" name="" class="btn" value="报名">
+                    <a href="/fun/activity/pay/5/">点此测试直接支付成功（默认跳转id为1的活动）</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="footer">
+        <img src="{% static "fun/image/emil1.png" %}" style="width:20px;height:15px;">
+        <div style="font-size:13px;margin-top:8px;color:#ccc;font-family:'微软雅黑'">联系我们</div>
+        <hr>
+        <span>fun.csinla.com</span>
+    </div>
+    <script src="{% static "fun/js/jquery.min.js" %}"></script>
+    <script src="{% static "fun/js/bootstrap.min.js" %}"></script>
+    <script type="text/javascript">
+    var text1=$("#less").text();
+        $(function(){
+            $("#less").each(function(){
+                var maxwidth=50;//设置最多显示的字数
+                var text=$(this).text();
+                if($(this).text().length>maxwidth){
+                    $(this).text($(this).text().substring(0,maxwidth));
+                    $(this).html($(this).html()+"..."+"<a href='###' id='showall'> 点击展开</a>");//如果字数超过最大字数，超出部分用...代替，并且在后面加上点击展开的链接；
+
+                };
+                $(this).find("#showall").click(function(){
+                    
+                    //$(this).parent().text(text);//点击“点击展开”，展开全文
+                    $(this).parent().html(text+"<a href='javascript:' id='hideall' onclick='hideall()'> 收起</a>");
+
+                })
+                
+            })
+        })
+        function hideall(){
+            
+                    var maxwidth=50;
+                    //$(this).parent().text(text);//点击“点击展开”，展开全文
+                    
+                    $("#hideall").parent().html($("#less").text().substring(0,maxwidth)+"..."+"<a href='javascript:' id='showall' onclick='showall()'> 点击展开</a>");
+
+                }
+        function showall(){
+            
+                    var maxwidth=50;
+                    //$(this).parent().text(text);//点击“点击展开”，展开全文
+                    
+                    $("#showall").parent().html(text1+"<a href='javascript:' id='hideall' onclick='hideall()'> 收起</a>");
+
+                }
+    </script>
+    </body>
+</html>

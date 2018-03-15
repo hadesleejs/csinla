@@ -1,0 +1,265 @@
+@import "common/base.css";
+@import "common/form-module.css";
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    font: 100% "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #999;
+    background-image: url(../images/background.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: #464646;
+    /*position: relative;*/
+}
+
+/*allPostBar用到的样式*/
+.u-container {
+    width: 70%;
+    margin: auto;
+}
+
+.u-header {
+    padding: 15px 10px 10px;
+}
+
+.u-header .logo {
+    width: 220px;
+}
+
+.u-header .login-status {
+    width: 232px;
+    margin-top: 16px;
+}
+
+.u-header .avatar-wrapper {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.u-header .avatar {
+    margin-top: -5px;
+    width: 42px;
+    height: 42px;
+}
+
+.u-header .dropdown {
+    margin-right: 10px;
+}
+
+.u-header .dropdown-menu {
+    left: -8px;
+    min-width: 80px;
+}
+
+.u-header .dropdown-menu:before {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 15px;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-bottom: 8px solid #fff;
+    border-right: 4px solid transparent;
+}
+
+.u-header .dropdown-menu-right {
+    left: auto;
+    right: -8px;
+}
+
+.u-header .dropdown-menu-right:before {
+    left: auto;
+    right: 15px;
+}
+
+.header-btn {
+    display: block;
+    border: none;
+    background-color: rgba(255, 255, 255, 0);
+    color: #fff;
+    position: relative;
+}
+
+.header-btn i {
+    display: block;
+    width: 25px;
+    height: 25px;
+    font-size: 18px;
+    opacity: 0.8;
+}
+
+.header-btn .redpoint {
+    position: absolute;
+    right: -10px;
+    top: -10px;
+}
+
+.u-header .new-post-wrapper {
+    margin-left: 5px;
+}
+
+.u-header .new-post {
+    display: block;
+    width: 90px;
+    height: 32px;
+    font-size: 14px;
+    background-image: url(../images/01-home-login.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    color: #fff;
+    text-align: center;
+    line-height: 32px;
+}
+
+.redpoint {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.redpoint i {
+    display: inline-block;
+    height: 22px;
+    line-height: 22px;
+    min-width: 22px;
+    width: auto;
+    padding: 0 3px;
+    font-size: 12px;
+    text-align: center;
+    color: #fff;
+    background-color: #ec6200;
+    opacity: 1;
+    border-radius: 11px;
+}
+
+.u-main {
+    padding: 0;
+    border: 0;
+}
+
+.u-main-title {
+    height: 90px;
+    line-height: 90px;
+}
+
+.u-main-content {
+    padding-left: 2%;
+    padding-right: 2%;
+}
+
+.u-main-section {
+    min-height: 400px;
+    background-color: #fff;
+    padding: 30px 15px 20px 30px;
+    margin-bottom: 66px;
+}
+
+.u-main-section span {
+    display: block;
+    color: #000;
+    font-size: 18px;
+    padding-top: 30px;
+
+}
+
+.u-main-section li {
+    width: 100px;
+    height: 100px;
+    float: left;
+    margin: 0 20px 20px 0;
+    background-color: #b5b5b5;
+    opacity: .9;
+    border: 1px solid #b6b6b6;
+    border-radius: 5px;
+    color: #fff;
+    text-align: center;
+}
+
+.u-main-section li > p {
+    margin-top: 30px;
+    font-size: 14px;
+}
+
+.u-main-section li:nth-last-child(1) {
+    color: #b5b5b5;
+    background-color: #fff;
+}
+
+/*这个footer被设置成了固定显示在屏幕最下方，如果要让它不固定，去掉body中的相对定位*/
+.u-main-footer {
+    margin-top: 70px;
+    height: 40px;
+    line-height: 40px;
+    background-color: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    /*start*/
+    /*width: 100%;*/
+    /*position: absolute;*/
+    /*bottom: 0;*/
+
+}
+
+/*createPostBar用到的样式*/
+.u-main-form {
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+.u-main-form form p {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+/*createPostBarSuccess用到的样式*/
+.u-success-info {
+    text-align: center;
+}
+
+.u-success-info h1 {
+    color: #000;
+    font-size: 45px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.u-success-info p {
+    font-size: 20px;
+    margin-top: 40px;
+    color: #0a0a0a;
+}
+
+.u-success-info p a {
+    text-decoration: underline;
+}
+
+.u-success-info > a {
+    margin-top: 45px;
+    font-size: 20px;
+    display: inline-block;
+    width: 180px;
+    height: 45px;
+    line-height: 35px;
+}
+
+.u-success-info > a:hover {
+    text-decoration: none;
+    color: #fff;
+}
+
+
+
+/* bootstrap css */
+.well {
+    overflow: hidden;
+}
+
+.form-group {
+    margin-top: 15px;
+}

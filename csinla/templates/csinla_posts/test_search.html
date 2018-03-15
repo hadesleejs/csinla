@@ -1,0 +1,58 @@
+{# {% if not results.count and not rents.count and not cars.count%} #}
+{% if not results.count|add:rents.count|add:cars.count %}
+    <div class="well fade in daytips">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong>作者水平有限,并没有关于<font color="red"><b>"{{ keyword }}"</b></font>的内容,请换一个词试试</strong>
+    </div>
+{% else %}
+
+
+    <div class="well fade in daytips">
+        <strong>关于
+            <font color="red">
+                <b>"{{ keyword }}"</b></font>的搜索结果一共有
+            <font color="red">
+                <b>"{{ results.count|add:rents.count|add:cars.count }}"</b>
+            </font>条
+        </strong>
+    </div>
+    <br>
+    <div id="article-list">
+        {% for x in rents %}
+            <article class="excerpt excerpt-first">
+                <header>house_id: <a class="cat" href="#" id="wybtype">{{ x.house_id }}</a>
+                    <h2><a class="gotoArchive" title="{{ x.title }}">{{ x.title }}</a></h2>
+                </header>
+                <p class="meta">
+                    <span class="posttime">
+                        {{ x.post_date }}
+                    </span>
+                </p>
+            </article>
+        {% endfor %}
+        {% for x in cars %}
+            <article class="excerpt excerpt-first">
+                <header>car_id: <a class="cat" href="#" id="wybtype">{{ x.car_id }}</a>
+                    <h2><a class="gotoArchive" title="{{ x.title }}">{{ x.title }}</a></h2>
+                </header>
+                <p class="meta">
+                    <span class="posttime">
+                        {{ x.post_date }}
+                    </span>
+                </p>
+            </article>
+        {% endfor %}
+        {% for x in results %}
+            <article class="excerpt excerpt-first">
+                <header>标签属于: <a class="cat" href="#" id="wybtype">{{ x.belong_to }}</a>
+                    <h2><a class="gotoArchive" title="{{ x.title }}">{{ x.title }}</a></h2>
+                </header>
+                <p class="meta">
+                    <span class="posttime">
+                        {{ x.post_date }}
+                    </span>
+                </p>
+            </article>
+        {% endfor %}
+    </div>
+{% endif %}

@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+
+<html lang="en">
+{% load static %}
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="renderer" content="ie-stand">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="shortcut icon" href="/static/images/logo1.png">
+    <title>CSinLA.com</title>
+<script>
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-97624179-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?6784d0adea487eefbe595d28dbb08efb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script type="text/javascript">
+     wx.config({
+   debug: false,  //调式模式，设置为ture后会直接在网页上弹出调试信息，用于排查问题
+   appId: 'wx910b80a91781c9df',
+   timestamp: {{ timestamp }},
+   nonceStr: '{{ nonceStr }}',
+   signature: '{{ signature }}',
+   jsApiList: [  //需要使用的网页服务接口
+       'checkJsApi',  //判断当前客户端版本是否支持指定JS接口
+       'onMenuShareTimeline', //分享给好友
+       'onMenuShareAppMessage', //分享到朋友圈
+       'onMenuShareQQ',  //分享到QQ
+       'onMenuShareWeibo' //分享到微博
+   ]
+ });
+ wx.ready(function () {   //ready函数用于调用API，如果你的网页在加载后就需要自定义分享和回调功能，需要在此调用分享函数。//如果是微信游戏结束后，需要点击按钮触发得到分值后分享，这里就不需要调用API了，可以在按钮上绑定事件直接调用。因此，微信游戏由于大多需要用户先触发获取分值，此处请不要填写如下所示的分享API
+            // 1 判断当前版本是否支持指定 JS 接口，支持批量判断
+                wx.checkJsApi({
+                    jsApiList: [
+                      'onMenuShareAppMessage'
+                    ],
+                    success: function (res) {
+                      //alert(JSON.stringify(res));
+                    }
+                });
+wx.onMenuShareTimeline({  //例如分享到朋友圈的API  
+   title: 'CSinLA.com留学生网站', // 分享标题
+   link: 'http://csinla.com/curricular/', // 分享链接
+   imgUrl: 'http://www.csinla.com/media/curricular_share.jpg', // 分享图标
+   success: function () {
+       // 用户确认分享后执行的回调函数
+   },
+   cancel: function () {
+       // 用户取消分享后执行的回调函数
+   }
+});
+wx.onMenuShareAppMessage({
+    title: 'CSinLA.com留学生网站', // 分享标题
+    desc: '点击免费查看所有教授在SMC给A率的排名！', // 分享描述
+    link: 'http://csinla.com/curricular/', // 分享链接
+    imgUrl: 'http://www.csinla.com/media/curricular_share.jpg', // 分享图标
+    type: '', // 分享类型,music、video或link，不填默认为link
+    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+    success: function () { 
+        // 用户确认分享后执行的回调函数
+    },
+    cancel: function () { 
+        // 用户取消分享后执行的回调函数
+    }
+});
+wx.onMenuShareQQ({
+    title: 'CSinLA.com留学生网站', // 分享标题
+    desc: '点击免费查看所有教授在SMC给A率的排名！', // 分享描述
+    link: 'http://csinla.com/curricular/', // 分享链接
+    imgUrl: 'http://www.csinla.com/media/curricular_share.jpg', // 分享图标
+    success: function () { 
+       // 用户确认分享后执行的回调函数
+    },
+    cancel: function () { 
+       // 用户取消分享后执行的回调函数
+    }
+});
+}); 
+wx.error(function (res) {
+ alert(res.errMsg);  //打印错误消息。及把 debug:false,设置为debug:ture就可以直接在网页上看到弹出的错误提示
+});
+</script>
+
+
+    <link rel="stylesheet" type="text/css" href="{% static "css/home.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/font-awesome.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %}">
+    <link href="/static/css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+     <link href="/static/css/ch_classes.css" rel="stylesheet" type="text/css" media="all">
+     <link rel="stylesheet" type="text/css" href="{% static "css/awesome-bootstrap-checkbox2.css" %}">
+    
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="/static/js/jquery-1.11.0.min.js"></script>
+<!-- Custom Theme files -->
+<!-- <link href="/static/css/chooseclasses.css" rel="stylesheet" type="text/css" media="all"/>
+ -->
+
+    
+
+    <style>
+        body {
+            font-size: 100%;
+             overflow-y:hidden; 
+        }
+        label {
+    display: block;
+  max-width: auto;
+  margin-bottom: 5px;
+  font-weight: 500; 
+}
+
+/* .slideOne */
+
+
+/* end .slideThree */
+/* .roundedOne */
+
+
+/* end .roundedTwo */
+/* .squaredOne */
+
+
+/* end .squaredThree */
+/* .squaredFour */
+
+
+/* end .squaredFour */
+
+ 
+ </style>
+  <script>
+ 
+
+ </script>
+
+
+    <link rel="stylesheet" type="text/css" href="{% static "css/video-js.min.css" %}">
+</head>
+<body>
+<div style="background:rgba(0, 0, 0, 0.4);width:100%;height:100%">
+<div class="u-container">
+{% csrf_token %}
+
+{% if request.user.is_authenticated %}
+    <div class="u-header clearfix">
+        <div class="logo fl">
+            <a href="/"><img class="img-responsive" src="{% static "images/01-home-logo.png" %}" alt="logo"></a>
+        </div>
+        <div class="login-status fr">
+            <div class="avatar-wrapper">
+              <a href="{% url "accounts:myPosts" %}">
+                <img src={{ user.avatar_url }} class="img-circle avatar" alt="Cinque Terre">
+              </a>
+            </div>
+            <div class="dropdown" style="display:inline-block;">
+                <button class="header-btn dropdown-toggle" type="button" data-toggle="dropdown">
+                    <i class="fa fa-cog" aria-hidden="true"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li><a href="{% url 'accounts:accountSecurity' %}">账户安全</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <!-- <li><a href="#">人工申述</a></li>
+                    <li role="presentation" class="divider"></li> -->
+                    <li><a href="{% url 'accounts:myhelpcenter' %}">联系我们</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="{% url 'accounts:logout' %}">登出</a></li>
+                </ul>
+            </div>
+            <div class="dropdown" style="display:inline-block;">
+                <a href="{% url "accounts:myPosts" %}" class="header-btn dropdown-toggle">
+                    <i class="fa fa-bell-o" aria-hidden="true"></i>
+                    {% if user.unread_message %}<span class="redpoint"><i>{{ user.unread_message }} </i></span>{% endif %}
+                </a>
+               <!--  <ul class="dropdown-menu">
+                    <li><a href="#">我的私信<span class="redpoint"><i>2</i></span></a>
+                    </li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="#">我的回复<span class="redpoint"><i>99+</i></span></a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="#">查看@提到我<span class="redpoint"><i>12</i></span></a></li>
+                </ul> -->
+            </div>
+            <div class="new-post-wrapper fr">
+                <a class="new-post" href="/posts/add">
+                    <span>发表新帖</span>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="header w">
+        <a href="#" class="mobile-nav-btn pull-right"><i class="fa fa-bars" aria-hidden="true"></i></a>
+        <a href="/" class="home-link">
+            <div class="logo">
+                <img src="{% static "images/home-logo.png" %}" alt="" class="img-responsive">
+            </div>
+        </a>
+    <div class="user">
+            <a href="#" class="remove-nav pull-right"><img src="{% static "./images/times.png" %}" alt="" class="img-responsive"></a>
+            <a href="/" class="home-nav-item special">
+                <span>首页</span>
+            </a>
+            <a href="/posts/add" class="home-nav-item special">
+                <span>发表新帖</span>
+            <a href="{% url "accounts:myPosts" %}" class="home-nav-item special">
+                <span>个人中心</span>
+            </a>
+         <!--    <a href="{% url "accounts:accountSecurity" %}" class="home-nav-item has-sub-item">
+                <span>设置</span>
+            </a> -->
+            
+            <a href="{% url 'accounts:logout' %}"  class="home-nav-item special">
+                <span>Sign out</span></a>
+            
+            </a>
+        </div>
+    {% else %}
+    <div class="u-header clearfix">
+        <div class="logo fl">
+            <a href="/"><img class="img-responsive" src="{% static "images/01-home-logo.png" %}" alt="logo"></a>
+        </div>
+        <div class="user" style="margin-top:18px;text-align:right;">
+            <a href="{% url 'accounts:login' %}" class="login home-nav-item">
+                <span>Log in</span>
+                <img src="{% static "images/home-login.png" %}" alt="">
+            </a>
+            <a href="{% url 'accounts:register' %}" class="register home-nav-item" style="margin-left:10px;">
+                <span>Register</span>
+                <img src="{% static "images/home-register.png" %}" alt="">
+            </a>
+
+        </div>
+
+    </div>
+    <div class="header w">
+        <a href="#" class="mobile-nav-btn pull-right"><i class="fa fa-bars" aria-hidden="true"></i></a>
+        <a href="/" class="home-link">
+            <div class="logo">
+                <img src="{% static "images/home-logo.png" %}" alt="" class="img-responsive">
+            </div>
+        </a>
+        
+        <div class="user">
+            <a href="#" class="remove-nav pull-right"><img src="{% static "./images/times.png" %}" alt="" class="img-responsive"></a>
+            <a href="/" class="home-nav-item special">
+                <span>首页</span>
+            </a>
+            
+            
+            <a href="{% url 'accounts:login' %}" class="login home-nav-item">
+                <span>Log in</span>
+                <img src="{% static "images/home-login.png" %}" alt="">
+            </a>
+            <a href="{% url 'accounts:register' %}" class="register home-nav-item">
+                <span>Register</span>
+                <img src="{% static "images/home-register.png" %}" alt="">
+            </a>
+            <!-- <a href="#" class="home-nav-item special">
+                <span>Live and Love</span>
+            </a> -->
+        </div>
+
+       {% endif %}
+    </div> 
+    <!--主要内容部分-->
+        
+    <div class="content">
+     
+       <a href="/"><img src="/static/images/tleft.png" class="c_left" style="margin-left:2%"></a>
+       <a href="/"><img src="/static/images/x.png" class="c_right"></a>
+       <div class="c_title">
+              <!--  <span class="c_bcolor">CSinLA</span>  -->Prochooser
+       </div>
+       <div class="c_title1" style="clear:both;text-align:center;">
+            
+            <div class="btn-group btn-group2" id="departmentid">
+              <span class="c_span" style="float:left"><a href="/curricular/pdf_view"><!-- <img src="/static/images/why.png" style="position:absolute;margin-left:-15px" width="20px" height="20px"> --></a>&nbsp;&nbsp;department :</span>
+         
+                <input type="button" id="department" class="btn btn-default dropdown-toggle" 
+                    data-toggle="dropdown" value="select"><a id="hidedepartment" href="javascript:" onclick="hidedepartment()" style="width: 32px;font-size: 14px;margin-top: 10px;margin-left: -30px;">隐藏</a>
+                    <a id="showdepartment" href="javascript:" onclick="showdepartment()" style="width: 32px;font-size: 14px;margin-top: 10px;margin-left: -59%;display:none">展开</a>
+               
+                <ul class="dropdown-menu" id="department_list" role="menu" style="overflow-y:scroll;overflow-x:scroll;width: 59%;margin-left: 100px;height:300px;">
+                  <li id=""><a href="javascript:" onclick="selehide1()" id="">select</a></li>
+                 {% for department in department_array %}
+                  <li id="{{department}}"><a href="javascript:" id="{{department}}" onclick="selehide()">{{department}}</a></li>
+                   {% endfor %}
+                  
+                </ul>
+            </div>
+
+           
+            <div class="btn-group btn-group1" id="subjectid">
+              <span class="c_span c_span1" style="float:left">subject :</span>
+          
+            
+                  <input type="button" id="subject" class="btn btn-default dropdown-toggle " data-toggle="dropdown" value="select">
+                  
+                  <ul class="dropdown-menu" id="subject_list" role="menu" style="overflow-y:scroll;height: auto;max-height:300px;width: 59%;">
+                   {% for subject in subject_array %}
+
+                    <li class={{subject.department}}><a href="javascript:" onclick="subject()">{{subject.subject}}</a></li>
+                     {% endfor %}
+                    
+                  </ul>
+            </div>
+
+            <div class="c_span c_span2">year :</div>
+            <div class="c_year" style="clear:both" style="margin-top:20px;">
+                <div class="btn-group" style="width:100%;">
+                  
+             
+                    <input type="button" id="year_start" class="btn btn-default dropdown-toggle" data-toggle="dropdown" value="select">
+                   
+                    <ul class="dropdown-menu" id="year_start_list" role="menu" style="overflow-y:scroll;height: auto;max-height: 200px;width:47%">
+                     {% for item in year_list %}
+                      <li id="{{item.year}}"><a href="javascript:" id="{{item.year}}" onclick="y_start()">{{item.year}}</a></li>
+                       {% endfor %}
+                      
+                    </ul>
+                </div> <span class="c_span" style="position: absolute;margin-top:-25px;margin-left:-8px">—</span>
+
+                <div class="btn-group" style="width:100%;float:right">
+
+                    <input type="button" id="year_end" class="btn btn-default dropdown-toggle" data-toggle="dropdown" value="select">
+                   
+                    <ul class="dropdown-menu" id="year_end_list" role="menu" style="overflow-y:scroll;height: auto;max-height: 200px;width:47%">
+                     {% for item in year_list %}
+                      <li id="{{item.year}}"><a href="javascript:" id="{{item.year}}" onclick="y_end()">{{item.year}}</a></li>
+                       {% endfor %}
+                      
+                    </ul>
+                </div>
+            </div>
+       </div>
+        
+            <div class="c_radio">
+                  <section title=".squaredFour">
+    <!-- .squaredFour -->
+    <div class="squaredFour" style="clear:both">
+      <input type="checkbox" value="spring" id="squaredFour" name="check" />
+      <label for="squaredFour"></label>
+    </div><label for="squaredFour"><span class="radio_span">WINTER & SPRING</span></label>
+<div class="squaredFour1">
+      <input type="checkbox" value="fall" id="squaredFour1" name="check" />
+      <label for="squaredFour1"></label></div>
+       <label for="squaredFour1"><span class="radio_span1">SUMMER & FALL</span></label>
+    <!-- end .squaredFour -->
+  </section>
+               
+              
+ 
+            </div>
+            <div class="c_search">
+                 <a class="scroll" id="abc" onclick="return abcd()"><img src="/static/images/c_search.png" alt="" style="margin-right:18px;margin-top:-3px;">S&nbsp;&nbsp;&nbsp;E&nbsp;&nbsp;&nbsp;A&nbsp;&nbsp;&nbsp;R&nbsp;&nbsp;&nbsp;C&nbsp;&nbsp;&nbsp;H</a>
+            </div>
+            
+        </div> 
+        <div class="c_footer">
+             <span class="c_bcolor">-    RESULT   -</span>
+             <div class="c_footer1"><a href="/curricular/subjects_compare" style="color:#fff"><img src="/static/images/coffee.png" alt="" style="margin-right:10px;margin-top:-3px;">Compare subjects</a></div>
+             
+        </div>
+        <div class="c_dfooter" style="display:none">
+             <span class="c_bcolor">-    RESULT   -</span>
+             <div class="c_dfooter1"><a href="/curricular/subjects_compare" style="color:#fff"><img src="/static/images/coffee.png" alt="" style="margin-right:10px;margin-top:-3px;">Compare subjects</a></div>
+           
+        </div>
+
+       </div>
+    </div>
+
+    <!--页面底部-->
+    
+    </div>
+ 
+      
+<!--banner end here-->
+<!--about start here-->
+<div class="about" id="about" style="display:none;background:#ffffff;min-height:1000px;height:auto;">
+<div style="background:#52c9a1;height:70px"></div>
+<div class="adver" style="width:25%;text-align:center;float: right;">
+    <div style="width:100%;text-align:center;max-width:300px;">
+        {% if ad_C1 %}
+            <div id="A3" style="width:100%;height:40%;max-width:300px;max-height:300px">
+                <a href="{{ad_C1.url}}"><img src="{{ad_C1.img.url}}" style="width:100%;height:100%"/></a>
+            </div>
+        {% endif %}
+        {% if ad_C2 %}
+            <div id="A5" style="width:100%;float:left;height:20%;max-width:300px;max-height:150px">
+                <a href="{{ad_C2.url}}"><img src="{{ad_C2.img.url}}" style="width:100%;height:100%" /></a>
+            </div>
+        {% endif %}
+        {% if ad_C4 %}
+            <div style="width:50%;float:left;height:20%;max-width:150px;max-height:150px">
+                <a href="{{ad_C4.url}}"><img src="{{ad_C4.img.url}}" style="max-width:150px;max-height:150px;width:100%;height:100%" /></a>
+            </div>
+        {% endif %}
+        {% if ad_C5 %}
+            <div style="width:50%;float:left;height:20%;max-width:150px;max-height:150px">
+                <a href="{{ad_C5.url}}"><img src="{{ad_C5.img.url}}" style="max-width:150px;max-height:150px;width:100%;height:100%" /></a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+   <div class="c_ctable" style="margin:0 auto">
+               <table id="c_table">
+                   <tr style="border-bottom:none">
+                      <td class="c_tableheader1">Professor</td>
+                      <td class="c_tableheader2 lista">A</td>
+                      <td class="listab"></td>
+                      <td class="c_tableheader2 listab">B</td>
+                      <td class="c_tableheader2 listab" style="display:none;border-bottom:1px dashed #000 !important"></td>
+                      <td class="c_tableheader2 listab" style="display:none;border-bottom:1px dashed #000 !important">A+B</td>
+                      <td class="c_tableheader2">C</td>
+                      <td class="c_tableheader2">D</td>
+                     <!--  <td class="c_tableheader2">E</td> -->
+                      <td class="c_tableheader2">F</td>
+                      <td class="c_tableheader3">P</td>
+                      <td class="c_tableheader3">NP</td>
+                      <td class="c_tableheader3">TOTAL</td>
+ 
+                   </tr>
+                 
+                   
+                  
+                    
+                   <!-- <tfoot>
+                   <tr><td colspan="11" style="border:1px solid">P6 707*88(707以内，相对均衡612)</td></tr></tfoot> -->
+               </table>
+<!-- <<<<<<< HEAD
+               
+=======
+                <div style="width:25%;text-align:center;position:fixed;z-index:200px;top:90px;right:20px">
+                  <div style="width:100%;height:30%"><a href="{{big_ad.url}}"><img src="{{big_ad.img.url}}" style="width:100%;height:100%" /></a></div>
+                  {% for small_add in small_add_list %}
+                    <div style="width:50%;float:left;height:15%"><a href="{{small_add.url}}"><img src="{{small_add.img.url}}" style="width:100%;height:100%" /></a></div>
+                  {% endfor %}
+              </div>
+>>>>>>> 4dc7ea83852e078d5af5f202d8cded9ec7e0ea7d -->
+<div style="text-align:center;">
+<button onclick="more()" id="more" style="width:100px;height:40px;display:none;font-size:16px;border:1px solid #52c9a1;background:#fff;margin:20px 0px;border-radius:5px">加载更多</button></div>
+   </div>
+    
+</div>
+
+<div class="u-main-footer ac" style="display:none;margin-top:0px;background:none">
+    <span style="color:#fff">洛杉矶留学生资讯网&nbsp;版权所有</span>
+</div>
+<script src="{% static "js/videojs-ie8.min.js" %}"></script>
+<script src="{% static "js/video.min.js" %}"></script>
+<script src="{% static "js/jquery-1.11.1.min.js" %}"></script>
+<script src="{% static "js/home.js" %}"></script>
+<script src="{% static "js/main.js" %}"></script>
+<script src="{% static "js/bootstrap.min.js" %}"></script>
+<script src="{% static "js/menu.js" %}"></script>
+<script src="{% static "js/Classes.js" %}"></script>
+
+<script>
+  var A3;
+    
+
+function abcd(){
+  var semester1="";
+   $(":checkbox[name='check']:checked").each(function(){ 
+semester1+=$(this).val()+" "; 
+//alert($(this).val()); 
+}) ;
+       
+// $("#more").hide();
+ // if($('#department').val()=="select"){
+ //  alert("请选择department");
+ //  return false;
+ // }
+ // else
+  if($('#subject').val()=="select") {
+   alert("请选择subject");
+    return false;
+ }
+ else if($('#year_start').val()=="select") {
+   alert("请选择起始年份");
+    return false;
+ }
+ else if($('#year_end').val()=="select") {
+   alert("请选择终止年份");
+    return false;
+ }
+ else if(semester1==""){
+alert("请选择季度");
+ return false;
+ }
+ 
+ else{
+  window.location.href='#about';  
+  jQuery(document).ready(function($) {
+                
+            
+   $(".about").show();
+   $('body').css('overflow-y','scroll');
+                    $(".c_footer").hide();
+                    $(".c_dfooter").show();
+                    $('.u-main-footer').show();
+                    
+                    event.preventDefault();
+                    $("html,body").animate({scrollTop:$("#about").offset().top},1000)
+                     A3=$("#A3").offset().top;
+     // alert(A3); 
+});
+  var department = $('#department').val();
+  department=department.replace("\n","");
+  var subject = $('#subject').val();
+  subject=subject.replace("\n","");
+
+  //alert(subject);
+  var year_start = $('#year_start').val();
+  var year_end = $('#year_end').val();
+  year_start=year_start.replace("\n","");
+  year_end=year_end.replace("\n","");
+
+  var semester=""; 
+  setCookie("department",department);//（名字=getCookie(名字)，需要存的值）
+  setCookie("subject", subject);
+  setCookie("year_start",year_start);   
+  setCookie("year_end",year_end);
+    //       var b=selectc.options[selectc.selectedIndex].text;
+          //             var c=shenqing.options[shenqing.selectedIndex].text;
+          //  alert(selectp.options[selectp.selectedIndex].text);
+        //    alert(b);
+          //  alert(c);
+$(":checkbox[name='check']:checked").each(function(){ 
+semester+=$(this).val()+" "; 
+//alert($(this).val()); 
+}) ;
+//alert(semester); 
+
+  var csrfmiddlewaretoken = $('[name="csrfmiddlewaretoken"]').val();
+ //alert(csrfmiddlewaretoken);
+   $("#c_table").empty();
+   var cttitlt='<tr style="border-bottom:none"><td></td><td class="c_tableheader1">Professor</td><td class="c_tableheader2 lista">A</td><td class="lista"></td> <td class="c_tableheader2 lista">B</td><td class="c_tableheader2 lista" style="display:none;border-bottom:1px dashed #000 !important"></td><td class="c_tableheader2 listab" style="display:none;border-bottom:1px dashed #000 !important">A+B</td><td class="c_tableheader2">C</td><td class="c_tableheader2">D</td><td class="c_tableheader2">F</td><td class="c_tableheader3">P</td><td class="c_tableheader3">NP</td><td class="c_tableheader3">TOTAL</td></tr>';
+   $("#c_table").append(cttitlt);
+  $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: "/curricular/",
+
+                 data: {'department':department,'subject':subject,'year_start':year_start,'year_end':year_end,'semester':semester,'csrfmiddlewaretoken':csrfmiddlewaretoken},
+
+                success: function (data) {
+                // var result = eval("(" + data.d + ")");//这句话是将json语句对象化
+                 //alert(data.msg);
+                  //alert(data.instructor_detail_array.length);
+                 
+                 if(data.code==2){
+                  alert("所有数据加载完毕");
+                 }
+                
+             
+                  else{
+                     
+                var content='';
+                //var content1='';
+                //alert(data.instructor_detail_array.length);
+         for(var i=0;i<data.instructor_detail_array.length;i++){
+           //alert(data.instructor_detail_array[i].instructor_curricular_array.length);
+           var content1='';
+           for(var h=0;h<data.instructor_detail_array[i].instructor_curricular_array.length;h++){
+            content1+='<tr style="display:none;color:#4a4a4a;height:50px;border-bottom:none;background:#f0f0f0" class="moreinformation'+i+'" id="moreinformation'+i+h+'">\
+                            <td style="background:#fff"></td><td style="border-bottom:1px solid #e6e6e6;color:#000;font-weight:700;">'+data.instructor_detail_array[i].instructor_curricular_array[h].subject+'</td>\
+                            <td style="color:#fb2727;border-bottom:1px solid #e6e6e6;">'+data.instructor_detail_array[i].instructor_curricular_array[h].sign_a_scale+'%<br>('+data.instructor_detail_array[i].instructor_curricular_array[h].sign_a+')</td>\
+                            <td style="border-bottom:1px solid #e6e6e6;"><img src="/static/images/table_add.png" onclick="total()" style="width:13px;height:13px;"></td>\
+                            <td style="border-bottom:1px solid #e6e6e6;">'+data.instructor_detail_array[i].instructor_curricular_array[h].sign_b_scale+'%<br>('+data.instructor_detail_array[i].instructor_curricular_array[h].sign_b+')</td>\
+                            <td style="border-bottom:1px solid #e6e6e6;">=</td>\
+                            <td style="border-bottom:1px solid #e6e6e6;display:none">'+(parseInt(""+data.instructor_detail_array[i].instructor_curricular_array[h].sign_b_scale+"")+parseInt(""+data.instructor_detail_array[i].instructor_curricular_array[h].sign_a_scale+""))+'%<br>('+(parseInt(""+data.instructor_detail_array[i].instructor_curricular_array[h].sign_b+"")+parseInt(""+data.instructor_detail_array[i].instructor_curricular_array[h].sign_a+""))+')</td>\
+                            <td style="border-bottom:1px solid #e6e6e6;">'+data.instructor_detail_array[i].instructor_curricular_array[h].sign_c_scale+'%<br>('+data.instructor_detail_array[i].instructor_curricular_array[h].sign_c+')</td>\
+                            <td style="border-bottom:1px solid #e6e6e6;">'+data.instructor_detail_array[i].instructor_curricular_array[h].sign_d_scale+'%<br>('+data.instructor_detail_array[i].instructor_curricular_array[h].sign_d+')</td>\
+                            <td style="border-bottom:1px solid #e6e6e6;">'+data.instructor_detail_array[i].instructor_curricular_array[h].sign_f_scale+'%<br>('+data.instructor_detail_array[i].instructor_curricular_array[h].sign_f+')</td>\
+                            <td style="border-bottom:1px solid #e6e6e6;">'+data.instructor_detail_array[i].instructor_curricular_array[h].sign_p_scale+'%<br>('+data.instructor_detail_array[i].instructor_curricular_array[h].sign_p+')</td>\
+                            <td style="border-bottom:1px solid #e6e6e6;">'+data.instructor_detail_array[i].instructor_curricular_array[h].sign_np_scale+'%<br>('+data.instructor_detail_array[i].instructor_curricular_array[h].sign_np+')</td>\
+                            <td style="border-bottom:1px solid #e6e6e6;">'+data.instructor_detail_array[i].instructor_curricular_array[h].sign_total+'</td></tr>';
+
+           }
+
+           if (i==10) { 
+            content+='<tr class="madv"><td colspan=13>\
+            <div id="myCarousel" class="carousel slide">\
+                <div class="carousel-inner">\
+                  <div class="item">\
+                    <a href="{{ad_D3.url}}"><img src="{{ad_D3.img.url}}" style="width:100%;height:auto;margin-top:5px"></a>\
+                  </div>\
+                  <div class="item active">\
+                    <a href="{{ad_D3.url}}"><img src="/static/images/mb-2aceg.png" style="width:100%;height:auto;margin-top:5px"></a>\
+                  </div>\
+                </div>\
+              </div>\
+              </td></tr><tr class="adv" style="display:none"><td colspan="13"><a href="{{ad_c3.url}}"><img src="{{ad_c3.img.url}}" style="max-width:612px;height:78px;margin-top:5px;width:100%;height:100%"></a></td></tr>';
+
+            
+          }
+            
+             
+
+         if(i<10 && i==data.instructor_detail_array.length-1){
+            
+              content+='<tr><td style="text-align:center">'+(i+1)+'</td><td class="instructor" style="color:#000;font-weight:700;text-align:center"><div>'+data.instructor_detail_array[i].instructor+'<a href="javascript:" onclick="tableshow('+i+')"></div><div id="c_showbtn">'+data.instructor_detail_array[i].instructor_class_total+'Classes<img src="/static/images/tableup.png" class="tabledown'+i+'" style="width:13px;height:13px;margin-left:13px;display:none;"><img src="/static/images/table_down.png" style="width:13px;height:13px;margin-left:13px;" class="tableup'+i+'"></div></a></td><td id="td_width" style="color:#fb2727">'+data.instructor_detail_array[i].A_scale+'%<br>('+data.instructor_detail_array[i].A_count+')</td>\
+                            <td style="width:15px"><img src="/static/images/table_add.png" onclick="total()" style="width:13px;height:13px;"></td>\
+                            <td id="td_width">'+data.instructor_detail_array[i].B_scale+'%<br>('+data.instructor_detail_array[i].B_count+')</td>\
+                            <td style="border-bottom:1px solid #e6e6e6;">=</td>\
+                            <td id="td_width" style="display:none">'+(parseInt(""+data.instructor_detail_array[i].B_scale+"")+parseInt(""+data.instructor_detail_array[i].A_scale+""))+'%<br>('+(parseInt(""+data.instructor_detail_array[i].B_count+"")+parseInt(""+data.instructor_detail_array[i].A_count+""))+')</td>\
+                            <td id="td_width">'+data.instructor_detail_array[i].C_scale+'%<br>('+data.instructor_detail_array[i].C_count+')</td><td id="td_width">'+data.instructor_detail_array[i].D_scale+'%<br>('+data.instructor_detail_array[i].D_count+')</td><td id="td_width">'+data.instructor_detail_array[i].F_scale+'%<br>('+data.instructor_detail_array[i].F_count+')</td><td id="td_width">'+data.instructor_detail_array[i].P_scale+'%<br>('+data.instructor_detail_array[i].P_count+')</td><td id="td_width">'+data.instructor_detail_array[i].NP_scale+'%<br>('+data.instructor_detail_array[i].NP_count+')</td><td>'+data.instructor_detail_array[i].total_count+'</td></tr>'+content1+'<tr class="madv" style="border-bottom:0px;"><td colspan=13><a href="{{ad_D3.url}}"><img src="{{ad_D3.img.url}}" style="width:100%;height:auto;margin-top:5px"></a></td></tr><tr class="adv" style="border-bottom:0px"><td colspan="13" style="display:none"><a href="{{ad_C3.url}}"><img src="{{ad_C3.img.url}}" style="max-width:612px;height:78px;margin-top:5px;width:100%;height:100%"></a></td></tr>';
+            
+           
+          }
+          else if(data.instructor_detail_array.length<40){ 
+            content+='<tr><td style="text-align:center">'+(i+1)+'</td><td class="instructor" style="color:#000;font-weight:700;text-align:center"><div>'+data.instructor_detail_array[i].instructor+'<a href="javascript:" onclick="tableshow('+i+')"></div><div id="c_showbtn">'+data.instructor_detail_array[i].instructor_class_total+'Classes<img src="/static/images/tableup.png" class="tabledown'+i+'" style="width:13px;height:13px;margin-left:13px;display:none;"><img src="/static/images/table_down.png" style="width:13px;height:13px;margin-left:13px;" class="tableup'+i+'"></div></a></td><td id="td_width" style="color:#fb2727">'+data.instructor_detail_array[i].A_scale+'%<br>('+data.instructor_detail_array[i].A_count+')</td>\
+                          <td style="width:15px"><img src="/static/images/table_add.png" onclick="total()" style="width:13px;height:13px;"></td>\
+                          <td id="td_width">'+data.instructor_detail_array[i].B_scale+'%<br>('+data.instructor_detail_array[i].B_count+')</td>\
+                          <td style="border-bottom:1px solid #e6e6e6;">=</td>\
+                          <td id="td_width" style="display:none">'+(parseInt(""+data.instructor_detail_array[i].B_scale+"")+parseInt(""+data.instructor_detail_array[i].A_scale+""))+'%<br>('+(parseInt(""+data.instructor_detail_array[i].B_count+"")+parseInt(""+data.instructor_detail_array[i].A_count+""))+')</td>\
+                          <td id="td_width">'+data.instructor_detail_array[i].C_scale+'%<br>('+data.instructor_detail_array[i].C_count+')</td><td id="td_width">'+data.instructor_detail_array[i].D_scale+'%<br>('+data.instructor_detail_array[i].D_count+')</td><td id="td_width">'+data.instructor_detail_array[i].F_scale+'%<br>('+data.instructor_detail_array[i].F_count+')</td><td id="td_width">'+data.instructor_detail_array[i].P_scale+'%<br>('+data.instructor_detail_array[i].P_count+')</td><td id="td_width">'+data.instructor_detail_array[i].NP_scale+'%<br>('+data.instructor_detail_array[i].NP_count+')</td><td>'+data.instructor_detail_array[i].total_count+'</td></tr>'+content1;
+            
+          }
+       
+          else{ 
+            content+='<tr><td style="text-align:center">'+(i+1)+'</td><td class="instructor" style="color:#000;font-weight:700;text-align:center"><div>'+data.instructor_detail_array[i].instructor+'<a href="javascript:" onclick="tableshow('+i+')"></div><div id="c_showbtn">'+data.instructor_detail_array[i].instructor_class_total+'Classes<img src="/static/images/tableup.png" class="tabledown'+i+'" style="width:13px;height:13px;margin-left:13px;display:none;"><img src="/static/images/table_down.png" style="width:13px;height:13px;margin-left:13px;" class="tableup'+i+'"></div></a></td><td id="td_width" style="color:#fb2727">'+data.instructor_detail_array[i].A_scale+'%<br>('+data.instructor_detail_array[i].A_count+')</td>\
+                          <td style="width:15px"><img src="/static/images/table_add.png" onclick="total()" style="width:13px;height:13px;"></td>\
+                          <td id="td_width">'+data.instructor_detail_array[i].B_scale+'%<br>('+data.instructor_detail_array[i].B_count+')</td>\
+                          <td style="border-bottom:1px solid #e6e6e6;">=</td>\
+                          <td id="td_width" style="display:none">'+(parseInt(""+data.instructor_detail_array[i].B_scale+"")+parseInt(""+data.instructor_detail_array[i].A_scale+""))+'%<br>('+(parseInt(""+data.instructor_detail_array[i].B_count+"")+parseInt(""+data.instructor_detail_array[i].A_count+""))+')</td>\
+                          <td id="td_width">'+data.instructor_detail_array[i].C_scale+'%<br>('+data.instructor_detail_array[i].C_count+')</td>\
+                          <td id="td_width">'+data.instructor_detail_array[i].D_scale+'%<br>('+data.instructor_detail_array[i].D_count+')</td><td id="td_width">'+data.instructor_detail_array[i].F_scale+'%<br>('+data.instructor_detail_array[i].F_count+')</td><td id="td_width">'+data.instructor_detail_array[i].P_scale+'%<br>('+data.instructor_detail_array[i].P_count+')</td><td id="td_width">'+data.instructor_detail_array[i].NP_scale+'%<br>('+data.instructor_detail_array[i].NP_count+')</td><td>'+data.instructor_detail_array[i].total_count+'</td></tr><tr style="display:none" id="moreinformation'+i+'"><td style="width:3%"></td></tr>'+content1;
+             $("#more").show();
+
+          }
+         
+           
+        }
+         $('#c_table').append(content);
+         $('#c_table tr').find('td:eq(5)').hide();
+      }
+       
+       //<tr style="display:none" id="moreinformation'+i+'"><td style="color:#838383;font-weight:700;"></td><td style="color:#fb2727">'+data.instructor_detail_array[i].instructor_curricular_array[h].sign_a_scale+'%('+data.instructor_detail_array[i].instructor_curricular_array[h].sign_a+')</td><td><img src="/static/images/table_add.png" style="width:13px;height:13px;"></td><td>'+data.instructor_detail_array[i].instructor_curricular_array[h].sign_b_scale+'%('+data.instructor_detail_array[i].instructor_curricular_array[h].sign_b+')</td><td>'+data.instructor_detail_array[i].instructor_curricular_array[h].sign_c_scale+'%('+data.instructor_detail_array[i].instructor_curricular_array[h].sign_c+')</td><td>'+data.instructor_detail_array[i].instructor_curricular_array[h].sign_d_scald+'%('+data.instructor_detail_array[i].instructor_curricular_array[h].sign_d+')</td><td>'+data.instructor_detail_array[i].instructor_curricular_array[h].sign_f_scale+'%('+data.instructor_detail_array[i].instructor_curricular_array[h].sign_f+')</td><td>'+data.instructor_detail_array[i].instructor_curricular_array[h].sign_p_scale+'%('+data.instructor_detail_array[i].instructor_curricular_array[h].sign_p+')</td><td>'+data.instructor_detail_array[i].instructor_curricular_array[h].sign_np_scale+'%('+data.instructor_detail_array[i].instructor_curricular_array[h].sign_np+')</td><td>'+data.instructor_detail_array[i].instructor_curricular_array[h].sign_total+'</td></tr>
+      //<a href="javascript:" onclick="tableshow('+i+')"><p id="c_showbtn">'+data.instructor_detail_array[i].instructor_class_total+'Classes<img src="/static/images/table_down.png" style="width:13px;height:13px;margin-left:13px;"></p></a>
+      //  <tr class="'+i+'" style="display:none"><td style="color:#838383;font-weight:700;"></td><td style="color:#fb2727">'+data.instructor_curricular_array[i].sign_a_scale+'%('+data.instructor_curricular_array[i].sign_a+')</td><td><img src="/static/images/table_add.png" style="width:13px;height:13px;"></td><td>'+data.instructor_curricular_array[i].sign_b_scale+'%('+data.instructor_curricular_array[i].sign_b+')</td><td>'+data.instructor_curricular_array[i].sign_c_scale+'%('+data.instructor_curricular_array[i].sign_c+')</td><td>'+data.instructor_curricular_array[i].sign_d_scald+'%('+data.instructor_curricular_array[i].sign_d+')</td><td>'+data.instructor_curricular_array[i].sign_f_scale+'%('+data.instructor_curricular_array[i].sign_f+')</td><td>'+data.instructor_curricular_array[i].sign_p_scale+'%('+data.instructor_curricular_array[i].sign_p+')</td><td>'+data.instructor_curricular_array[i].sign_np_scale+'%('+data.instructor_curricular_array[i].sign_np+')</td><td>'+data.instructor_curricular_array[i].sign_total+'</td></tr>
+         
+  
+                },
+                error: function (err) {
+                    alert("err:" + err);
+                }
+            });}
+}
+var page=2;
+function more(){
+
+
+  var department = $('#department').val();
+  department=department.replace("\n","");
+  var subject = $('#subject').val();
+  subject=subject.replace("\n","");
+
+  //alert(subject);
+  var year_start = $('#year_start').val();
+  var year_end = $('#year_end').val();
+  year_start=year_start.replace("\n","");
+  year_end=year_end.replace("\n","");
+  var semester=""; 
+$(":checkbox[name='check']:checked").each(function(){ 
+semester+=$(this).val()+" "; 
+//alert($(this).val()); 
+}) 
+//alert(semester); 
+
+  var csrfmiddlewaretoken = $('[name="csrfmiddlewaretoken"]').val();;
+ //alert(csrfmiddlewaretoken);
+  
+   
+  $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: "/curricular/",
+
+                 data: {'page':page,'department':department,'subject':subject,'year_start':year_start,'year_end':year_end,'semester':semester,'csrfmiddlewaretoken':csrfmiddlewaretoken},
+
+                success: function (data) {
+                // var result = eval("(" + data.d + ")");//这句话是将json语句对象化
+                 //alert(data.msg);
+                 page++;
+                 if(data.code==2){
+                     $("#more").hide();
+                  alert("所有数据加载完毕");
+                 }
+                  else{
+                    $("#more").show();
+                var content1='';
+                //alert(data.instructor_detail_array.length);
+         for(var i=0;i<data.instructor_detail_array.length;i++){
+          var content2='';
+           for(var h=0;h<data.instructor_detail_array[i].instructor_curricular_array.length;h++){
+            content2+='<tr style="display:none;color:#4a4a4a;height:50px;border-bottom:none;background:#f0f0f0" class="moreinformation'+i+'" id="moreinformation'+i+h+'">\
+                            <td style="background:#fff"></td><td style="border-bottom:1px solid #e6e6e6;color:#000;font-weight:700;">'+data.instructor_detail_array[i].instructor_curricular_array[h].subject+'</td>\
+                            <td style="color:#fb2727;border-bottom:1px solid #e6e6e6;">'+data.instructor_detail_array[i].instructor_curricular_array[h].sign_a_scale+'%<br>('+data.instructor_detail_array[i].instructor_curricular_array[h].sign_a+')</td>\
+                            <td style="border-bottom:1px solid #e6e6e6;"><img src="/static/images/table_add.png" onclick="total()" style="width:13px;height:13px;"></td>\
+                            <td style="border-bottom:1px solid #e6e6e6;">'+data.instructor_detail_array[i].instructor_curricular_array[h].sign_b_scale+'%<br>('+data.instructor_detail_array[i].instructor_curricular_array[h].sign_b+')</td>\
+                            <td style="border-bottom:1px solid #e6e6e6;">=</td>\
+                            <td style="border-bottom:1px solid #e6e6e6;display:none">'+(parseInt(""+data.instructor_detail_array[i].instructor_curricular_array[h].sign_b_scale+"")+parseInt(""+data.instructor_detail_array[i].instructor_curricular_array[h].sign_a_scale+""))+'%<br>('+(parseInt(""+data.instructor_detail_array[i].instructor_curricular_array[h].sign_b+"")+parseInt(""+data.instructor_detail_array[i].instructor_curricular_array[h].sign_a+""))+')</td>\
+                            <td style="border-bottom:1px solid #e6e6e6;">'+data.instructor_detail_array[i].instructor_curricular_array[h].sign_c_scale+'%<br>('+data.instructor_detail_array[i].instructor_curricular_array[h].sign_c+')</td>\
+                            <td style="border-bottom:1px solid #e6e6e6;">'+data.instructor_detail_array[i].instructor_curricular_array[h].sign_d_scale+'%<br>('+data.instructor_detail_array[i].instructor_curricular_array[h].sign_d+')</td>\
+                            <td style="border-bottom:1px solid #e6e6e6;">'+data.instructor_detail_array[i].instructor_curricular_array[h].sign_f_scale+'%<br>('+data.instructor_detail_array[i].instructor_curricular_array[h].sign_f+')</td>\
+                            <td style="border-bottom:1px solid #e6e6e6;">'+data.instructor_detail_array[i].instructor_curricular_array[h].sign_p_scale+'%<br>('+data.instructor_detail_array[i].instructor_curricular_array[h].sign_p+')</td>\
+                            <td style="border-bottom:1px solid #e6e6e6;">'+data.instructor_detail_array[i].instructor_curricular_array[h].sign_np_scale+'%<br>('+data.instructor_detail_array[i].instructor_curricular_array[h].sign_np+')</td>\
+                            <td style="border-bottom:1px solid #e6e6e6;">'+data.instructor_detail_array[i].instructor_curricular_array[h].sign_total+'</td></tr>';
+           }
+
+          content1+='<tr><td style="text-align:center">'+((page-2)*40+i+1)+'</td><td style="color:#000;font-weight:700;text-align:center">'+data.instructor_detail_array[i].instructor+'<a href="javascript:" onclick="tableshow('+i+')"><p id="c_showbtn">'+data.instructor_detail_array[i].instructor_class_total+'Classes<img src="/static/images/tableup.png" class="tabledown'+i+'" style="width:13px;height:13px;margin-left:13px;display:none;"><img src="/static/images/table_down.png" style="width:13px;height:13px;margin-left:13px;" class="tableup'+i+'"></p></a></td><td style="color:#fb2727">'+data.instructor_detail_array[i].A_scale+'%<br>('+data.instructor_detail_array[i].A_count+')</td>\
+                         <td style="width:15px"><img src="/static/images/table_add.png" onclick="total()" style="width:13px;height:13px;"></td>\
+                         <td>'+data.instructor_detail_array[i].B_scale+'%<br>('+data.instructor_detail_array[i].B_count+')</td>\
+                         <td style="border-bottom:1px solid #e6e6e6;">=</td>\
+                         <td id="td_width">'+(parseInt(""+data.instructor_detail_array[i].B_scale+"")+parseInt(""+data.instructor_detail_array[i].A_scale+""))+'%<br>('+(parseInt(""+data.instructor_detail_array[i].B_count+"")+parseInt(""+data.instructor_detail_array[i].A_count+""))+')</td>\
+                         <td>'+data.instructor_detail_array[i].C_scale+'%<br>('+data.instructor_detail_array[i].C_count+')</td><td>'+data.instructor_detail_array[i].D_scale+'%<br>('+data.instructor_detail_array[i].D_count+')</td><td>'+data.instructor_detail_array[i].F_scale+'%<br>('+data.instructor_detail_array[i].F_count+')</td><td>'+data.instructor_detail_array[i].P_scale+'%<br>('+data.instructor_detail_array[i].P_count+')</td><td>'+data.instructor_detail_array[i].NP_scale+'%<br>('+data.instructor_detail_array[i].NP_count+')</td><td>'+data.instructor_detail_array[i].total_count+'</td></tr>'+content2;
+           
+        }}
+        
+        $('#c_table').append(content1);
+        $('#c_table tr').find('td:eq(5)').hide();
+
+      //<a href="javascript:" onclick="tableshow('+i+')"><p id="c_showbtn">'+data.instructor_detail_array[i].instructor_class_total+'Classes<img src="/static/images/table_down.png" style="width:13px;height:13px;margin-left:13px;"></p></a>
+      //  <tr class="'+i+'" style="display:none"><td style="color:#838383;font-weight:700;"></td><td style="color:#fb2727">'+data.instructor_curricular_array[i].sign_a_scale+'%('+data.instructor_curricular_array[i].sign_a+')</td><td><img src="/static/images/table_add.png" style="width:13px;height:13px;"></td><td>'+data.instructor_curricular_array[i].sign_b_scale+'%('+data.instructor_curricular_array[i].sign_b+')</td><td>'+data.instructor_curricular_array[i].sign_c_scale+'%('+data.instructor_curricular_array[i].sign_c+')</td><td>'+data.instructor_curricular_array[i].sign_d_scald+'%('+data.instructor_curricular_array[i].sign_d+')</td><td>'+data.instructor_curricular_array[i].sign_f_scale+'%('+data.instructor_curricular_array[i].sign_f+')</td><td>'+data.instructor_curricular_array[i].sign_p_scale+'%('+data.instructor_curricular_array[i].sign_p+')</td><td>'+data.instructor_curricular_array[i].sign_np_scale+'%('+data.instructor_curricular_array[i].sign_np+')</td><td>'+data.instructor_curricular_array[i].sign_total+'</td></tr>
+         
+  
+                },
+                error: function (err) {
+                    alert("err:" + err);
+                }
+            });
+}
+           
+
+ 
+    $(document).scroll(function(){
+    
+    
+    var aa=$(document).scrollTop();
+    if(aa>A3){
+        $("#A3").css('position','fixed');
+        $("#A3").css('width', '100%');
+        // $("#A3").css('height', 'auto');
+        $("#A3").css('top', '0');
+        // $("#A3").css('margin-left', '-8.3%');
+        $("#A5").css('position','fixed');
+        $("#A5").css('width', '100%');
+        // $("#A5").css('height', 'auto');
+        // alert($("#A3 img").height());
+        var b=$("#A3 img").height();
+        $("#A5").css('top', ''+b+'px');
+        // $("#A5").css('margin-left', '-8.3%');
+
+    }
+    else{
+        $("#A3").css('position','relative');
+        $("#A3").css('width', '100%');
+        $("#A3").css('height', 'auto');
+        $("#A3").css('top', '');
+        $("#A3").css('margin-left', '');
+        $("#A5").css('position','');
+        $("#A5").css('width', '100%');
+        $("#A5").css('height', 'auto');
+        $("#A5").css('top', '');
+        $("#A5").css('margin-left', '');
+    }
+    
+});
+ 
+  // $(function($) {
+
+  //     document.getElementById("subject").disabled=true;
+      
+   
+       
+  //   });
+
+  </script>
+
+
+<!-- 
+{"msg": "\u6210\u529f", "curricular_array": [{"sign_rd": 0, "sign_f": 13, "sign_ix": 0, "sign_d": 1, "sign_np": 0, "sign_p": 0, "sign_ip": 0, "sign_a": 15, "course": "1", "semester": "spring", "sign_total": 68, "year": "2016", "department": "Art", "sign_c": 13, "instructor": "MOUSAVI A", "id": 1, "sign_b": 10, "subject": "AHIS"}, {"sign_rd": 0, "sign_f": 20, "sign_ix": 0, "sign_d": 4, "sign_np": 2, "sign_p": 0, "sign_ip": 0, "sign_a": 57, "course": "1", "semester": "spring", "sign_total": 120, "year": "2016", "department": "Art", "sign_c": 8, "instructor": "MEYER W J", "id": 2, "sign_b": 0, "subject": "AHIS"}], "code": 0} -->
+</body>
+</html>

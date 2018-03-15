@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="/static/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/jquery-sinaEmotion.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/postbar-detail.css">  
+    <link rel="shortcut icon" href="/static/images/logo1.png">
+
+    <title>贴吧详情</title>
+    <!-- <link href="/static/css/pagestyle.css" type="text/css" rel="stylesheet" />
+ -->
+<!--弹出幻灯片样式-->
+<link href="/static/css/big.css" type="text/css" rel="stylesheet" />
+
+    <script type="text/javascript" src="../../static/js/house.js"></script>
+
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-97624179-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?6784d0adea487eefbe595d28dbb08efb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    <script type="text/javascript">
+     wx.config({
+   debug: false,  //调式模式，设置为ture后会直接在网页上弹出调试信息，用于排查问题
+   appId: 'wx910b80a91781c9df',
+   timestamp: {{ timestamp }},
+   nonceStr: '{{ nonceStr }}',
+   signature: '{{ signature }}',
+   jsApiList: [  //需要使用的网页服务接口
+       'checkJsApi',  //判断当前客户端版本是否支持指定JS接口
+       'onMenuShareTimeline', //分享给好友
+       'onMenuShareAppMessage', //分享到朋友圈
+       'onMenuShareQQ',  //分享到QQ
+       'onMenuShareWeibo' //分享到微博
+   ]
+ });
+ wx.ready(function () {   //ready函数用于调用API，如果你的网页在加载后就需要自定义分享和回调功能，需要在此调用分享函数。//如果是微信游戏结束后，需要点击按钮触发得到分值后分享，这里就不需要调用API了，可以在按钮上绑定事件直接调用。因此，微信游戏由于大多需要用户先触发获取分值，此处请不要填写如下所示的分享API
+            // 1 判断当前版本是否支持指定 JS 接口，支持批量判断
+                wx.checkJsApi({
+                    jsApiList: [
+                      'onMenuShareAppMessage'
+                    ],
+                    success: function (res) {
+                      //alert(JSON.stringify(res));
+                    }
+                });
+wx.onMenuShareTimeline({  //例如分享到朋友圈的API  
+    title: '{{posts.title}}', // 分享标题
+    link: 'http://csinla.com/posts/{{posts.id}}/', // 分享链接
+    // imgUrl: 'http://www.csinla.com/media/bg.jpg', // 分享图标
+    imgUrl: '{% if pictures %}http://csinla.com/media/{{pictures.0.image}}{% else %}http://www.csinla.com/media/bg.jpg{% endif %}', // 分享图标
+    success: function () {
+        // 用户确认分享后执行的回调函数
+    },
+    cancel: function () {
+        // 用户取消分享后执行的回调函数
+    }
+});
+wx.onMenuShareAppMessage({
+    title: '{{posts.title}}', // 分享标题
+    desc: '{{posts.content}}', // 分享描述
+    link: 'http://csinla.com/posts/{{posts.id}}/', // 分享链接
+    // imgUrl: 'http://www.csinla.com/media/bg.jpg', // 分享图标
+    imgUrl: '{% if pictures %}http://csinla.com/media/{{pictures.0.image}}{% else %}http://www.csinla.com/media/bg.jpg{% endif %}', // 分享图标
+    type: '', // 分享类型,music、video或link，不填默认为link
+    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+    success: function () { 
+        // 用户确认分享后执行的回调函数
+    },
+    cancel: function () { 
+        // 用户取消分享后执行的回调函数
+    }
+});
+wx.onMenuShareQQ({
+    title: '{{posts.title}}', // 分享标题
+    desc: '{{posts.content}}', // 分享描述
+    link: 'http://csinla.com/posts/{{posts.id}}/', // 分享链接
+    imgUrl: ' {% if pictures %}{{pictures.0.image.url}}{% else %}http://www.csinla.com/media/bg.jpg{% endif %}', // 分享图标
+    // imgUrl: 'http://www.csinla.com/media/bg.jpg', // 分享图标
+    success: function () { 
+       // 用户确认分享后执行的回调函数
+    },
+    cancel: function () { 
+       // 用户取消分享后执行的回调函数
+    }
+});
+}); 
+wx.error(function (res) {
+ alert(res.errMsg);  //打印错误消息。及把 debug:false,设置为debug:ture就可以直接在网页上看到弹出的错误提示
+});
+</script>
+
+<style type="text/css">
+.pagination>li>a, .pagination>li>span {color:#2d64b3}
+.pagination>.active>a, .pagination>.active>span, .pagination>.active>a:hover, .pagination>.active>span:hover, .pagination>.active>a:focus, .pagination>.active>span:focus {
+    z-index: 2;
+    color: #000;
+    cursor: default;
+ 
+  
+}
+.nav>li>a:hover, .nav>li>a:focus {
+    text-decoration: none;
+    background-color: #ddd;
+}
+</style>
+</head>
+<body>
+
+<div class="u-container">
+{% if request.user.is_authenticated %}
+    <div class="u-header clearfix">
+        <div class="logo fl">
+            <a href="/"><img class="img-responsive" src="{% static "images/01-home-logo.png" %}" alt="logo"></a>
+        </div>
+        <div class="login-status fr">
+            <div class="avatar-wrapper">
+              <a href="{% url "accounts:myPosts" %}">
+                <img src={{ user.avatar_url }} class="img-circle avatar" alt="Cinque Terre">
+              </a>
+            </div>
+            <div class="dropdown" style="display:inline-block;">
+                <button class="header-btn dropdown-toggle" type="button" data-toggle="dropdown">
+                    <i class="fa fa-cog" aria-hidden="true"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li><a href="{% url 'accounts:accountSecurity' %}">账户安全</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <!-- <li><a href="#">人工申述</a></li>
+                    <li role="presentation" class="divider"></li> -->
+                    <li><a href="{% url 'accounts:myhelpcenter' %}">联系我们</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="{% url 'accounts:logout' %}">登出</a></li>
+                </ul>
+            </div>
+            <div class="dropdown" style="display:inline-block;">
+                <a href="{% url "accounts:myInfo" %}" class="header-btn dropdown-toggle">
+                    <i class="fa fa-bell-o" aria-hidden="true"></i>
+                    {% if user.unread_message %}<span class="redpoint"><i>{{ user.unread_message }} </i></span>{% endif %}
+                </a>
+               <!--  <ul class="dropdown-menu">
+                    <li><a href="#">我的私信<span class="redpoint"><i>2</i></span></a>
+                    </li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="#">我的回复<span class="redpoint"><i>99+</i></span></a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="#">查看@提到我<span class="redpoint"><i>12</i></span></a></li>
+                </ul> -->
+            </div>
+            <div class="new-post-wrapper fr">
+                <a class="new-post" href="/posts/add">
+                    <span>发表新帖</span>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="header w">
+        <a href="#" class="mobile-nav-btn pull-right"><i class="fa fa-bars" aria-hidden="true"></i></a>
+        <a href="/" class="home-link">
+            <div class="logo">
+                <img src="{% static "images/home-logo.png" %}" alt="" class="img-responsive">
+            </div>
+        </a>
+    <div class="user">
+            <a href="#" class="remove-nav pull-right"><img src="{% static "./images/times.png" %}" alt="" class="img-responsive"></a>
+            <a href="/" class="home-nav-item special">
+                <span>首页</span>
+            </a>
+            <a href="/posts/add" class="home-nav-item special">
+                <span>发表新帖</span>
+            <a href="{% url "accounts:myPosts" %}" class="home-nav-item special">
+                <span>个人中心</span>
+            </a>
+         <!--    <a href="{% url "accounts:accountSecurity" %}" class="home-nav-item has-sub-item">
+                <span>设置</span>
+            </a> -->
+            
+            <a href="{% url 'accounts:logout' %}"  class="home-nav-item special">
+                <span>Sign out</span></a>
+            
+            </a>
+        </div>
+    {% else %}
+    <div class="u-header clearfix">
+        <div class="logo fl">
+            <a href="/"><img class="img-responsive" src="{% static "images/01-home-logo.png" %}" alt="logo"></a>
+        </div>
+        <div class="user" style="margin-top:18px;text-align:right;">
+            <a href="{% url 'accounts:login' %}" class="login home-nav-item">
+                <span>Log in</span>
+                <img src="{% static "images/home-login.png" %}" alt="">
+            </a>
+            <a href="{% url 'accounts:register' %}" class="register home-nav-item" style="margin-left:10px;">
+                <span>Register</span>
+                <img src="{% static "images/home-register.png" %}" alt="">
+            </a>
+
+        </div>
+
+    </div>
+    <div class="header w">
+        <a href="#" class="mobile-nav-btn pull-right"><i class="fa fa-bars" aria-hidden="true"></i></a>
+        <a href="/" class="home-link">
+            <div class="logo">
+                <img src="{% static "images/home-logo.png" %}" alt="" class="img-responsive">
+            </div>
+        </a>
+        
+        <div class="user">
+            <a href="#" class="remove-nav pull-right"><img src="{% static "./images/times.png" %}" alt="" class="img-responsive"></a>
+            <a href="/" class="home-nav-item special">
+                <span>首页</span>
+            </a>
+            
+            
+            <a href="{% url 'accounts:login' %}" class="login home-nav-item">
+                <span>Log in</span>
+                <img src="{% static "images/home-login.png" %}" alt="">
+            </a>
+            <a href="{% url 'accounts:register' %}" class="register home-nav-item">
+                <span>Register</span>
+                <img src="{% static "images/home-register.png" %}" alt="">
+            </a>
+            <!-- <a href="#" class="home-nav-item special">
+                <span>Live and Love</span>
+            </a> -->
+        </div>
+
+       {% endif %}
+    </div> 
+
+    <div class="u-main well well-lg mwell">
+        <!--贴吧标题背景-->
+        <h2 class="u-main-title ac">
+            <img src="/static/images/postsbar.png" class="partitle" style="border-top-left-radius:5px;border-top-right-radius:5px" alt="bar-bg">
+            <img src="/static/images/m-postsbar.png" class="m-partitle" style="border-top-left-radius:5px;border-top-right-radius:5px;" alt="bar-bg">
+        </h2>
+        <!--/贴吧标题背景-->
+
+        <!--贴吧标题-->
+        <div class="u-bar-info">
+            <img src="/static/images/friend_1.png" alt="">
+            <span class="u-bar-name" style="color:#353c45">万能的朋友圈</span>
+            <!-- <div class="u-bar-follow">
+                <a href="#" class="lacs-color-btn" id="follow">+关注此贴吧</a>
+                <div class="hide" id="unfollow">
+                    <a href="#" class="lacs-color-btn2">√已关注</a>
+                    <div class="dropdown" style="display:inline-block;color: #444;">
+                        <button class="header-btn dropdown-toggle" type="button" data-toggle="dropdown">
+                            <i class="fa fa-cog" aria-hidden="true" style="color: #444;"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a href="#">取消关注</a></li>
+                            <li role="presentation" class="divider"></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <span class="u-bar-count">关注：29801</span>
+            <span class="u-bar-count">帖子：9382</span>
+            <div class="u-sign-box fr">
+                <div class="sign fl">签到</div>
+                <div class="sign-info fr">
+                    <p>2016年09月01日</p>
+                    <p>漏签 <i style="color:red;">0</i> 天</p>
+                </div>
+            </div> -->
+        </div>
+        <!--/贴吧标题-->
+
+        <!--导航条-->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:0px;border-top: 1px solid #DBDCE0;border-bottom: 1px solid #DBDCE0;background-image: linear-gradient(to bottom,#EEEFF3 0,#EAEEF1 100%);">
+            <ul class="nav navbar-nav" style="margin:0px">
+                <li class="active"><a href="/posts/exposure/view" style="color:#353c45;padding:15px 18px">看帖</a></li>
+                <li><a href="/posts/exposure/add" style="color:#353c45;padding:15px 18px">发帖</a></li>
+              <!--  <li><a href="#">投票</a></li> -->
+            </ul>
+          <!--   <ul class="nav navbar-nav navbar-right">
+                <li><p class="navbar-text">贴吧快速导航</p></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">点击选择贴吧 <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                    </ul>
+                </li>
+            </ul> -->
+            <a href="/" class="m-one back"><img src="/static/images/index_tab_l.png" style="width:7px;display:inline">&nbsp;&nbsp;返回CSinLA.com</a>
+        </div>
+        <div style="background:#f5f7fa;height:40px">
+                    <nav class="ac" style="display: inline-block;padding: 0px;margin-top:-10px" aria-label="Page navigation">
+                        <ul class="pagination">
+                            <li class="disabled">
+                                <a href="#" aria-label="Previous" style="border:none;background-color:#f5f7fa;">上一页
+                                </a>
+                            </li>
+                            <li><a href="#" style="border:none;background-color:#f5f7fa;">首页</a></li>
+                            <li class="active"><a href="#" style="border:none;background-color:#f5f7fa;">1</a></li>
+                            <!-- <li><a href="#" style="border:none;background-color:#f5f7fa;">2</a></li>
+                            <li><a href="#" style="border:none;background-color:#f5f7fa;">3</a></li>
+                            <li><a href="#" style="border:none;background-color:#f5f7fa;">4</a></li>
+                            <li><a href="#" style="border:none;background-color:#f5f7fa;">5</a></li> -->
+                            <li><a href="#" style="border:none;background-color:#f5f7fa;">尾页</a></li>
+                            <li>
+                                <a href="#" aria-label="Next" style="border:none;background-color:#f5f7fa;">
+                                    下一页
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- <a class="fr" href="/posts/exposure/view" style="color:#2d64b3;margin-top:10px;margin-right: 20px;">&lt;&lt;返回贴吧首页</a> -->
+                </div>
+        <!--/导航条-->
+
+        <div class="u-main-content row">
+
+            <div class="col-md-9 u-main-section">
+            <!-- <div id="pageurl" style="    position: relative;"><a href="/">首页</a> <img src="{% static "images/url-lef.png" %}"> <a href="/posts/exposure/view/">万能的朋友圈</a> <img src="{% static "images/url-lef.png" %}"> <a href="#">{{ posts.title }}</a></div> -->
+                
+
+                <div class="u-bar-title clearfix">
+                    <div class="title fl">
+                        {% if posts.is_top %}
+                            <span class="top"></span>
+                        {% endif %}
+                        <!-- <span class="good">精品</span> -->
+                        <a href="#" style="color:#333;font-weight: 400;font-size: 16px;">{{posts.title}}</a>
+                    </div>
+                    <div class="panel fr">
+                        <a href="#">只看楼主</a>
+                        {% if is_collect %}
+                        <a href="javascript:" onclick="cancelcollege()">取消收藏</a>
+                        {% else %}
+                        <a href="javascript:" onclick="college()">收藏</a>
+                        {% endif %}
+                        <a href="#">回复</a>
+                        {% if user.is_superuser %}{% if posts.is_top %}<a href="{% url 'posts:settop' posts.id %}">取消置顶</a>{% else %}<a href="{% url 'posts:settop' posts.id %}">置顶</a>{% endif %}
+                        <a href="/posts/post/delete/{{ posts.id }}">删除</a>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="u-bar-content">
+                    <ul class="list-group">
+                        <!--一楼-->
+                        <li class="list-group-item row one">
+                            <!--头像-->
+                            <div class="u-icon col-md-2">
+                                <div class="ac beginer">
+                                    <img src="{{ posts.author.avatar_url }}" class="img-circle" alt="dummy-head">
+                                </div>
+                                <h4 class="username ac">
+                                    <a style="vertical-align:middle;color:#2d64b3;font-size:14px" class="useruser" href="#m277">{{ posts.author }}{% if posts.autor.first_name == '系统用户' and user.is_superuser %}<p><span style="color:red;border: 1px solid;font-size:14px;">系统</span></p>{% endif %}</a>
+                                    <span>
+                                        <img src="/static/images/man.png" alt="man icon">
+                                    </span>
+                                </h4>
+                            </div>
+                            <!--/头像-->
+
+                            <!--具体信息-->
+                            <div class="u-comment col-md-10">
+                                <div class="clearfix" style="min-height: 140px;">
+                                    <!--左侧详细信息-->
+                                    <div class="u-info fl" style="line-height: 24px;font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;color: #333;font-size: 14px;word-wrap: break-word;">
+                                        <p>{{posts.content |linebreaks}}</p>
+                                        <ul>
+                                        {% for picture in pictures %}
+                                            <!-- <img src="{{picture.image.url}}" style="width:60%" data-target="#myCarousel" onclick="carousel()" data-slide-to="{{forloop.counter}}" alt=""> -->
+                                            <li class="bigimage"><img src="{{picture.image.url}}" style="width:60%">
+                                            </li>
+                                        {% endfor %}
+                                        </ul>
+                                    </div>
+                                    <!--左侧详细信息-->
+                                </div>
+                                <div id="myCarousel" class="carousel slide" style="display:none;position: fixed;z-index: 1000;top: 0px;width: 100%;height: 100%;background: #000;left:0px">
+                                    <!-- <a class="carousel1" style="background:#fff;background: url(/static/images/carouselright.png) no-repeat;
+                                            background-position: center center;width: 40px;height: 30px;margin-top: 55px;"></a>
+ -->
+  <!-- 轮播（Carousel）指标 --> 
+                                             
+  <!-- 轮播（Carousel）项目 -->
+                                          <div class="carousel-inner" id="carousel-inner" style="height:100%">
+                                           <div class="item active" style="width:800px;height:550px">
+                                             
+                                                <img src="{{picture.image.url}}" alt="" style="margin: 0 auto;max-width:100%;min-width:auto;max-height:100%;min-height:auto">
+                                         </div>
+                                            {% for picture in pictures %}
+                                            <div class="item">
+                                             
+                                                <img src="{{picture.image.url}}" alt="" style="margin: 0 auto;max-width:100%;width:auto;max-height:100%;height:auto">
+                                             
+                                            </div>
+                                            {% endfor %}
+                                                     
+                                          </div>
+                                          <!-- 轮播（Carousel）导航 -->
+                                          <a class="carousel-control left" href="#myCarousel" 
+                                             data-slide="prev" style="background:#fff;background: url(/static/images/carcarouselleft.png) no-repeat;
+                                            background-position: center center;width: 40px;height: 30px;margin-top: 10%;"></a>
+                                          <a class="carousel-control right" href="#myCarousel" 
+                                             data-slide="next" style="background:#fff;background: url(/static/images/carcarouselright.png) no-repeat;
+                                            background-position: center center;width: 40px;height: 30px;margin-top: 10%;"></a>
+                                </div>
+
+                                <div class="u-foot">
+                                    <!--警示标语-->
+                                    <div class="u-warn">
+                                    {% if is_war %} 
+                                        <span style="color: red;text-decoration: underline;">{{war}}</span>&nbsp;&nbsp;
+                                    {% endif %}
+                                    </div>
+                                    <!--举报-->
+                                    <div class="u-remain">
+                                        <!-- <div class="dropdown">
+                                            <a class="dropdown-toggle" data-toggle="dropdown">举报<span
+                                                    class="caret"></span></a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#">暴力信息举报</a></li>
+                                                <li role="presentation" class="divider"></li>
+                                                <li><a href="#">不雅信息举报</a></li>
+                                                <li role="presentation" class="divider"></li>
+                                                <li><a href="#">其他信息举报</a></li>
+                                                <li role="presentation" class="divider"></li>
+                                            </ul>
+                                        </div> -->
+                                        &nbsp;&nbsp;
+                                        <span>1楼</span>&nbsp;&nbsp;
+                                        {% if posts.is_today %}
+                                        <span>{{posts.post_date|date:'H:i'}}</span>
+                                        {% else %}
+                                        <span>{{posts.post_date|date:'Y-m-d'}}</span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/具体信息-->
+                        </li>
+
+                        <li class="list-group-item row m-one">
+                            <!--头像-->
+                            <div class="u-icon col-md-2">
+                                <div>
+                                    <img src="{{ posts.author.avatar_url }}" class="img-circle" style="width:40px;height:40px" alt="dummy-head">
+                                
+
+                                    <h4 class="username ac" style="display:inline;position:absolute;margin:0px;margin-left:5px">
+                                        <a style="vertical-align:middle;color:#2d64b3;font-size:16px" class="useruser" href="#m277">{{ posts.author }}{% if posts.autor.first_name == '系统用户' and user.is_superuser %}<p><span style="color:red;border: 1px solid;font-size:14px;">系统</span></p>{% endif %}</a>
+                                       <!--  <span>
+                                            <img src="/static/images/man.png" alt="man icon">
+                                        </span> -->
+                                    </h4>
+                                    <div style="position:absolute;margin-top:-17px;margin-left:45px;color:#ccc;font-size:14px">
+                                     <span>1楼</span>&nbsp;&nbsp;
+                                     {% if posts.is_today %}
+                                     <span>{{posts.post_date|date:'H:i'}}</span>
+                                     {% else %}
+                                     <span>{{posts.post_date|date:'Y-m-d'}}</span>
+                                     {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/头像-->
+
+                            <!--具体信息-->
+                            <div class="u-comment col-md-10">
+                                <div class="clearfix" style="min-height: 140px;">
+                                    <!--左侧详细信息-->
+                                    <div class="u-info fl" style="line-height: 24px;font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;color: #333;font-size: 14px;word-wrap: break-word;">
+                                        <p>{{posts.content |linebreaks}}</p>
+                                        <ul>
+                                        {% for picture in pictures %}
+                                            <li class="bigimg"><img src="{{picture.image.url}}" style="width:100%">
+                                            </li>
+                                        {% endfor %}
+                                        </ul>
+                                    </div>
+                                    <!--左侧详细信息-->
+                                </div>
+                                <div id="mmyCarousel" class="carousel slide" style="display:none;position: fixed;z-index: 1000;top: 0px;width: 100%;height: 100%;background: #000;left:0px">
+                                    <!-- <a class="carousel1" style="background:#fff;background: url(/static/images/carouselright.png) no-repeat;
+                                            background-position: center center;width: 40px;height: 30px;margin-top: 55px;"></a>
+ -->
+  <!-- 轮播（Carousel）指标 --> 
+                                             
+  <!-- 轮播（Carousel）项目 -->
+                                          <div class="carousel-inner" id="carousel-inner" style="height:100%">
+                                           <div class="item active" style="width:800px;height:550px">
+                                             
+                                                <img src="{{picture.image.url}}" alt="" style="margin: 0 auto;max-width:100%;min-width:auto;max-height:100%;min-height:auto">
+                                         </div>
+                                            {% for picture in pictures %}
+                                            <div class="item">
+                                             
+                                                <img src="{{picture.image.url}}" alt="" style="margin: 0 auto;max-width:100%;min-width:auto;max-height:100%;min-height:auto">
+                                             
+                                            </div>
+                                            {% endfor %}
+                                                     
+                                          </div>
+                                          <!-- 轮播（Carousel）导航 -->
+                                          <a class="carousel-control left" href="#mmyCarousel" 
+                                             data-slide="prev" style="background:#fff;background: url(/static/images/carcarouselleft.png) no-repeat;
+                                            background-position: center center;width: 40px;height: 30px;margin-top: 70%;"></a>
+                                          <a class="carousel-control right" href="#mmyCarousel" 
+                                             data-slide="next" style="background:#fff;background: url(/static/images/carcarouselright.png) no-repeat;
+                                            background-position: center center;width: 40px;height: 30px;margin-top: 70%;"></a>
+                                </div>
+
+
+                                <div class="u-foot">
+                                    <!--警示标语-->
+                                    <div class="u-warn">
+                                    {% if is_war %} 
+                                        <span style="color: red;text-decoration: underline;">{{war}}</span>&nbsp;&nbsp;
+                                    {% endif %}
+                                    </div>
+                                    <!--举报-->
+                                    <div class="u-remain">
+                                        <!-- <div class="dropdown">
+                                            <a class="dropdown-toggle" data-toggle="dropdown">举报<span
+                                                    class="caret"></span></a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#">暴力信息举报</a></li>
+                                                <li role="presentation" class="divider"></li>
+                                                <li><a href="#">不雅信息举报</a></li>
+                                                <li role="presentation" class="divider"></li>
+                                                <li><a href="#">其他信息举报</a></li>
+                                                <li role="presentation" class="divider"></li>
+                                            </ul>
+                                        </div> -->
+                                       <!--  &nbsp;&nbsp;
+                                        <span>1楼</span>&nbsp;&nbsp;
+                                        <span>{{posts.post_date|date:'Y-m-d H:i'}}</span> --></div>
+                                </div>
+                            </div>
+                            <!--/具体信息-->
+                        </li>
+                        <!--/一楼-->
+
+                        <!--二楼-->
+                        {% for reply_message in reply_message_list %}
+                            <li class="list-group-item row one" id="m{{reply_message.id}}">
+                                <div class="col-md-2 u-icon">
+                                    <div class="ac">
+                                        <img src="{{reply_message.creator.avatar_url}}" class="img-circle" alt="dummy-head">
+                                    </div>
+                                    <h4 class="username ac">
+                                        <a style="vertical-align:middle;color:#2d64b3;font-size:14px" href="#" class="useruser">{{reply_message.creator}}{% if reply_message.creator.first_name == '系统用户' and user.is_superuser %}<p><span style="color:red;border: 1px solid;font-size:14px;">系统</span></p>{% endif %}</a>
+                                        <span>
+                                            <img src="/static/images/man.png" alt="man icon">
+                                        </span>
+                                    </h4>
+                                </div>
+                                <div class="u-comment-content col-md-10 clearfix">
+                                    <div class="u-comment-text" style="max-width:100%;line-height: 24px;font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;color: #333;font-size: 14px;word-wrap: break-word;">
+                                        {{reply_message.content_text| linebreaksbr}}<br>
+                                        {% for image_item in reply_message.messageimageitem_set.all %}
+                                        
+                                        <img src="{{image_item.content_image.url}}">
+
+                                        {% endfor %}
+                                    </div>
+                                    <div class="u-comment-foot">
+                                       <!--  <div class="dropdown">
+                                            <a class="dropdown-toggle" data-toggle="dropdown">举报<span
+                                                    class="caret"></span></a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#">暴力信息举报</a></li>
+                                                <li role="presentation" class="divider"></li>
+                                                <li><a href="#">不雅信息举报</a></li>
+                                                <li role="presentation" class="divider"></li>
+                                                <li><a href="#">其他信息举报</a></li>
+                                                <li role="presentation" class="divider"></li>
+                                            </ul>
+                                        </div> -->
+                                        &nbsp;&nbsp;
+                                        <span>{{reply_message.floor}}楼</span>&nbsp;&nbsp;
+                                        {% if posts.is_today %}
+                                        <span>{{reply_message.create_time|date:'H:i'}}</span>&nbsp;&nbsp;
+                                        {% else %}
+                                        <span>{{reply_message.create_time|date:'Y-m-d'}}</span>&nbsp;&nbsp;
+                                        {% endif %}
+                                        <a href="javascript:;" class="replyButton" onclick="re({{reply_message.id}})" style="color:#2d64b3">回复</a>(<i class="commentnum">{{reply_message.reply_message_list|length}}</i>)
+                                        {%if user.is_superuser%}<a href="javascript:;" class="delete" onclick="del({{reply_message.id}})">删除</a>{%endif%}
+                                        <!-- &nbsp;&nbsp; -->
+                                        <!-- <span class="fa fa-thumbs-up likeIt"> 18</span> -->
+                                        <!-- &nbsp;&nbsp;&nbsp;&nbsp; -->
+                                        <div class="u-reply">
+                                            <div id="reply_message_list_{{reply_message.id}}" class="reply_message_li">
+                                            {% for child_message in reply_message.reply_message_list_top5 %}
+                                                <div class="media" id="m{{child_message.id}}">
+                                                    <a class="media-left" href="#">
+                                                        <img src="{{child_message.creator.avatar_url}}" alt="...">
+                                                    </a>
+                                                    <div class="media-body">
+                                                        <div class="u-second-level-reply">
+                                                        <input type="hidden" name="operate" value="reply">
+                                                            <input type="hidden" name="post" value={{posts.id}}>
+                                                            <input type="hidden" name="reply_message" class="reply_id{{child_message.id}}" value={{child_message.id}}>
+                                                            <a href="#" style="color:#2d64b3">{{child_message.creator}}{% if child_message.creator.first_name == '系统用户' and user.is_superuser %}<span style="color:red;border: 1px solid;font-size:14px;">系统</span>{% endif %} : </a><span style="line-height: 20px;font-size: 14px;color: #333;">{% if child_message.reply_message != reply_message %} 回复 <span style="color:#2d64b3">{{child_message.reply_message.creator}}</span> :{% endif %} 
+                                                            {{child_message.content_text}}</span>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <div class="u-second-level-info" style="color: #333;">
+                                                        {% if posts.is_today %}
+                                                            <span>{{ child_message.create_time|date:'H:i' }}</span>&nbsp;&nbsp;
+                                                        {% else %}
+                                                            <span>{{ child_message.create_time|date:'Y-m-d' }}</span>&nbsp;&nbsp;
+                                                        {% endif %}
+                                                            
+                                                            <a href="javascript:;" onclick="re({{child_message.id}})" id="{{child_message.id}}"  class="inreplyButton" style="color:#666">回复</a>
+                                                            {%if user.is_superuser%}<a href="javascript:;" class="delete" onclick="del({{child_message.id}})">删除</a>{%endif%}
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                        {% if reply_message.reply_message_list.count > 5 %}
+                                                <a href="javascript:;" onclick="load_left_reply({{reply_message.id}})" >加载所有评论</a>
+                                            {% endif %}
+                                        <div class="u-second-level-control clearfix">
+                                                <nav class="fl">
+                                                    <ul class="pagination pagination-sm" id="reply_page{{reply_message.id}}">
+                                                      <!--   <li><a href="#">1</a></li>
+                                                        <li><a href="#">2</a></li>
+                                                        <li><a href="#">3</a></li>
+                                                        <li><a href="#">下一页</a></li>
+                                                        <li><a href="#">尾页</a></li>-->
+                                                    </ul>
+                                                </nav> 
+                                            <span class="fr label label-default" style="background:#fff"><a href="javascript:;" onclick="re({{reply_message.id}})">我也说一句</a></span>
+                                        </div>
+                                        <div class="row u-second-level-new-comment">
+                                            <form action="/posts/postmessage/leave/" method="POST">
+                                                <div class="col-md-10 ff">
+                                                
+                                                    <input type="hidden" class="reply_message_sign" id="rep{{reply_message.floor}}" name="reply_message" value="{{reply_message.id}}">
+                                                    <a href="javascript:;" class="emotion"><i class="fa fa-meh-o"></i></a>
+                                                    <textarea class="form-control intext" id="intext{{reply_message.floor}}" name='content' rows="3"></textarea>
+
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <button type="button" class="btn btn-primary inpublish" onclick="pli({{reply_message.floor}})">发表</button>
+                                                </div>
+                                            </form>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                                       <!--  <div class="u-reply">
+                                            <div class="row u-second-level-new-comment">
+                                                <form action="/posts/postmessage/leave/" method="POST">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="operate" value="reply">
+                                                    <input type="hidden" name="post" value={{posts.id}}>
+                                                        <input type="hidden" name="reply_message" class="reply_id" value={{reply_message.id}}>
+                                                    <div class="col-md-10">
+                                                        <textarea class="form-control" class="intext" name='content' rows="3"></textarea>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <button type="button" class="btn btn-primary inpublish">发表</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li> -->
+                        {% endfor %}
+                        {% for reply_message in reply_message_list %}
+                            <li class="list-group-item row m-one" id="m{{reply_message.id}}">
+                                
+
+                                <div class="u-icon col-md-2">
+                                <div>
+                                    <img src="{{reply_message.creator.avatar_url}}" class="img-circle" style="width:40px;height:40px" alt="dummy-head">
+                                
+
+                                    <h4 class="username ac" style="display:inline;position:absolute;margin:0px;margin-left:5px">
+                                        <a style="vertical-align:middle;color:#2d64b3;font-size:16px" href="#">{{reply_message.creator}}{% if reply_message.creator.first_name == '系统用户' and user.is_superuser %}<p><span style="color:red;border: 1px solid;font-size:14px;">系统</span></p>{% endif %}</a>
+                                       <!--  <span>
+                                            <img src="/static/images/man.png" alt="man icon">
+                                        </span> -->
+                                    </h4>
+                                    <div style="position:absolute;margin-top:-17px;margin-left:45px;color:#ccc;font-size:14px">
+                                     <span>{{reply_message.floor}}楼</span>&nbsp;&nbsp;
+                                     {% if posts.is_today %}
+                                        <span>{{reply_message.create_time|date:'H:i'}}</span>
+                                     {% else %}
+                                        <span>{{reply_message.create_time|date:'Y-m-d'}}</span>
+                                    {% endif %}
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                                <div class="u-comment-content col-md-10 clearfix">
+                                    <div class="u-comment-text" style="max-width:100%;line-height: 24px;font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;color: #333;font-size: 14px;word-wrap: break-word;">
+                                        {{reply_message.content_text| linebreaksbr}}<br>
+                                        {% for image_item in reply_message.messageimageitem_set.all %}
+                                        
+                                        <img src="{{image_item.content_image.url}}">
+
+                                        {% endfor %}
+                                    </div>
+                                    
+                                    <div class="u-comment-foot">
+                                       <!--  <div class="dropdown">
+                                            <a class="dropdown-toggle" data-toggle="dropdown">举报<span
+                                                    class="caret"></span></a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#">暴力信息举报</a></li>
+                                                <li role="presentation" class="divider"></li>
+                                                <li><a href="#">不雅信息举报</a></li>
+                                                <li role="presentation" class="divider"></li>
+                                                <li><a href="#">其他信息举报</a></li>
+                                                <li role="presentation" class="divider"></li>
+                                            </ul>
+                                        </div> -->
+                                        &nbsp;&nbsp;
+                                        <!-- <span>{{reply_message.floor}}楼</span>&nbsp;&nbsp;
+                                        <span>{{reply_message.create_time|date:'Y-m-d H:i'}}</span>&nbsp;&nbsp; -->
+                                        <a href="javascript:;" class="replyButton" onclick="mre({{reply_message.id}})" style="color:#2d64b3">回复</a>(<i class="commentnum">{{reply_message.reply_message_list|length}}</i>)
+                                        {%if user.is_superuser%}<a href="javascript:;" class="delete" onclick="mdel({{reply_message.id}})">删除</a>{%endif%}
+                                        <!-- &nbsp;&nbsp; -->
+                                        <!-- <span class="fa fa-thumbs-up likeIt"> 18</span> -->
+                                        <!-- &nbsp;&nbsp;&nbsp;&nbsp; -->
+                                        <div class="u-reply">
+                                            <div id="mreply_message_list_{{reply_message.id}}" class="reply_message_li">
+                                            {% for child_message in reply_message.reply_message_list_top5 %}
+                                                <div class="media" id="mm{{child_message.id}}">
+                                                    <a class="media-left" href="#">
+                                                        <img src="{{child_message.creator.avatar_url}}" alt="...">
+                                                    </a>
+                                                    <div class="media-body">
+                                                        <div class="u-second-level-reply">
+                                                        <input type="hidden" name="operate" value="reply">
+                                                            <input type="hidden" name="post" value={{posts.id}}>
+                                                            <input type="hidden" name="reply_message" class="reply_id{{child_message.id}}" value={{child_message.id}}>
+                                                            <a href="#" style="color:#2d64b3">{{child_message.creator}}{% if child_message.creator.first_name == '系统用户' and user.is_superuser %}<span style="color:red;border: 1px solid;font-size:14px;">系统</span>{% endif %} : </a><span style="line-height: 20px;font-size: 14px;color: #333;">{% if child_message.reply_message != reply_message %} 回复 <span style="color:#2d64b3">{{child_message.reply_message.creator}}</span> :{% endif %} 
+                                                            {{child_message.content_text}}</span>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <div class="u-second-level-info" style="color: #333;">
+                                                     {% if posts.is_today %}
+                                                        <span>{{ child_message.create_time|date:'H:i' }}</span>&nbsp;&nbsp;
+                                                     {% else %}
+                                                        <span>{{ child_message.create_time|date:'Y-m-d' }}</span>&nbsp;&nbsp;
+                                                     {% endif %}
+                                                            
+                                                            <a href="javascript:;" onclick="mre({{child_message.id}})" id="mmm{{child_message.id}}"  class="inreplyButton" style="color:#666">回复</a>
+                                                            {%if user.is_superuser%}<a href="javascript:;" class="delete" onclick="del({{child_message.id}})">删除</a>{%endif%}
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                        {% if reply_message.reply_message_list.count > 5 %}
+                                                <a href="javascript:;" onclick="mload_left_reply({{reply_message.id}})" >加载所有评论</a>
+                                            {% endif %}
+                                        <div class="u-second-level-control clearfix">
+                                                <nav class="fl">
+                                                    <ul class="pagination pagination-sm" id="mreply_page{{reply_message.id}}">
+                                                      <!--   <li><a href="#">1</a></li>
+                                                        <li><a href="#">2</a></li>
+                                                        <li><a href="#">3</a></li>
+                                                        <li><a href="#">下一页</a></li>
+                                                        <li><a href="#">尾页</a></li>-->
+                                                    </ul>
+                                                </nav> 
+                                            <span class="fr label label-default" style="background:#fff"><a href="javascript:;" onclick="mre({{reply_message.id}})">我也说一句</a></span>
+                                        </div>
+                                        <div class="row u-second-level-new-comment">
+                                            <form action="/posts/postmessage/leave/" method="POST">
+                                                <div class="col-md-10 ff">
+                                                
+                                                    <input type="hidden" class="reply_message_sign" id="mrep{{reply_message.floor}}" name="reply_message" value="{{reply_message.id}}">
+                                                    <a href="javascript:;" class="emotion"><i class="fa fa-meh-o"></i></a>
+                                                    <textarea class="form-control intext" id="mintext{{reply_message.floor}}" name='content' rows="3"></textarea>
+
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <button type="button" class="btn btn-primary inpublish" onclick="mpli({{reply_message.floor}})">发表</button>
+                                                </div>
+                                            </form>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                                       <!--  <div class="u-reply">
+                                            <div class="row u-second-level-new-comment">
+                                                <form action="/posts/postmessage/leave/" method="POST">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="operate" value="reply">
+                                                    <input type="hidden" name="post" value={{posts.id}}>
+                                                        <input type="hidden" name="reply_message" class="reply_id" value={{reply_message.id}}>
+                                                    <div class="col-md-10">
+                                                        <textarea class="form-control" class="intext" name='content' rows="3"></textarea>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <button type="button" class="btn btn-primary inpublish">发表</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li> -->
+                        {% endfor %}
+                         <!-- <li class="list-group-item row">
+                            <div class="col-md-2 u-icon">
+                                <div class="ac">
+                                    <img src="{{reply_message.creator.avatar_url}}" class="img-circle" alt="dummy-head">
+                                </div>
+                                <h4 class="username ac">
+                                    <a style="vertical-align:middle;" href="#">{{reply_message.creator}}{% if reply_message.creator.first_name == '系统用户' and user.is_superuser %}<p><span style="color:red;border: 1px solid;font-size:14px;">系统</span></p>{% endif %}</a>
+                                    <span>
+                                        <img src="images/man.png" alt="man icon">
+                                    </span>
+                                </h4>
+                            </div>
+                            <div class="u-comment-content col-md-10 clearfix">
+                                <div class="u-comment-text">{{reply_message.content_text}}</div>
+                                <div class="u-comment-foot"> -->
+                                    <!-- <div class="dropdown">
+                                        <a class="dropdown-toggle" data-toggle="dropdown">举报<span
+                                                class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">暴力信息举报</a></li>
+                                            <li role="presentation" class="divider"></li>
+                                            <li><a href="#">不雅信息举报</a></li>
+                                            <li role="presentation" class="divider"></li>
+                                            <li><a href="#">其他信息举报</a></li>
+                                            <li role="presentation" class="divider"></li>
+                                        </ul>
+                                    </div> -->
+                                   <!--  &nbsp;&nbsp;
+                                    <span>{{reply_message.floor}}楼</span>&nbsp;&nbsp;
+                                    <span>{{reply_message.create_time|date:'Y-m-d H:i'}}</span>&nbsp;&nbsp;
+                                    <a href="javascript:;" id="{{reply_message.id}}" class="replyButton">回复</a>(<i>28</i>)
+                                    &nbsp;&nbsp; -->
+                                   <!--  <span class="fa fa-thumbs-up likeIt like"> 18</span> -->
+                                    <!-- &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <div class="u-reply">
+                                        <div class="media">
+                                            <a class="media-left" href="#">
+                                                <img src="images/avatar.jpg" alt="...">
+                                            </a>
+                                            <div class="media-body">
+                                                <div class="u-second-level-reply">
+                                                    <a href="#">Melkiadez : </a>
+                                                    发奖金额御景国际辅导机构放大时刻发奖金额御景国际辅导机构放大时刻发奖金额御景国际辅导机构放大时刻
+                                                    发奖金额御景国际辅导机构放大时刻
+                                                </div>
+                                                <div class="u-second-level-info">
+                                                    <span>2016-11-11 11:11</span>&nbsp;&nbsp;
+                                                    <a href="javascript:;" class="replyButton">回复</a>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="media">
+                                            <a class="media-left" href="#">
+                                                <img src="images/detailImg.gif" alt="...">
+                                            </a>
+                                            <div class="media-body">
+                                                <div class="u-second-level-reply">
+                                                    <a href="#">sadic : </a> 回复
+                                                    <a href="#">Melkiadez : </a>
+                                                    那你ID撒娇歌 下降到覅 感到骄傲深刻理解放到爱睡懒觉
+                                                </div>
+                                                <div class="u-second-level-info">
+                                                    <span>2016-11-11 11:11</span>&nbsp;&nbsp;
+                                                    <a href="javascript:;" class="replyButton">回复</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="u-second-level-control clearfix">
+                                            <nav class="fl">
+                                                <ul class="pagination pagination-sm">
+                                                    <li><a href="#">1</a></li>
+                                                    <li><a href="#">2</a></li>
+                                                    <li><a href="#">3</a></li>
+                                                    <li><a href="#">下一页</a></li>
+                                                    <li><a href="#">尾页</a></li>
+                                                </ul>
+                                            </nav>
+                                            <span class="fr label label-default">我也说一句</span>
+                                        </div>
+                                        <div class="row u-second-level-new-comment">
+                                            <form action="">
+                                                <div class="col-md-10">
+                                                    <textarea class="form-control" rows="3"></textarea>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <button type="button" class="btn btn-primary">发表</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li> -->
+
+                        <!--评论-->
+                        <li class="list-group-item row">
+                            
+                            <div class="col-md-12 u-new-comment">
+                                <!-- <button class="toggleComment" data-flag="true">收起评论<i
+                                        class="fa fa-angle-double-up"></i>
+                                </button> -->
+                                <form action="/posts/postmessage/leave/" method="POST">
+                                    {% csrf_token %}
+                                    <div style="height: 40px;line-height: 40px;">
+                                        <a href="javascript:;" class="emotion"><img src="/static/images/commentemo.png" class="upload_image"><span style="font-size:14px;color:#2d64b3">表情</span></a>|
+                                        <!-- <a href="#">@好友</a> -->
+                                        <lable for="upload_input" style="margin: 0px 10px;"><img src="/static/images/commentimage.png" class="upload_image">&nbsp;<span style="font-size:14px;color:#2d64b3">图片</span></lable>
+                                        <input type="file" id="upload_input" multiple="multiple" onchange="preview(this)">
+                                        <br>
+                                    </div>
+                                    <input type="hidden" name="operate" value="reply">
+                                    <input type="hidden" name="post" value={{posts.id}}>
+                                    
+           <textarea class="form-control emo" name='content' rows="8"></textarea>
+         
+    
+<script type="text/javascript">
+var image=[];
+  function textarea_br(){
+        var element = $(".textarea_info");
+        element.each(function(){
+            var temp =  $(this).text().replace(/\n/g,'<br/>');
+            $(this).html(temp);
+        });
+    }
+/*
+* 加载问题
+*load_img是加载图片的class
+* 使用方法：1.页面引用
+*     2.js中顶部调用waiting_load()
+*     3.在需要等待加载提醒的地方调用  $interval = window.setInterval(img_load, 100);即可
+* */
+function waiting_load(){
+    $('.load_img').css('display','none');
+    var num=1;
+    function img_load(){
+        if($('.load_img').css('display')=='none'){
+            $('.load_img').css('display','block');
+        }
+        num++;
+        $('.load_img').css({
+            "transform":"rotate("+num*20+"deg)",
+            "-ms-transform":"rotate("+num*20+"deg)",
+            "-moz-transform":"rotate("+num*20+"deg)",
+            "-webkit-transform":"rotate("+num*20+"deg)",
+            "-o-transform":"rotate("+num*20+"deg)"
+        });
+        var now_url = window.location.href;
+        if(num==100){
+            window.clearInterval($interval);
+            alert('亲，您的网太卡了');
+        }
+    }
+}
+/*
+* 图片预览
+* image_preview 是放预览图片的区域id
+* upload_input 是上传图片的input的id
+* img_upload_info 是消息提示信息框的id
+* 使用方法：在上传图片的input 添加id="upload_input" 然后绑定onchange="preview(this)"
+*
+* */
+
+function preview(file)
+{
+    var prevDiv = document.getElementById('contenttxt');
+    var imgSize=file.files[0].size;
+    if(imgSize>1000000){
+        layer.alert('图片太大，请选择小于1M的图片');
+        document.getElementById('upload_input').value='';
+        document.getElementById('img_upload_info').innerHTML='*图片太大，请调整后重新上传';
+    }else if (file.files && file.files[0])
+    {   //alert(file.files.length);
+        for(var i=0;i<file.files.length;i++){
+        var reader = new FileReader();
+        reader.onload = function(evt){
+            prevDiv.innerHTML += '<img src="' + evt.target.result + '" />';
+        }
+        reader.readAsDataURL(file.files[i]);
+        image=file.files[i];}
+    }
+    else
+    {
+        prevDiv.innerHTML = '<div class="img"  style="width:180px;height:250px;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + file.value + '\'"></div>';
+    }
+}
+</script>
+                 </form><div name="content" id="contenttxt" contentEditable="true"></div>
+                                    <button type="button" id="publish" class="btn btn-primary" style="background: #398bfc;border-bottom-color: #3782f0;margin-top:20px">发表评论</button>
+                                
+                            </div>
+                        </li>
+                        <!--/评论-->
+
+                    </ul>
+
+                </div>
+
+            </div><!-- end of col-xs-9 -->
+
+            <!--右侧个人信息-->
+            {% if request.user.is_authenticated %}
+            <div class="col-md-3 sidebar ac" style="background-color: white;">
+                <h4 style="margin: 40px 0 20px 0;">个人信息</h4>
+                <div class="ac sidebar-icon"><a href="{% url "accounts:accountSecurity" %}"><img src={{ user.avatar_url }} class="img-circle" alt="dummy-head"></div>
+                <h4 style="margin-top: 5px;">
+                    <span class="username"><a style="vertical-align:middle;padding-left:30px;" class="useruser" href="#">{{ user.username }}</a></span>
+                    <span style="margin-left:6px;">
+                        {% if user.gender != "null" %}<img src={% if user.gender == "male" %} "{% static "images/man.png" %}" {% else %} "{% static "images/girl.png" %}" {% endif %} alt="man icon">{% endif %}
+                    </span>
+                </h4>
+                <!-- <div class="clearfix" style="margin-top: 25px;">
+                    <span class="fl">当前排名：299</span>
+                    <span class="fl" style="margin-left: 20px;">查看<a href="#" style="text-decoration: underline;color: #444;">牛人排行榜</a></span>
+                </div>
+                <div class="user-level clearfix">
+                    <div class="level-title fl">
+                        <p style="font-size:0.7em;display: inline;">经验：</p>
+                    </div>
+                    <div class="level-detail fl">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width:70%"></div>
+                        </div>
+                        <span class="level-num" style="left:70%;">18</span>
+                        <span class="level-indicator">1058/1800</span>
+                    </div>
+                </div> -->
+            </div>
+            {% endif %}
+            <!--/右侧个人信息-->
+        </div>  <!-- end of main-content -->
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+<script src="/static/js/hammer.js""></script>
+<script src="/static/js/jquery-1.11.1.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/jquery-sinaEmotion.min.js"></script>
+<script src="/static/js/postbarComponent.js"></script>
+<script src="/static/js/postbarDetail.js"></script>
+<script src="/static/js/exposuredetail.js"></script>
+<!-- <script type="text/javascript" src="/static/js/jquery.fullscreenslides.js"></script> -->
+<script src="/static/js/jquery.picEyes.js"></script>
+<script type="text/javascript">
+
+$(function(){
+    //picturesEyes($('li'));
+    $('.bigimg').picEyes();
+    $('.bigimage').picEyes();
+});
+
+
+// $(function(){
+
+//     $('.image img').fullscreenslides();
+
+//     var $container = $('#fullscreenSlideshowContainer');
+
+//     $container
+    
+//     .bind("init", function() { 
+    
+//         $container
+//         .append('<div class="ui" id="fs-close">&times;</div>')
+//         .append('<div class="ui" id="fs-loader">Loading...</div>')
+//         .append('<div class="ui" id="fs-prev">&lt;</div>')
+//         .append('<div class="ui" id="fs-next">&gt;</div>')
+//         .append('<div class="ui" id="fs-caption"><span></span></div>');
+    
+//         $('#fs-prev').click(function(e){
+//             $container.trigger("prevSlide");
+//             e.stopPropagation();
+//         });
+        
+//         $('#fs-next').click(function(e){
+//             $container.trigger("nextSlide");
+//             e.stopPropagation();
+//         });
+        
+//         $('#fs-close').click(function(){
+//             $container.trigger("close");
+//         });
+//         $('#fullscreenSlideshowContainer').click(function(){
+//             $container.trigger("close");
+//         });
+
+    
+//     })
+    
+//     .bind("startLoading", function() { 
+//         $('#fs-loader').show();
+//     })
+    
+//     .bind("stopLoading", function() { 
+//         $('#fs-loader').hide();
+//     })
+    
+//     .bind("startOfSlide", function(event, slide) { 
+
+//         $('#fs-caption span').text(slide.title);
+//         $('#fs-caption').show();
+//     })
+    
+//     .bind("endOfSlide", function(event, slide) { 
+//         $('#fs-caption').hide();
+//     });
+    
+// });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+{% load static %}
+{% load comments %}
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalabe=no">
+    <title>我的消息</title>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-97624179-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?6784d0adea487eefbe595d28dbb08efb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    <link rel="shortcut icon" href="/static/images/logo1.png">
+    <!-- Bootstrap -->
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">  
+    <link href="{% static "css/MyInfo.css" %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static "css/font-awesome.min.css" %}"> 
+   
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+   
+  </head>
+  <body>
+  <!-- 顶部部分开始 -->
+       <div class="u-container">
+{% if request.user.is_authenticated %}
+    <div class="u-header clearfix">
+        <div class="logo fl">
+            <a href="/"><img class="img-responsive" src="{% static "images/01-home-logo.png" %}" alt="logo"></a>
+        </div>
+        <div class="login-status fr">
+            <div class="avatar-wrapper">
+              <a href="{% url "accounts:myPosts" %}">
+                <img src={{ user.avatar_url }} class="img-circle avatar" alt="Cinque Terre">
+              </a>
+            </div>
+            <div class="dropdown" style="display:inline-block;">
+                <button class="header-btn dropdown-toggle" type="button" data-toggle="dropdown">
+                    <i class="fa fa-cog" aria-hidden="true"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li><a href="{% url 'accounts:accountSecurity' %}">账户安全</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <!-- <li><a href="#">人工申述</a></li>
+                    <li role="presentation" class="divider"></li> -->
+                    <li><a href="{% url 'accounts:myhelpcenter' %}">联系我们</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="{% url 'accounts:logout' %}">登出</a></li>
+                </ul>
+            </div>
+            <div class="dropdown" style="display:inline-block;">
+                <a href="{% url "accounts:myInfo" %}" class="header-btn dropdown-toggle">
+                    <i class="fa fa-bell-o" aria-hidden="true"></i>
+                    {% if user.unread_message %}<span class="redpoint"><i>{{ user.unread_message }} </i></span>{% endif %}
+                </a>
+               <!--  <ul class="dropdown-menu">
+                    <li><a href="#">我的私信<span class="redpoint"><i>2</i></span></a>
+                    </li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="#">我的回复<span class="redpoint"><i>99+</i></span></a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="#">查看@提到我<span class="redpoint"><i>12</i></span></a></li>
+                </ul> -->
+            </div>
+            <div class="new-post-wrapper fr">
+                <a class="new-post" href="/posts/add">
+                    <span>发表新帖</span>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="header w">
+        <a href="#" class="mobile-nav-btn pull-right"><i class="fa fa-bars" aria-hidden="true"></i></a>
+        <a href="/" class="home-link">
+            <div class="logo">
+                <img src="{% static "images/home-logo.png" %}" alt="" class="img-responsive">
+            </div>
+        </a>
+    <div class="user">
+            <a href="#" class="remove-nav pull-right"><img src="{% static "./images/times.png" %}" alt="" class="img-responsive"></a>
+            <a href="/" class="home-nav-item special">
+                <span>首页</span>
+            </a>
+            <a href="/posts/add" class="home-nav-item special">
+                <span>发表新帖</span>
+            <a href="{% url "accounts:myPosts" %}" class="home-nav-item special">
+                <span>个人中心</span>
+            </a>
+         <!--    <a href="{% url "accounts:accountSecurity" %}" class="home-nav-item has-sub-item">
+                <span>设置</span>
+            </a> -->
+            
+            <a href="{% url 'accounts:logout' %}"  class="home-nav-item special">
+                <span>Sign out</span></a>
+            
+            </a>
+        </div>
+    {% else %}
+    <div class="u-header clearfix">
+        <div class="logo fl">
+            <a href="/"><img class="img-responsive" src="{% static "images/01-home-logo.png" %}" alt="logo"></a>
+        </div>
+        <div class="user" style="margin-top:18px;text-align:right;">
+            <a href="{% url 'accounts:login' %}" class="login home-nav-item">
+                <span>Log in</span>
+                <img src="{% static "images/home-login.png" %}" alt="">
+            </a>
+            <a href="{% url 'accounts:register' %}" class="register home-nav-item" style="margin-left:10px;">
+                <span>Register</span>
+                <img src="{% static "images/home-register.png" %}" alt="">
+            </a>
+
+        </div>
+
+    </div>
+    <div class="header w">
+        <a href="#" class="mobile-nav-btn pull-right"><i class="fa fa-bars" aria-hidden="true"></i></a>
+        <a href="/" class="home-link">
+            <div class="logo">
+                <img src="{% static "images/home-logo.png" %}" alt="" class="img-responsive">
+            </div>
+        </a>
+        
+        <div class="user">
+            <a href="#" class="remove-nav pull-right"><img src="{% static "./images/times.png" %}" alt="" class="img-responsive"></a>
+            <a href="/" class="home-nav-item special">
+                <span>首页</span>
+            </a>
+            
+            
+            <a href="{% url 'accounts:login' %}" class="login home-nav-item">
+                <span>Log in</span>
+                <img src="{% static "images/home-login.png" %}" alt="">
+            </a>
+            <a href="{% url 'accounts:register' %}" class="register home-nav-item">
+                <span>Register</span>
+                <img src="{% static "images/home-register.png" %}" alt="">
+            </a>
+            <!-- <a href="#" class="home-nav-item special">
+                <span>Live and Love</span>
+            </a> -->
+        </div>
+
+       {% endif %}
+    </div> 
+     <!-- 顶部部分结束 -->
+     <!-- 个人中心内容开始 -->
+     <div class="content" style="border-radius:10px;">
+     <div id="pageurl"><a href="/">首页</a> <img src="{% static "images/url-lef.png" %}"> <a href="{% url "accounts:myPosts" %}">个人中心</a> <img src="{% static "images/url-lef.png" %}">  <a href="{% url "accounts:myInfo" %}">我的消息</a></div>
+     <!-- <input type="image" src="{% static "images/back-icon1.png" %}" onclick="window.history.back();" style="width:25px; height: 25px;margin:10px;position:absolute;"> -->
+          <div class="content-title">
+          个人中心
+          </div>
+          <!-- m-个人信息 -->
+        <!-- <div class="m-info" style="text-align:center;margin-top:20px;padding-bottom:10px;">
+              
+                  
+                   <a href="{% url "accounts:accountSecurity" %}"> <img src={{ user.avatar_url }} class="img-circle" alt="dummy-head" width="95" height="95"></a>
+                     <h4 class="username"><a style="vertical-align:middle;padding-left:30px;" href="#">{{ user.username }}</a>
+                     <span style="margin-left:6px;"><img src="images/man.png" alt="man icon"></span></h4>
+                    
+                 <p style="font-size:12px;">吧龄:{{ user.get_age }}&nbsp;&nbsp;发帖:{{ user.reply_total }}&nbsp;&nbsp;所属学校:{{user.school}}
+                 </p>
+          
+          </div> -->
+          
+          <div class="content-navigation" style="clear:both;">
+              <ul style="font-family:'微软雅黑';">
+
+                    <li role="presentation" class="content-tit"><a href="{% url "accounts:myPosts" %}"><img src="{% static "images/file.png" %}" style="margin-top:-11px;" width="18" height="21"><br>
+                    <div>我的帖子</div></a></li>
+                     <li role="presentation" class="content-tit"><a href="{% url "accounts:myFavorites" %}"><img src="{% static "images/star.png" %}" style="margin-top:-11px;" width="20" height="20"><br>
+                    <div>我的收藏</div></a></li>
+                    <li role="presentation" class="content-tit active"><a href="{% url "accounts:myInfo" %}"><img src="{% static "images/bell.png" %}" style="margin-top:-11px;" width="22" height="22"><br>
+                    <div>我的消息</div></a></li>
+                    <li role="presentation" class="content-tit"><a href="{% url "accounts:accountSecurity" %}"><img src="{% static "images/safe.png" %}" style="margin-top:-11px;" width="20" height="20"><br>
+                    <div>账户安全</div></a></li>
+                    <li role="presentation" class="content-tit"><a href="{% url "accounts:myhelpcenter" %}"><img src="{% static "images/light.png" %}" style="margin-top:-11px;" width="20" height="20"><br>
+
+                    <div>联系我们</div></a></li>
+             </ul>
+          </div>
+          <div class="row" style="width:100%;margin-left:0px;">
+               <div class="list col-md-9 col-sm-9">
+               
+                
+                    <div class="u-main-section">
+                        <div class="row">
+                            <div class="m-lef">
+                                <ul class="side-nav ac">
+                                    
+                                    <li><a href="#" class="active">我的回复{% if reply_read %}<span style="color:red">*</span>{% endif %}</a></li>
+                                    <li><a href="#" id="othercollect">别人的收藏{% if collect_read %}<span style="color:red">*</span>{% endif %}</a></li>
+                                   
+                                    <!--<li><a href="#">系统提示</a></li>-->
+                                </ul>
+                            </div>
+                            
+                            <div class="m-rig">
+                                <div class="side-nav-contents" style="width:100%;">
+                                    
+                                    <div class="side-nav-content side-nav-content1 active">
+                                     {% csrf_token %}
+
+                                        {% for reply in reply_list %}
+                                            <div class="item clearfix">
+                                                <div class="item-left">
+                                                    <div class="item-title"><a href="/posts/{{reply.post.id}}?view_message={{reply.id}}">{{ reply.content_text }}{% if not reply.has_read %}<span style="color:red">*</span>{% endif %}</a></div>
+                                                    <div class="item-detail"><span class="item-detail1">回复我的帖子：</span><a href="#">{{ reply.post.belong_to }}</a>&nbsp;&gt;&nbsp;<span>{{ reply.post.title }}</span></div>
+                                                </div>
+                                                <div class="item-right">
+                                                    <div class="item-time ar">{{ reply.create_time|date:'Y-m-d H:i' }}</div>
+                                                    <div class="item-reply ar"><a href="javascript:" onclick="reply_comment({{reply.id}})"><img src="{% static "images/reply.png" %}" width="13" height="13">&nbsp;回复</a></div>
+                                                </div>
+                                            </div>
+                                            <div id="{{reply.id}}" style="display:none">
+                                             <div class="row u-second-level-new-comment">
+                                            
+                                                <div class="col-md-10 ff">
+                                                    <input type="hidden" class="posts_id" name="reply_message" value="{{reply.post.id}}">
+                                                    <input type="hidden" class="reply_message_sign" name="reply_message" value="">
+                                                    <textarea class="form-control intext" style="margin:10px" id="intext{{reply.id}}" name='content' rows="3"></textarea>
+                                                </div>
+                                                <div class="col-md-2" style="padding-top: 50px;">
+                                                    <button type="button" class="btn btn-primary inpublish" onclick="pli({{reply.id}})">发表</button>
+                                                </div>
+                                            
+                                        </div>
+                                            </div>
+                                        {% endfor %}
+                                        
+
+                                        
+                                         {% for reply in reply_list %}
+                                  
+                                           <div class="mm-posts">
+                                                <div class="m-posts"><a href="/posts/{{reply.post.id}}?view_message={{reply.id}}">{{ reply.content_text }}</a></div>
+                                                <div class="m-posts1"><span class="item-detail1">回复我的帖子：</span><a href="#">{{ reply.post.belong_to }}</a>&nbsp;&gt;&nbsp;<span>{{ reply.post.title }}</span></div>
+                                                <div style="width:95%;margin-top:10px;margin-left:0px;">{{ reply.create_time|date:'Y-m-d H:i' }}</div>
+                                                <div style="width:90%;position:absolute;text-align:right;margin-top:-17px;"><a href="javascript:" onclick="reply_comment1({{reply.id}}1)"><img src="{% static "images/reply.png" %}" width="13" height="13">&nbsp;回复</a></div>
+                                            </div>
+                                            <div id="{{reply.id}}1" style="display:none">
+                                             <div class="u-second-level-new-comment">
+                                            
+                                                <div class="ff" style="text-align: right;">
+                                                <input type="hidden" class="posts_id" name="reply_message" value="{{reply.post.id}}">
+                                                    <input type="hidden" class="reply_message_sign" name="reply_message" value="">
+                                                    <textarea class="form-control intext" style="width:90%;margin:0 auto;margin-top: 10px;margin-bottom: 10px;" id="intext{{reply_message.floor}}" name='content' rows="3"></textarea>
+                                                
+                                                    <button type="button" class="btn btn-primary inpublish" style="margin-right: 15px;" onclick="pli({{reply_message.floor}})">发表</button>
+                                                </div>
+                                            
+                                        </div>
+                                            </div>
+                                       {% endfor %}
+                                       
+
+                                       <div class="yahoo2">
+			<span class="disabled">&lt; Prev</span>
+			{% for page in reply_list.paginator.page_range %}
+				<a href="?page={{ page }}">{{ page }}</a>
+			{% endfor %}
+				{% if reply_list.has_next %}
+				<a href="?page={{ reply_list.next_page_number }}">下一页</a>
+				{% endif %}
+				<div class="page-count">共发表帖子&nbsp;
+					<span style="color:red;">{{ reply_list.count }}</span>&nbsp;篇
+				</div>
+		</div>
+	
+		<div class="m-yahoo2">
+			<span class="disabled">&lt; Prev</span>
+                    {% for page in reply_list.paginator.page_range %}
+				<a href="?page={{ page }}">{{ page }}</a>
+			{% endfor %}
+				{% if reply_list.has_next %}
+				<a href="#?page={{ reply_list.next_page_number }}">下一页</a>
+				{% endif %}
+			<div class="page-count">共发表帖子&nbsp;
+				<span style="color:red;">{{ reply_list.count }}</span>&nbsp;篇
+			</div>
+		    </div>     
+</div>             
+                                    
+                                     
+                                    
+                                   <div class="side-nav-content side-nav-content2">
+
+                                       {% for collect_message in collect_list %}
+                                        <div class="item clearfix">
+                                            <div class="item-left">
+                                                <div class="item-title">您的<a href="/posts/{{collect_message.post.id}}?collect_message={{collect_message.id}}">{{collect_message.post.title }}</a>帖子被{{ collect_message.creator }}收藏  {% if not collect_message.has_read %}<span style="color:red">*</span>{% endif %}</div>
+                                                <!-- <div class="item-detail"><span class="item-detail1">回复我的帖子：</span><a href="#">{{ info.comment.content_object.belong_to }}</a>&nbsp;&gt;&nbsp;<span>{{ info.comment.content_object.title }}</span></div> -->
+                                            </div>
+                                            <div class="item-right" style="border-bottom:none">
+                                                <div class="item-time ar">{{ collect_message.create_time|date:'Y-m-d H:i' }}</div>
+                                                <div class="item-reply ar" style="margin: 12px 0 0;"><a href="javascript:" onclick="contact({{collect_message.id}},{% if not collect_message.has_read %}0{%else%}1{% endif %})"><img src="{% static "images/reply.png" %}" width="13" height="13">&nbsp;查看联系方式</a></div>
+
+                                            </div>
+                                            <div id="c{{collect_message.id}}" style="display:none;margin-top:80px">
+                                            <div style="float:right;font-size:16px;min-width:50%">
+                                                  <p>联系人: <span>{{collect_message.creator.username}}</span></p>
+                                                  <p>联系电话:<span>{{collect_message.creator.phone}}</span></p>
+                                                  <p>联系微信:<span>{{collect_message.creator.weixin}}</span></p>
+                                                  <p>联系邮箱:<span>{{collect_message.creator.email}}</span></p>
+
+                                            </div> 
+                                            <div style="margin-top:30px;text-align:center;width:40%">
+
+                                                           <a href="{% url "accounts:accountSecurity" %}"><img src={{ collect_message.creator.avatar_url }} class="img-circle" alt="dummy-head" width="85" height="85"></a>
+                                                     
+                                                           <h4 class="username"><a style="vertical-align:middle;text-align:center" href="#">{{ collect_message.creator.username }}</a>
+                                                           <span><img src={% if user.gender == "male" %} "{% static "images/man.png" %}" {% else %} "{% static "images/girl.png" %}" {% endif %} alt="man icon"></span></h4>  </div>
+                                            </div>                    
+                                                                                  
+                                            </div>
+                  
+{% endfor %}
+                                        
+
+                                        
+                                         {% for collect_message in collect_list %}
+                                  
+                                           <div class="mm-posts">
+                                                <div class="m-posts">您的<a href="/posts/{{collect_message.post.id}}/">{{collect_message.post.title }}</a>帖子被{{ collect_message.creator.username }}收藏  {% if not collect_message.has_read %}<span style="color:red">*</span>{% endif %}</div>
+                                                <!-- <div class="m-posts1"><span class="item-detail1">回复我的帖子：</span><a href="#">{{ info.comment.content_object.belong_to }}</a>&nbsp;&gt;&nbsp;<span>{{ info.comment.content_object.title }}</span></div> -->
+                                                <div style="width:95%;margin-top:10px;margin-left:0px;">{{ collect_message.create_time|date:'Y-m-d H:i' }}</div>
+                                                <div style="width:90%;position:absolute;text-align:right;margin-top:-17px;"><a href="javascript:" onclick="contact1({{collect_message.id}},{% if not collect_message.has_read %}0{%else%}1{% endif %})"><img src="{% static "images/reply.png" %}" width="13" height="13">&nbsp;查看联系方式</a></div>
+                                                <div id="cm{{collect_message.id}}" style="display:none;margin-top:20px">
+                                                <div style="float:right;width:50%;font-size:16px;min-width:100px">
+                                                  <p>联系人: <span>{{collect_message.creator.username}}</span></p>
+                                                  <p>联系微信:<span>{{collect_message.creator.phone}}</span></p>
+                                                  <p>联系电话:<span>{{collect_message.creator.weixin}}</span></p></div> 
+                                                <div style="margin-top:30px;text-align:center;width:50%">
+
+                                                       <a href=""><img src={{ collect_message.creator.avatar_url }} class="img-circle" alt="dummy-head" width="85" height="85"></a>
+                                                 
+                                                       <h4 class="username"><a style="vertical-align:middle;text-align:center" href="#">{{ collect_message.creator.username }}</a>
+                                                       <span><img src={% if collect_message.creator.gender == "male" %} "{% static "images/man.png" %}" {% else %} "{% static "images/girl.png" %}" {% endif %} alt="man icon"></span></h4>  </div>
+                                                 </div>                       
+                                            </div>
+                                            
+                                       {% endfor %}
+                                       
+
+                                       <div class="yahoo2">
+            <span class="disabled">&lt; Prev</span>
+            {% for page in reply_list.paginator.page_range %}
+                <a href="?page={{ page }}">{{ page }}</a>
+            {% endfor %}
+                {% if reply_list.has_next %}
+                <a href="?page={{ reply_list.next_page_number }}">下一页</a>
+                {% endif %}
+                <div class="page-count">共发表帖子&nbsp;
+                    <span style="color:red;">{{ reply_list.count }}</span>&nbsp;篇
+                </div>
+        </div>
+    
+        <div class="m-yahoo2">
+            <span class="disabled">&lt; Prev</span>
+                    {% for page in reply_list.paginator.page_range %}
+                <a href="?page={{ page }}">{{ page }}</a>
+            {% endfor %}
+                {% if reply_list.has_next %}
+                <a href="#?page={{ reply_list.next_page_number }}">下一页</a>
+                {% endif %}
+            <div class="page-count">共发表帖子&nbsp;
+                <span style="color:red;">{{ reply_list.count }}</span>&nbsp;篇
+            </div>
+            </div>     
+</div>             
+                                                                        
+  <!--                                  <div class="side-nav-content side-nav-content2">
+                                        <div class="item clearfix">
+                                            <div class="item-left1">
+                                                <div class="item-title"><a href="#">酒孤臣:&nbsp;@欧欧鹏:&nbsp;你见过什么令你深省的商业故事？</a></div>
+                                            </div>
+                                            <div class="item-right1">
+                                                <div class="item-time ar">2015/10/21&nbsp;&nbsp;15:20</div>
+                                                <div class="item-spec ar">你的账号已经锁定10天，申请解封</div>
+                                            </div>
+                                        </div>
+                                        <div class="item clearfix">
+                                            <div class="item-left1">
+                                                <div class="item-title"><a href="#">酒孤臣:&nbsp;@欧欧鹏:&nbsp;你见过什么令你深省的商业故事？</a></div>
+                                            </div>
+                                            <div class="item-right1">
+                                                <div class="item-time ar">2015/10/21&nbsp;&nbsp;15:20</div>
+                                                <div class="item-spec ar">你的账号已经锁定10天，申请解封</div>
+                                            </div>
+                                        </div>
+                                        <div class="item clearfix">
+                                            <div class="item-left1">
+                                                <div class="item-title"><a href="#">酒孤臣:&nbsp;@欧欧鹏:&nbsp;你见过什么令你深省的商业故事？</a></div>
+                                            </div>
+                                            <div class="item-right1">
+                                                <div class="item-time ar">2015/10/21&nbsp;&nbsp;15:20</div>
+                                                <div class="item-spec ar">你的账号已经锁定10天，申请解封</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mm-posts2">
+                                                <div class="m-posts"><a href="#">酒孤臣:&nbsp;@欧欧鹏:&nbsp;你见过什么令你深省的商业故事？</a></div>
+                                          
+                                                <div style="width:95%;margin-top:10px;margin-left:0px;">2015/10/21&nbsp;&nbsp;15:20</div>
+                                                <div style="width:90%;position:absolute;text-align:right;margin-top:-17px;">管理员回复了你的帖子</div>
+                                            
+                                        </div>
+                                        <div class="mm-posts2">
+                                                <div class="m-posts"><a href="#">酒孤臣:&nbsp;@欧欧鹏:&nbsp;你见过什么令你深省的商业故事？</a></div>
+                                          
+                                                <div style="width:95%;margin-top:10px;margin-left:0px;">2015/10/21&nbsp;&nbsp;15:20</div>
+                                                <div style="width:90%;position:absolute;text-align:right;margin-top:-17px;">你的账号被锁定10天，申请解封</div>
+                                            
+                                        </div>
+                                        <div class="mm-posts2">
+                                                <div class="m-posts"><a href="#">酒孤臣:&nbsp;@欧欧鹏:&nbsp;你见过什么令你深省的商业故事？</a></div>
+                                          
+                                                <div style="width:95%;margin-top:10px;margin-left:0px;">2015/10/21&nbsp;&nbsp;15:20</div>
+                                                <div style="width:90%;position:absolute;text-align:right;margin-top:-17px;">你的账号被锁定10天，申请解封</div>
+                                            
+                                        </div>
+                                        
+                                        <div class="yahoo2"><span class="disabled">&lt; Prev</span><span class="current">1</span><a href="#?page=2">2</a><a href="#?page=3">3</a><a href="#?page=4">4</a><a href="#?page=5">5</a><a href="#?page=6">6</a><a href="#?page=7">7</a><a href="#?page=8">8</a><a href="#?page=9">9</a><a href="#?page=10">10</a><a href="#?page=2">下一页</a><div class="page-count">共发表帖子&nbsp;<span style="color:red;">235</span>&nbsp;篇</div></div>
+<div class="m-yahoo2"><span class="disabled">&lt; Prev</span><span class="current">1</span><a href="#?page=2">2</a><a href="#?page=3">3</a>...<a href="#?page=9">9</a><a href="#?page=10">10</a><a href="#?page=2">下一页</a><div class="page-count">共发表帖子&nbsp;<span style="color:red;">235</span>&nbsp;篇</div></div>
+                                    </div>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- end of col-xs-9 -->
+
+                      
+                  
+                  
+                   
+                       
+                       
+                                
+                           
+              
+             <div class="info col-md-3 col-sm-3" style="text-align:center;width:25%;">
+                <div style="margin-top:30px;">
+
+                     <a href="{% url "accounts:accountSecurity" %}"><img src={{ user.avatar_url }} class="img-circle" alt="dummy-head" width="85" height="85"></a>
+                </div>
+                     <h4 class="username"><a style="vertical-align:middle;padding-left:30px;" href="#" class="useruser">{{ user.username }}</a>
+                     <span><img src={% if user.gender == "male" %} "{% static "images/man.png" %}" {% else %} "{% static "images/girl.png" %}" {% endif %} alt="man icon"></span></h4>
+                        <!-- <div style="font-size:12px;text-align:center;">吧龄:{{ user.get_age }}&nbsp;&nbsp;发帖:{{ user.reply_total }}&nbsp;&nbsp;所属学校:{{ user.school }}</div> -->
+
+                       
+                        </div>
+                        
+             </div> 
+          </div>
+          
+         </div> 
+     </div>  
+     
+     
+     
+     
+     <div style="margin-top:50px;"></div>
+     
+     
+
+       
+       
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+
+    <script src="{% static "js/jquery.min.js" %}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+
+    <script src="{% static "js/main.js" %}"></script>
+    <script src="{% static "js/myinfo.js" %}"></script>
+    <script src="{% static "js/menu.js" %}"></script>
+ 
+  </body>
+</html>
+
+
+

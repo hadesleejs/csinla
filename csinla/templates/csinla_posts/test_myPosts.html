@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>My Post</h2>
+    <ul>
+        {% for post in my_posts %}
+            <li>{{ post.title }}</li>
+            <a href="{% url 'posts:delete' post.id%}">删除</a>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>

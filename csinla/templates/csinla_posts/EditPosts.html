@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+{% load static %}
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="ie-stand">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalabe=no">
+    <title>发帖中心</title>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-97624179-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?6784d0adea487eefbe595d28dbb08efb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    <link rel="shortcut icon" href="/static/images/logo1.png">
+
+    <!-- Bootstrap -->
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">  
+    <link href="{% static "css/EditPosts.css" %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static "css/font-awesome.min.css" %}"> 
+    <link rel="stylesheet" type="text/css" href="{% static "css/awesome-bootstrap-checkbox.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/flatpickr.min.css" %}">
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+   
+  </head>
+  <body>
+  <!-- 顶部部分开始 -->
+    <div class="u-container">
+{% if request.user.is_authenticated %}
+    <div class="u-header clearfix">
+        <div class="logo fl">
+            <a href="/"><img class="img-responsive" src="{% static "images/01-home-logo.png" %}" alt="logo"></a>
+        </div>
+        <div class="login-status fr">
+            <div class="avatar-wrapper">
+              <a href="{% url "accounts:myPosts" %}">
+                <img src={{ user.avatar_url }} class="img-circle avatar" alt="Cinque Terre">
+              </a>
+            </div>
+            <div class="dropdown" style="display:inline-block;">
+                <button class="header-btn dropdown-toggle" type="button" data-toggle="dropdown">
+                    <i class="fa fa-cog" aria-hidden="true"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li><a href="{% url 'accounts:accountSecurity' %}">账户安全</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <!-- <li><a href="#">人工申述</a></li>
+                    <li role="presentation" class="divider"></li> -->
+                    <li><a href="{% url 'accounts:myhelpcenter' %}">联系我们</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="{% url 'accounts:logout' %}">登出</a></li>
+                </ul>
+            </div>
+            <div class="dropdown" style="display:inline-block;">
+                <a href="{% url "accounts:myInfo" %}" class="header-btn dropdown-toggle">
+                    <i class="fa fa-bell-o" aria-hidden="true"></i>
+                    {% if user.unread_message %}<span class="redpoint"><i>{{ user.unread_message }} </i></span>{% endif %}
+                </a>
+               <!--  <ul class="dropdown-menu">
+                    <li><a href="#">我的私信<span class="redpoint"><i>2</i></span></a>
+                    </li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="#">我的回复<span class="redpoint"><i>99+</i></span></a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="#">查看@提到我<span class="redpoint"><i>12</i></span></a></li>
+                </ul> -->
+            </div>
+            <div class="new-post-wrapper fr">
+                <a class="new-post" href="/posts/add">
+                    <span>发表新帖</span>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="header w">
+        <a href="#" class="mobile-nav-btn pull-right"><i class="fa fa-bars" aria-hidden="true"></i></a>
+        <a href="/" class="home-link">
+            <div class="logo">
+                <img src="{% static "images/home-logo.png" %}" alt="" class="img-responsive">
+            </div>
+        </a>
+    <div class="user">
+            <a href="#" class="remove-nav pull-right"><img src="{% static "./images/times.png" %}" alt="" class="img-responsive"></a>
+            <a href="/" class="home-nav-item special">
+                <span>首页</span>
+            </a>
+            <a href="/posts/add" class="home-nav-item special">
+                <span>发表新帖</span>
+            <a href="{% url "accounts:myPosts" %}" class="home-nav-item special">
+                <span>个人中心</span>
+            </a>
+         <!--    <a href="{% url "accounts:accountSecurity" %}" class="home-nav-item has-sub-item">
+                <span>设置</span>
+            </a> -->
+            
+            <a href="{% url 'accounts:logout' %}"  class="home-nav-item special">
+                <span>Sign out</span></a>
+            
+            </a>
+        </div>
+    {% else %}
+    <div class="u-header clearfix">
+        <div class="logo fl">
+            <a href="/"><img class="img-responsive" src="{% static "images/01-home-logo.png" %}" alt="logo"></a>
+        </div>
+        <div class="user" style="margin-top:18px;text-align:right;">
+            <a href="{% url 'accounts:login' %}" class="login home-nav-item">
+                <span>Log in</span>
+                <img src="{% static "images/home-login.png" %}" alt="">
+            </a>
+            <a href="{% url 'accounts:register' %}" class="register home-nav-item" style="margin-left:10px;">
+                <span>Register</span>
+                <img src="{% static "images/home-register.png" %}" alt="">
+            </a>
+
+        </div>
+
+    </div>
+    <div class="header w">
+        <a href="#" class="mobile-nav-btn pull-right"><i class="fa fa-bars" aria-hidden="true"></i></a>
+        <a href="/" class="home-link">
+            <div class="logo">
+                <img src="{% static "images/home-logo.png" %}" alt="" class="img-responsive">
+            </div>
+        </a>
+        
+        <div class="user">
+            <a href="#" class="remove-nav pull-right"><img src="{% static "./images/times.png" %}" alt="" class="img-responsive"></a>
+            <a href="/" class="home-nav-item special">
+                <span>首页</span>
+            </a>
+            
+            
+            <a href="{% url 'accounts:login' %}" class="login home-nav-item">
+                <span>Log in</span>
+                <img src="{% static "images/home-login.png" %}" alt="">
+            </a>
+            <a href="{% url 'accounts:register' %}" class="register home-nav-item">
+                <span>Register</span>
+                <img src="{% static "images/home-register.png" %}" alt="">
+            </a>
+            <!-- <a href="#" class="home-nav-item special">
+                <span>Live and Love</span>
+            </a> -->
+        </div>
+
+       {% endif %}
+    </div> 
+     <!-- 顶部部分结束 -->
+     <!-- 个人中心内容开始 -->
+     <div class="content" style="border-radius:10px;background-color:#fff;">
+     <!-- <input type="image" src="{% static "images/back-icon1.png" %}" onclick="window.history.back();" style="width:25px; height: 25px;margin:10px;position:absolute;"> -->
+     <div id="pageurl"><a href="/">首页</a> <img src="{% static "images/url-lef.png" %}"> <a href="/posts/add">发帖中心</a> <img src="{% static "images/url-lef.png" %}">  <a href="/posts/add">选择类别</a></div>
+          <div class="content-title">
+          发帖中心
+          </div>
+         <div class="edit-content">
+            <div class="edit-content-title">
+              <img src="{% static "images/steps-icon.png" %}">
+         	</div>
+            <div class="edit-content-point">
+              <img src="{% static "images/point.jpg" %}">
+            </div>
+            <!-- <div class="edit-content-form">
+                <label class="checkbox check-title" style="margin-top:-5px;font-family:"微软雅黑";font-size:18px;">三朋四友</label>
+                <label class="checkbox" style="margin-top:-5px;">
+                <input type="checkbox" name="checkbox" checked="checked">
+                <i></i>运动健身</label>
+                <label class="checkbox">
+                <input type="checkbox" name="checkbox">
+                <i></i>休闲娱乐</label>
+                <label class="checkbox">
+                <input type="checkbox" name="checkbox">
+                <i></i>拼车出行</label>  
+            </div>
+            <div class="edit-content-form" style="clear:both;padding-top:15px;">
+                <label class="checkbox check-title" style="margin-top:-5px;font-family:"微软雅黑";font-size:18px;text-align:center;">生活服务</label>
+                <label class="checkbox" style="margin-top:-5px;">
+                <input type="checkbox" name="checkbox" checked="checked">
+                <i></i>商务服务</label>
+                <label class="checkbox">
+                <input type="checkbox" name="checkbox">
+                <i></i>维修服务</label>
+                <label class="checkbox">
+                <input type="checkbox" name="checkbox">
+                <i></i>需要服务</label>  
+            </div>
+            <div class="edit-content-form" style="clear:both;padding-top:15px;">
+                <label class="checkbox check-title" style="margin-top:-5px;font-family:"微软雅黑";font-size:18px;text-align:center;">二手商品</label>
+                <label class="checkbox oth" style="margin-top:-5px;">
+                <input type="checkbox" name="checkbox" checked="checked">
+                <i></i>复习资料/教材</label>
+                <label class="checkbox oth2">
+                <input type="checkbox" name="checkbox">
+                <i></i>家具/家电</label>
+                <label class="checkbox oth1">
+                <input type="checkbox" name="checkbox">
+                <i></i>电子产品</label>
+                <label class="checkbox">
+                <input type="checkbox" name="checkbox">
+                <i></i>其他</label>  
+            </div>
+            <div class="edit-content-form" style="clear:both;padding-top:15px;">
+                <label class="checkbox oth3" style="margin-top:-5px;font-family:"微软雅黑"">美食</label>
+                <label class="checkbox" style="margin-top:-5px;">
+                <input type="checkbox" name="checkbox" checked="checked">
+                <i></i>校园外卖</label>
+                
+            </div> -->
+            <form class="rentForm" method="post" action="/posts/newposts/" enctype="multipart/form-data">
+              {% csrf_token %}
+            <div class="edit-content-form" style="clear:both;padding-top:15px;">
+                <label class="checkbox oth3" style="margin-top:-5px;display: inline; font-family:"微软雅黑";font-size:18px;text-align:center;">租房</label>
+                <label class="checkbox" style="margin-top:-5px;">
+                <input type="radio" name="checkbox" value="个人转租">
+                <i></i>&nbsp;个人转租</label>
+                <label class="checkbox">
+                <input type="radio" name="checkbox" value="整套出租">
+                <i></i>&nbsp;整套出租</label>
+                <!--<label class="checkbox oth4">
+                <input type="radio" name="checkbox">
+                <i></i>&nbsp;&nbsp;&nbsp;求租</label>  -->
+            </div>
+            <div class="edit-content-form" style="clear:both;padding-top:15px;">
+                <label class="checkbox oth3" style="margin-top:-5px;font-family:"微软雅黑"">汽车</label>
+                <label class="checkbox" style="margin-top:-5px;">
+                <input type="radio" name="checkbox" value="二手车">
+                <i></i>二手车出售</label>
+                <label class="checkbox" style="margin-top:-5px;margin-left:9px;">
+                <input type="radio" name="checkbox" value="我要买车，通知我">
+                <i style="width:180px" id="contact"></i>我要买车，邮件通知我</label>
+                
+            </div>
+            <div class="edit-content-form" style="clear:both;padding-top:15px;">
+                <label class="checkbox oth3" style="margin-top:-5px;font-family:"微软雅黑"">二手</label>
+                <label class="checkbox" style="margin-top:-5px;">
+                <input type="radio" name="checkbox" value="二手商品">
+                <i></i>&nbsp;二手商品</label>
+                <label class="checkbox" style="margin-top:-5px;">
+                <input type="radio" name="checkbox" value="二手书">
+                <i></i>&nbsp;&nbsp;&nbsp;二手书</label>
+                
+            </div>
+            <div class="edit-content-form" style="clear:both;padding-top:15px;">
+                <label class="checkbox oth3" style="margin-top:-5px;font-family:"微软雅黑"">万能朋友圈</label>
+                <label class="checkbox" style="margin-top:-5px;margin-left:-28px">
+                <input type="radio" name="checkbox" value="万能的朋友圈">
+                <i></i>万能朋友圈</label>
+                
+                
+            </div>
+            <!-- <div class="edit-content-form" style="clear:both;padding-top:15px;">
+                <label class="checkbox oth3" style="margin-top:-5px;font-family:"微软雅黑";font-size:18px;text-align:center;">教育</label>
+                <label class="checkbox oth7" style="margin-top:-5px;">
+                <input type="checkbox" name="checkbox" checked="checked">
+                <i></i>looking for help</label>
+                <label class="checkbox oth2" style="margin-left:10px;">
+                <input type="checkbox" name="checkbox">
+                <i></i>学术问题</label>  
+            </div> -->
+            
+           <!--  <div class="edit-content-form" style="clear:both;padding-top:15px;">
+                <label class="checkbox oth3" style="margin-top:-5px;font-family:"微软雅黑";font-size:18px;text-align:center;">贴吧</label>
+                <label class="checkbox" style="margin-top:-5px;">
+                <input type="checkbox" name="checkbox" checked="checked">
+                <i></i>&nbsp;&nbsp;&nbsp;SMC</label>
+                <label class="checkbox oth5">
+                <input type="checkbox" name="checkbox">
+                <i></i>&nbsp;&nbsp;&nbsp;PCC</label>
+                <label class="checkbox oth4">
+                <input type="checkbox" name="checkbox">
+                <i></i>&nbsp;&nbsp;&nbsp;UCLA</label>
+                <label class="checkbox oth6">
+                <input type="checkbox" name="checkbox">
+                <i></i>&nbsp;&nbsp;&nbsp;USC</label>  
+            </div>
+            <div class="m-edit-content-form">
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;">三朋四友</label>
+                
+                <select>
+                  <option>运动健身</option>
+                  <option>休闲娱乐</option>
+                  <option>拼车出行</option>
+                </select>
+               
+            </div>
+            <div class="m-edit-content-form" style="clear:both;padding-top:15px;">
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;">生活服务</label>
+                
+                <select>
+                  <option>商务服务</option>
+                  <option>维修服务</option>
+                  <option>需要服务</option>
+                </select>
+                
+            </div>
+            <div class="m-edit-content-form" style="clear:both;padding-top:15px;">
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;">二手商品</label>
+                
+                <select>
+                  <option>复习资料/教材</option>
+                  <option>家具/家电</option>
+                  <option>电子产品</option>
+                  <option>其他</option>
+                </select>
+                 
+            </div>
+            <div class="m-edit-content-form" style="clear:both;padding-top:15px;">
+                <label class="checkbox oth3" style="font-family:"微软雅黑"">美食</label>
+                
+                <select class="form-select">
+                  <option>校园外卖</option>
+                </select>
+                
+                
+            </div> -->
+<!-- <<<<<<< HEAD
+            <div class="btu" style="width:100%;text-align:center;clear:both;padding-top:20px;"><button type="submit" class="btn btn-default" style="width:140px;"><a style="color:#FFF;">NEXT</a></button></div> 
+            </form>
+            <form>
+======= -->
+             <div class="btu" style="width:100%;text-align:center;clear:both;padding-top:20px;"><button type="submit" class="btn btn-default" style="width:140px;"><a style="color:#FFF;">NEXT</a></button></div> 
+             </form>
+             <form method="post" action="/posts/newposts/" enctype="multipart/form-data">
+<!-- >>>>>>> 54ec6ad6868bd5a474823d205cbeabcad01a01f8 -->{% csrf_token %}
+            <div class="m-edit-content-form" style="clear:both;padding-top:15px;">
+                <label class="checkbox oth3" style="font-family:"微软雅黑";font-size:18px;text-align:center;">类型</label>
+               
+                <select class="form-select" name="checkbox">
+                  <option>个人转租</option>
+                  <option>整套出租</option>
+                  <option value="二手车">二手车出售</option>
+                  <option value="我要买车，通知我">我要买车，邮件通知我</option>
+                  <option>二手商品</option>
+                  <option>二手书</option>
+                  <option value="万能的朋友圈">万能朋友圈</option>
+                </select>
+                
+            </div>
+            <!--<div class="m-edit-content-form" style="clear:both;padding-top:15px;">
+                <label class="checkbox oth3" style="font-family:"微软雅黑"">汽车</label>
+                
+                <select class="form-select" name="checkbox">
+                  <option>二手车</option>
+                  <option>我要买车</option>
+                </select>-->
+                
+                
+            
+            <!-- <div class="m-edit-content-form" style="clear:both;padding-top:15px;">
+                <label class="checkbox oth3" style="font-family:"微软雅黑";font-size:18px;text-align:center;">教育</label>
+                
+                <select class="form-select">
+                  <option>looking for help</option>
+                  <option>学术问题</option>
+                </select>
+                
+                
+            </div> -->
+            
+            <!-- <div class="m-edit-content-form" style="clear:both;padding-top:15px;">
+                <label class="checkbox oth3" style="font-family:"微软雅黑";font-size:18px;text-align:center;">贴吧</label>
+               
+                <select class="form-select">
+                  <option>SMC</option>
+                  <option>PCC</option>
+                  <option>UCLA</option>
+                  <option>USC</option>
+                </select>
+                  
+            </div> -->
+            <div class="m-btu" style="width:100%;text-align:center;clear:both;padding-top:20px;"><button type="submit" class="btn btn-default" style="width:140px;"><a style="color:#FFF;">NEXT</a></button></div> 
+            </form>
+         </div>
+          </div>
+     </div>
+          
+         
+     
+     
+     
+     
+     <div style="margin-top:50px;"></div>
+     
+     
+
+       
+       
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{% static "js/jquery.min.js" %}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+
+   
+    <script src="{% static "js/flatpickr.min.js" %}"></script>
+    <script src="{% static "js/main.js" %}"></script>
+    <script src="{% static "js/menu.js" %}"></script>
+    <script src="{% static "js/qtime.js" %}"></script>
+   
+  </body>
+</html>

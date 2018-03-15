@@ -1,0 +1,131 @@
+@import "common/base.css";
+@import "common/form-module.css";
+@import "common/header.css";
+@import "common/slogan-text.css";
+@import "common/footer.css";
+
+/*main部分开始*/
+.main .slogan {
+    width: 60%;
+    height: inherit;
+    float: left;
+    position: relative;
+}
+
+.main .box {
+    width: 40%;
+    height: inherit;
+    float: right;
+    padding-left: 150px;
+    position: relative;
+}
+
+.loginBtn {
+    background: url(../images/home-login.png) center no-repeat;
+    width: 100px;
+    height: 40px;
+}
+
+.box .loginCard {
+    text-align: left;
+    display: inline;
+    padding: 15px;
+    width: 370px;
+    height: 455px;
+    float: right;
+    background: rgba(255, 255, 255, 0.1);
+    filter: Alpha(opacity=10); /* 只支持IE6、7、8、9 */
+    position: static; /* IE6、7、8只能设置position:static(默认属性) ，否则会导致子元素继承Alpha值 */
+    *zoom: 1; /* 激活IE6、7的haslayout属性，让它读懂Alpha */
+}
+
+.box .loginCard .top {
+    width: 250px;
+    height: 200px;
+}
+
+.box .loginCard form {
+    width: 100%;
+}
+
+.loginCard .link {
+    height: 50px;
+}
+
+.loginCard .link a {
+    margin: 0 10px;
+    height: 50px;
+    font-size: 18px;
+}
+.loginCard .link .password {
+    float: left;
+}
+.loginCard .link .regist {
+    float: right;
+}
+
+.loginCard h1 {
+    font: 55px "Pelmeshka", "Microsoft YaHei";
+    font-weight: 100;
+    text-align: center;
+    color: white;
+    opacity: 1.0;
+    margin: 30px;
+}
+
+.loginCard input[type=text], input[type=password] {
+    font-family: FontAwesome;
+    height: 40px;
+    font-size: 16px;
+    width: 100%;
+    margin-bottom: 20px;
+    -webkit-appearance: none;
+    background: #fff;
+    border: 1px solid #d9d9d9;
+    border-top: 1px solid #c0c0c0;
+    border-radius: 12px;
+    padding: 0 8px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+.loginCard input[type=text]:hover, input[type=password]:hover {
+    border: 1px solid #b9b9b9;
+    border-top: 1px solid #a0a0a0;
+    border-radius: 12px;
+    -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.loginCard i {
+    margin: 10px;
+}
+
+.loginCard a {
+    text-decoration: none;
+    font-weight: 400;
+    color: white;
+    opacity: 1.0;
+    transition: opacity ease 0.5s;
+}
+
+.loginCard a:hover {
+    opacity: 1;
+}
+
+.list-inline {
+    float: right;
+    list-style: none;
+}
+
+.list-inline li {
+    display: inline;
+}
+
+i {
+    border: 1px solid;
+    border-radius: 50%;
+    padding: 3px;
+}
+

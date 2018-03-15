@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+
+<html lang="en">
+{% load static %}
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="renderer" content="ie-stand">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="shortcut icon" href="/static/images/logo1.png">
+    <title>CSinLA.com</title>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-97624179-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?6784d0adea487eefbe595d28dbb08efb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script type="text/javascript">
+     wx.config({
+   debug: false,  //调式模式，设置为ture后会直接在网页上弹出调试信息，用于排查问题
+   appId: 'wx910b80a91781c9df',
+   timestamp: {{ timestamp }},
+   nonceStr: '{{ nonceStr }}',
+   signature: '{{ signature }}',
+   jsApiList: [  //需要使用的网页服务接口
+       'checkJsApi',  //判断当前客户端版本是否支持指定JS接口
+       'onMenuShareTimeline', //分享给好友
+       'onMenuShareAppMessage', //分享到朋友圈
+       'onMenuShareQQ',  //分享到QQ
+       'onMenuShareWeibo' //分享到微博
+   ]
+ });
+ wx.ready(function () {   //ready函数用于调用API，如果你的网页在加载后就需要自定义分享和回调功能，需要在此调用分享函数。//如果是微信游戏结束后，需要点击按钮触发得到分值后分享，这里就不需要调用API了，可以在按钮上绑定事件直接调用。因此，微信游戏由于大多需要用户先触发获取分值，此处请不要填写如下所示的分享API
+            // 1 判断当前版本是否支持指定 JS 接口，支持批量判断
+                wx.checkJsApi({
+                    jsApiList: [
+                      'onMenuShareAppMessage'
+                    ],
+                    success: function (res) {
+                      //alert(JSON.stringify(res));
+                    }
+                });
+wx.onMenuShareTimeline({  //例如分享到朋友圈的API  
+   title: 'csinla.com', // 分享标题
+   link: 'www.csinla.com', // 分享链接
+   imgUrl: 'http://www.csinla.com/media/bg.jpg', // 分享图标
+   success: function () {
+       // 用户确认分享后执行的回调函数
+   },
+   cancel: function () {
+       // 用户取消分享后执行的回调函数
+   }
+});
+wx.onMenuShareAppMessage({
+    title: 'csinla.com', // 分享标题
+    desc: '洛杉矶留学生咨询就上CSinLA.com', // 分享描述
+    link: 'www.csinla.com', // 分享链接
+    imgUrl: 'http://www.csinla.com/media/bg.jpg', // 分享图标
+    type: '', // 分享类型,music、video或link，不填默认为link
+    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+    success: function () { 
+        // 用户确认分享后执行的回调函数
+    },
+    cancel: function () { 
+        // 用户取消分享后执行的回调函数
+    }
+});
+wx.onMenuShareQQ({
+    title: 'csinla.com', // 分享标题
+    desc: '洛杉矶留学生咨询就上CSinLA.com', // 分享描述
+    link: 'www.csinla.com', // 分享链接
+    imgUrl: 'http://www.csinla.com/media/bg.jpg', // 分享图标
+    success: function () { 
+       // 用户确认分享后执行的回调函数
+    },
+    cancel: function () { 
+       // 用户取消分享后执行的回调函数
+    }
+});
+}); 
+wx.error(function (res) {
+ alert(res.errMsg);  //打印错误消息。及把 debug:false,设置为debug:ture就可以直接在网页上看到弹出的错误提示
+});
+</script>
+
+
+    <link rel="stylesheet" type="text/css" href="{% static "css/home.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/font-awesome.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %}">
+    <link href="/static/css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+     <link href="/static/css/ch_classes.css" rel="stylesheet" type="text/css" media="all">
+     <link rel="stylesheet" type="text/css" href="{% static "css/awesome-bootstrap-checkbox2.css" %}">
+    
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="/static/js/jquery-1.11.0.min.js"></script>
+<!-- Custom Theme files -->
+<!-- <link href="/static/css/chooseclasses.css" rel="stylesheet" type="text/css" media="all"/>
+ -->
+
+    
+
+    <style>
+        body {
+            font-size: 100%;
+             overflow-y:hidden; 
+        }
+
+/* .slideOne */
+
+
+/* end .slideThree */
+/* .roundedOne */
+
+
+/* end .roundedTwo */
+/* .squaredOne */
+
+
+/* end .squaredThree */
+/* .squaredFour */
+
+
+/* end .squaredFour */
+
+ 
+ </style>
+ 
+
+
+    <link rel="stylesheet" type="text/css" href="{% static "css/video-js.min.css" %}">
+</head>
+<body>
+<div style="background:rgba(0, 0, 0, 0.5);width:100%;height:100%">
+<div class="u-container" style="height:100%">
+{% csrf_token %}
+
+{% if request.user.is_authenticated %}
+    <div class="u-header clearfix">
+        <div class="logo fl">
+            <a href="/"><img class="img-responsive" src="{% static "images/01-home-logo.png" %}" alt="logo"></a>
+        </div>
+        <div class="login-status fr">
+            <div class="avatar-wrapper">
+              <a href="{% url "accounts:myPosts" %}">
+                <img src={{ user.avatar_url }} class="img-circle avatar" alt="Cinque Terre">
+              </a>
+            </div>
+            <div class="dropdown" style="display:inline-block;">
+                <button class="header-btn dropdown-toggle" type="button" data-toggle="dropdown">
+                    <i class="fa fa-cog" aria-hidden="true"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li><a href="{% url 'accounts:accountSecurity' %}">账户安全</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <!-- <li><a href="#">人工申述</a></li>
+                    <li role="presentation" class="divider"></li> -->
+                    <li><a href="{% url 'accounts:myhelpcenter' %}">联系我们</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="{% url 'accounts:logout' %}">登出</a></li>
+                </ul>
+            </div>
+            <div class="dropdown" style="display:inline-block;">
+                <a href="{% url "accounts:myPosts" %}" class="header-btn dropdown-toggle">
+                    <i class="fa fa-bell-o" aria-hidden="true"></i>
+                    {% if user.unread_message %}<span class="redpoint"><i>{{ user.unread_message }} </i></span>{% endif %}
+                </a>
+               <!--  <ul class="dropdown-menu">
+                    <li><a href="#">我的私信<span class="redpoint"><i>2</i></span></a>
+                    </li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="#">我的回复<span class="redpoint"><i>99+</i></span></a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="#">查看@提到我<span class="redpoint"><i>12</i></span></a></li>
+                </ul> -->
+            </div>
+            <div class="new-post-wrapper fr">
+                <a class="new-post" href="/posts/add">
+                    <span>发表新帖</span>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="header w">
+        <a href="#" class="mobile-nav-btn pull-right"><i class="fa fa-bars" aria-hidden="true"></i></a>
+        <a href="/" class="home-link">
+            <div class="logo">
+                <img src="{% static "images/home-logo.png" %}" alt="" class="img-responsive">
+            </div>
+        </a>
+    <div class="user">
+            <a href="#" class="remove-nav pull-right"><img src="{% static "./images/times.png" %}" alt="" class="img-responsive"></a>
+            <a href="/" class="home-nav-item special">
+                <span>首页</span>
+            </a>
+            <a href="/posts/add" class="home-nav-item special">
+                <span>发表新帖</span>
+            <a href="{% url "accounts:myPosts" %}" class="home-nav-item special">
+                <span>个人中心</span>
+            </a>
+         <!--    <a href="{% url "accounts:accountSecurity" %}" class="home-nav-item has-sub-item">
+                <span>设置</span>
+            </a> -->
+            
+            <a href="{% url 'accounts:logout' %}"  class="home-nav-item special">
+                <span>Sign out</span></a>
+            
+            </a>
+        </div>
+    {% else %}
+    <div class="u-header clearfix">
+        <div class="logo fl">
+            <a href="/"><img class="img-responsive" src="{% static "images/01-home-logo.png" %}" alt="logo"></a>
+        </div>
+        <div class="user" style="margin-top:18px;text-align:right;">
+            <a href="{% url 'accounts:login' %}" class="login home-nav-item">
+                <span>Log in</span>
+                <img src="{% static "images/home-login.png" %}" alt="">
+            </a>
+            <a href="{% url 'accounts:register' %}" class="register home-nav-item" style="margin-left:10px;">
+                <span>Register</span>
+                <img src="{% static "images/home-register.png" %}" alt="">
+            </a>
+
+        </div>
+
+    </div>
+    <div class="header w">
+        <a href="#" class="mobile-nav-btn pull-right"><i class="fa fa-bars" aria-hidden="true"></i></a>
+        <a href="/" class="home-link">
+            <div class="logo">
+                <img src="{% static "images/home-logo.png" %}" alt="" class="img-responsive">
+            </div>
+        </a>
+        
+        <div class="user">
+            <a href="#" class="remove-nav pull-right"><img src="{% static "./images/times.png" %}" alt="" class="img-responsive"></a>
+            <a href="/" class="home-nav-item special">
+                <span>首页</span>
+            </a>
+            
+            
+            <a href="{% url 'accounts:login' %}" class="login home-nav-item">
+                <span>Log in</span>
+                <img src="{% static "images/home-login.png" %}" alt="">
+            </a>
+            <a href="{% url 'accounts:register' %}" class="register home-nav-item">
+                <span>Register</span>
+                <img src="{% static "images/home-register.png" %}" alt="">
+            </a>
+            <!-- <a href="#" class="home-nav-item special">
+                <span>Live and Love</span>
+            </a> -->
+        </div>
+
+       {% endif %}
+    </div> 
+    <!--主要内容部分-->
+   
+    <div class="content" style="text-align:center;background:#fff;height:1000px;border-radius:5px;">
+     <h1 style="color:#999;padding-top:40px;">Contact us</h1>
+     <form method="post" onsubmit="return contactus()">
+      {% csrf_token %}
+      <input type="text" name="email" placeholder="Email" id="emailtxt" style="width:50%;height:35px;border:1px solid #ccc;margin-bottom:20px;text-indent:2px;padding: 5px;margin-top:20px" /><br>
+      <textarea name="message" id="content" cols="30" rows="10" placeholder="Message" style="width:50%;margin-bottom:20px;text-indent:2px;padding: 5px;"></textarea><br>
+      <input type="submit" name="" value="发  送" style="background:#ccc;font-size: 14px;font-family: '微软雅黑';width:50%;height:40px;margin-bottom:20px;margin-bottom:30px;color:#fff;font-weight:700">
+      </form>
+      <div style="border-top:1px solid #ccc;color:#ccc;width:100px;margin:0 auto;margin-top:40px;">CSinLA.com</div>
+</div>
+<script src="{% static "js/videojs-ie8.min.js" %}"></script>
+<script src="{% static "js/video.min.js" %}"></script>
+<script src="{% static "js/jquery-1.11.1.min.js" %}"></script>
+<script src="{% static "js/home.js" %}"></script>
+<script src="{% static "js/main.js" %}"></script>
+<script src="{% static "js/bootstrap.min.js" %}"></script>
+<script src="{% static "js/openbox.js" %}"></script>
+ <script src="{% static "js/menu.js" %}"></script>
+
+</body>
+</html>

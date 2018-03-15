@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+{% load static %}
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />    
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalabe=no">
+        <link href="{% static "fun/css/Csinlafun1.css" %}" rel="stylesheet" />
+        <title>主页</title>
+    </head>
+    <body>
+        <div class="header">
+            <ul>
+                <li><a href="/fun/">主页</a></li>
+                <li class="list"><a href="/fun/activity/view">CSinLA fun</a></li>
+                <li><a href="/fun/contact">联系</a></li>
+            </ul>
+        </div>
+        <div class="content">
+       <!--  <a href="/fun/activity/add">添加</a>
+        <a href="/fun/activity/edit/{{activity.id}}">编辑</a> -->
+            <ul class="cont" style="width:90%">
+            
+                {% for activity in activity_list %}
+                    <li><!-- <a href="/fun/activity/add">添加</a>
+                        <a href="/fun/activity/edit/{{activity.id}}">编辑</a> -->
+                        <img src="{{ activity.cover_image.url }}" style="height:420px">
+                        <div class="title"><a href="/fun/activity/detail/{{activity.id}}/" style="color:#000;text-decoration:none">{{activity.name}}</a></div>
+                        <div class="title-content"><a href="/fun/activity/detail/{{activity.id}}/" style="color:#999;text-decoration:none">{{activity.desc}}</a></div>
+                        <div style="width:60px;height:60px;float:left;margin-top:20px;">
+                            <a href="/fun/activity/detail/{{activity.id}}/"><img src="{{activity.hoster.photo.url}}" style="width:60px;height:60px;border-radius: 30px;webkit-box-shadow: #ccc 0px 0px 15px;-moz-box-shadow: #ccc 0px 0px 15px;box-shadow: #ccc 0px 0px 15px;"></a>
+                        </div>
+                        <div style="height:60px;text-align:left;margin-top:20px;">
+                            <h2 style="font-size:18px"><a href="/fun/activity/detail/{{activity.id}}/" style="color:#000;text-decoration:none">{{activity.hoster.name}}</a></h2>
+                            <p style="font-size:14px;color:#999;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;margin-top: 10px;"><a href="/fun/activity/detail/{{activity.id}}/" style="color:#999;text-decoration:none">{{activity.hoster.desc}}</a></p>
+                        </div>
+                    </li>
+                {% endfor %}
+                
+               
+            </ul>
+        </div>
+        <div class="footer">
+            <a href="/fun/contact"><img src="{% static "fun/image/emil1.png" %}" style="width:20px;height:15px;">
+            <div style="font-size:13px;margin-top:8px;color:#ccc;font-family:'微软雅黑'">联系我们</div></a>
+            <hr>
+            <span>fun.csinla.com</span>
+        </div>
+
+
+        <script src="{% static "fun/js/jquery.min.js" %}"></script>
+        <script src="{% static "fun/js/bootstrap.min.js" %}"></script>
+
+    </body>
+</html>

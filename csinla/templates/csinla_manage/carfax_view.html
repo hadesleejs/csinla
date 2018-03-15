@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>carfax{% if carfax_status == 'BACKUP' %}回收站{% endif %} 管理</title>
+        <link rel="stylesheet" type="text/css" href="/static/admin/css/base.css">
+
+          
+        <link rel="stylesheet" type="text/css" href="/static/admin/css/changelists.css">
+        <script type="text/javascript" src="/admin/jsi18n/"></script>
+        <script type="text/javascript" src="/static/admin/js/core.js"></script>
+        <script type="text/javascript" src="/static/admin/js/admin/RelatedObjectLookups.js"></script>
+        <script type="text/javascript" src="/static/admin/js/vendor/jquery/jquery.js"></script>
+        <script type="text/javascript" src="/static/admin/js/jquery.init.js"></script>
+        <script type="text/javascript" src="/static/admin/js/actions.js"></script>
+        <script type="text/javascript" src="/static/admin/js/urlify.js"></script>
+        <script type="text/javascript" src="/static/admin/js/prepopulate.js"></script>
+        <script type="text/javascript" src="/static/admin/js/vendor/xregexp/xregexp.min.js"></script>
+
+        <script type="text/javascript">
+        (function($) {
+            $(document).ready(function($) {
+                $("tr input.action-select").actions();
+            });
+        })(django.jQuery);
+        </script>
+        <meta name="robots" content="NONE,NOARCHIVE">
+    </head>
+    <body class=" app-csinla_accounts model-carfax change-list" data-admin-utc-offset="-25200">
+
+        <!-- Container -->
+        <div id="container">
+
+            
+            <!-- Header -->
+            <div id="header">
+                <div id="branding">
+                    <h1 id="site-name"><a href="/manage/carfax/view/">CarFax 管理</a></h1>
+                </div>
+            </div>
+            <!-- END Header -->
+            
+            <div class="breadcrumbs">
+                管理Carfax
+            </div>
+
+            
+
+            
+                
+            
+
+            <!-- Content -->
+            <div id="content" class="flex">
+                {% if carfax_status == 'ACTIVE' %}
+                    <h1>点击id链接可以查看并回复，点击 <a href="/manage/carfax/view?status=BACKUP">这里</a> 跳转到回收站</h1>
+                {% else %}
+                    <h1>点击 <a href="/manage/carfax/view/">这里</a> 返回管理页面</h1>
+                {% endif %}
+                
+          <div id="content-main">
+            
+              
+                
+              
+            
+            
+            <div class="module" id="changelist">
+                <form id="changelist-form" method="post" novalidate=""><input type="hidden" name="csrfmiddlewaretoken" value="m8noCtqgBqcyLmdLaCvcUoyI7ELvBj8Y">
+                    <div class="results">
+                        <table id="result_list">
+                            <thead>
+                                <tr>
+
+                                <th scope="col" class="sortable column-id">
+                                <div class="text"><a href="?o=1">ID</a></div>
+                                <div class="clear"></div>
+                                </th>
+                                <th scope="col" class="sortable column-create_time">
+
+
+
+                                <div class="text"><a href="?o=2">创建时间</a></div>
+                                <div class="clear"></div>
+                                </th>
+                                <th scope="col" class="sortable column-name">
+
+
+
+                                <div class="text"><a href="?o=3">名字</a></div>
+                                <div class="clear"></div>
+                                </th>
+                                <th scope="col" class="sortable column-email">
+
+
+
+                                <div class="text"><a href="?o=4">邮箱</a></div>
+                                <div class="clear"></div>
+                                </th>
+                                <th scope="col" class="sortable column-wechat">
+
+
+
+                                <div class="text"><a href="?o=5">微信号</a></div>
+                                <div class="clear"></div>
+                                </th>
+                                <th scope="col" class="sortable column-vin">
+
+
+
+                                <div class="text"><a href="?o=6">VIN</a></div>
+                                <div class="clear"></div>
+                                </th>
+                                {% if carfax_status == 'ACTIVE' %}
+                                    <th scope="col" class="column-reply_change">
+
+                                    <div class="text"><span>点击修改回复状态</span></div>
+                                    <div class="clear"></div>
+                                    </th>
+                                {% endif %}
+                                <th scope="col" class="column-status_change">
+
+                                    <div class="text"><span>点击修改回复状态</span></div>
+                                    <div class="clear"></div>   
+                                </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for carfax in carfax_list %}
+                                    <tr class="row1"><th class="field-id">{{carfax.id}}</th><td class="field-create_time nowrap">{{carfax.create_time}}</td><td class="field-name">{{carfax.name}}</td><td class="field-email">{{carfax.email}}</td><td class="field-wechat">{{carfax.wechat}}</td><td class="field-vin">{{carfax.vin}}</td>{% if carfax_status == 'ACTIVE' %}<td class="field-reply_change"><a href="/manage/carfax/reply_change/{{carfax.id}}/">{% if carfax.is_reply %}已回复{% else %}【{{carfax.un_reply_str}}】未回复{% endif %}</a></td>{% endif %}<td class="field-status_change">{% if carfax.carfax_status == 'ACTIVE' %}<a href="/manage/carfax/status_change/{{carfax.id}}?status=BACKUP">归档</a>{% else %}<a href="/manage/carfax/status_change/{{carfax.id}}?status=ACTIVE">激活</a>{% endif %}</td></tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+          </div>
+
+                
+                <br class="clear">
+            </div>
+            <!-- END Content -->
+
+            <div id="footer"></div>
+        </div>
+        <!-- END Container -->
+
+
+
+    </body>
+</html>

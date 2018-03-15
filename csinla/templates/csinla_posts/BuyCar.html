@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+{% load static %}
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="ie-stand">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalabe=no">
+    <title>爱车出售</title>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-97624179-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?6784d0adea487eefbe595d28dbb08efb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    <link rel="shortcut icon" href="/static/images/logo1.png">
+
+    <!-- Bootstrap -->
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">  
+    <link href="{% static "css/EditCar.css" %}" rel="stylesheet">
+    <link href="{% static "css/PersonalRent.css" %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static "css/font-awesome.min.css" %}"> 
+    <link rel="stylesheet" type="text/css" href="{% static "css/awesome-bootstrap-checkbox2.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/flatpickr.min.css" %}">
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+   <!--  <script type="text/javascript" charset="utf-8" src="../umeditor.config.js"></script>   -->
+  
+    <!--使用版-->  
+    <!--<script type="text/javascript" charset="utf-8" src="../umeditor.all.js"></script>-->  
+  
+    <!--开发版-->  
+    <!-- <script type="text/javascript" charset="utf-8" src="{% static "editor_api.js" %}"></script>  
+    <script type="text/javascript" src="../lang/zh-cn/zh-cn.js"></script> --> 
+   
+  </head>
+  <body>
+  <!-- 顶部部分开始 -->
+   <div class="u-container">
+{% if request.user.is_authenticated %}
+    <div class="u-header clearfix">
+        <div class="logo fl">
+            <a href="/"><img class="img-responsive" src="{% static "images/01-home-logo.png" %}" alt="logo"></a>
+        </div>
+        <div class="login-status fr">
+            <div class="avatar-wrapper">
+              <a href="{% url "accounts:myPosts" %}">
+                <img src={{ user.avatar_url }} class="img-circle avatar" alt="Cinque Terre">
+              </a>
+            </div>
+            <div class="dropdown" style="display:inline-block;">
+                <button class="header-btn dropdown-toggle" type="button" data-toggle="dropdown">
+                    <i class="fa fa-cog" aria-hidden="true"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li><a href="{% url 'accounts:accountSecurity' %}">账户安全</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <!-- <li><a href="#">人工申述</a></li>
+                    <li role="presentation" class="divider"></li> -->
+                    <li><a href="{% url 'accounts:myhelpcenter' %}">联系我们</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="{% url 'accounts:logout' %}">登出</a></li>
+                </ul>
+            </div>
+            <div class="dropdown" style="display:inline-block;">
+                <a href="{% url "accounts:myInfo" %}" class="header-btn dropdown-toggle">
+                    <i class="fa fa-bell-o" aria-hidden="true"></i>
+                    {% if user.unread_message %}<span class="redpoint"><i>{{ user.unread_message }} </i></span>{% endif %}
+                </a>
+               <!--  <ul class="dropdown-menu">
+                    <li><a href="#">我的私信<span class="redpoint"><i>2</i></span></a>
+                    </li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="#">我的回复<span class="redpoint"><i>99+</i></span></a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="#">查看@提到我<span class="redpoint"><i>12</i></span></a></li>
+                </ul> -->
+            </div>
+            <div class="new-post-wrapper fr">
+                <a class="new-post" href="/posts/add">
+                    <span>发表新帖</span>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="header w">
+        <a href="#" class="mobile-nav-btn pull-right"><i class="fa fa-bars" aria-hidden="true"></i></a>
+        <a href="/" class="home-link">
+            <div class="logo">
+                <img src="{% static "images/home-logo.png" %}" alt="" class="img-responsive">
+            </div>
+        </a>
+    <div class="user">
+            <a href="#" class="remove-nav pull-right"><img src="{% static "./images/times.png" %}" alt="" class="img-responsive"></a>
+            <a href="/" class="home-nav-item special">
+                <span>首页</span>
+            </a>
+            <a href="/posts/add" class="home-nav-item special">
+                <span>发表新帖</span>
+            <a href="{% url "accounts:myPosts" %}" class="home-nav-item special">
+                <span>个人中心</span>
+            </a>
+         <!--    <a href="{% url "accounts:accountSecurity" %}" class="home-nav-item has-sub-item">
+                <span>设置</span>
+            </a> -->
+            
+            <a href="{% url 'accounts:logout' %}"  class="home-nav-item special">
+                <span>Sign out</span></a>
+            
+            </a>
+        </div>
+    {% else %}
+    <div class="u-header clearfix">
+        <div class="logo fl">
+            <a href="/"><img class="img-responsive" src="{% static "images/01-home-logo.png" %}" alt="logo"></a>
+        </div>
+        <div class="user" style="margin-top:18px;text-align:right;">
+            <a href="{% url 'accounts:login' %}" class="login home-nav-item">
+                <span>Log in</span>
+                <img src="{% static "images/home-login.png" %}" alt="">
+            </a>
+            <a href="{% url 'accounts:register' %}" class="register home-nav-item" style="margin-left:10px;">
+                <span>Register</span>
+                <img src="{% static "images/home-register.png" %}" alt="">
+            </a>
+
+        </div>
+
+    </div>
+    <div class="header w">
+        <a href="#" class="mobile-nav-btn pull-right"><i class="fa fa-bars" aria-hidden="true"></i></a>
+        <a href="/" class="home-link">
+            <div class="logo">
+                <img src="{% static "images/home-logo.png" %}" alt="" class="img-responsive">
+            </div>
+        </a>
+        
+        <div class="user">
+            <a href="#" class="remove-nav pull-right"><img src="{% static "./images/times.png" %}" alt="" class="img-responsive"></a>
+            <a href="/" class="home-nav-item special">
+                <span>首页</span>
+            </a>
+            
+            
+            <a href="{% url 'accounts:login' %}" class="login home-nav-item">
+                <span>Log in</span>
+                <img src="{% static "images/home-login.png" %}" alt="">
+            </a>
+            <a href="{% url 'accounts:register' %}" class="register home-nav-item">
+                <span>Register</span>
+                <img src="{% static "images/home-register.png" %}" alt="">
+            </a>
+            <!-- <a href="#" class="home-nav-item special">
+                <span>Live and Love</span>
+            </a> -->
+        </div>
+
+       {% endif %}
+    </div> 
+     <!-- 顶部部分结束 -->
+     <!-- 个人中心内容开始 -->
+   
+    <div class="content" style="border-radius:10px;background-color:#fff;">
+    <!-- <input type="image" src="{% static "images/back-icon1.png" %}" onclick="window.history.back();" style="width:25px; height: 25px;margin:10px;position:absolute;"> -->
+    <div id="pageurl"><a href="/">首页</a> <img src="{% static "images/url-lef.png" %}"> <a href="/posts/add">发帖中心</a> <img src="{% static "images/url-lef.png" %}">  <a href="/posts/add/car">爱车出售</a></div>
+          <div class="content-title">
+          爱车出售
+          </div>
+         <div class="edit-content">
+            <form class="rentForm" method="post" id="feo" onsubmit="return secondcar()" enctype="multipart/form-data">
+              {% csrf_token %}
+             <div class="edit-content-form radio" name="mask">
+               
+               <span style="color:red">*</span>到期时间:
+               
+                  <input id="birthday" type="text" class="" style="width:30%;margin-left:31px;" name="expire_date" {% if carForm.expire_date.value %} value={{ carForm.expire_date.value }} {% endif %}>{{ carForm.expire_date.errors }}
+               
+            </div>
+             <div class="edit-content-form radio" name="mask">
+               
+               <span style="color:red">*</span>标题:
+               
+                  <input type="text" class="" id="title" style="width:30%;margin-left:31px;" name="title" {% if carForm.title.value %} value="{{ carForm.title.value }}" {% endif %}>{{ carForm.title.errors }}
+               
+            </div>
+            <div class="edit-content-form radio">
+               <span style="color:red">*</span>类别:
+                <input type="radio" id="type1" class="" name="car_type" onclick="ot()" value="日系" {% if carForm.car_type.value == "日系" %} checked {% endif %}>
+                  <label for="type1" class="form-con" style="margin-left:30px;">日系</label>
+                
+                  <input type="radio" id="type2" name="car_type" onclick="ot()" value="德系" {% if carForm.car_type.value == "德系" %} checked {% endif %}>
+                  <label for="type2" class="form-con">德系</label>
+               
+                  <input type="radio" id="type3" name="car_type" onclick="ot()" value="美系" {% if carForm.car_type.value == "美系" %} checked {% endif %}> 
+                  <label for="type3" class="form-con">美系</label>
+                 
+                  <input type="radio" id="type4" name="car_type" onclick="ot()" value="other" {% if carForm.car_type.value == "other" %} checked {% endif %}> 
+                  <label for="type4" class="form-con">其他</label>
+                  <input type="text" name="car_type_other" id="othertxt" style="display:none;" value={{ carForm.car_type.value }} >
+{{ carForm.car_type.errors }}
+            </div>
+           <div class="edit-content-form radio" name="mask">
+               
+               <span style="color:red">*</span>品牌:
+               
+                  <input type="text" class="" id="brand" style="width:30%;margin-left:31px;" name="brand" " {% if carForm.brand.value %} value="{{ carForm.brand.value }}" {% endif %}>{{ carForm.brand.errors }}
+                 
+            </div>
+           <div class="edit-content-form radio">
+               <span style="color:red">*</span>车龄:
+               
+                  <!-- <input type="text" id="carage" class="" style="width:30%;margin-left:31px;" name="vehicle_age" {% if carForm.vehicle_age.value %} value={{ carForm.vehicle_age.value }} {% endif %}><span style="color:red">*</span>{{ carForm.vehicle_age.errors }}
+                -->
+                 
+                <select id='carage1' style="color:#000;width:25%;margin-left:35px;" name="vehicle_age">
+                <option value="2017" selected="selected">2017年</option>
+                     <option id="carage1-option" value={{ carForm.vehicle_age.value }}>{{ carForm.vehicle_age.value }}</option>
+
+                </select>{{ carForm.vehicle_age.errors }}
+
+            </div>
+             <div class="edit-content-form radio">
+               <span style="color:red">*</span>里程:
+               
+                  <input type="text" id="vehicle_miles" class="" style="width:30%;margin-left:31px;" name="vehicle_miles" {% if carForm.vehicle_miles.value %} value="{{ carForm.vehicle_miles.value }}" {% endif %}>{{ carForm.vehicle_miles.errors }}
+               
+                 
+                
+            </div>
+             <div class="edit-content-form radio">
+               <span style="color:red">*</span>价格:
+               
+                  <input type="text" class="" id="fee" style="width:30%;margin-left:31px;" name="fee2" {% if carForm.fee2.value %} value="{{ carForm.fee2.value }}" {% endif %}>{{ carForm.fee2.errors }}
+               
+                 
+                
+            </div>
+            
+                 
+            
+            <div class="edit-content-form radio">
+               <span style="color:red">*</span>级别:
+                  <input type="radio" class="" id="lv1" name="level_type" onclick="ot()" value="轿车" {% if carForm.level_type.value == "轿车" %} checked {% endif %}>
+                  <label for="lv1" class="form-con" style="margin-left:30px;">轿车</label>
+                
+                  <input type="radio" id="lv2" name="level_type" onclick="ot()" value="跑车" {% if carForm.level_type.value == "跑车" %} checked {% endif %}>
+                  <label for="lv2" class="form-con">跑车</label>
+               
+                  <input type="radio" id="lv3" name="level_type" onclick="ot()" value="SUV" {% if carForm.level_type.value == "SUV" %} checked {% endif %}> 
+                  <label for="lv3" class="form-con">SUV</label>
+                 
+                  <input type="radio" id="lv4" name="level_type" onclick="ot()" value="other" {% if carForm.level_type.value == "other" %} checked {% endif %}> 
+                  <label for="lv4" class="form-con">其他</label>
+                   <input type="text" name="level_type_other" id="lv4txt" style="display:none;" value="{{ carForm.level_type.value }}" >
+                
+               {{ carForm.level_type.errors }}
+            </div>
+            <div class="edit-content-form radio">
+                <span style="color:red">*</span>变速器: 
+                
+                  <input type="radio" class="" id="typet1" name="transmission_type" value="自动" {% if carForm.transmission_type.value == "自动" %} checked {% endif %}>
+                  <label for="typet1" class="form-con" style="margin-left:15px;">自动</label>
+                
+                  <input type="radio" id="typet2" name="transmission_type" value="手动" {% if carForm.transmission_type.value == "手动" %} checked {% endif %}>
+                  <label for="typet2" class="form-con">手动</label>
+                 {{ carForm.transmission_type.errors }}
+            </div>
+            <div class="edit-content-form radio">
+               <span style="color:red">*</span>排量:
+               
+                  <input type="text" class="" id="displacement" style="width:30%;margin-left:31px;" name="displacement" {% if carForm.displacement.value %} value="{{ carForm.displacement.value }}" {% endif %}>{{ carForm.displacement.errors }}
+               
+                 
+                
+            </div>
+            
+            <div class="edit-content-form radio">
+               <span style="color:red">*</span>驱动:
+                  <input type="radio" name="drive_type" id="fa1" value="前驱" {% if carForm.drive_type.value == "前驱" %} checked {% endif %}>
+                  <label for="fa1" class="form-con" style="margin-left:32px;">前驱</label>
+                
+                  <input type="radio" name="drive_type" id="fa2" value="后驱" {% if carForm.drive_type.value == "后驱" %} checked {% endif %}>
+                  <label for="fa2" class="form-con">后驱</label>
+               
+                  <input type="radio" name="drive_type" id="fa3" value="四驱" {% if carForm.drive_type.value == "四驱" %} checked {% endif %}>
+                  <label for="fa3" class="form-con">四驱</label>
+{{ carForm.drive_type.errors }}
+            </div>
+            <div class="edit-content-form radio">
+               <span style="color:red">*</span>外部颜色:
+               
+                  <input type="text" class="" id="inside_color" style="width:30%;margin-left:38px;" name="inside_color" {% if carForm.inside_color.value %} value="{{ carForm.inside_color.value }}" {% endif %}>{{ carForm.inside_color.errors }}
+               
+                 
+                
+            </div>
+            <div class="edit-content-form radio">
+               <span style="color:red">*</span>内部颜色:
+               
+                  <input type="text" class="" id="outside_color" style="width:30%;margin-left:38px;" name="outside_color" {% if carForm.outside_color.value %} value="{{ carForm.outside_color.value }}" {% endif %}>{{ carForm.outside_color.errors }}
+               
+                 
+                
+            </div>
+             <div class="edit-content-form radio">
+                <span style="color:red">*</span>燃油类型:
+                  <input type="radio" class="" id="r1" name="oil_type" value="汽油" {% if carForm.oil_type.value == "汽油" %} checked {% endif %}>
+                  <label for="r1" class="form-con" style="margin-left:38px;">汽油</label>
+                 
+                  <input type="radio" id="r2" name="oil_type" value="柴油" {% if carForm.oil_type.value == "柴油" %} checked {% endif %}>
+                  <label for="r2" class="form-con">柴油</label>
+                  
+                   <input type="radio" id="r3" class="" name="oil_type" value="油电混合" {% if carForm.oil_type.value == "油电混合" %} checked {% endif %}>
+                  <label for="r3" class="form-con">油电混合</label>
+                 
+                  <input type="radio" id="r4" name="oil_type" value="电力" {% if carForm.oil_type.value == "电力" %} checked {% endif %}>
+                  <label for="r4" class="form-con">电力</label>
+                {{ carForm.oil_type.errors }}
+                
+            </div>
+             <div class="edit-content-form radio" >
+                 <span style="color:red">*</span>涡轮增压: 
+                
+                   <input type="radio" class="" id="w1" name="turbo" value="yes"  {% if carForm.turbo.value == "yes" %} checked {% endif %}>
+                  <label for="w1" class="form-con" style="margin-left:38px;">yes</label>
+                 
+                  <input type="radio" id="w2" name="turbo" value="no" {% if carForm.turbo.value == "no" %} checked {% endif %}>
+                  <label for="w2" class="form-con">no</label>
+                
+                {{ carForm.turbo.errors }}
+            </div>
+            
+           
+            <div class="edit-content-form radio" >
+               <span style="color:red">*</span>Vin number: 
+                  <input type="text" id="vin_number" name="vin_number" style="width:35%;margin-left:10px;" {% if carForm.vin_number.value %} value="{{ carForm.vin_number.value }}" {% endif %}>{{ carForm.vin_number.errors }}
+                
+            </div>
+            
+            <div class="edit-content-form radio" >
+                <span style="color:red">*</span>联系人:
+                  <input type="text" id="contactor" name="contactor" style="width:35%;margin-left:56px;" {% if carForm.contactor.value %} value="{{ carForm.contactor.value }}" {% else %} {% if user.is_name %}  value="{{ user.username }}" {% endif %} {% endif %}>{{ carForm.contactor.errors }}
+                
+            </div>
+           
+           <!-- <div class="edit-content-form radio" >
+                联系方式:
+                  <input type="text" name="contact_way" style="width:35%;margin-left:40px;" {% if carForm.contact_way.value %} value={{ carForm.contact_way.value }} {% endif %}>{{ carForm.contact_way.errors }}
+                
+            </div>-->
+            <div class="edit-content-form radio" >
+                <span style="color:red">*</span>联系电话:
+                  <input type="text" id="phone" name="phone" style="width:35%;margin-left:40px;" {% if carForm.phone.value %} value={{ carForm.phone.value }} {% else %} {% if user.is_phone %}  value={{ user.phone }} {% endif %}{% endif %}>{{ carForm.phone.errors }}
+                 {% if not user.is_phone %}<a href="{% url "accounts:accountSecurity" %}" class="set">设置发帖时自动填写</a>{% endif %}
+            </div>
+            <div class="edit-content-form radio" >
+                <span style="color:red">*</span>联系微信:
+                  <input type="text" id="weixin" name="weixin" style="width:35%;margin-left:40px;" {% if carForm.weixin.value %} value={{ carForm.weixin.value }} {% else %} {% if user.is_weixin %}  value={{ user.weixin }} {% endif %}{% endif %}>{{ carForm.weixin.errors }}
+                 {% if not user.is_weixin %}<a href="{% url "accounts:accountSecurity" %}" class="set">设置发帖时自动填写</a>{% endif %}
+            </div>
+<div class="edit-content-form radio" >
+                <span style="color:red">*</span>汽车所在地址:
+                  <input type="text" id="contact_way" name="contact_way" style="width:35%;margin-left:8px;" {% if carForm.contact_way.value %} value="{{ carForm.contact_way.value }}" {% endif %}>{{ carForm.contact_way.errors }}
+                
+            </div>
+             <div class="edit-content-form radio" >
+                <span style="color:red">&nbsp;</span>详细内容:<br>
+                <textarea name="content" id="myEditor" style="width:35%;height:280px;margin-left:114px;margin-top:-20px;">{% if carForm.content.value %} {{ carForm.content.value }} {% endif %} </textarea> {{ rentForm.content.errors }}
+            </div>
+            <div class="edit-content-form photo" style="clear:both;border:1px solid #ccc;">
+                <label class="checkbox" style="margin-top:-5px;text-align:left;width:90%;font-size:14px;">预览照片：</label>
+               
+                
+                
+
+                <ul id="dd" class="photo-img" style="width:90%;margin:0 auto;clear:both;padding-bottom: 20px;">
+             {% for pic in pictures %}
+             <li class="upload_append_list" id="uploadList_{{ pic.image.url }}">
+                 <a href="javascript:" class="upload_delete" title="删除">   
+                     <img src="/static/images/imgdele.png" style="height:16px">
+                 </a>
+                 <br />
+                 <img src={{ pic.image.url }} alt="" class="upload_image" style="width:auto;height:auto;max-width:100%;max-height:100%;"/>
+            </li>
+            {% endfor %}
+                </ul>
+                
+                <label for="avatar-selector" class="avatar-btn ac">
+                   
+                   <input type="file" class="form-control" name="image" id="avatar-selector" accept="image/*"  multiple="multiple" style="padding: 0px;display:none" placeholder="&nbsp;上传文件">
+                   <div style="color:#000;border:1px solid #CCC;border-radius:5px;background-color:#FFF; width:90%;margin: 0 auto; height:30px;font-size:14px;text-align:center;line-height:30px;cursor:pointer; clear: both;margin-top:20px;">本地上传</div> 
+
+                </label>
+    
+    
+        
+  
+                   <input type="button" value="网络上传" style="color:#000;border:1px solid #ccc;border-radius:5px;background-color:#FFF; width:90%;margin-top:-100px;height:30px;font-size:14px;margin-top:5px;">
+                   <div id="dd1" style="margin-top:5px;text-align:center;width:90%;font-size:14px;;margin-bottom:5px;">
+                   
+                   </div>
+            </div>
+            <div class="btu" style="width:100%;text-align:center;clear:both;padding-top:50px;">
+            <button type="button" id="push1" class="save-form" id="titi" >提交</button><a href="{% url "posts:car" %}"><button type="button" class="cancel-form" >取消</button></a>
+            </div>
+            </form>
+
+            <form class="rentForm" method="post" action="" onsubmit="return msecondCar()" enctype="multipart/form-data">
+              {% csrf_token %}
+             <div class="m-edit-content-form" name="mask">
+               <label class="checkbox check-title" style="font-family:'微软雅黑';"><span style="color:red">*</span>到期时间:</label>
+                
+                <input id="birthday1" type="text" name="expire_date" style="width:40%;margin-left:33%;margin-top:-35px;height:30px;position:absolute;" {% if carForm.expire_date.value %} value={{ carForm.expire_date.value }} {% endif %}> {{ carForm.expire_date.errors }}
+                
+               
+               
+               
+            </div>
+             <div class="m-edit-content-form" name="mask">
+               <label class="checkbox check-title" style="font-family:'微软雅黑';"><span style="color:red">*</span>标题:</label>
+                
+                <input type="text" id="mtitle" name="title" style="width:40%;margin-left:33%;margin-top:-35px;height:30px;position:absolute;" {% if carForm.title.value %} value="{{ carForm.title.value }}" {% endif %}> {{ carForm.title.errors }}
+                
+               
+               
+               
+            </div>
+             <div class="m-edit-content-form">
+                <label class="checkbox check-title" style="font-family:'微软雅黑';"><span style="color:red">*</span>类别:</label>
+                 <select name="car_type" id="mlv" onchange="selectother()">
+                 <option value="select">select</option>
+                  <option {% if carForm.car_type.value == "Japanese" %} selected {% endif %}>日系</option>
+                  <option {% if carForm.car_type.value == "German" %} selected {% endif %}>德系</option>
+                  <option {% if carForm.car_type.value == "USA" %} selected {% endif %}>美系</option>
+                 <option {% if carForm.car_type.value == "other" %} selected {% endif %}>其他</option>
+                </select>
+                 <input type="text" name="car_type_other" id="mlv4" style="width:40%;margin-left:33%;margin-top:-35px;height:30px;position:absolute;display:none;" value="{{ carForm.car_type.value }}" > 
+               
+            </div>
+          
+                
+            <div class="m-edit-content-form" >
+                <label class="checkbox check-title" style="font-family:'微软雅黑';"><span style="color:red">*</span>品牌：</label>
+                
+                <input type="text" name="brand" id="mbrand" style="width:40%;margin-left:33%;margin-top:-35px;height:30px;position:absolute;" {% if carForm.brand.value %} value="{{ carForm.brand.value }}" {% endif %}> {{ carForm.brand.errors }}
+                
+                
+                
+            </div>
+            <div class="m-edit-content-form">
+             
+               <label class="checkbox check-title" style="font-family:'微软雅黑';"><span style="color:red">*</span>车龄：</label>
+                
+               <!--  <input type="text" name="vehicle_age" style="width:40%;margin-left:33%;margin-top:-35px;height:30px;position:absolute;" {% if carForm.vehicle_age.value %} value={{ carForm.vehicle_age.value }} {% endif %}> {{ carForm.vehicle_age.errors }} -->
+                <select id='carage2' style="color:#000;" name="vehicle_age">
+                     <option value="2017" selected="selected">2017年</option>
+                     <option value={{ carForm.vehicle_age.value }}>{{ carForm.vehicle_age.value }}</option>
+                     </select>
+
+        
+                
+            </div>
+            <div class="m-edit-content-form">
+             
+               <label class="checkbox check-title" style="font-family:'微软雅黑';"><span style="color:red">*</span>里程：</label>
+                
+                <input type="text" id="mvehicle_miles" name="vehicle_miles" style="width:40%;margin-left:33%;margin-top:-35px;height:30px;position:absolute;" {% if carForm.vehicle_miles.value %} value="{{ carForm.vehicle_miles.value }}" {% endif %}> {{ carForm.vehicle_miles.errors }}
+                
+        
+                
+            </div>
+            <div class="m-edit-content-form">
+             
+               <label class="checkbox check-title" style="font-family:'微软雅黑';"><span style="color:red">*</span>价格：</label>
+                
+                <input type="text" name="fee2" id="mfee" style="width:40%;margin-left:33%;margin-top:-35px;height:30px;position:absolute;" {% if carForm.fee2.value %} value="{{ carForm.fee2.value }}" {% endif %}> {{ carForm.fee2.errors }}
+                
+        
+                
+            </div>
+                 
+            
+            <div class="m-edit-content-form">
+                <label class="checkbox check-title" style="font-family:'微软雅黑';"><span style="color:red">*</span>级别:</label>
+                 <select name="level_type" id="mlevel" onchange="selectother()">
+                 <option value="select">select</option>
+                  <option {% if carForm.level_type.value == "sedan" %} selected {% endif %}>轿车</option>
+                  <option {% if carForm.level_type.value == "roadster" %} selected {% endif %}>跑车</option>
+                  <option {% if carForm.level_type.value == "SUV" %} selected {% endif %}>SUV</option>
+                  <option {% if carForm.level_type.value == "other" %} selected {% endif %}>其他</option>
+                </select>
+                 <input type="text" name="level_type_other" id="mleveltxt" style="width:40%;margin-left:33%;margin-top:-35px;height:30px;position:absolute;display:none;" value="{{ carForm.level_type.value }}" > 
+               {{ carForm.level_type.errors }}
+            </div>
+            <div class="m-edit-content-form" >
+                <label class="checkbox check-title" style="font-family:'微软雅黑';"><span style="color:red">*</span>变速器：</label>
+                
+                <select id="mtransmission_type" name="transmission_type">
+                  <option value="select">select</option>
+                  <option {% if carForm.transmission_type.value == "自动" %} selected {% endif %}>自动</option>
+                  <option {% if carForm.transmission_type.value == "手动" %} selected {% endif %}>手动</option>
+                 
+                </select>{{ carForm.transmission_type.errors }}
+                 
+            </div>
+             <div class="m-edit-content-form">
+             
+               <label class="checkbox check-title" style="font-family:'微软雅黑';"><span style="color:red">*</span>排量：</label>
+                
+                <input type="text" id="mdisplacement" name="displacement" style="width:40%;margin-left:33%;margin-top:-35px;height:30px;position:absolute;" {% if carForm.displacement.value %} value="{{ carForm.displacement.value }}" {% endif %}> {{ carForm.displacement.errors }}
+                
+        
+                
+            </div>
+            <div class="m-edit-content-form" >
+                <label class="checkbox check-title" style="font-family:'微软雅黑'"><span style="color:red">*</span>驱动:</label>
+                
+                <select class="form-select" id="mdrive_type" name="drive_type">
+                   <option value="select">select</option>
+                   <option {% if carForm.drive_type.value == "前驱" %} selected {% endif %}>前驱</option>
+                   <option {% if carForm.drive_type.value == "后驱" %} selected {% endif %}>后驱</option>
+                   <option {% if carForm.drive_type.value == "四驱" %} selected {% endif %}>四驱</option>
+                </select>{{ carForm.drive_type.errors }}
+                
+                
+            </div>
+           <div class="m-edit-content-form">
+             
+               <label class="checkbox check-title" style="font-family:'微软雅黑';"><span style="color:red">*</span>外部颜色：</label>
+                
+                <input type="text" id="minside_color" name="inside_color" style="width:40%;margin-left:33%;margin-top:-35px;height:30px;position:absolute;" {% if carForm.inside_color.value %} value={{ carForm.inside_color.value }} {% endif %}> {{ carForm.inside_color.errors }}
+                
+        
+                
+            </div>
+            <div class="m-edit-content-form">
+             
+               <label class="checkbox check-title" style="font-family:'微软雅黑';"><span style="color:red">*</span>内部颜色：</label>
+                
+                <input type="text" id="moutside_color" name="outside_color" style="width:40%;margin-left:33%;margin-top:-35px;height:30px;position:absolute;" {% if carForm.outside_color.value %} value="{{ carForm.outside_color.value }}" {% endif %}> {{ carForm.outside_color.errors }}
+                
+        
+                
+            </div>
+            <div class="m-edit-content-form" >
+                <label class="checkbox check-title" style="font-family:'微软雅黑';"><span style="color:red">*</span>燃油类型:</label>
+                
+                <select class="form-select" id="moil_type" name="oil_type">
+                  <option value="select">select</option>
+                  <option {% if carForm.oil_type.value == "汽油" %} selected {% endif %}>汽油</option>
+                  <option {% if carForm.oil_type.value == "柴油" %} selected {% endif %}>柴油</option>
+                  <option {% if carForm.oil_type.value == "油电混合" %} selected {% endif %}>油电混合</option>
+                  <option {% if carForm.oil_type.value == "电力" %} selected {% endif %}>电力</option>
+                  
+                </select>
+                
+                
+            </div>
+            <div class="m-edit-content-form" >
+                <label class="checkbox check-title" style="font-family:'微软雅黑';"><span style="color:red">*</span>涡轮增压：</label>
+               
+                <select class="form-select" id="mturbo" name="turbo">
+                  <option value="select">select</option>
+                  <option {% if carForm.turbo.value == "yes" %} selected {% endif %}>yes</option>
+                  <option {% if carForm.turbo.value == "no" %} selected {% endif %}>no</option>
+                 
+                </select>
+                
+            </div>
+            
+           
+            <div class="m-edit-content-form" >
+                <label class="checkbox check-title" style="font-family:'微软雅黑';"><span style="color:red">*</span>Vin number：</label>
+               
+                 <input type="text" id="mvin_number" name="vin_number" style="width:40%;margin-left:150px;margin-top:-35px;height:30px;position:absolute;" {% if carForm.vin_number.value %} value="{{ carForm.vin_number.value }}" {% endif %}> {{ carForm.vin_number.errors }}
+                  
+            </div>
+            
+            <div class="m-edit-content-form" >
+                <label class="checkbox check-title" style="font-family:'微软雅黑';"><span style="color:red">*</span>联系人：</label>
+               
+                 <input type="text" id="mcontactor" name="contactor" style="width:40%;margin-left:150px;margin-top:-35px;height:30px;position:absolute;" {% if carForm.contactor.value %} value={{ carForm.contactor.value }} {% else %} {% if user.is_name %}  value={{ user.username }} {% endif %} {% endif %}> {{ carForm.contactor.errors }}
+                  
+            </div>
+           
+            <!--<div class="m-edit-content-form" >
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;">联系方式：</label>
+               
+                 <input type="text" name="contact_way" style="width:40%;margin-left:150px;margin-top:-35px;height:30px;position:absolute;" {% if carForm.contact_way.value %} value={{ carForm.contact_way.value }} {% endif %}>{{ carForm.contact_way.errors }} 
+                  
+            </div>-->
+            <div class="m-edit-content-form" >
+                <label class="checkbox check-title" style="font-family:'微软雅黑';"><span style="color:red">*</span>联系电话：</label>
+               
+                 <input type="text" id="mphone" name="phone" style="width:40%;margin-left:150px;margin-top:-35px;height:30px;position:absolute;" {% if carForm.phone.value %} value={{ carForm.phone.value }} {% else %} value={{ user.phone }} {% endif %}>{{ carForm.phone.errors }} 
+                  
+            </div>
+            <div class="m-edit-content-form" >
+                <label class="checkbox check-title" style="font-family:'微软雅黑';"><span style="color:red">*</span>联系微信：</label>
+               
+                 <input type="text" id="mweixin" name="weixin" style="width:40%;margin-left:150px;margin-top:-35px;height:30px;position:absolute;" {% if carForm.weixin.value %} value={{ carForm.weixin.value }} {% else %} value={{ user.weixin }} {% endif %}>{{ carForm.weixin.errors }} 
+                  
+            </div>
+<div class="m-edit-content-form" >
+                <label class="checkbox check-title" style="font-family:'微软雅黑';"><span style="color:red">*</span>汽车所在地址：</label>
+               
+                 <input type="text" id="mcontact_way" name="contact_way" style="width:40%;margin-left:150px;margin-top:-35px;height:30px;position:absolute;" {% if carForm.contact_way.value %} value="{{ carForm.contact_way.value }}" {% endif %}> {{ carForm.contact_way.errors }}
+                  
+            </div>
+            <div class="m-edit-content-form" >
+                <label class="checkbox check-title" style="font-family:'微软雅黑';"><span style="color:red">&nbsp;&nbsp;</span>详细内容:</label>
+                <br>
+                <textarea name="content" id="mmyEditor" style="width:95%;height:180px;margin-left:5px;margin-top:-20px;">
+ {% if carForm.content.value %} value={{ carForm.content.value }} {% endif %}
+                </textarea>
+            </div>
+            <div class="m-edit-content-form photo" style="clear:both;border:1px solid #ccc;width:80%;">
+                <label class="checkbox" style="margin-top:-5px;text-align:left;width:90%;font-size:14px;margin-left:0px;">预览照片：</label><br><br>
+               
+                <ul id="dd3" class="photo-img" style="width:90%;margin:0 auto;clear:both">
+                   {% for pic in pictures %}
+ <li class="mupload_append_list">
+              <a href="javascript:" class="mupload_delete" title="删除"><img src="/static/images/imgdele.png" style="height:16px"></a><br /> 
+              <img src={{ pic.image.url }} class="mupload_image" style="width:auto;height:auto;max-width:100%;max-height:100%;"/>
+             
+          </li>            {% endfor %}
+                </ul>
+               <label for="avatar-selector1" class="avatar-btn ac">
+                   
+                   <input type="file" class="form-control" name="image" id="avatar-selector1" accept="image/*" multiple="multiple" style="padding: 0px;display:none" placeholder="&nbsp;上传文件">
+                   <div style="color:#000;border:1px solid #CCC;border-radius:5px;background-color:#FFF; width:90%;margin: 0 auto; height:30px;font-size:14px;text-align:center;line-height:30px;clear:both">本地上传</div> 
+
+                </label>
+                                       <input type="button" value="网络上传" style="color:#000;border:1px solid #ccc;border-radius:5px;background-color:#FFF; width:90%;margin-top:-100px;height:30px;font-size:14px;margin-top:5px;">
+                                       <div id="upnumber" style="margin-top:15px;text-align:center;width:90%;font-size:14px;;margin-bottom:20px;"><!-- 还可以上传0张 --></div>
+            </div>
+            
+            <div class="m-btu" style="width:100%;text-align:center;clear:both;padding-top:20px;">
+            <button type="button" id="push2" class="save-form" >提交</button><a href="{% url "posts:car" %}"><button type="button" class="cancel-form" >取消</button></a>
+            </div>
+	        </form>
+</div></div>
+
+          
+         
+     
+     
+     
+     
+     <div style="margin-top:50px;"></div>
+     
+      <canvas id="myCanvas"     style="display: none" ></canvas>
+
+       <script src="{% static "js/jquery-1.4.1.js" %}"></script>
+    
+    <script src="{% static "js/File.js" %}"></script>
+       
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{% static "js/jquery.min.js" %}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+
+   
+    <script src="{% static "js/flatpickr.min.js" %}"></script>
+    <script src="{% static "js/main.js" %}"></script>
+    <script src="{% static "js/buycar.js" %}"></script>
+
+
+  </body>
+</html>

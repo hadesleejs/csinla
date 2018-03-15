@@ -1,0 +1,91 @@
+.lacs-transparent-input {
+    background-color: rgba(255, 255, 255, 0);
+    color: #fff;
+    border: 0;
+    border-bottom: 1px solid #fff;
+    opacity: 0.7;
+    font-size: 11px;
+    height: 30px;
+}
+
+.lacs-transparent-input:hover {
+    opacity: 0.9;
+}
+
+.lacs-transparent-input:focus {
+    color: #000;
+}
+
+.lacs-color-btn {
+    background: linear-gradient(to right, #f49e2f 0%, #f94e70 100%);
+    background: -webkit-gradient(linear, 0% 0%, 50% 0%, from(#F49E2F), to(#F94E70));
+    color: #fff;
+    border: 0;
+    border-radius: 17px !important;
+    padding: 5px;
+}
+
+.lacs-transparent-btn {
+    background-color: rgba(255, 255, 255, 0);
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 17px !important;
+    opacity: 0.7;
+}
+
+.lacs-transparent-btn:hover {
+    background-color: rgba(255, 255, 255, 0);
+    opacity: 0.9;
+}
+
+.myButton {
+    width: 200px;
+    height: 40px;
+    border-radius: 17px !important;
+}
+
+.transparent_bg {
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    filter: Alpha(opacity=10); /* 只支持IE6、7、8、9 */
+    position: static; /* IE6、7、8只能设置position:static(默认属性) ，否则会导致子元素继承Alpha值 */
+    *zoom: 1; /* 激活IE6、7的haslayout属性，让它读懂Alpha */
+}
+
+.transparent_bg p {
+    color: #FFFFFF;
+}
+
+.transparent_bg h4 {
+    color: #FFFFFF;
+}
+
+.form_label {
+    color: #FFFFFF;
+    text-align: right;
+    padding-top: 10px;
+}
+
+.table_center {
+    margin-left: auto;
+    margin-right: auto;
+    display: table;
+}
+
+input[type="text"], input[type="password"] {
+    color: #FFFFFF;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid gray;
+    border-radius: 0;
+}
+
+.box .row select {
+    background: transparent;
+    color: white;
+    padding-left: 5px;
+}
+
+.box .row select > option {
+    background: #483F4D;
+}

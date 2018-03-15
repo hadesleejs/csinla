@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+{% load static %}
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="ie-stand">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalabe=no">
+    <title>联系我们</title>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-97624179-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?6784d0adea487eefbe595d28dbb08efb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    <link rel="shortcut icon" href="/static/images/logo1.png">
+    <!-- Bootstrap -->
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">  
+    <link href="{% static "css/MyHelpCenter.css" %}"  rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static "css/font-awesome.min.css" %}"> 
+     <link rel="stylesheet" type="text/css" href="{% static "css/awesome-bootstrap-checkbox.css" %}">
+         <link rel="stylesheet" type="text/css" href="{% static "css/flatpickr.min.css" %}">
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+   
+  </head>
+  <body>
+  <!-- 顶部部分开始 -->
+    <div class="u-container">
+{% if request.user.is_authenticated %}
+    <div class="u-header clearfix">
+        <div class="logo fl">
+            <a href="/"><img class="img-responsive" src="{% static "images/01-home-logo.png" %}" alt="logo"></a>
+        </div>
+        <div class="login-status fr">
+            <div class="avatar-wrapper">
+              <a href="{% url "accounts:myPosts" %}">
+                <img src={{ user.avatar_url }} class="img-circle avatar" alt="Cinque Terre">
+              </a>
+            </div>
+            <div class="dropdown" style="display:inline-block;">
+                <button class="header-btn dropdown-toggle" type="button" data-toggle="dropdown">
+                    <i class="fa fa-cog" aria-hidden="true"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li><a href="{% url 'accounts:accountSecurity' %}">账户安全</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <!-- <li><a href="#">人工申述</a></li>
+                    <li role="presentation" class="divider"></li> -->
+                    <li><a href="{% url 'accounts:myhelpcenter' %}">联系我们</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="{% url 'accounts:logout' %}">登出</a></li>
+                </ul>
+            </div>
+            <div class="dropdown" style="display:inline-block;">
+                <a href="{% url "accounts:myInfo" %}" class="header-btn dropdown-toggle">
+                    <i class="fa fa-bell-o" aria-hidden="true"></i>
+                    {% if user.unread_message %}<span class="redpoint"><i>{{ user.unread_message }} </i></span>{% endif %}
+                </a>
+               <!--  <ul class="dropdown-menu">
+                    <li><a href="#">我的私信<span class="redpoint"><i>2</i></span></a>
+                    </li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="#">我的回复<span class="redpoint"><i>99+</i></span></a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="#">查看@提到我<span class="redpoint"><i>12</i></span></a></li>
+                </ul> -->
+            </div>
+            <div class="new-post-wrapper fr">
+                <a class="new-post" href="/posts/add">
+                    <span>发表新帖</span>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="header w">
+        <a href="#" class="mobile-nav-btn pull-right"><i class="fa fa-bars" aria-hidden="true"></i></a>
+        <a href="/" class="home-link">
+            <div class="logo">
+                <img src="{% static "images/home-logo.png" %}" alt="" class="img-responsive">
+            </div>
+        </a>
+    <div class="user">
+            <a href="#" class="remove-nav pull-right"><img src="{% static "./images/times.png" %}" alt="" class="img-responsive"></a>
+            <a href="/" class="home-nav-item special">
+                <span>首页</span>
+            </a>
+            <a href="/posts/add" class="home-nav-item special">
+                <span>发表新帖</span>
+            <a href="{% url "accounts:myPosts" %}" class="home-nav-item special">
+                <span>个人中心</span>
+            </a>
+         <!--    <a href="{% url "accounts:accountSecurity" %}" class="home-nav-item has-sub-item">
+                <span>设置</span>
+            </a> -->
+            
+            <a href="{% url 'accounts:logout' %}"  class="home-nav-item special">
+                <span>Sign out</span></a>
+            
+            </a>
+        </div>
+    {% else %}
+    <div class="u-header clearfix">
+        <div class="logo fl">
+            <a href="/"><img class="img-responsive" src="{% static "images/01-home-logo.png" %}" alt="logo"></a>
+        </div>
+        <div class="user" style="margin-top:18px;text-align:right;">
+            <a href="{% url 'accounts:login' %}" class="login home-nav-item">
+                <span>Log in</span>
+                <img src="{% static "images/home-login.png" %}" alt="">
+            </a>
+            <a href="{% url 'accounts:register' %}" class="register home-nav-item" style="margin-left:10px;">
+                <span>Register</span>
+                <img src="{% static "images/home-register.png" %}" alt="">
+            </a>
+
+        </div>
+
+    </div>
+    <div class="header w">
+        <a href="#" class="mobile-nav-btn pull-right"><i class="fa fa-bars" aria-hidden="true"></i></a>
+        <a href="/" class="home-link">
+            <div class="logo">
+                <img src="{% static "images/home-logo.png" %}" alt="" class="img-responsive">
+            </div>
+        </a>
+        
+        <div class="user">
+            <a href="#" class="remove-nav pull-right"><img src="{% static "./images/times.png" %}" alt="" class="img-responsive"></a>
+            <a href="/" class="home-nav-item special">
+                <span>首页</span>
+            </a>
+            
+            
+            <a href="{% url 'accounts:login' %}" class="login home-nav-item">
+                <span>Log in</span>
+                <img src="{% static "images/home-login.png" %}" alt="">
+            </a>
+            <a href="{% url 'accounts:register' %}" class="register home-nav-item">
+                <span>Register</span>
+                <img src="{% static "images/home-register.png" %}" alt="">
+            </a>
+            <!-- <a href="#" class="home-nav-item special">
+                <span>Live and Love</span>
+            </a> -->
+        </div>
+
+       {% endif %}
+    </div> 
+     <!-- 顶部部分结束 -->
+     <!-- 个人中心内容开始 -->
+     <div class="content" style="border-radius:10px;">
+     <div id="pageurl"><a href="/">首页</a> <img src="{% static "images/url-lef.png" %}"> <a href="{% url "accounts:myPosts" %}">个人中心</a> <img src="{% static "images/url-lef.png" %}">  <a href="{% url "accounts:myhelpcenter" %}">联系我们</a></div>
+     <!-- <input type="image" src="{% static "images/back-icon1.png" %}" onclick="window.history.back();" style="width:25px; height: 25px;margin:10px;position:absolute;"> -->
+          <div class="content-title">
+          个人中心
+          </div>
+          <!-- m-个人信息 -->
+        <!-- <div class="m-info" style="text-align:center;margin-top:20px;padding-bottom:10px;">
+              
+                  
+                   <a href="{% url "accounts:accountSecurity" %}"> <img src={{ user.avatar_url}} class="img-circle" alt="dummy-head" width="95" height="95"></a>
+                     <h4 class="username"><a style="vertical-align:middle;padding-left:30px;" href="#">{{ user.username }}</a>
+                     <span style="margin-left:6px;"><img src={% if user.gender == "male" %} "{% static "images/man.png" %}" {% else %} "{% static "images/girl.png" %}" {% endif %} alt="man icon"></span></h4>
+                    
+                 <p style="font-size:12px;">吧龄:{{ user.get_age }}&nbsp;&nbsp;发帖:{{ user.reply_total }}&nbsp;&nbsp;所属学校:{{ user.school }}
+                 </p>
+          
+          </div> -->
+          
+          <div class="content-navigation" style="clear:both;">
+              <ul>
+                    <li role="presentation" class="content-tit"><a href="{% url "accounts:myPosts" %}"><img src="{% static "images/file.png" %}" width="18" height="21"><br>
+                    <div>我的帖子</div></a></li>
+                     <li role="presentation" class="content-tit"><a href="{% url "accounts:myFavorites" %}"><img src="{% static "images/star.png" %}" width="20" height="20"><br>
+                    <div>我的收藏</div></a></li>
+                    <li role="presentation" class="content-tit"><a href="{% url "accounts:myInfo" %}"><img src="{% static "images/bell.png" %}" width="22" height="22"><br>
+                    <div>我的消息</div></a></li>
+                    <li role="presentation" class="content-tit"><a href="{% url "accounts:accountSecurity" %}"><img src="{% static "images/safe.png" %}" width="20" height="20"><br>
+                    <div>账户安全</div></a></li>
+                    <li role="presentation" class="content-tit active"><a href="{% url "accounts:myhelpcenter" %}"><img src="{% static "images/light.png" %}" width="20" height="20"><br>
+                    <div>联系我们</div></a></li>
+             </ul>
+          </div>
+          <div class="row" style="width:100%;margin-left:0px;">
+               <div class="list col-md-9 col-sm-9">
+               
+                
+                    <div class="u-main-section">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-3 m-lef">
+                                <ul class="side-nav ac" style="width:95%;position:absolute;">
+                                    <li><a href="#" class="active" style="font-weight:700;">常见问题FAQ</a></li>
+                                    <li class="has-sub">
+                                        <a href="#" style="font-weight:700;">问题反馈</a>
+                                        <ul class="sub-side-nav" style="list-style:none;">
+                                            <li><a href="#">功能失灵</a></li>
+                                            <li><a href="#">账号问题</a></li>
+                                            <li><a href="#">联系我们</a></li>
+                                            <li><a href="#">其它问题</a></li>
+                                        </ul>
+                                    </li>
+                                
+                                </ul>
+                            </div>
+                            <div class="col-md-9 col-sm-9 m-rig">
+                                
+                               <div class="side-nav-contents">
+                                    <div class="side-nav-content side-nav-content1 active">
+                                        <div class="faq-item">
+                                        <a href="{% url "accounts:myhelp" %}"><span>账号绑定的邮箱和手机忘了</span>
+                                        <span style="float:right;"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+                                        </div>
+                                        <div class="faq-item">
+                                        <a href="{% url "accounts:myhelp" %}"><span>账号绑定的邮箱和手机忘了</span>
+                                        <span style="float:right;"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+                                        </div>
+                                        <div class="faq-item">
+                                        <a href="{% url "accounts:myhelp" %}"><span>账号绑定的邮箱和手机忘了</span>
+                                        <span style="float:right;"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+                                        </div>
+                                        <div class="faq-item">
+                                        <a href="{% url "accounts:myhelp" %}"><span>账号绑定的邮箱和手机忘了</span>
+                                        <span style="float:right;"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+                                        </div>
+                                                               
+<div class="yahoo2"><span class="disabled">&lt; Prev</span><span class="current">1</span><a href="#?page=2">2</a><a href="#?page=3">3</a><a href="#?page=4">4</a><a href="#?page=5">5</a><a href="#?page=6">6</a><a href="#?page=7">7</a><a href="#?page=8">8</a><a href="#?page=9">9</a><a href="#?page=10">10</a><a href="#?page=2">下一页</a><div class="page-count">共发表帖子&nbsp;<span style="color:red;">235</span>&nbsp;篇</div></div>
+<div class="m-yahoo2"><span class="disabled">&lt; Prev</span><span class="current">1</span><a href="#?page=2">2</a><a href="#?page=3">3</a>...<a href="#?page=9">9</a><a href="#?page=10">10</a><a href="#?page=2">下一页</a><div class="page-count">共发表帖子&nbsp;<span style="color:red;">235</span>&nbsp;篇</div></div>
+
+                       
+                                    </div>
+                                    <div class="side-nav-content side-nav-content2" style="margin:0px;padding:0px;">
+                                        <div class="sub-side-nav-content" style="text-align:left;">
+                                            <form class="" action="/accounts/Feedback1/" method="post" style="width:80%;margin-left:0px;" enctype="multipart/form-data">{% csrf_token %}
+                                                <div class="form-group">
+                                                <label for="qpage" class="control-label">遇见问题的页面:</label>
+          							 <input type="text" class="form-control" style="width:30%;height:35px;margin-left:40%;margin-top:-30px;" id="" placeholder="" name="page">
+                                                <!--<select id="" class="form-control" style="width:30%;height:35px;margin-left:40%;margin-top:-30px;">
+                                                <option value="">登录页</option>
+                                                </select>-->
+                                                 <!--{{ form1.page }}-->
+                                                </div>
+                                                
+                                                <div class="form-group">
+                                                    <label for="qtime1" class="control-label" style="margin-top:10px;">遇到问题具体时间:</label>
+                                                     
+                                                      <input type="text" class="form-control te" id="qtime1" placeholder="" name="time">
+                                                   
+                                                </div>
+                                                <div class="form-group" style="text-align:center;margin-left:11%;width:100%;">
+                                                    <div class="que">问题描述:</div>
+                                                    
+                                                     <textarea id="qdetail" class="" style="width:70%;height:100px;" name="content"></textarea>
+                                                   
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">每次遇到相同问题:</label>
+                                                    
+                                                    <div class="radio" style="margin-top:-22px;margin-left:40%;">
+                                                        <input type="radio" name="qalways" id="qalways" value="" checked="">
+                                                        <label for="qalways">是</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <input type="radio" name="qalways" id="qnotalways" value="">
+                                                        <label for="qnotalways">否</label>
+                                                    </div>
+                                                    
+                                                  </div>
+                                                  <div class="form-group">
+                                                    <label class="col-xs-4 control-label">预览问题截图:</label>
+                                                    <div style="margin-left:43%;">
+                                                    <label for="qpicture-selector" class="qpicture-btn ac">
+                                                    <div id="view1" style="position:absolute;margin-top: -30px;"></div>
+                                                    <input type="file" id="qpicture-selector" onchange="javascript:ImagePreviews();" name="feedback_img" multiple="multiple" accept="image/*">
+                                                    <i class="fa fa-file-image-o" aria-hidden="true" style="color:#999;"></i>
+                                                    <span style="color:#999;">点击上传图片</span></label>
+                                                    
+                                                    <!--<div class="qpicture-list" style="padding-top:6px;">
+                                                    <div class="qpicture-item">
+                                                    <i class="fa fa-picture-o fa-lg" aria-hidden="true" style="vertical-align:baseline;"></i>&nbsp;&nbsp;<span>屏幕快照&nbsp;12.05.26.jpg</span>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="safe">预览</a>&nbsp;&nbsp;<a href="#" class="danger">删除</a>
+                                                    </div>
+                                                    <div class="qpicture-item">
+                                                    <i class="fa fa-picture-o fa-lg" aria-hidden="true" style="vertical-align:baseline;"></i>&nbsp;&nbsp;<span>屏幕快照&nbsp;12.05.26.jpg</span>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="safe">预览</a>&nbsp;&nbsp;<a href="#" class="danger">删除</a>
+                                                    </div>
+                                                    </div>-->
+                                                    </div>
+                                                  </div>
+                                                <div style="text-align:center;margin-left:19%;">
+                                                   
+                                                      <button type="submit" class="save-form">提交反馈</button><button type="reset" class="cancel-form">取消</button>
+                                                 </div>
+                                                 
+                                            </form>
+                                        </div>
+                                        <div class="sub-side-nav-content" style="height:650px;">
+                                            <form class="" action="/accounts/Feedback2/" method="post" style="width:80%;margin-left:0px;" enctype="multipart/form-data">{% csrf_token %}
+                                                <div class="form-group" style="margin-bottom:20px;">
+                                                <label for="qtype" class="control-label">问题类型选择:</label>
+                                               <input type="text" class="form-control" style="width:30%;height:35px;margin-left:40%;margin-top:-30px;" id="" placeholder="" name="type">
+                                                <!--<select id="qtype" class="form-control" style="width:30%;height:35px;margin-left:40%;margin-top:-30px;">
+                                                <option value="">禁封</option>
+                                                <option value="">被盗号</option>
+                                                </select>-->
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="qusername" class="control-label">出问题的用户名:</label>
+                                                    
+                                                      <input type="text" class="form-control te" id="qusername" placeholder="" name="username">
+                                                    <!--{{ form2.username }}-->
+                                                </div>
+                                                 <div class="form-group" style="text-align:center;margin-left:11%;width:100%;">
+                                                    <div class="que">问题描述:</div>
+                                                    
+                                                      <textarea id="qdetail" class="" style="width:70%;height:100px;" name="content"></textarea>
+                                                   <!--{{ form2.content }}-->
+                                                </div>
+                                              <div class="form-group" style="text-align:center;margin-left:11%;width:100%;">
+                                                    <div class="que" style="margin-left:4%;">之前进行的操作:</div>
+                                                    
+                                                      <textarea id="qdetail" class="" style="width:69%;height:100px;" name="operating"></textarea>
+                                                   <!--{{ form2.operating }}-->
+                                                </div>
+                                                  <div class="form-group">
+                                                    <label class="col-xs-4 control-label">预览问题截图:</label>
+                                                    <div style="margin-left:43%;">
+                                                    <label for="qpicture-selector2" class="qpicture-btn ac">
+                                                    <div id="view2" style="position:absolute;margin-top: -30px;"></div>
+                                                    <input type="file" id="qpicture-selector2" onchange="javascript:ImagePreviews1();" name="feedback_img" accept="image/*">
+                                                    <i class="fa fa-file-image-o" aria-hidden="true" style="color:#999;"></i>
+                                                    <span style="color:#999;">点击上传图片</span>
+                                                    </label>
+                                                    <!--<div class="qpicture-list" style="padding-top:6px;">
+                                                    <div class="qpicture-item">
+                                                    <i class="fa fa-picture-o fa-lg" aria-hidden="true" style="vertical-align:baseline;"></i>&nbsp;&nbsp;<span>屏幕快照&nbsp;12.05.26.jpg</span>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="safe">预览</a>&nbsp;&nbsp;<a href="#" class="danger">删除</a>
+                                                    </div>
+                                                    <div class="qpicture-item">
+                                                    <i class="fa fa-picture-o fa-lg" aria-hidden="true" style="vertical-align:baseline;"></i>&nbsp;&nbsp;<span>屏幕快照&nbsp;12.05.26.jpg</span>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="safe">预览</a>&nbsp;&nbsp;<a href="#" class="danger">删除</a>
+                                                    </div>
+                                                    </div>-->
+                                                    </div>
+                                                  </div>
+                                                  <div style="text-align:center;margin-left:19%;">
+                                                   
+                                                      <button type="submit" class="save-form">提交反馈</button><button type="reset" class="cancel-form">取消</button>
+                                                 </div>
+                                            </form>
+                                        </div>
+                                        <div class="sub-side-nav-content">
+                                        <form class="" action="/accounts/Feedback3/" method="post" style="width:80%;margin-left:0px;">{% csrf_token %}
+                                            <div class="form-group" style="text-align:center;margin-left:11%;width:100%;">
+                                                    <div class="que">反馈表述:</div>
+                                                    
+                                                      <textarea id="qdetail" class="" style="width:70%;height:100px;" name="feedback"></textarea>
+                                                   <!--{{ form3.feedback }}-->
+                                                </div>
+                                             <div style="text-align:center;margin-left:21%;">
+                                                   
+                                                      <button type="submit" class="save-form">提交反馈</button><button type="reset" class="cancel-form">取消</button>
+                                                 </div>
+                                        </form>
+                                        </div>
+                                        <div class="sub-side-nav-content">
+                                        <form class="" action="/accounts/Feedback4/" method="post" style="width:80%;margin-left:0px;" enctype="multipart/form-data">{% csrf_token %}
+                                            <div class="form-group" style="text-align:center;margin-left:11%;width:100%;">
+                                                    <div class="que">问题描述:</div>
+                                                    
+                                                      <textarea id="qdetail" class="" style="width:70%;height:100px;" name="content"></textarea>
+                                                   <!--{{ form4.content }}-->
+                                                </div>
+                                                
+                                                  <div class="form-group">
+                                                    <label class="col-xs-4 control-label">预览问题截图:</label>
+                                                    <div style="margin-left:43%;">
+                                                    <label for="qpicture-selector4" class="qpicture-btn ac">
+                                                     <div id="view3" style="position:absolute;margin-top: -30px;"></div>
+                                                    <input type="file" onchange="javascript:ImagePreviews2();" id="qpicture-selector4" name="feedback_img" accept="image/*">
+                                                    <i class="fa fa-file-image-o" aria-hidden="true" style="color:#999;"></i>
+                                                    <span style="color:#999;">点击上传图片</span>
+                                                    </label>
+                                                    <!--<div class="qpicture-list" style="padding-top:6px;">
+                                                    <div class="qpicture-item">
+                                                    <<i class="fa fa-picture-o fa-lg" aria-hidden="true" style="vertical-align:baseline;"></i>&nbsp;&nbsp;<span>屏幕快照&nbsp;12.05.26.jpg</span>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="safe">预览</a>&nbsp;&nbsp;<a href="#" class="danger">删除</a>
+                                                    </div>
+                                                    <div class="qpicture-item">
+                                                    <i class="fa fa-picture-o fa-lg" aria-hidden="true" style="vertical-align:baseline;"></i>&nbsp;&nbsp;<span>屏幕快照&nbsp;12.05.26.jpg</span>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="safe">预览</a>&nbsp;&nbsp;<a href="#" class="danger">删除</a>
+                                                    </div>
+                                                    </div>-->
+                                                    </div>
+                                                  </div>
+                                                 <div style="text-align:center;margin-left:19%;">
+                                                   
+                                                      <button type="submit" class="save-form">提交反馈</button><button type="reset" class="cancel-form">取消</button>
+                                                 </div>
+                                                 
+                                            
+                                          </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div></div>
+                
+                     <ul id="myTab" class="nav nav-tabs" style="background:#FFF;">
+                           <li class="active"><a href="/demo/bootstrap-tab-plugin2.htm#home" data-toggle="tab"  style="margin-top:10px;">常见问题FAQ</a></li>
+                           <li class="dropdown"  style="margin-top:10px;"><a href="#" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown">问题反馈 <b class="caret"></b></a>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1">
+                                        <li><a href="{% static "/demo/bootstrap-tab-plugin2.htm#func-fail" %}" tabindex="-1" data-toggle="tab">功能失灵</a></li>
+                                        <li><a href="{% static "/demo/bootstrap-tab-plugin2.htm#num-question" %}" tabindex="-1" data-toggle="tab">账号问题</a></li>
+                                        <li><a href="{% static "/demo/bootstrap-tab-plugin2.htm#feel" %}" tabindex="-1" data-toggle="tab">联系我们</a></li>
+                                        <li><a href="{% static "/demo/bootstrap-tab-plugin2.htm#other" %}" tabindex="-1" data-toggle="tab">其它问题</a></li>
+
+                                </ul>
+                           </li>
+                     </ul>
+                 <div id="myTabContent" class="tab-content" style="background-color:#FFF;">
+                          <div class="tab-pane fade in active" id="home">
+                                        <div class="faq-item">
+                                        <a href="{% url "accounts:myhelp" %}"><span>账号绑定的邮箱和手机忘了</span>
+                                        <span style="float:right;"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+                                        </div>
+                                        <div class="faq-item">
+                                        <a href="{% url "accounts:myhelp" %}"><span>账号绑定的邮箱和手机忘了</span>
+                                        <span style="float:right;"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+                                        </div>
+                                        <div class="faq-item">
+                                        <a href="{% url "accounts:myhelp" %}"><span>账号绑定的邮箱和手机忘了</span>
+                                        <span style="float:right;"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+                                        </div>
+                                        <div class="faq-item">
+                                        <a href="{% url "accounts:myhelp" %}"><span>账号绑定的邮箱和手机忘了</span>
+                                        <span style="float:right;"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+                                        </div>
+                                                               
+                                        <div class="yahoo2"><span class="disabled">&lt; Prev</span><span class="current">1</span><a href="#?page=2">2</a><a href="#?page=3">3</a><a href="#?page=4">4</a><a href="#?page=5">5</a><a href="#?page=6">6</a><a href="#?page=7">7</a><a href="#?page=8">8</a><a href="#?page=9">9</a><a href="#?page=10">10</a><a href="#?page=2">下一页</a><div class="page-count">共发表帖子&nbsp;<span style="color:red;">235</span>&nbsp;篇</div></div>
+<div class="m-yahoo2"><span class="disabled">&lt; Prev</span><span class="current">1</span><a href="#?page=2">2</a><a href="#?page=3">3</a>...<a href="#?page=9">9</a><a href="#?page=10">10</a><a href="#?page=2">下一页</a><div class="page-count">共发表帖子&nbsp;<span style="color:red;">235</span>&nbsp;篇</div></div>
+                            </div>
+                <div class="tab-pane fade" id="func-fail">
+                            <form class="" action="/accounts/Feedback1/" method="post" style="width:87.5%;margin:0 auto;" enctype="multipart/form-data">{% csrf_token %}
+                                                <div class="form-group" style="padding-top:20px;">
+                                                <label for="qpage" class="control-label">遇见问题的页面:</label>
+           							<input type="text" class="form-control" style="width:40%;height:35px;margin-left:40%;margin-top:-30px;" id="" placeholder="" name="page">
+                                                <!--<select id="" class="form-control" style="width:40%;height:35px;margin-left:40%;margin-top:-30px;">
+                                                <option value="">登录页</option>
+                                                </select>-->
+                                                   <!--{{ form1.page }}-->
+                                                </div>
+                                                
+                                                <div class="form-group">
+                                                    <label for="qtime1" class="control-label" style="margin-top:10px;">遇到问题具体时间:</label>
+                                                     
+                                                      <input type="text" class="form-control te" id="qtime1" placeholder="" name="time">
+                                                   {# {{ form1.time }} #}
+                                                </div>
+                                                <div class="form-group" style="text-align:center;margin-left:5%;width:100%;">
+                                                    <div class="que">问题描述:</div>
+                                                    
+                                                      <textarea id="qdetail" class="" style="width:50%;height:100px;margin-left:-40px;" name="content"></textarea>
+                                                   {# {{ form1.content }} #}
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">每次遇到相同问题:</label>
+                                                    
+                                                    <div class="radio" style="margin-top:-22px;margin-left:40%;">
+                                                        <input type="radio" name="qalways" id="qalways" value="" checked="">
+                                                        <label for="qalways">是</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <input type="radio" name="qalways" id="qnotalways" value="">
+                                                        <label for="qnotalways">否</label>
+                                                    </div>
+                                                    
+                                                  </div>
+                                                  <div class="form-group">
+                                                    <label class="col-xs-4 control-label">预览问题截图:</label>
+                                                    <div style="margin-left:43%;">
+                                                    <label for="qpicture-selector5" class="qpicture-btn ac">
+                                                    <div id="view5" style="position:absolute;margin-top: -30px;"></div>
+                                                    <input type="file" onchange="javascript:ImagePreviews3();" id="qpicture-selector5" style="position: absolute;left: -9999em;opacity: 0;" name="feedback_img" accept="image/*">
+                                                    <i class="fa fa-file-image-o" aria-hidden="true" style="color:#999;"></i>
+                                                    <span style="color:#999;">点击上传图片</span>
+                                                    </label>
+                                                    <!--<div class="qpicture-list" style="padding-top:6px;">
+                                                    <div class="qpicture-item">
+                                                    <i class="fa fa-picture-o fa-lg" aria-hidden="true" style="vertical-align:baseline;"></i>&nbsp;&nbsp;<span>屏幕快照&nbsp;12.05.26.jpg</span><br><a href="#" class="safe">预览</a>&nbsp;&nbsp;<a href="#" class="danger">删除</a>
+                                                    </div>
+                                                    <div class="qpicture-item">
+                                                    <i class="fa fa-picture-o fa-lg" aria-hidden="true" style="vertical-align:baseline;"></i>&nbsp;&nbsp;<span>屏幕快照&nbsp;12.05.26.jpg</span><br><a href="#" class="safe">预览</a>&nbsp;&nbsp;<a href="#" class="danger">删除</a>
+                                                    </div>
+                                                    </div>-->
+                                                    </div>
+                                                  </div>
+                                                <div style="text-align:center;width:100%;margin:0 auto;padding:0px;margin-bottom:20px;padding:20px;">
+                                                   
+                                                      <button type="submit" class="save-form">提交反馈</button><button type="reset" class="cancel-form">取消</button>
+                                                 </div>
+                                                 
+                                            </form>
+                </div>
+                <div class="tab-pane fade" id="num-question">
+                       <form class="" action="/accounts/Feedback2/" method="post" style="width:87.5%;margin:0 auto;" enctype="multipart/form-data">{% csrf_token %}
+                                                <div class="form-group" style="padding-top:20px;">
+                                                <label for="qtype" class="control-label">问题类型:</label>
+                                               <input type="text" class="form-control" style="width:30%;height:35px;margin-left:40%;margin-top:-30px;" id="" placeholder="" name="type">
+                                                <!--<select id="qtype" class="form-control" style="width:30%;height:35px;margin-left:40%;margin-top:-30px;">
+                                                <option value="">禁封</option>
+                                                <option value="">被盗号</option>
+                                                </select>-->
+                                                <!--{{ form2.type }}-->
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="qusername" class="control-label">出问题的用户名:</label>
+                                                    
+                                                      <input type="text" class="form-control te" id="username" placeholder="">
+                                                    <!--{{ form2.username }}-->
+                                                </div>
+                                                <div class="form-group fo-txt">
+                                                    <div class="que">问题描述:</div>
+                                                    
+                                                     <textarea id="qdetail" class="" style="width:50%;height:100px;margin-left:-38px;" name="content"></textarea>
+                                                   <!--{{ form2.content }}-->
+                                                </div>
+                                             <div class="form-group fo-txt2">
+                                                    <div class="que">之前进行的操作:</div>
+                                                    
+                                                      <textarea id="qdetail" class="" style="width:50%;height:100px;margin-left:-0px;" name="operating"></textarea>
+                                                   <!--{{ form2.operating }}-->
+                                                </div>
+                                                 <div class="form-group">
+                                                    <label class="col-xs-4 control-label">预览问题截图:</label>
+                                                    <div style="margin-left:43%;">
+                                                    <label for="qpicture-selector6" class="qpicture-btn ac">
+                                                     <div id="view6" style="position:absolute;margin-top: -30px;"></div>
+                                                    <input type="file" onchange="javascript:ImagePreviews4();" id="qpicture-selector6" style="position: absolute;left: -9999em;opacity: 0;" name="feedback_img" accept="image/*">
+                                                    <i class="fa fa-file-image-o" aria-hidden="true" style="color:#999;"></i>
+                                                    <span style="color:#999;">点击上传图片</span>
+                                                    </label>
+                                                    <!--<div class="qpicture-list" style="padding-top:6px;">
+                                                    <div class="qpicture-item">
+                                                    <i class="fa fa-picture-o fa-lg" aria-hidden="true" style="vertical-align:baseline;"></i>&nbsp;&nbsp;<span>屏幕快照&nbsp;12.05.26.jpg</span><br><a href="#" class="safe">预览</a>&nbsp;&nbsp;<a href="#" class="danger">删除</a>
+                                                    </div>
+                                                    <div class="qpicture-item">
+                                                    <i class="fa fa-picture-o fa-lg" aria-hidden="true" style="vertical-align:baseline;"></i>&nbsp;&nbsp;<span>屏幕快照&nbsp;12.05.26.jpg</span><br><a href="#" class="safe">预览</a>&nbsp;&nbsp;<a href="#" class="danger">删除</a>
+                                                    
+                                                    </div>
+                                                    </div>-->
+                                                    </div>
+                                                  </div>
+                                                   <div style="text-align:center;width:100%;margin:0 auto;padding:0px;margin-bottom:20px;padding:20px;">
+                                                   
+                                                      <button type="submit" class="save-form">提交反馈</button><button type="reset" class="cancel-form">取消</button>
+                                                 </div>
+                                            </form>
+                </div>
+                        <div class="tab-pane fade" id="feel">
+                                   <form class="" action="/accounts/Feedback3/" method="post" style="width:87.5%;margin:0 auto;">{% csrf_token %}
+                                                
+                                            <div class="form-group" style="text-align:center;width:100%;padding-top:20px;">
+                                                    <div class="que">反馈表述:</div>
+                                                    
+                                                      <textarea id="qdetail" class="" style="width:50%;height:100px;margin-left:-40px;" name="feedback"></textarea>
+                                                   <!--{{ form3.feedback }}-->
+                                                </div>
+                                             <div style="text-align:center;width:100%;margin:0 auto;padding:0px;margin-bottom:20px;padding:20px;">
+                                                   
+                                                      <button type="submit" class="save-form">提交反馈</button><button type="reset" class="cancel-form">取消</button>
+                                                 </div>
+                                        </form>                        
+                        </div>
+                        <div class="tab-pane fade" id="other">
+                             <form class="" style="width:87.5%;margin:0 auto;" method="post" action="/accounts/Feedback4/" enctype="multipart/form-data">{% csrf_token %}
+                                            <div class="form-group" style="text-align:center;margin-left:5%;width:100%;padding-top:20px;">
+                                                    <div class="que">问题描述:</div>
+                                                    
+                                                      <textarea id="qdetail" class="" style="width:50%;height:100px;margin-left:-40px;" name="content"></textarea>
+                                                   <!--{{ form4.content }}-->
+                                                </div>
+                                                
+                                            <div class="form-group">
+                                                    <label class="col-xs-4 control-label">预览问题截图:</label>
+                                                    <div style="margin-left:43%;">
+                                                    <label for="qpicture-selector7" class="qpicture-btn ac">
+                                                     <div id="view7" style="position:absolute;margin-top: -30px;"></div>
+                                                    <input type="file" onchange="javascript:ImagePreviews5();" id="qpicture-selector7" style="position: absolute;left: -9999em;opacity: 0;" name="feedback_img" accept="image/*">
+                                                    <i class="fa fa-file-image-o" aria-hidden="true" style="color:#999;"></i>
+                                                    <span style="color:#999;">点击上传图片</span>
+                                                    </label>
+                                                    <!--<div class="qpicture-list" style="padding-top:6px;">
+                                                    <div class="qpicture-item">
+                                                    <i class="fa fa-picture-o fa-lg" aria-hidden="true" style="vertical-align:baseline;"></i>&nbsp;&nbsp;<span>屏幕快照&nbsp;12.05.26.jpg</span><br><a href="#" class="safe">预览</a>&nbsp;&nbsp;<a href="#" class="danger">删除</a>
+                                                    </div>
+                                                    <div class="qpicture-item">
+                                                    <i class="fa fa-picture-o fa-lg" aria-hidden="true" style="vertical-align:baseline;"></i>&nbsp;&nbsp;<span>屏幕快照&nbsp;12.05.26.jpg</span><br><a href="#" class="safe">预览</a>&nbsp;&nbsp;<a href="#" class="danger">删除</a>
+                                                    </div>
+                                                    </div>-->
+                                                    </div>
+                                                  </div>
+                                                <div style="text-align:center;width:100%;margin:0 auto;padding:0px;margin-bottom:20px;padding:20px;">
+                                                   
+                                                      <button type="submit" class="save-form">提交反馈</button><button type="reset" class="cancel-form">取消</button>
+                                                 </div>
+                                                 
+                                                 
+                                            
+                                          </form>
+                        </div>
+</div>
+<script>
+   $(function(){
+      $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+      // Get the name of active tab
+      var activeTab = $(e.target).text(); 
+      // Get the name of previous tab
+      var previousTab = $(e.relatedTarget).text(); 
+      $(".active-tab span").html(activeTab);
+      $(".previous-tab span").html(previousTab);
+   });
+});
+</script>      
+              
+             <div class="info col-md-3 col-sm-3" style="text-align:center;width:23%;">
+                <div style="margin-top:30px;">
+                    <a href="{% url "accounts:accountSecurity" %}"> <img src={{ user.avatar_url }} class="img-circle" alt="dummy-head" width="85" height="85"></a>
+                </div>
+                     <h4 class="username"><a style="vertical-align:middle;padding-left:30px;" href="#" class="useruser">{{ user.username }}</a>
+                     <span><img src={% if user.gender == "male" %} "{% static "images/man.png" %}" {% else %} "{% static "images/girl.png" %}" {% endif %} alt="man icon"></span></h4>
+                        <!-- <div style="font-size:12px;text-align:center;">吧龄:{{ user.get_age }}&nbsp;&nbsp;发帖:{{ user.reply_total }}&nbsp;&nbsp;所属学校:{{ user.school }}</div> -->
+                       
+                        </div>
+                        
+             </div> 
+          </div>
+          
+         </div> 
+     </div>  
+     
+     
+     
+     
+     <div style="margin-top:50px;"></div>
+     
+     
+
+       
+       <script src="{% static "js/erroralert.js" %}"></script>  
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{% static "js/jquery.min.js" %}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+
+   
+    <script src="{% static "js/flatpickr.min.js" %}"></script>
+    <script src="{% static "js/main.js" %}"></script>
+     <script src="{% static "js/images.js" %}"></script>
+    <script src="{% static "js/menu.js" %}"></script>
+    <script src="{% static "js/qtime.js" %}"></script>
+    
+  
+  </body>
+</html>

@@ -1,0 +1,40 @@
+@import "common/base.css";
+@import "common/radio-reset.css";
+@import "common/house-renting-component.css";
+
+.u-table .title {
+    width: 80%;
+    text-align: left;
+    font-size: 14px;
+}
+
+.u-table .title .content {
+    margin-top:15px;
+}
+.header-btn:hover{color: #fff;text-decoration: none;}
+.header-btn{color: #fff;text-decoration: none;}
+.u-table .title .tagBox > a {
+    margin: 5px 5px 15px 0;
+    text-decoration: none;
+    text-align: center;
+    vertical-align: middle;
+    width: 60px;
+    height: 20px;
+    border: 1px solid #e1e1e1;
+    color: #3f3f3f;
+    display: inline-block;
+}
+
+.u-table .time {
+    width: 20%;
+    text-align: right;
+}
+
+.time .remainingTime {
+    color: red;
+}
+
+.time .info > span {
+    display: block;
+    margin-top: 5px;
+}

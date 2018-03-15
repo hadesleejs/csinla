@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <title>email</title>
+ <link rel="shortcut icon" href="/static/images/logo1.png">
+
+</head>
+<body style="margin:0 auto;width:100%">
+<div style="width:70%;margin:0 auto;">
+
+ <form>
+  发动机：<input type="radio" name="engine" value="正常" {% if form.engine.value == "正常" %} checked {% endif %}>正常<input type="radio" name="engine" value="非正常" {% if form.engine.value  == "非正常" %} checked {% endif %}>非正常<br>
+  变速器：<input type="text" name="" value="{{ form.transmission_content.value  }}"><br>
+  前后灯：<input type="text" name="" value="{{ form.light_content.value  }}"><br>
+  原厂颜色：<input type="text" name="" value="{{ form.colour_content.value  }}"><br>
+  电路：<input type="text" name="" value="{{ form.circuit_content.value  }}"><br>
+  轮胎：<input type="text" name="" placeholder="请输入磨损度" value="{{ form.tires_wear.value  }}"><input type="radio" name="tyre" value="正常" {% if form.tires.value == "正常" %} checked {% endif %}>正常<input type="radio" name="tyre" value="非正常"  {% if form.tires.value == "非正常" %} checked {% endif %}>非正常<br>
+  原厂车有无改装<input type="radio" name="dress" value="" {% if form.description.value == "有" %} checked {% endif %}>有<input type="radio" name="dress" value="" {% if form.description.value == "无" %} checked {% endif %}>无<br>
+  汽车所在地址：<input type="text" name="" value="{{ form.circuit_content.value  }}"><br>
+  事故车<input type="file" name=""><br>
+  该系列车里程数：<input type="text" name="" value="{{ form.mileage_min.value  }}">—<input type="text" name="" value="{{ form.mileage_max.value  }}"><br>
+  <img src="{{ pic.url }}" title="图片">
+<p>XXX检测</p>
+<p>CSinLA  Team</p>
+ </form>
+</div>
+</body>
+</html>

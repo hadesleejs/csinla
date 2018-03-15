@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>首页-注册</title>
+    <link rel="stylesheet" href="{% static "css/home-register.css" %}">
+    <link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/foundation.css" %}">
+    <script src="{% static "js/angular.min.js" %}"></script>
+</head>
+<body>
+
+<script>
+    var type = "student";
+    function selectType(sId) {
+        if (sId == "chooseRegister_Company") {
+            type = "company";
+            document.getElementById("select_Student").src = "{% static "images/unselect.png" %}";
+            document.getElementById("select_Company").src = "{% static "images/select.png" %}";
+
+        }
+        else if (sId == "chooseRegister_Student") {
+            type = "student";
+            document.getElementById("select_Student").src = "{% static "images/select.png" %}";
+            document.getElementById("select_Company").src = "{% static "images/unselect.png" %}";
+        }
+    }
+</script>
+
+<script>
+    var app = angular.module('registerApp', []);
+    app.controller('divCtrl', function ($scope) {
+        $scope.studentRegisterDiv = true;
+        $scope.companyRegisterDiv = true;
+        $scope.chooseTypeDiv = false;
+        $scope.toggle = function () {
+            if (type == "student") {
+                $scope.studentRegisterDiv = !$scope.studentRegisterDiv;
+                $scope.chooseTypeDiv = !$scope.chooseTypeDiv;
+            }
+            else if (type == "company") {
+                $scope.companyRegisterDiv = !$scope.companyRegisterDiv;
+                $scope.chooseTypeDiv = !$scope.chooseTypeDiv;
+            }
+        };
+        $scope.back = function () {
+            $scope.studentRegisterDiv = true;
+            $scope.companyRegisterDiv = true;
+            $scope.chooseTypeDiv = !$scope.chooseTypeDiv;
+        };
+    });
+</script>
+
+<script language="javascript" type="text/javascript">
+    function check(){
+        alert(document.getElementById("password").value);
+        alert(document.getElementById("repeat_password").value);
+        alert("check");
+        if(document.getElementById("password").value != document.getElementById("repeat_password").value){
+            alert("两次输入的密码不同，请重新输入")
+            return false;
+        }
+        userForm.password = document.getElementById("password").value;
+        return true;
+    }
+</script>
+
+<script>
+        // 点击一次,更改图片内容,
+        function ChangeCode(ths){
+            ths.src = ths.src + '?';
+        }
+</script>
+
+<div class="myContainer">
+    <!--header部分-->
+    <div class="header w">
+        <a href="/">
+            <div class="logo">
+                <img src="{% static "images/home-logo.png" %}" alt="">
+            </div>
+        </a>
+    </div>
+
+    <!--主要内容部分--> 
+    <div class="main w">
+        <div class="slogan">
+            <div class="sloganText">
+                <p>“Just for bring us <br>
+                    A better living environment”</p>
+            </div>
+        </div>
+        <div class="box">
+            <div class="row" ng-app="registerApp" ng-controller="divCtrl">
+                <div class="medium-6 large-5 columns">
+                    <!-- 选择注册类型页面 -->
+                    <div ng-hide="chooseTypeDiv" class="transparent_bg table_center">
+                        <h4 class="text-center">选择注册类型</h4>
+                        <form action="" method="post">
+{#                            {% csrf_token %}#}
+                            <div class="row" style="padding-top:40px;">
+                                <div class="small-6 medium-6 large-6 columns">
+                                    <input type="radio" class="register_checkbox"/>
+                                    <img ID="chooseRegister_Student" class="table_center"
+                                         style="border-radius:10px;width:80px; height:80px;" src="{% static "images/student.png" %}"
+                                         onclick="selectType(this.id)"/>
+                                </div>
+                                <div class="small-6 medium-6 large-6 columns">
+                                    <input type="radio" class="register_checkbox" name="reg_type"/>
+                                    <img ID="chooseRegister_Company" class="table_center"
+                                         style="border-radius:10px;width:80px; height:80px;" src="{% static "images/company.png" %}"
+                                         onclick="selectType(this.id)"/>
+                                </div>
+                                <span>{{ profileForm.self_intro.errors }}</span>
+                            </div>
+
+                            <div class="row" style="padding-bottom:20px;">
+                                <div class="small-6 medium-6 large-6 columns">
+                                    <p class="text-center">Student</p>
+                                </div>
+                                <div class="small-6 medium-6 large-6 columns">
+                                    <p class="text-center">Company</p>
+                                </div>
+                            </div>
+
+                            <div class="row" style="padding-bottom:30px;">
+                                <div class="small-6 medium-6 large-6 columns">
+                                    <img id="select_Student" class="table_center"
+                                         style="border-radius:10px; width:20px; height:20px;" src="{% static "images/select.png" %}">
+                                </div>
+                                <div class="small-6 medium-6 large-6 columns">
+                                    <img id="select_Company" class="table_center"
+                                         style="border-radius:10px; width:20px; height:20px;" src="{% static "images/unselect.png" %}">
+                                </div>
+                            </div>
+                            <div class="center" style="width:200px;">
+                                <button type="button" class="lacs-transparent-btn myButton" ng-click="toggle()">
+                                    NEXT
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- 学生注册页面 -->
+                    <div ng-hide="studentRegisterDiv" class="transparent_bg table_center">
+                        <input type="image" src="{% static "images/back-icon.png" %}" style="width: 25px; height: 25px;"
+                               ng-click="back()">
+                        <h4 class="text-center">学生注册</h4>
+                        <form class="studentForm" method="post" action="">
+                            {% csrf_token %}
+                            <div class="row collapse">
+                                <div class="small-3 columns">
+                                    <label for="username" class="form_label">用户名：</label>
+                                </div>
+                                <div class="small-8 columns end">
+{#                                    <input type="text" id="username" name="username" size="40" placeholder="请输入用户名"#}
+{#                                           onfocus="this.style.color='black';"#}
+{#                                           onblur="this.style.color='white';">#}
+                                    {{ userForm.username }}
+                                </div>
+                            </div>
+
+                            <div class="row collapse">
+                                <div class="small-3 columns">
+                                    <label for="password" class="form_label">密码：</label>
+                                </div>
+                                <div class="small-8 columns end">
+{#                                    <input type="password" id="password" name="password" placeholder="请输入密码"#}
+{#                                           onfocus="this.style.color='black';"#}
+{#                                           onblur="this.style.color='white';">#}
+                                    {{ userForm.password }}
+                                </div>
+                            </div>
+
+                            <div class="row collapse">
+                                <div class="small-3 columns">
+                                    <label for="repeat_password" class="form_label">重复密码：</label>
+                                </div>
+                                <div class="small-8 columns end">
+{#                                   <input type="password" id="repeat_password" placeholder="请再次输入密码"#} 
+{#                                           onfocus="this.style.color='black';"#} 
+{#                                           onblur="this.style.color='white';">#} 
+                                    {{ userForm.password2 }}
+
+                                </div>
+                            </div>
+
+                            <div class="row collapse">
+                                <div class="small-3 columns">
+                                    <label for="school" class="form_label">学校：</label>
+                                </div>
+                                <div class="small-8 columns end">
+{#                                    <select id="school" name="school">#}
+{#                                        <option disabled selected>请选择所在学校</option>#}
+{#                                        <option>USC</option>#}
+{#                                        <option>UCLA</option>#}
+{#                                        <option>UCSD</option>#}
+{#                                        <option>UCI</option>#}
+{#                                    </select>#}
+                                    {{ profileForm.school }}
+                                </div>
+                            </div>
+
+                            <div class="row collapse">
+                                <div class="small-3 columns">
+                                    <label for="email" class="form_label">邮箱：</label>
+                                </div>
+                                <div class="small-8 columns end">
+{#                                    <input type="text" id="email" name="email" placeholder="输入邮箱地址"#}
+{#                                           onfocus="this.style.color='black';"#}
+{#                                           onblur="this.style.color='white';">#}
+                                    {{ userForm.email }}
+                                </div>
+                            </div>
+
+                            <div class="row collapse">
+                                <div class="small-3 columns">
+                                    <label for="code" class="form_label">验证码：</label>
+                                </div>
+                                <div class="small-4 columns">
+                                    <input type="text" id="code" name="check_code" placeholder="右侧验证码" onfocus="this.style.color='black';"onblur="this.style.color='white';">
+                                </div>
+                                <div class="small-4 small-offset-1 columns end">
+                                    <img src="/accounts/captcha/" style="margin-top: 12px;" onclick="this.setAttribute('src','/accounts/captcha/?nocache='+Math.random());">
+                                </div>
+                            </div>
+
+                            <div class="row collapse">
+                                <div class="agree small-7 columns"><input type="checkbox"/>我已阅读并同意相关条约</div>
+                            </div>
+{#                            {{ profileForm.reg_type }}#}
+                            <input type="hidden" value="STU" name="reg_type">
+                            <div style="display: none;">
+                                {{ profileForm.self_intro }}
+                            </div>
+
+                            <div class="submitForm table_center">
+                                <input class="lacs-color-btn" type="submit" name="Student_Register"
+                                       value="注册，并去邮箱验证" onClick="return check()">
+                            </div>
+                        </form>
+                    </div>
+                    <!-- 企业注册页面 -->
+                    <div ng-hide="companyRegisterDiv" class="transparent_bg table_center">
+                        <input type="image" src="{% static "images/back-icon.png" %}" style="width: 25px; height: 25px;"
+                               ng-click="back()">
+                        <h4 class="text-center">企业注册</h4>
+                        <form class="companyForm" method="post" action="">
+                            {% csrf_token %}
+                            <div class="row collapse">
+                                <div class="small-3 columns">
+                                    <label for="username2" class="form_label">用户名：</label>
+                                </div>
+                                <div class="small-8 columns end">
+{#                                    <input type="text" id="username2" size="40" name="username" placeholder="请输入用户名"#}
+{#                                           onfocus="this.style.color='black';"#}
+{#                                           onblur="this.style.color='white';">#}
+                                    {{ userForm.username }}
+                                </div>
+                            </div>
+
+                            <div class="row collapse">
+                                <div class="small-3 columns">
+                                    <label for="password2" class="form_label">密码：</label>
+                                </div>
+                                <div class="small-8 columns end">
+{#                                    <input type="password" id="password2" name="password" placeholder="请输入密码"#}
+{#                                           onfocus="this.style.color='black';"#}
+{#                                           onblur="this.style.color='white';">#}
+                                    {{ userForm.password }}
+                                </div>
+                            </div>
+
+                            <div class="row collapse">
+                                <div class="small-3 columns">
+                                    <label for="repeat_password2" class="form_label">重复密码：</label>
+                                </div>
+                                <div class="small-8 columns end">
+                                    <input type="password" id="repeat_password2" placeholder="请再次输入密码"
+                                           onfocus="this.style.color='black';"
+                                           onblur="this.style.color='white';">
+                                </div>
+                            </div>
+
+                            <div class="row collapse">
+                                <div class="small-3 columns">
+                                    <label for="email2" class="form_label">公司邮箱：</label>
+                                </div>
+                                <div class="small-8 columns end">
+{#                                    <input type="text" id="email2" name="email" placeholder="输入公司邮箱地址"#}
+{#                                           onfocus="this.style.color='black';"#}
+{#                                           onblur="this.style.color='white';">#}
+                                    {{ userForm.email }}
+                                </div>
+                            </div>
+
+                            <div class="row collapse">
+                                <div class="small-3 columns">
+                                    <label class="form_label">公司类型：</label>
+                                </div>
+                                <div class="small-4 columns">
+                                    <input type="text" placeholder="盈利／非盈利" onfocus="this.style.color='black';"
+                                           onblur="this.style.color='white';">
+                                </div>
+                                <div class="small-4 columns end">
+                                    <input type="text" placeholder="服务／产品" onfocus="this.style.color='black';"
+                                           onblur="this.style.color='white';">
+                                </div>
+                            </div>
+
+                            <div class="row collapse">
+                                <div class="small-3 columns">
+                                    <label for="about" class="form_label">公司介绍：</label>
+                                </div>
+                                <div class="small-8 columns end">
+{#                                    <input type="text" id="about" name="self_intro" placeholder="介绍一下您的公司吧"#}
+{#                                           onfocus="this.style.color='black';"#}
+{#                                           onblur="this.style.color='white';">#}
+                                    {{ profileForm.self_intro }}
+                                </div>
+
+                            </div>
+
+                            <div class="row collapse">
+                                <div class="small-3 columns">
+                                    <label for="code2" class="form_label">验证码：</label>
+                                </div>
+                                <div class="small-4 columns">
+                                    <input type="text" id="code2" placeholder="右侧验证码"
+                                           onfocus="this.style.color='black';"
+                                           onblur="this.style.color='white';">
+                                </div>
+                                <div class="small-4 small-offset-1 columns end">
+                                    <img src="{% static "images/security_image.png" %}" style="margin-top: 12px;">
+                                </div>
+                            </div>
+
+                            <div class="row collapse">
+                                <div class="agree small-7 columns"><input type="checkbox"/>我已阅读并同意相关条约</div>
+                            </div>
+
+                            <input type="hidden" value="COM" name="reg_type">
+                            <div style="display: None">
+                                {{ profileForm.school }}
+                            </div>
+
+                            <div class="submitForm table_center">
+                                <input class="lacs-color-btn" type="submit" name="Company_Register"
+                                       value="注册，并去邮箱验证">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--页面底部-->
+    <div class="footer">
+    </div>
+</div>
+</body>
+</html>

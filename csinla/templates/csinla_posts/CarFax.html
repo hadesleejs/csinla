@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1" /> -->
+    <title>Carfax report</title>
+    <link rel="shortcut icon" href="/static/images/logo1.png">
+    <link rel="stylesheet" type="text/css" href="/static/css/inter.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/CarFax1.css"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalabe=no">
+
+    <link rel="stylesheet" type="text/css" href="/static/css/CarFax2.css"/>
+    <link rel="stylesheet" type="text/css" href="{% static "css/font-awesome.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %}">
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-97624179-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?6784d0adea487eefbe595d28dbb08efb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    <script type="text/javascript">
+        wx.config({
+       debug: false,  //调式模式，设置为ture后会直接在网页上弹出调试信息，用于排查问题
+       appId: 'wx910b80a91781c9df',
+       timestamp: {{ timestamp }},
+       nonceStr: '{{ nonceStr }}',
+       signature: '{{ signature }}',
+       jsApiList: [  //需要使用的网页服务接口
+           'checkJsApi',  //判断当前客户端版本是否支持指定JS接口
+           'onMenuShareTimeline', //分享给好友
+           'onMenuShareAppMessage', //分享到朋友圈
+           'onMenuShareQQ',  //分享到QQ
+           'onMenuShareWeibo' //分享到微博
+       ]
+     });
+     wx.ready(function () {   //ready函数用于调用API，如果你的网页在加载后就需要自定义分享和回调功能，需要在此调用分享函数。//如果是微信游戏结束后，需要点击按钮触发得到分值后分享，这里就不需要调用API了，可以在按钮上绑定事件直接调用。因此，微信游戏由于大多需要用户先触发获取分值，此处请不要填写如下所示的分享API
+                // 1 判断当前版本是否支持指定 JS 接口，支持批量判断
+                    wx.checkJsApi({
+                        jsApiList: [
+                          'onMenuShareAppMessage'
+                        ],
+                        success: function (res) {
+                          //alert(JSON.stringify(res));
+                        }
+                    });
+    wx.onMenuShareTimeline({  //例如分享到朋友圈的API  
+       title: '免费Carfax report查询', // 分享标题
+       link: 'http://csinla.com/accounts/carfax/', // 分享链接
+       imgUrl: 'http://www.csinla.com/media/carfax_share.jpg', // 分享图标
+       success: function () {
+           // 用户确认分享后执行的回调函数
+       },
+       cancel: function () {
+           // 用户取消分享后执行的回调函数
+       }
+    });
+    wx.onMenuShareAppMessage({
+        title: '免费Carfax report查询', // 分享标题
+        desc: '卖车需要Carfax report？买车查询Carfax report？点击免费获取', // 分享描述
+        link: 'http://csinla.com/accounts/carfax/', // 分享链接
+        imgUrl: 'http://www.csinla.com/media/carfax_share.jpg', // 分享图标
+        type: '', // 分享类型,music、video或link，不填默认为link
+        dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+        success: function () { 
+            // 用户确认分享后执行的回调函数
+        },
+        cancel: function () { 
+            // 用户取消分享后执行的回调函数
+        }
+    });
+    wx.onMenuShareQQ({
+        title: '免费Carfax report查询', // 分享标题
+        desc: '卖车需要Carfax report？买车查询Carfax report？点击免费获取', // 分享描述
+        link: 'http://csinla.com/accounts/carfax/', // 分享链接
+        imgUrl: 'http://www.csinla.com/media/carfax_share.jpg', // 分享图标
+        success: function () { 
+           // 用户确认分享后执行的回调函数
+        },
+        cancel: function () { 
+           // 用户取消分享后执行的回调函数
+        }
+    });
+    }); 
+    wx.error(function (res) {
+     alert(res.errMsg);  //打印错误消息。及把 debug:false,设置为debug:ture就可以直接在网页上看到弹出的错误提示
+    });
+    </script>
+</head>
+
+<body>
+<div class="alert3">
+    
+    <img src="/static/images/pc/ma1.jpg" class="imgma">
+    <img src="/static/images/pc/ma2.jpg" class="imgma2">
+    
+</div>
+<div class="alert" style="display:none">
+    
+    <div class="alert1">
+    <a href="" class="remove-nav pull-right fixin"><img src="{% static "./images/times.png" %}" style="width:30px" alt="" class="img-responsive"></a>
+    <ul>
+        <li style="width:30%">
+           <img src="/static/images/alert.png" alt="">
+        </li>
+        <li style="width:70%;padding-right:30px">
+           <p>您的信息已成功提交，我们会在24小时之内以邮件的方式发送至您的邮箱。</p>
+        </li>
+    </ul>
+    <ul style="clear:both" class="fixbtn">
+        <li class="continue" style="width:50%">
+           <input type="button" value="继续浏览" class="alert-btn">
+        </li>
+        <li style="width:50%">
+           <input type="button" value="前往CSinLA.com首页" class="alert-btn1">
+        </li>
+    </ul>
+    </div>
+</div>
+<div class="mb-alert" style="display:none">
+  <div class="mb-alert1">
+     <a href="" class="remove-nav pull-right" style="position: absolute;right: 12%;margin-top:-30px"><img src="{% static "./images/times.png" %}" style="width:20px" alt="" class="img-responsive"></a>
+    <div>
+    
+           <img src="/static/images/alert.png" alt="">
+    </div>
+    <div>
+    
+           <p>您的信息已成功提交，我们会在24小时之内以邮件的方式发送至您的邮箱。</p>
+    </div>
+
+    <div>
+    
+          <input type="button" value="继续浏览" class="mb-alert-btn">
+    </div>
+    <div>
+    
+           <input type="button" value="前往CSinLA.com首页" class="mb-alert-btn1">
+    </div>
+  </div>  
+   
+</div>
+<div class="wrap">
+{% csrf_token %}
+      <!-- nav  begin --> 
+        <!-- <nav>               -->
+            <div class="nav">
+                <div class="nav-top">
+                     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+                        <div class="container-fluid">
+                            <!-- Brand and toggle get grouped for better mobile display -->
+                      <!--       <div class="navbar-header">     
+                                 <a class="navbar-brand" href="#" >
+                                    <img src="">
+                                </a>
+                            </div> -->
+                            <!-- Collect the nav links, forms, and other content for toggling -->
+                            <div class="collapse navbar-collapse navbar-header " id="bs-example-navbar-collapse-1" style="width:80%">
+                                <ul class="nav navbar-nav">
+                                    
+                                    <li class="active"><a class="navbar-brand scroll" id="scroll" href="#chanpin" >Carfax report</a></li>
+                                    <li class="active"><a class="navbar-brand scroll" id="scroll1" href="#procedure">立即查询</a></li>
+                                    <li class="active"><a class="navbar-brand scroll" id="scroll2" href="#partner" >赞助商简介</a></li>
+                                    <li class="active"><a class="navbar-brand scroll" id="scroll3" href="#connect" >扫码关注</a></li>
+                                    
+                                  
+                                </ul>
+                            </div>
+                            <div class="collapse navbar-collapse navbar-header " id="bs-example-navbar-collapse-1" style="width:20%;text-align:right">
+                                <ul class="nav navbar-nav" style="float:right">
+                                    
+                                    
+                                    <li class="active"><a class="navbar-brand scroll" href="/" ><img src="/static/images/pc/tui.png" style="width:30px;display:inline">返回CSinLA.com</a></li>
+                                  
+                                </ul>
+                            </div>
+                            <!-- /.navbar-collapse -->
+                        </div>
+                        <!-- /.container-fluid -->
+                     
+                    </nav>
+                </div> 
+                                                 
+            </div>
+        <!-- </nav>  -->           
+     <!-- nav end -->     
+
+
+
+
+<!-- 产品特点 -->
+    <div class="pc-trait">
+        <div class="banner">
+            <img src="/static/images/pc/banner.jpg"/>
+        </div>
+        <!-- <div class="title" style="margin-top:-300px">
+            <h1>CarFax Report免费查询服务</h1>
+            <h3>CSinLA 携手Mcs Auto为您提供CarFax免费查询</h3>
+        </div> -->
+        <div class="card" id="chanpin">
+            <!-- <div class="p_left">                
+                <p>
+                    卖车CarFax
+                </p>
+            </div>
+             <div class="p_right">
+                <p>
+                    买车CarFax
+                </p>
+            </div> -->
+            <h2 style="font-size:30px">CSinLA 携手MCS Auto<span style="font-size:20px;font-family:'微软雅黑'">为您提供Carfax report免费查询</span></h2>
+            <ul style="margin:70px 0px">
+              <li style="width:18%;float:left;text-align:right;"><img src="/static/images/pc/check.png" width="100"></li>
+              <li style="width:32%;float:left"><div>
+                    <p style="font-size:24px">免费查询</p>
+                    <p style="font-size:20px;">查询CarFax期间所产生的 </p>
+                    <p style="font-size:20px;margin-top:-10px">一切费用均由CSinLA提供</p>
+                </div>  </li>
+              <li style="width:20%;float:left;text-align:right;"><img src="/static/images/pc/email.png" width="100"></li>
+              <li style="width:30%;float:left"><div>
+                    <p style="font-size:24px">快速回复</p>
+                    <p style="font-size:20px">查询发出后24小时内 </p>
+                    <p style="font-size:20px;margin-top:-10px">发送CarFax至您的邮箱</p>
+                </div> </li>
+            </ul>
+            <div>
+               <img src="/static/images/pc/number.png" style="width:90%;margin: 70px 0px 30px 0px;">
+            </div>
+            
+            
+        </div>
+
+        
+    </div>
+    <div id="procedure" style="margin-top: 300px;height: 120px;"></div>   
+
+
+<!-- 查询流程 -->
+    <div class="pc-procedure" style="height: 500px;margin-top:0px">
+        <div style="width:70%;margin:0 auto;padding-top: 36px;">
+        <!-- <p class="pro-p2">查询流程</p> -->
+       <!--  <hr style="width: 200px;border: 1px solid #14bde6;"> -->
+        <!-- <img class="xian" src="imgs/pc/xian.png" width="150"> -->
+        <!-- <img class="img04" src="/static/images/pc/4.png"> -->
+            <div class="check-input">
+                 <p>立即查询</p>
+                 {% if request.user.is_authenticated %}
+                <input type="text" class="vin" id="vin" placeholder="请输入您的Vin Number">
+                <input type="text" class="vin" id="name" placeholder="请输入您的姓名">
+                <input type="text" class="vin" id="email" value="{{user.email}}" placeholder="请输入您的邮箱">
+                <input type="text" class="vin" id="weiixn" placeholder="请输入您的微信号">
+                <button class="sub">提交</button>
+                {% else %}
+                <input type="text" class="vin" id="vin" onclick="login()" placeholder="请输入您的Vin Number">
+                <input type="text" class="vin" id="name" onclick="login()" placeholder="请输入您的姓名">
+                <input type="text" class="vin" id="email" onclick="login()" placeholder="请输入您的邮箱">
+                <input type="text" class="vin" id="weiixn" onclick="login()" placeholder="请输入您的微信号">
+                <button class="sub">提交</button>
+                 {% endif %}
+                <img src="/static/images/pc/wen.png" style="width: 70px;margin-top: -600px;margin-left: 80%;">
+            </div>
+
+            <div class="jj" style="width:50%">
+                <p class="jj1">什么是Vin Number?</p>
+                <p class="jj2">VIN(Vehicle Identification Number)：</p>
+                <p class="jj2">车辆识别代号。它是由一组字母和阿拉伯</p>  
+                <p class="jj2">数字组成，共"17位编码”。</p>
+                <p class="jj2">VIN的每位代码代表着汽车的某一方面信息参数。</p>
+            </div>
+        </div>
+        
+    </div> 
+
+
+<!-- 公司简介 -->
+    <div id="partner" style="height: 80px;"></div>
+    <div class="pc-introduce">
+            <div style="width:70%;margin:0 auto">
+            
+                <p class="intr-1">赞助商简介</p> 
+                <hr style="width: 170px;border: 1px solid #14bde6;margin-top: -10px;">
+                <!-- <img class="xian" src="imgs/pc/xian.png" width="150"> -->
+                <div id="myCarousel" class="carousel slide">
+            <!-- 轮播（Carousel）指标 -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                    </ol>   
+                    <!-- 轮播（Carousel）项目 -->
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <img src="/static/images/mb/mm.png" style="max-width:100%;margin: 0 auto;">
+                        </div>
+                        <div class="item">
+                            <img src="/static/images/mb/mm.png" style="max-width:100%;margin: 0 auto;">
+                        </div>
+                        <div class="item">
+                            <img src="/static/images/mb/mm.png" style="max-width:100%;margin: 0 auto;">
+                        </div>
+                    </div>
+                    <!-- 轮播（Carousel）导航 -->
+                    <!-- <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;
+                    </a>
+                    <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;
+                    </a> -->
+                    <a class="carousel-control left" href="#myCarousel" 
+             data-slide="prev" style="background:#fff;background: url(/static/images/carouselleft.png) no-repeat;
+            background-position: center center;"></a>
+          <a class="carousel-control right" href="#myCarousel" style="background:#fff;background: url(/static/images/carouselright.png) no-repeat;background-position: center center;" data-slide="next"></a>
+                </div>
+                <div class="tro" style="width:50%;margin-left:0px">
+                    <p class="intr-2">关于 MCS</p>
+                    <p class="intr-3">MCS Auto是一家以诚信为宗旨帮广大华人留学生解决购车烦恼的华人车行.  主营汽车买卖与汽车租聘项目. 车行内多种不同价位的跑车与精致二手车供学生选择.并可提供拍卖行购车私人定制。另外MCS 的租聘部门为学生提供超跑，平价车，商务，SUV等各类车型并且为了学生MCS AUTO可提供日租，月租，年租。非常方便快捷。MCS AUTO坚守着树立卓越品牌的信念为了能让学生的购车体验做到完美，并让汽车文化宣传到每一位学生的心中。
+                    </p>
+                </div>
+                
+
+
+            </div>  
+   </div>
+<!-- 扫码关注 -->
+    <div class="pc-erwei" id="connect">
+        <p class="erwei-1">扫码关注</p>
+        <hr style="width: 170px;border: 1px solid #14bde6;margin-top: -10px;"> 
+        <!-- <img class="xian" src="imgs/pc/xian.png" width="150"> -->
+        <div style="width:70%;margin:0 auto;float:none">
+            <div>
+                <img src="/static/images/pc/ma1.jpg" class="erwei"><!-- <p style="margin-top:20px">CSinLA.com</p>      -->
+                
+                
+                
+            </div>  
+            <div>
+               <img src="/static/images/pc/ma2.jpg" class="erwei2"><!-- <p style="margin-top:20px">MCS AUTO</p><br> -->
+            </div> 
+        </div>   
+
+    </div> 
+
+    
+</div>
+
+
+<!-- mobile -->
+<div class="mb-wrap">
+<div class="header w">
+        <a href="#" class="mobile-nav-btn pull-right" style="color:#fff;"><i class="fa fa-bars" aria-hidden="true"></i></a>
+        <a href="/" class="home-link">
+            <div class="logo" style="background:#666;">
+                <img src="{% static "images/carfaxleft.png" %}" alt="" class="img-responsive" width="50px" style="padding:17px">
+                
+            </div>
+            
+        </a>
+        <div style="text-align:left;margin-top: -34px;font-size: 14px;margin-left: 40px;color:#fff">
+                返回CSinLA.com首页
+                
+            </div>
+    <div class="user">
+        
+            <a href="/" class="remove-nav pull-right"><img src="{% static "./images/times.png" %}" alt="" class="img-responsive"></a>
+            
+            <a href="#mbchanpin" id="mbscroll" class="home-nav-item special">
+                <span>Carfax report</span>
+            </a>
+            <a href="#mbprocedure" id="mbscroll1" class="home-nav-item special">
+                <span>立即查询</span>
+            </a>
+            <a href="#mbpartner" id="mbscroll2" class="home-nav-item special">
+                <span>赞助商简介</span>
+            </a>
+             <a href="#mbconnect" id="mbscroll3" class="home-nav-item special">
+                <span>扫码关注</span>
+            </a>
+            <a href="/" class="home-nav-item special">
+                <span>CSinLA.com首页</span>
+            </a>
+       
+         <!--    <a href="{% url "accounts:accountSecurity" %}" class="home-nav-item has-sub-item">
+                <span>设置</span>
+            </a> -->
+            
+           <!--  <a href="{% url 'accounts:logout' %}"  class="home-nav-item special">
+                <span>Sign out</span></a>
+            
+            </a> -->
+        </div>
+  
+</div>
+     <div class="mb-banner">
+            <img src="/static/images/mb/mb-banner.png" />
+    </div>
+     <!-- <div class="mb-title">
+            <h1>CarFax Report免费查询服务</h1>
+            <h3>CSinLA 携手Mcs Auto为您提供CarFax免费查询</h3>
+    </div> -->
+      <div class="mb-card" id="mbchanpin">
+            <h2 style="font-size:24px;font-weight:bold;margin-bottom:0px">CSinLA 携手MCS Auto</h2>
+            <span style="font-size:20px;font-weight:500;">为您提供Carfax report免费查询</span>
+            <ul style="margin:30px 0px">
+              <li style="width:12%;float:left;text-align:right;"><img src="/static/images/pc/check.png" width="45"></li>
+              <li style="width:40%;float:left"><div>
+                    <p style="font-size:14px">免费查询</p>
+                    <p style="font-size:10px;margin-top:-7px">查询CarFax期间所产生的 </p>
+                    <p style="font-size:10px;margin-top:-10px">一切费用均由CSinLA提供</p>
+                </div>  </li>
+              <li style="width:9%;float:left;text-align:right;"><img src="/static/images/pc/email.png" width="45"></li>
+              <li style="width:39%;float:left"><div>
+                    <p style="font-size:14px">快速回复</p>
+                    <p style="font-size:10px;margin-top:-7px">查询发出后24小时内 </p>
+                    <p style="font-size:10px;margin-top:-10px">发送CarFax至您的邮箱</p>
+                </div> </li>
+            </ul>
+            <div style="text-align:left">
+               <ul class="mb-ul">
+                 <li style="width:55%;"><img src="/static/images/mb/one.png"><span>输入Vin Number/Plate Number</span></li>
+                 <li style="width:45%;"><img src="/static/images/mb/two.png"><span>输入姓名、邮箱、微信号</span></li>
+                 <li style="width:55%;margin-bottom:20px"><img src="/static/images/mb/three.png"><span>点击发送</span></li>
+                 <li style="width:45%;margin-bottom:20px"><img src="/static/images/mb/four.png"><span>查看你的邮箱</span></li>
+               </ul>
+               <!-- <img class="mb-img04" src="/static/images/mb/2@2x_98.png" style="width:90%;margin: 30px 0px 30px 0px;"> -->
+
+            </div>
+            <!-- <div class="mb-image">
+                <img class="ll" src="/static/images/mb/11@3x.png">
+            </div> -->
+            <div id="mbprocedure" style="clear:both"></div>
+        </div>
+
+    <!-- 产品特点 -->
+        
+
+
+    <!-- 查询流程 -->
+        <div class="mb-procedure">
+            <!-- <p class="mb-p1">立即查询</p> -->
+            <!-- <hr style="width: 200px;border: 1px solid #14bde6;"> -->
+            
+            <!-- <img class="mb-img04" src="/static/images/mb/4@2x_71.png"> -->
+
+            <div class="mb-check-input">
+                <p class="mb-p2">立即查询</p>
+                 {% if request.user.is_authenticated %}
+                <input type="text" class="mb-vin" id="mb-vin" placeholder="请输入您的Vin Number">
+                <input type="text" class="mb-vin" id="mb-name" placeholder="请输入您的姓名">
+                <input type="text" class="mb-vin" id="mb-email" value="{{user.email}}" placeholder="请输入您的邮箱">
+                <input type="text" class="mb-vin" id="mb-weiixn" placeholder="请输入您的微信号">
+                <button class="mb-sub">提交</button>
+                 {% else %}
+                <input type="text" class="mb-vin" id="mb-vin" onclick="login()" placeholder="请输入您的Vin Number">
+                <input type="text" class="mb-vin" id="mb-name" onclick="login()" placeholder="请输入您的姓名">
+                <input type="text" class="mb-vin" id="mb-email" onclick="login()" placeholder="请输入您的邮箱">
+                <input type="text" class="mb-vin" id="mb-weiixn" onclick="login()" placeholder="请输入您的微信号">
+                <button class="mb-sub">提交</button>
+                {% endif %}
+            </div>
+            <div class="mb-jj">
+                <p class="mb-jj1"><img src="/static/images/pc/wen.png" style="width: 20px;margin-top: -5px;left: 0px;">
+                什么是Vin Number?</p>
+                <p class="mb-jj2">VIN(Vehicle Identification Number)：车辆识别代号。它是由一组字母和阿拉伯数字组成，共"17位编码”。VIN的每位代码代表着汽车的某一方面信息参数。</p>
+            </div>
+             <div id="mbpartner"></div>
+        </div> 
+   
+
+    <!-- 公司简介 -->
+    <div class="mb-introduce" id="mbpartner">
+        <p class="mb-p1">赞助商简介</p> 
+        <hr style="width: 170px;border: 1px solid #14bde6;margin-top: -10px;">
+        <!-- <img class="xian" src="imgs/mb/xian.png" width="150"> -->
+        <div class="mb-tro">
+            <p class="mb-intr-2">关于 MCS</p>
+            <p class="mb-intr-3">MCS Auto是一家以诚信为宗旨帮广大华人留学生解决购车烦恼的华人车行.  主营汽车买卖与汽车租聘项目. 车行内多种不同价位的跑车与精致二手车供学生选择.并可提供拍卖行购车私人定制。另外MCS 的租聘部门为学生提供超跑，平价车，商务，SUV等各类车型并且为了学生MCS AUTO可提供日租，月租，年租。非常方便快捷。MCS AUTO坚守着树立卓越品牌的信念为了能让学生的购车体验做到完美，并让汽车文化宣传到每一位学生的心中。</p>  
+        </div>
+        
+        <div id="myCarousel1" class="carousel slide">
+    <!-- 轮播（Carousel）指标 -->
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel1" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel1" data-slide-to="1"></li>
+                <li data-target="#myCarousel1" data-slide-to="2"></li>
+            </ol>   
+            <!-- 轮播（Carousel）项目 -->
+            <div class="carousel-inner">
+                <div class="item active">
+                    <img src="/static/images/mb/mm.png">
+                </div>
+                <div class="item">
+                    <img src="/static/images/mb/mm.png">
+                </div>
+                <div class="item">
+                    <img src="/static/images/mb/mm.png">
+                </div>
+            </div>
+            <!-- 轮播（Carousel）导航 -->
+            <a class="carousel-control left" href="#myCarousel1" 
+             data-slide="prev" style="background:#fff;background: url(/static/images/carcarouselleft.png) no-repeat;
+            background-position: center center;"></a>
+           <a class="carousel-control right" href="#myCarousel1" style="background:#fff;background: url(/static/images/carcarouselright.png) no-repeat;background-position: center center;" data-slide="next"></a>
+        </div>
+
+    </div>  
+   
+<!-- 扫码关注 -->
+    <div class="mb-erwei" id="mbconnect">
+        <p class="mb-p1">扫码关注</p>
+        <hr style="width: 170px;border: 1px solid #14bde6;margin-top: -10px;"> 
+        <div style="width:100%;margin:0 auto;float:none">
+            <div style="width:50%;float:left">
+                <!-- <a href="" style="color:#999;"> --><img src="/static/images/pc/ma1.jpg" style="width:90%;margin-left: 5%;" class="mberwei"><!-- </a> --><!-- <p style="margin-top:20px">CSinLA.com</p>      -->
+                
+                
+                
+            </div>  
+            <div style="width:50%;float:right">
+               <!-- <a href="" style="color:#999;"> --><img src="/static/images/pc/ma2.jpg" style="width:90%;margin-left: 5%;" class="mberwei2"><!-- </a> --><!-- <p style="margin-top:20px">MCS AUTO</p><br> -->
+            </div> 
+        </div>   
+    </div> 
+   
+</div>
+
+
+<!--  -->
+</body>
+<script src="{% static "js/jquery-1.11.1.min.js" %}"></script>
+<script src="{% static "js/bootstrap.min.js" %}"></script>
+<script src="{% static "js/carfax.js" %}"></script>
+
+</html>

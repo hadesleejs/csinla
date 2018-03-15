@@ -1,0 +1,631 @@
+html,
+body {
+    height: 100%;
+}
+
+body {
+    font: 100% "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #999;
+    background-image: url(../../images/background.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: #464646;
+}
+
+
+#pageurl{margin:10px;position:absolute;}
+#pageurl a{color: #000;font-size: 14px;}
+#pageurl a:hover{color: #000;font-size: 14px;}
+
+#search-btn{    height: 30px;
+    border: 1px solid rgb(204, 204, 204);
+    border-radius: 5px;
+    text-indent: 2px;
+    margin-top: 52px;
+    width: 8%;
+    box-shadow: rgb(204, 204, 204) 2px 2px 10px;
+    z-index: 0;
+    position: absolute;
+    left: 80%;
+    top: 0px;}
+#search-cancel{    height: 30px;
+    border: 1px solid rgb(204, 204, 204);
+    border-radius: 5px;
+    text-indent: 2px;
+    margin-top: 52px;
+    width: 8%;
+    box-shadow: rgb(204, 204, 204) 2px 2px 10px;
+    z-index: 0;
+    position: absolute;
+    left: 89%;
+    top: 0px;}
+/*/header*/
+
+/*search*/
+.u-main {
+    padding: 0;
+    border: 0;
+}
+
+.u-main-title {
+    height: 90px;
+    line-height: 90px;
+}
+
+.u-main-search,
+.m-main-search {
+    position: relative;
+    min-height: 140px;
+    background-color: #5c646a;
+}
+
+.u-main-search > .duration {
+    margin: 20px 0 0 20px;
+    font-size: 16px;
+}
+
+.u-main-search > .duration > span {
+    float: left;
+    margin-left: 20px;
+    display: block;
+    width: 100px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.u-main-search > .location {
+    margin: 20px 0 0 40px;
+}
+
+.u-main-search > .price {
+    margin: 5px 0 0 40px;
+}
+
+.u-main-search > .type {
+    margin: 5px 0 30px 40px;
+}
+
+.u-main-search span {
+    font-size: 16px;
+    color: #fff;
+}
+
+.u-main-search .searchBtn {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    width: 80px;
+    height: 40px;
+    border: 1px solid #5bdab5;
+    color: #5bdab5;
+    font-size: 16px;
+    text-align: center;
+    line-height: 40px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+/*/search*/
+
+/* bootstrap css */
+.well {
+    overflow: hidden;
+}
+
+.u-main-section {
+    min-height: 500px;
+    background-color: #fff;
+   /* padding: 0 15px 20px 30px;*/
+       padding: 0 2px 20px 2px;
+}
+
+.input-wrapper {
+    position: relative;
+    border: 1px solid #999;
+    height: 32px;
+    font-size: 14px;
+    width: 300px;
+}
+
+.input-wrapper span {
+    position: absolute;
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    top: 8px;
+    left: 6px;
+    color: #999;
+}
+
+.input-wrapper div {
+    position: absolute;
+    left: 32px;
+    top: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.input-wrapper input {
+    display: block;
+    width: 100%;
+    height: 32px;
+    line-height: 32px;
+    font-size: 14px;
+    background-color: rgba(255, 255, 255, 0);
+    vertical-align: baseline;
+}
+
+.u-table {
+    font-size: 12px;
+    color: #999;
+}
+
+.u-table div {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+/* .u-table td {
+    max-width: 0;
+} */
+
+.u-table tbody td {
+    height: 44px;
+    vertical-align: middle !important;
+}
+
+.u-main-footer {
+    margin-top: 70px;
+    height: 40px;
+    line-height: 40px;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+/*类似消息框的圆角框，在租房页面三个绿色的选项卡*/
+.u-block {
+    display: block;
+    width: 100px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    background-color: #5bddb2;
+    border-radius: 6px;
+    position: relative;
+    color: #fff;
+}
+.u-block1 {
+    display: block;
+    width: 100px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+     
+    border-radius: 6px;
+    color: #fff;
+}
+
+.u-block::after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent;
+    border-top-color: #5bddb2;
+    position: absolute;
+    top: 33px;
+    left: 42px;
+}
+@media (max-width: 767px) {
+.mobile-nav-btn {
+    font-size: 2.6em;
+    color: #fff;
+}
+.login-status {
+    display: none;
+}
+.u-header {
+    display: none;
+}
+.header {
+    width: 100%;
+    padding: 0;
+    height: 80px;
+}
+.home-link {
+    display: block;
+    width: 200px;
+}
+.header .logo {
+    margin-left: 10px;
+    padding: 13px 0;
+}
+.header .logo img {
+    /*width: 200px;
+    height: 80px;*/
+        max-width: 200px;
+}
+.mobile-nav-btn {
+    color: #fff!important;
+    margin-right: 10px;
+    padding: 18px 0;
+
+}
+.home-nav-item img {
+    display: none;
+}
+.home-nav-sub-item {
+    display: none;
+}
+.home-nav-sub-item a {
+    display: block;
+    margin: auto;
+    width: 80%;
+    height: 40px;
+    line-height: 40px;
+    color: #999;
+    text-align: center;
+    font-size: 14px;
+    border-bottom: 1px solid #ccc;
+}
+.home-nav-sub-item a:last-child {
+    width: 100%;
+}
+.header .user {
+    display: none;
+    width: 100%;
+    background-color: #666;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 40px 40px 50px;
+    z-index: 9999;
+}
+.user span {
+    font-family: "Microsoft YaHei", "微软雅黑";
+}
+.user .home-nav-item {
+    display: block;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    color: #ddd;
+    text-align: center;
+    font-size: 16px;
+    border-bottom: 1px solid #ccc;
+    text-decoration: none;
+}
+.user .remove-nav {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    width: 20px;
+    height: 20px;
+}
+.user .home-nav-item:last-child {
+    border-bottom: 0px;
+}
+.u-block::after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent;
+    border-top-color: #5bddb2;
+    position: absolute;
+    top: 38px;
+    left: 42px;
+}
+.u-main-title {
+    height: 70px;
+    line-height: 90px;
+}
+}
+@media (min-width: 1026px) {
+.header {
+    display: none;
+}
+.u-container {
+    width: 70%;
+    margin: auto;
+}
+/*header*/
+.u-header {
+    padding: 15px 10px 10px;
+}
+
+.u-header .logo {
+    width: 200px;
+}
+
+.u-header .login-status {
+    width: 232px;
+    margin-top: 16px;
+}
+
+.u-header .avatar-wrapper {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.u-header .avatar {
+    margin-top: -5px;
+    width: 42px;
+    height: 42px;
+}
+
+.u-header .dropdown {
+    margin-right: 10px;
+}
+
+.u-header .dropdown-menu {
+    left: -8px;
+    min-width: 80px;
+}
+
+.u-header .dropdown-menu:before {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 15px;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-bottom: 8px solid #fff;
+    border-right: 4px solid transparent;
+}
+
+.u-header .dropdown-menu-right {
+    left: auto;
+    right: -8px;
+}
+
+.u-header .dropdown-menu-right:before {
+    left: auto;
+    right: 15px;
+}
+
+.header-btn {
+    display: block;
+    border: none;
+    background-color: rgba(255, 255, 255, 0);
+    color: #fff;
+    position: relative;
+}
+
+.header-btn i {
+    display: block;
+    width: 25px;
+    height: 25px;
+    font-size: 18px;
+    opacity: 0.8;
+}
+
+.header-btn .redpoint {
+    position: absolute;
+    right: -10px;
+    top: -10px;
+}
+
+.u-header .new-post-wrapper {
+    margin-left: 5px;
+}
+
+.u-header .new-post {
+    display: block;
+    width: 90px;
+    height: 32px;
+    font-size: 14px;
+    background-image: url(../../images/01-home-login.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    color: #fff;
+    text-align: center;
+    line-height: 32px;
+}
+
+
+}
+@media (max-width: 1025px) and (min-width: 768px){
+.header {
+    display: none;
+}
+.u-container {
+    width: 80%;
+    margin: auto;
+}
+/*header*/
+.u-header {
+    padding: 15px 10px 10px;
+}
+
+.u-header .logo {
+    width: 200px;
+}
+
+.u-header .login-status {
+    width: 232px;
+    margin-top: 16px;
+}
+
+.u-header .avatar-wrapper {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.u-header .avatar {
+    margin-top: -5px;
+    width: 42px;
+    height: 42px;
+}
+
+.u-header .dropdown {
+    margin-right: 10px;
+}
+
+.u-header .dropdown-menu {
+    left: -8px;
+    min-width: 80px;
+}
+
+.u-header .dropdown-menu:before {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 15px;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-bottom: 8px solid #fff;
+    border-right: 4px solid transparent;
+}
+
+.u-header .dropdown-menu-right {
+    left: auto;
+    right: -8px;
+}
+
+.u-header .dropdown-menu-right:before {
+    left: auto;
+    right: 15px;
+}
+
+.header-btn {
+    display: block;
+    border: none;
+    background-color: rgba(255, 255, 255, 0);
+    color: #fff;
+    position: relative;
+}
+
+.header-btn i {
+    display: block;
+    width: 25px;
+    height: 25px;
+    font-size: 18px;
+    opacity: 0.8;
+}
+
+.header-btn .redpoint {
+    position: absolute;
+    right: -10px;
+    top: -10px;
+}
+
+.u-header .new-post-wrapper {
+    margin-left: 5px;
+}
+
+.u-header .new-post {
+    display: block;
+    width: 90px;
+    height: 32px;
+    font-size: 14px;
+    background-image: url(../../images/01-home-login.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    color: #fff;
+    text-align: center;
+    line-height: 32px;
+}
+
+
+}
+.redpoint {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.redpoint i {
+    display: inline-block;
+    height: 22px;
+    line-height: 22px;
+    min-width: 22px;
+    width: auto;
+    padding: 0 3px;
+    font-size: 12px;
+    text-align: center;
+    color: #fff;
+    background-color: #ec6200;
+    opacity: 1;
+    border-radius: 11px;
+}
+
+@media (max-width: 767px) {
+    .u-main-search {
+        display: none;
+    }
+    .m-main-search .duration2 {
+        padding: 10px 0;
+        background-color: #5c646a;
+        
+    }
+    .m-main-search .duration2 a {
+        display: inline-block;
+        width: 30%;
+        height: 40px;
+        line-height: 40px;
+        font-size: 14px;
+        color: #fff;
+    }
+    .u-block2 {
+        background-color: #5bddb2;
+        border-radius: 6px;
+        position: relative;
+        color: #fff;
+    }
+
+    .u-block2::after {
+        content: '';
+        width: 0;
+        height: 0;
+        border-width: 10px;
+        border-style: solid;
+        border-color: transparent;
+        border-top-color: #5bddb2;
+        position: absolute;
+        top: 39px;
+        left: 42px;
+    }
+    .m-main-search form {
+        padding: 20px 15px;
+    }
+    .m-main-search label {
+        font-size: 16px;
+        color: #fff;
+        padding: 0 0 6px;
+    }
+    .house-search-btn,
+    .house-search-btn:active,
+    .house-search-btn:focus,
+    .house-search-btn:hover {
+        background-color: #5bddb2;
+        color: #fff;
+        outline: none;
+        border: none;
+        width: 100%;
+        padding: 8px 0;
+        font-size: 16px;
+        letter-spacing: 5px;
+        border-radius: 5px;
+        margin-top: 10px;
+    }
+}
+@media (min-width: 768px) {
+    .m-main-search {
+        display: none;
+    }
+
+}
+@media (width: 768px){
+    .u-container {
+    width: 100%;
+    margin: auto;
+}
+}

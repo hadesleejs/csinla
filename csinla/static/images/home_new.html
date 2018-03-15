@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="renderer" content="ie-stand">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="shortcut icon" href="/static/images/logo1.png">
+    <title>CSinLA.com</title>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-97624179-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<script type="text/javascript">
+	 wx.config({
+   debug: false,  //调式模式，设置为ture后会直接在网页上弹出调试信息，用于排查问题
+   appId: 'wx910b80a91781c9df',
+   timestamp: {{ timestamp }},
+   nonceStr: '{{ nonceStr }}',
+   signature: '{{ signature }}',
+   jsApiList: [  //需要使用的网页服务接口
+       'checkJsApi',  //判断当前客户端版本是否支持指定JS接口
+       'onMenuShareTimeline', //分享给好友
+       'onMenuShareAppMessage', //分享到朋友圈
+       'onMenuShareQQ',  //分享到QQ
+       'onMenuShareWeibo' //分享到微博
+   ]
+ });
+ wx.ready(function () {   //ready函数用于调用API，如果你的网页在加载后就需要自定义分享和回调功能，需要在此调用分享函数。//如果是微信游戏结束后，需要点击按钮触发得到分值后分享，这里就不需要调用API了，可以在按钮上绑定事件直接调用。因此，微信游戏由于大多需要用户先触发获取分值，此处请不要填写如下所示的分享API
+            // 1 判断当前版本是否支持指定 JS 接口，支持批量判断
+                wx.checkJsApi({
+                    jsApiList: [
+                      'onMenuShareAppMessage'
+                    ],
+                    success: function (res) {
+                      //alert(JSON.stringify(res));
+                    }
+                });
+wx.onMenuShareTimeline({  //例如分享到朋友圈的API  
+   title: 'CSinLA.com', // 分享标题
+   link: 'http://www.csinla.com', // 分享链接
+   imgUrl: 'http://www.csinla.com/media/bg.jpg', // 分享图标
+   success: function () {
+       // 用户确认分享后执行的回调函数
+   },
+   cancel: function () {
+       // 用户取消分享后执行的回调函数
+   }
+});
+wx.onMenuShareAppMessage({
+    title: 'CSinLA.com', // 分享标题
+    desc: '洛杉矶留学生咨询就上CSinLA.com', // 分享描述
+    link: 'http://www.csinla.com', // 分享链接
+    imgUrl: 'http://www.csinla.com/media/bg.jpg', // 分享图标
+    type: '', // 分享类型,music、video或link，不填默认为link
+    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+    success: function () { 
+        // 用户确认分享后执行的回调函数
+    },
+    cancel: function () { 
+        // 用户取消分享后执行的回调函数
+    }
+});
+wx.onMenuShareQQ({
+    title: 'CSinLA.com', // 分享标题
+    desc: '洛杉矶留学生咨询就上CSinLA.com', // 分享描述
+    link: 'http://www.csinla.com', // 分享链接
+    imgUrl: 'http://www.csinla.com/media/bg.jpg', // 分享图标
+    success: function () { 
+       // 用户确认分享后执行的回调函数
+    },
+    cancel: function () { 
+       // 用户取消分享后执行的回调函数
+    }
+});
+});	
+wx.error(function (res) {
+ alert(res.errMsg);  //打印错误消息。及把 debug:false,设置为debug:ture就可以直接在网页上看到弹出的错误提示
+});
+</script>
+
+
+    <link rel="stylesheet" type="text/css" href="/static/css/home_new.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+
+    <style>
+        body {
+            font-size: 100%;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="/static/css/video-js.min.css">
+</head>
+<body>
+<div>
+<img src="/static/images/background_index.jpg" class="Home-background">
+<div class="Home-one-header">
+<!-- {% if request.user.is_authenticated %}
+    <div class="u-header clearfix">
+        <div class="logo fl">
+            <a href="/"><img class="img-responsive" src="/static/images/01-home-logo.png" alt="logo"></a>
+        </div>
+        <div class="login-status fr">
+            <div class="avatar-wrapper">
+              <a href="{% url "accounts:myPosts">
+                <img src={{ user.avatar_url }} class="img-circle avatar" alt="Cinque Terre">
+              </a>
+            </div>
+            <div class="dropdown" style="display:inline-block;">
+                <button class="header-btn dropdown-toggle" type="button" data-toggle="dropdown">
+                    <i class="fa fa-cog" aria-hidden="true"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li><a href="{% url 'accounts:accountSecurity' %}">账户安全</a></li>
+                    <li role="presentation" class="divider"></li>
+                     <li><a href="#">人工申述</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="{% url 'accounts:myhelpcenter' %}">联系我们</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="{% url 'accounts:logout' %}">登出</a></li>
+                </ul>
+            </div>
+            <div class="dropdown" style="display:inline-block;">
+                <a href="{% url "accounts:myInfo" class="header-btn dropdown-toggle">
+                    <i class="fa fa-bell-o" aria-hidden="true"></i>
+                    {% if user.unread_message %}<span class="redpoint"><i>{{ user.unread_message }} </i></span>{% endif %}
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">我的私信<span class="redpoint"><i>2</i></span></a>
+                    </li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="#">我的回复<span class="redpoint"><i>99+</i></span></a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="#">查看@提到我<span class="redpoint"><i>12</i></span></a></li>
+                </ul>
+            </div>
+            <div class="new-post-wrapper fr">
+                <a class="new-post" href="/posts/add">
+                    <span>发表新帖</span>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="header w">
+        <a href="#" class="mobile-nav-btn pull-right"><i class="fa fa-bars" aria-hidden="true"></i></a>
+        <a href="/" class="home-link">
+            <div class="logo">
+                <img src="/static/images/home-logo.png" alt="" class="img-responsive">
+            </div>
+        </a>
+    <div class="user">
+            <a href="#" class="remove-nav pull-right"><img src="/static/./images/times.png" alt="" class="img-responsive"></a>
+            <a href="/" class="home-nav-item special">
+                <span>首页</span>
+            </a>
+            <a href="/posts/add" class="home-nav-item special">
+                <span>发表新帖</span>
+            <a href="{% url "accounts:myPosts" class="home-nav-item special">
+                <span>个人中心</span>
+            </a>
+            <a href="{% url "accounts:accountSecurity" class="home-nav-item has-sub-item">
+                <span>设置</span>
+            </a> 
+            
+            <a href="{% url 'accounts:logout' %}"  class="home-nav-item special">
+                <span>Sign out</span></a>
+            
+            </a>
+        </div>
+    {% else %} -->
+    <div class="u-header clearfix" style="width: 80%;margin: 0 auto;">
+        <div class="logo fl">
+            <a href="/"><img class="img-responsive" src="/static/images/01-home-logo.png" alt="logo"></a>
+        </div>
+        
+        <div class="user" style="margin-top:18px;text-align:right;">
+            <a href="{% url 'accounts:login' %}" class="login home-nav-item">
+                <span>Log in</span>
+                <img src="/static/images/home-login.png" alt="">
+            </a>
+            <a href="{% url 'accounts:register' %}" class="register home-nav-item" style="margin-left:10px;">
+                <span>Register</span>
+                <img src="/static/images/home-register.png" alt="">
+            </a>
+
+        </div>
+        
+
+
+    </div>
+
+
+    <!-- <div class="header w">
+        <a href="#" class="mobile-nav-btn pull-right"><i class="fa fa-bars" aria-hidden="true"></i></a>
+        <a href="/" class="home-link">
+            <div class="logo">
+                <img src="/static/images/home-logo.png" alt="" class="img-responsive">
+            </div>
+        </a>
+        
+        <div class="user">
+            <a href="#" class="remove-nav pull-right"><img src="/static/./images/times.png" alt="" class="img-responsive"></a>
+            <a href="/" class="home-nav-item special">
+                <span>首页</span>
+            </a>
+            
+            
+            <a href="{% url 'accounts:login' %}" class="login home-nav-item">
+                <span>Log in</span>
+                <img src="/static/images/home-login.png" alt="">
+            </a>
+            <a href="{% url 'accounts:register' %}" class="register home-nav-item">
+                <span>Register</span>
+                <img src="/static/images/home-register.png" alt="">
+            </a>
+             <a href="#" class="home-nav-item special">
+                <span>Live and Love</span>
+            </a> 
+        </div>
+
+       {% endif %} -->
+    </div> 
+    <div class="Home-one-search">
+            <div class="Home-one-search-content Home-one-searchhide">
+                <div class="btn-group Home-one-search-content-down">
+                    <button type="button" class="Home-one-search-type" id="searchbtn" data-toggle="dropdown">不限
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="Home-one-search-typecontent dropdown-menu" role="menu">
+                        <li>
+                            <a href="javascript:;" class="searchtype-a">搜租房</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" class="searchtype-a">搜二手</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" class="searchtype-a">搜汽车</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" class="searchtype-a">搜朋友圈</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <input type="text" name="keyword" placeholder="输入关键词" onKeyPress="return checkSubmit(event)">
+                <button type="button" class="Home-one-search-submit"><img src="/static/images/search_index.png"></button>
+            </div>
+            <div class="Home-one-search-content Home-one-nav" id="fixed">
+                <ul class="Home-one-search-content-nav">
+                   <li><a href="">首页</a></li>
+                   <li><a href="javascript:;" id="newstudent">新生指南</a></li>
+                   <li><a href="javascript:;" id="small">小工具</a></li>
+                   <li><a href="javascript:;" id="yijian">意见反馈</a></li>
+                   <li class="Home-one-search-content-nav-right"><a href="javascript:;" onclick="Homeonesearch()"><img src="/static/images/search_index.png"></a></li>
+                </ul>
+            </div>
+            
+        </div>
+    <!--主要内容部分-->
+        <div id="home_video">
+           
+
+                    
+        </div>
+        </div>
+        <div class="nav">
+            <div class="life" >
+                <div class="box">
+                    <div class="lifeService">
+                        <img src="/static/images/rent-icon.png" alt="">
+                        <span>租房</span>
+                    </div>
+                    <div class="lifeServiceItem">
+                        <ul class="threeItems">
+                            <li><a href="{% url 'posts:listrent' %}" style="font-size:18px">个人转租</a></li>
+                           <!--  <li><a href={% url 'posts:roommate' %}>求室友合租</a></li> -->
+                            
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="box box1">
+                    <div class="lifeService">
+                        <img src="/static/images/car-icon.png" alt="">
+                        <span>汽车</span>
+                    </div>
+                    <div class="lifeServiceItem">
+                        <ul class="threeItems">
+                            <li><a href="{% url 'posts:car' %}" style="font-size:18px">二手车</a></li>
+                            <!-- <li><a href="{% url 'posts:buycar' %}">我要买车</a></li> -->
+                        </ul>
+                    </div>
+                </div>
+                <div class="box box2">
+                    <div class="lifeService">
+                        <img src="/static/images/secondhand.png" alt="">
+                        <span>二手</span>
+                    </div>
+                    <div class="lifeServiceItem">
+                        <ul class="threeItems" style="margin-top:-20px">
+                            <li><a href="/posts/usedgoods/view" style="font-size:18px">二手商品</a></li><br>
+                            <li><a href="/posts/usedbook/view" style="font-size:18px">二手书</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box box3">
+                    <div class="lifeService">
+                        <img src="/static/images/syfriend.png" alt="">
+                        <span>万能朋友圈</span>
+                    </div>
+                    <div class="lifeServiceItem">
+                        <ul class="threeItems">
+                            <li><a href="/posts/exposure/view" style="font-size:18px">万能朋友圈</a></li><br>
+                             <!-- <li><a href="/posts/usedbook/view" style="font-size:18px">二手书</a></li> -->
+                        </ul>
+                    </div>
+                </div> 
+            </div>
+            <div class="text" id="Home-two">“CSinLA keeps you company everyday.”</div>
+        
+
+        </div>
+
+    </div>
+
+
+    <!--页面底部-->
+    
+    </div>
+    <div class="Home-two">
+        <div class="Home-two-content">
+           <ul>
+              <li class="col-md-6">
+                 
+                   <img src="/static/images/new_classes_index.png" class="col-md-3">
+                   <div class="col-md-9 Home-two-content-title">
+                       <h3>入学与选课指南</h3>
+                       <p class="p1">收到录取通知书的你是不是感到又兴奋又迷茫</p>
+                       <a href="{% url 'accounts:apply_for_pickup' %}" style="background:#6b414c">申请新生接机</a>
+                   </div>
+                 
+
+              </li>
+              <li class="col-md-6">
+                 
+                   <img src="/static/images/new_new_index.png" class="col-md-3">
+                   <div class="col-md-9 Home-two-content-title">
+                       <h3>新闻资讯</h3>
+                       <p>入学已经办理妥当啦，接下来你是否想知道当地的一些新闻呢？那就点进来吧，市场需求的新闻</p>
+                   </div>
+                 
+
+              </li>
+              <li class="col-md-6">
+                 
+                   <img src="/static/images/new_fun_index.png" class="col-md-3">
+                   <div class="col-md-9 Home-two-content-title">
+                       <h3>LA饮食娱乐咨询</h3>
+                       <p>出国后你会发现，在这个陌生的国家你什么也不了解。不过没关系，在这里生活都需要什么，看</p>
+                       
+                   </div>
+                 
+
+              </li>
+              <li class="col-md-6">
+                 
+                   <img src="/static/images/new_car_index.png" class="col-md-3">
+                   <div class="col-md-9 Home-two-content-title">
+                       <h3>驾照与交通</h3>
+                       <p>我们在洛杉矶生活，平时需要买东西，聚会，吃饭，看电影出去玩，但是这些地方离学校很远，但</p>
+                   </div>
+                 
+
+              </li>
+           </ul>
+        </div>
+    </div>
+    <div class="Home-three" id="Home-three">
+        <div class="Home-three-content">
+           <ul>
+              <li class="col-md-6">
+               <div>  
+                <a href="/accounts/carfax/"><img src="/static/images/new_carfax_index.png"><p>免费CarFax report</p></a>
+               </div>
+              </li>
+              <li class="col-md-6"> 
+               <div> 
+                <a href="/curricular/"><img src="/static/images/new_SMC_index.png"><p>SMC Prochooser</p></a>
+               </div>
+              </li>
+              
+           </ul>
+        </div>
+    </div>
+    <div class="Home-four">
+        <div class="Home-four-content">
+            <div id="myCarousel" class="carousel slide">
+    <!-- 轮播（Carousel）指标 -->
+    <!-- 轮播（Carousel）项目 -->
+              <div class="carousel-inner Home-four-content-inner">
+                  <div class="item active">
+                     <div class="col-md-6" style="padding:20px 20px">
+                        <img src="/static/images/carousal-image.gif">
+                     </div>
+                     <div class="col-md-6" style="padding:20px 20px">
+                        <h3>CSinLA线下汽车见面会</h3>
+                        <p>CSinLA将举办线下汽车见面会，在见面会上，我们将会在线下为大家展示2-3辆高品质，高性价比的二手现车</p>
+                        <p style="margin-top:30px">经济实惠的二手车，便捷可爱的家用车和深受欢迎的帅气跑车，除了各种车辆的展示以外，</p>
+                        <p>我们还将为留学生谋取更多的精彩福利---在现场</p>
+                        <input type="button" name="" value="立即查看" class="Home-four-content-btn">
+
+                     </div>
+                  </div>
+                  <div class="item">
+                     <div class="col-md-6" style="padding:20px 20px">
+                        <img src="/static/images/carousal-image.gif">
+                     </div>
+                     <div class="col-md-6" style="padding:20px 20px">
+                        <h3>CSinLA线下汽车见面会</h3>
+                        <p>CSinLA将举办线下汽车见面会，在见面会上，我们将会在线下为大家展示2-3辆高品质，高性价比的二手现车</p>
+                        <p style="margin-top:30px">经济实惠的二手车，便捷可爱的家用车和深受欢迎的帅气跑车，除了各种车辆的展示以外，</p>
+                        <p>我们还将为留学生谋取更多的精彩福利---在现场</p>
+                        <input type="button" name="" value="立即查看" class="Home-four-content-btn">
+
+                     </div>
+                  </div>
+                  <div class="item">
+                      <div class="col-md-6" style="padding:20px 20px">
+                        <img src="/static/images/carousal-image.gif">
+                     </div>
+                     <div class="col-md-6" style="padding:20px 20px">
+                        <h3>CSinLA线下汽车见面会</h3>
+                        <p>CSinLA将举办线下汽车见面会，在见面会上，我们将会在线下为大家展示2-3辆高品质，高性价比的二手现车</p>
+                        <p style="margin-top:30px">经济实惠的二手车，便捷可爱的家用车和深受欢迎的帅气跑车，除了各种车辆的展示以外，</p>
+                        <p>我们还将为留学生谋取更多的精彩福利---在现场</p>
+                        <input type="button" name="" value="立即查看" class="Home-four-content-btn">
+
+                     </div>
+                  </div>
+              </div>
+              <!-- 轮播（Carousel）导航 -->
+              <a class="carousel-control left" href="#myCarousel" style="background: none;margin-top: 12%;width: 10%;" data-slide="prev"><img src="/static/images/left_index.png">
+              </a>
+              <a class="carousel-control right" href="#myCarousel" style="background: none;margin-top: 12%;width: 12%;" data-slide="next"><img src="/static/images/right_index.png">
+              </a>
+          </div>
+        </div>
+        
+    </div>
+    </body>
+    <div class="Home-footer" id="Home-footer">
+      <ul>
+         <li>
+{#             此处最好使用ajax，路径如下#}
+             <form action="{% url 'csinla_accounts:feedback' %}" method="post">
+            <p>意见反馈</p>
+            <div class="edit-content-form" style="clear:both;">
+                <label class="checkbox">标题：</label>
+                <input type="text" name="title" id="title">
+                <!--{{ rentForm.title}}-->
+            </div>
+            <div class="edit-content-form" style="clear:both;">
+                <label class="checkbox">手机：</label>
+                <input type="text" name="phone" id="title">
+                <!--{{ rentForm.title}}-->
+            </div>
+            <div class="edit-content-form" style="clear:both;">
+                <label class="checkbox">内容：</label>
+                <input type="text" name="content" id="title">
+                <!--{{ rentForm.title}}-->
+            </div>
+            <button>提交</button>
+                 {% csrf_token %}
+             </form>
+         </li>
+         <li style="width:30%">
+            <p style="text-align:left">CSinLA 是谁</p>
+            <span style="font-size:12px">我们CSinLA团队是一个洛杉矶的学生创业团队。我们希望能给大家带来一些有价值的产品，我们真心希望我们的产品可以帮助到大家，在留学生群里的发光发亮。</span>
+         </li>
+         <li>
+            <p style="text-align:left">CSinLA</p>
+            <div>
+                 <span><a href="/accounts/privacypolicy" style="color:#fff">隐私政策</a></span><br>
+
+                 <span style="line-height: 17px;margin-top: 5px;"><a href="/contactservice/ " class="help" style="color:#fff">帮助与联系我们</a></span><br>
+                 <span style="margin-top: 5px;"><a href="/accounts/company" target="_blank" style="color:#fff;">公司简介</a></span>
+            </div>
+         </li>
+         <li>
+             <p style="text-align:left">合作伙伴</p>
+            <div>
+                <span><a href="http://mp.weixin.qq.com/s/qi6NP7Xhu0UYo0c4WZWhuw" target="_blank" style="color:#fff">合作合作</a></span><br>
+                <span style="line-height: 17px;margin-top: 5px;"><a href="https://mp.weixin.qq.com/s?__biz=MzI3MjQxMDIwOA==&mid=100000157&idx=1&sn=15229bbe2d0427b87fc66d060b208217&chksm=6b33b2925c443b84e57f8634791c6dda6a8855a32f8304e81f2b42281d7956c36a8b5773f4c3&mpshare=1&scene=1&srcid=0730gg7hOhUMhxnKq4GyUy6l&key=9965dca0b72a0a74ec32ef76254265c9dc503c08ff37ea25398fd4afef5558b638f5ca2677f2fec0554d53a7b220a42acda95e900c41825a923566f56d785af9e9071d09474ccaca62d99e87163655e4&ascene=0&uin=MTkwMzMxNTEyMQ%3D%3D&devicetype=iMac+MacBookAir6%2C1+OSX+OSX+10.10.5+build(14F2511)&version=12020810&nettype=WIFI&fontScale=100&pass_ticket=4HXpH%2Fts1ZCWI3L5Lx5aFzRGT1gVF3qVZ51yDOY6oVINR%2Bg6KduEnZU2jQ5DhK8F" style="color:#fff;" target="_blank">ACEG 荣冠教育</a></span><br>
+                <span style="line-height: 17px;margin-top: 10px;"><a href="/accounts/parking2" style="color:#fff;" target="_blank">MCS Auto</a></span>
+            </div>
+         </li>
+         <li>
+            <div style="width:100px;height:100px;border:1px solid #fff;margin-top:25px"><img src="/static/images/home_weixin_index.jpg"></div>
+            <span style="display:block;text-align:center">交流微信群</span>
+         </li>
+         <li>
+            <div style="width:100px;height:100px;border:1px solid #fff;margin-top:25px"><img src="/static/images/home_qq_index.jpg"></div>
+            <span style="display:block;text-align:center">交流QQ群</span>
+         </li>
+         <li>
+            <div style="width:100px;height:100px;border:1px solid #fff;margin-top:25px"><img src="/static/images/home_gongzhong_index.jpg"></div>
+            <span style="display:block;text-align:center">关注微信公众号</span>
+         </li>
+
+      </ul>
+
+    </div>
+    
+
+           
+                 
+       
+    
+<script src="/static/js/videojs-ie8.min.js"></script>
+<script src="/static/js/video.min.js"></script>
+<script src="/static/js/jquery-1.11.1.min.js"></script>
+<script src="/static/js/home.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/menu.js"></script>
+<script>
+    function Homeonesearch(){
+        $(".Home-one-searchhide").show();
+        $(".Home-one-nav").hide();
+
+    }
+    $("#yijian").click(function(){
+    event.preventDefault();
+    $("html,body").animate({scrollTop:$("#Home-footer").offset().top},1000);
+                });
+    $("#yijian").click(function(){
+    event.preventDefault();
+    $("html,body").animate({scrollTop:$("#Home-footer").offset().top},1000);
+                });
+     $("#small").click(function(){
+    event.preventDefault();
+    $("html,body").animate({scrollTop:$("#Home-three").offset().top},1000);
+                });
+      $("#newstudent").click(function(){
+    event.preventDefault();
+    $("html,body").animate({scrollTop:$("#Home-two").offset().top},1000);
+                });
+
+   $(document).scroll(function(){
+    var aa=$(document).scrollTop();
+    if(aa>30){
+        $("#fixed").css('position','fixed');
+        // $("#A3").css('height', 'auto');
+        $("#fixed").css('top', '0');
+        $("#fixed").css('margin-left', '32.5%');
+        $("#fixed").css('z-index', '200');
+        
+
+    }
+    else if(aa<30){
+        $("#fixed").css('position','');
+        // $("#A3").css('height', 'auto');
+        $("#fixed").css('top', '');
+    }
+    
+});
+$(".searchtype-a").click(function(){
+ var a=$(this).html();
+  $("#searchbtn").val(a);
+  $("#searchbtn").text(a);
+});
+</script>
+
+<!-- 
+ // function tishi(){alert("此功能开发中")}
+//     function checkSubmit(e) {
+//        if(e && e.keyCode == 13) {
+//           document.forms[0].submit();
+//        }
+//     }
+
+    -->
+
+
+</body>
+</html>

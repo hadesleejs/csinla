@@ -1,0 +1,1 @@
+default_app_config  = 'csinla_posts.apps.Csinla_postsConfig'

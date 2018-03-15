@@ -1,0 +1,32 @@
+{% if fansresult.count == 0 %}
+    <div class="well fade in daytips">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong>作者水平有限,并没有关于<font color="red"><b>"{{ fansname }}"</b></font>的内容,请换一个词试试</strong>
+    </div>
+{% else %}
+
+    <div class="well fade in daytips">
+        <strong>关于
+            <font color="red">
+                <b>"{{ fansname }}"</b></font>的搜索结果一共有
+            <font color="red">
+                <b>"{{ fansresult.count }}"</b>
+            </font>条
+        </strong>
+    </div>
+    <br>
+    <div id="article-list">
+        {% for x in fansname %}
+            <article class="excerpt excerpt-first">
+                <header>
+                    <h2><a class="gotoArchive" title="{{ x.title }}">{{ x.username }}</a></h2>
+                </header>
+                <p class="meta">
+                    <span class="posttime">
+                        {{ x.post_date }}
+                    </span>
+                </p>
+            </article>
+        {% endfor %}
+    </div>
+{% endif %}

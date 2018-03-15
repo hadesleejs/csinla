@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="ie-stand">
+    <link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/common/base.css" %}">
+    <link href="http://cdn.bootcss.com/summernote/0.8.2/summernote.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static "css/awesome-bootstrap-checkbox.css" %}">
+    <link rel="stylesheet" href="{% static "css/userCenter.css" %}">
+    <title>发帖中心</title>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-97624179-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?6784d0adea487eefbe595d28dbb08efb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+<body>
+    <div class="u-container">
+        <div class="u-header clearfix">
+            <div class="logo fl">
+                <a href="/"><img class="img-responsive" src="{% static "images/home-logo.png" %}" alt="logo"></a>
+            </div>
+            <div class="login-status fr">
+                <div class="avatar-wrapper">
+                    <img src="{% static "images/avatar.jpg" %}" class="img-circle avatar" alt="Cinque Terre">
+                </div>
+                <div class="dropdown" style="display:inline-block;">
+                    <button class="header-btn dropdown-toggle" type="button" data-toggle="dropdown">
+                        <i class="fa fa-cog" aria-hidden="true"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li><a href="#">修改密码</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li><a href="#">密保问题</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li><a href="#">人工申述</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li><a href="#">联系我们</a></li>
+                    </ul>
+                </div>
+                <div class="dropdown" style="display:inline-block;">
+                    <button class="header-btn dropdown-toggle" type="button" data-toggle="dropdown">
+                        <i class="fa fa-bell-o" aria-hidden="true"></i>
+                        <span class="redpoint"><i>2</i></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">我的私信<span class="redpoint"><i>2</i></span></a>
+                        </li>
+                        <li role="presentation" class="divider"></li>
+                        <li><a href="#">我的回复<span class="redpoint"><i>99+</i></span></a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li><a href="#">查看@提到我<span class="redpoint"><i>12</i></span></a></li>
+                    </ul>
+                </div>
+                <div class="new-post-wrapper fr">
+                    <a class="new-post" href={% url 'posts:add' %}>
+                        <span>发表新帖</span>
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="u-main well well-lg">
+            <h2 class="u-main-title ac">发帖中心</h2>
+
+
+            <div class="u-main-content new-post-main-content">
+                <div class="new-post-section row complete-post-container">
+                    <div class="ac form-image step3"><img src="{% static "images/steps-icon.png" %}" alt="steps"></div>
+                    <div class="ac" style="margin-top:60px;"><img style="width:40%;" src="{% static "images/posttext.png" %}" alt=""></div>
+                    <div class="ac"><span>发布成功！</span><a style="text-decoration:underline;color:#999;" href="#">查看我的帖子</a></div>
+                    <div class="ac"><a href="/" class="save-form" style="margin:auto;">返回首页</a></div>
+                </div>
+            </div>  <!-- end of main-content -->
+
+    </div>
+    </div>
+    <div class="u-main-footer ac">
+        <span>洛杉矶留学生资讯网&nbsp;版权所有</span>
+    </div>
+    <script src="{% static "js/jquery-1.11.1.min.js" %}"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+    <script src="http://cdn.bootcss.com/summernote/0.8.2/summernote.min.js"></script>
+    <script src="{% static "js/main.js" %}"></script>
+    <script type="text/javascript">
+    $(function($) {
+        $('#summernote').summernote({
+            height:150
+        });
+        $('.next-step-form').click(function(e) {
+            e.preventDefault();
+            $('.form-part1').hide();
+            $('.form-part2').show();
+            $('.form-image').addClass('step2');
+        })
+    });
+    </script>
+</body>
+</html>

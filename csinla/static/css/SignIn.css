@@ -1,0 +1,107 @@
+@charset "utf-8";
+/* CSS Document */
+@charset "utf-8";
+/* CSS Document */
+@charset "utf-8";
+/* CSS Document */
+*{margin:0 px;padding:0px;margin:0 auto; }
+body{
+	
+    font: 100% "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #999;
+    background-image: url(../images/bg.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: #464646;
+}
+.m-content{display:none}
+	.content{display:block;}
+.m-info{display:none;}
+.header{width:70%;height:60px;margin-top:15px;}
+.header img{width:30%;height:90%;padding-left:5%;}
+.content{width:70%;height:auto;}
+.content-left{width:55%;margin-top:100px;height:200px;color:#FFF;font-size:42px;font-family:"Times New Roman";margin-left:5%;padding-top:100px;letter-spacing:1.5px;}
+.content-right{width:30%;margin-right:10%;height:370px;background-color:rgba(255,255,255,0.1);margin-top:-210px;}
+#question{background:none;width:200px;height:30px;font-size:14px;color:#999;margin-left:-3px;}
+#question option{background: #483F4D;font-size:14px;}
+.footer {
+	margin-top: 70px;
+	height: 40px;
+	line-height: 40px;
+	text-align:center;
+	background-color: rgba(0, 0, 0, 0.7);
+}
+@media (max-width:1024px) and (min-width:769px){
+	.m-content{display:none}
+	.content{display:block;}
+	.header{width:80%;height:60px;margin-top:15px;}
+.header img{width:30%;height:90%;padding-left:5%;}
+.content{width:80%;height:auto;}
+.content-left{width:60%;margin-top:100px;height:200px;color:#FFF;font-size:38px;font-family:"Times New Roman";padding-top:100px;}
+.content-right{width:35%;margin-right:0px;height:370px;background-color:rgba(255,255,255,0.1);margin-top:-210px;}
+#question{background:none;width:200px;height:30px;font-size:14px;color:#999;margin-left:-3px;}
+#question option{background: #483F4D;font-size:14px;}
+.footer {
+	margin-top: 70px;
+	height: 40px;
+	line-height: 40px;
+	text-align:center;
+	background-color: rgba(0, 0, 0, 0.7);
+}
+	}
+@media (width:768px){
+	.m-content{display:none}
+	.content{display:block;}
+	.header{width:100%;height:60px;margin-top:15px;}
+.header img{width:30%;height:90%;padding-left:1%;}
+.content{width:100%;height:auto;}
+.content-left{width:65%;margin-top:100px;height:200px;color:#FFF;font-size:36px;font-family:"Times New Roman";padding-top:100px;margin-left:5%;}
+.content-right{width:35%;margin-right:10px;height:370px;background-color:rgba(255,255,255,0.1);margin-top:-210px;}
+#question{background:none;width:200px;height:30px;font-size:14px;color:#999;margin-left:-3px;}
+#question option{background: #483F4D;font-size:14px;}
+.footer {
+	margin-top: 70px;
+	height: 40px;
+	line-height: 40px;
+	text-align:center;
+	background-color: rgba(0, 0, 0, 0.7);
+}
+	}
+@media (max-width:767px) and (min-width:376px){
+	.content{display:none}
+	.m-content{display:block;}
+	.header{width:80%;height:60px;margin-top:15px;}
+.header img{width:200px;height:90%;padding-left:1%;}
+.m-content{width:100%;height:auto;}
+.m-content-left{width:82%;margin-top:10px;height:auto;color:#FFF;font-size:30px;font-family:"Times New Roman";line-height:50px;}
+.m-content-right{width:80%;height:370px;background-color:rgba(255,255,255,0.1);}
+#question{background:none;width:200px;height:30px;font-size:14px;color:#999;margin-left:-3px;}
+#question option{background: #483F4D;font-size:14px;}
+.footer {
+	margin-top: 70px;
+	height: 40px;
+	line-height: 40px;
+	text-align:center;
+	background-color: rgba(0, 0, 0, 0.7);
+}}	
+@media (max-width:375px){
+	.content{display:none}
+	.m-content{display:block;}
+	.header{width:100%;height:60px;margin-top:15px;}
+.header img{width:200px;height:90%;padding-left:1%;}
+.m-content{width:100%;height:auto;margin:0 auto;}
+.m-content-left{width:100%;text-align:center;margin-top:10px;height:auto;color:#FFF;font-size:30px;font-family:"Times New Roman";margin-left:1%;line-height:50px;}
+.m-content-right{width:85%;height:370px;background-color:rgba(255,255,255,0.1);}
+#question{background:none;width:200px;height:30px;font-size:14px;color:#999;margin-left:-3px;}
+#question option{background: #483F4D;font-size:14px;}
+.footer {
+	margin-top: 70px;
+	height: 40px;
+	line-height: 40px;
+	text-align:center;
+	background-color: rgba(0, 0, 0, 0.7);
+}}	
+
+

@@ -1,0 +1,531 @@
+@import "common/base.css";
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    font: 100% "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #999;
+    background-image: url(../images/background.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: #464646;
+}
+
+.u-container {
+    width: 70%;
+    margin: auto;
+}
+
+/*header*/
+.u-header {
+    padding: 15px 10px 10px;
+}
+
+.u-header .logo {
+    width: 200px;
+}
+
+.u-header .login-status {
+    width: 232px;
+    margin-top: 16px;
+}
+
+.u-header .avatar-wrapper {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.u-header .avatar {
+    margin-top: -5px;
+    width: 42px;
+    height: 42px;
+}
+
+.u-header .dropdown {
+    margin-right: 10px;
+}
+
+.u-header .dropdown-menu {
+    left: -8px;
+    min-width: 80px;
+}
+
+.u-header .dropdown-menu:before {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 15px;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-bottom: 8px solid #fff;
+    border-right: 4px solid transparent;
+}
+
+.u-header .dropdown-menu-right {
+    left: auto;
+    right: -8px;
+}
+
+.u-header .dropdown-menu-right:before {
+    left: auto;
+    right: 15px;
+}
+
+.header-btn {
+    display: block;
+    border: none;
+    background-color: rgba(255, 255, 255, 0);
+    color: #fff;
+    position: relative;
+}
+
+.header-btn i {
+    display: block;
+    width: 25px;
+    height: 25px;
+    font-size: 18px;
+    opacity: 0.8;
+}
+
+.header-btn .redpoint {
+    position: absolute;
+    right: -10px;
+    top: -10px;
+}
+
+.u-header .new-post-wrapper {
+    margin-left: 5px;
+}
+
+.u-header .new-post {
+    display: block;
+    width: 90px;
+    height: 32px;
+    font-size: 14px;
+    background-image: url(../images/01-home-login.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    color: #fff;
+    text-align: center;
+    line-height: 32px;
+}
+
+.redpoint {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.redpoint i {
+    display: inline-block;
+    height: 22px;
+    line-height: 22px;
+    min-width: 22px;
+    width: auto;
+    padding: 0 3px;
+    font-size: 12px;
+    text-align: center;
+    color: #fff;
+    background-color: #ec6200;
+    opacity: 1;
+    border-radius: 11px;
+}
+
+/*/header*/
+
+.u-main {
+    padding: 0;
+    border: 0;
+    min-height: 620px;
+}
+
+.u-main-title {
+    height: 70px;
+    line-height: 70px;
+    color: #000;
+}
+
+.u-main-content {
+    width: 100%;
+    min-height: 550px;
+    margin: 0;
+    margin-bottom: 70px;
+    background-color: #fff;
+}
+
+.u-main-content .u-video-container div:nth-child(1) {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.u-main-content .u-video-desc {
+    padding-left: 20px;
+    padding-right: 30%;
+}
+
+.u-video-desc .video-title {
+    color: #000;
+}
+
+.u-video-desc > p {
+    margin: 15px 0;
+    font-size: 16px;
+}
+
+.u-video-comment {
+    overflow: hidden;
+}
+
+.u-video-comment ul .list-group-item {
+    width: 80%;
+}
+
+.u-video-comment ul .list-group-item:nth-child(1) {
+    width: 100%;
+}
+
+.comment-info {
+    padding-left: 15px;
+    margin: 15px 0;
+}
+
+.comment-info li {
+    margin-right: 10px;
+}
+
+.comment-info li .like {
+    color: #f95777;
+}
+
+.comment-info li .save {
+    color: #f7ca3a;
+}
+
+.comment-info li p {
+    font-size: 15px;
+}
+
+.comment-info li a {
+    color: #bebebe;
+}
+
+.comment-info li, .comment-info li span {
+    display: inline-block;
+}
+
+.comment-info li i {
+    font-size: 25px;
+}
+
+.u-new-comment > form {
+    width: 100%;
+    padding: 0 20px;
+    border: 1px solid #a4a5a5;
+}
+
+.u-new-comment > form div:nth-child(1) a {
+    display: inline;
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    margin-left: 15px;
+}
+
+.u-new-comment > form button {
+    margin: 10px 0;
+}
+
+.u-icon {
+    padding: 0;
+}
+
+.u-icon > div > img {
+    width: 70px;
+    height: 70px;
+}
+
+.u-icon .username {
+    margin: 8px auto;
+}
+
+.add, .message {
+    width: 70px;
+    padding: 5px;
+    display: block;
+    margin: auto;
+    margin-bottom: 3px;
+    border: 1px solid #dddddd;
+    text-decoration: none;
+}
+
+
+.u-comment-content {
+    min-height: 160px;
+}
+
+.u-comment-content .u-comment-text {
+    font-size: 14px;
+    min-height: 140px;
+}
+
+.u-comment-foot {
+    width: 100%;
+    text-align: right;
+    margin-top: 10px;
+}
+
+.u-comment-foot {
+    display: inline-block;
+}
+
+.replyButton {
+    padding: 2px 3px 0 3px;
+}
+
+.u-comment-foot .fa {
+    font-size: 15px;
+}
+
+.u-comment-foot .u-reply {
+    margin-top: 8px;
+    border: 1px solid #dfdfdf;
+    padding: 10px 10px 30px 15px;
+    display: none;
+}
+
+.u-comment-foot .u-reply .media {
+    border-bottom: 1px solid #dfdfdf;
+    padding: 5px 0;
+}
+
+.u-reply .media .media-left > img {
+    width: 40px;
+    height: 40px;
+}
+
+.u-reply .u-second-level-reply {
+    width: 100%;
+    text-align: left;
+}
+
+.u-reply .u-second-level-info {
+    width: 100%;
+    text-align: right;
+}
+
+.u-reply .u-second-level-control > span {
+    margin-top: 25px;
+}
+
+.u-second-level-new-comment {
+    text-align: left;
+}
+
+.u-second-level-new-comment button {
+    margin-top: 15px;
+}
+
+.u-new-comment > form {
+    width: 100%;
+    padding: 0 20px;
+    border: 1px solid #a4a5a5;
+}
+
+.u-new-comment > form div:nth-child(1) a {
+    display: inline;
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    margin-left: 15px;
+}
+
+.u-new-comment > form button {
+    margin: 10px 0;
+}
+
+/*footer*/
+.footer {
+    margin-top: 70px;
+    width: 100%;
+    height: 43px;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3f000000', endColorstr='#3f000000');
+    background-color: rgba(0, 0, 0, .4);
+    z-index: 7;
+}
+
+.footer .vote {
+    width: 40%;
+    height: 43px;
+    float: left;
+    padding-left: 40px;
+    position: relative;
+    z-index: 9;
+}
+
+.footer span {
+    height: 43px;
+    line-height: 43px;
+    font-size: 16px;
+    color: #fff;
+    display: inline-block;
+    margin-right: 12px;
+    margin-left: 1px;
+}
+
+.footer i {
+    font: 400 15px/15px "SimSun";
+    display: inline-block;
+    position: relative;
+    top: -3px;
+    right: -5px;
+    overflow: hidden;
+    height: 7px;
+    width: 15px;
+    z-index: 0;
+}
+
+.footer s {
+    position: absolute;
+    display: block;
+    top: 1px;
+    right: -2px;
+    color: #fff;
+    font-size: 20px;
+}
+
+.footer .video {
+    width: 32%;
+    height: 43px;
+    float: right;
+}
+
+.footer .w {
+    position: relative;
+    z-index: 8;
+}
+
+.footer .vote {
+    position: relative;
+}
+
+.vote .voteBox {
+    overflow: hidden;
+    width: 620px;
+    height: 0;
+    /*height: 314px;*/
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: #0b080a;
+    z-index: 10;
+}
+
+.vote .voteBox dl {
+    height: 100%;
+    padding-left: 10px;
+}
+
+.vote .voteBox dt {
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    font-family: "Microsoft YaHei", "微软雅黑";
+    font-size: 16px;
+    color: #fff;
+}
+
+.vote .voteBox span {
+    height: auto;
+}
+
+.vote .voteBox .dot {
+    width: 30px;
+    position: absolute;
+    font-size: 30px;
+    top: 0;
+    right: 10px;
+}
+
+.vote .voteBox dd {
+    width: 100%;
+    height: 60px;
+    font-family: "方正兰亭超细黑简体", "微软雅黑";
+    font-size: 14px;
+    color: #d5d5d5;
+}
+
+.vote .votePanel {
+    height: 100%;
+}
+
+.vote dd img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.vote dd span {
+    float: right;
+    margin-right: 15px;
+}
+
+.vote dd a {
+    font-family: "方正兰亭超细黑简体", "Microsoft YaHei";
+    font-size: 16px;
+    line-height: 16px;
+    color: #fff;
+}
+
+.footer .video {
+    position: relative;
+    z-index: 1;
+}
+
+.video .videoBox {
+    overflow: hidden;
+    width: 410px;
+    height: 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: #000000;
+    z-index: 2;
+}
+
+.vote .votePanel a {
+    height: 43px;
+}
+
+.video .videoPanel a {
+    height: 43px;
+}
+
+.likeIt {
+    cursor: pointer;
+    user-select: none;
+    -moz-user-select: none; /*火狐*/
+    -webkit-user-select: none; /*webkit浏览器*/
+    -ms-user-select: none; /*IE10*/
+}
+
+.like {
+    color: red;
+}
+
+/*bootstrap*/
+.divider {
+    margin: 0 !important;
+}
+
+.u-comment-foot .dropdown {
+    display: inline;
+}
+
+.list-group-item {
+    border-right: 0;
+}

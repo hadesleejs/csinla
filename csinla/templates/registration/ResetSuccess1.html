@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+{% load static %}
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalabe=no">
+    <title>重置成功</title>
+    <link rel="shortcut icon" href="/static/images/logo1.png">
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-97624179-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+    <!-- Bootstrap -->
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">  
+    <link href="{% static "css/RegisterSuccess.css" %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static "css/font-awesome.min.css" %}"> 
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+   
+  </head>
+  <body>
+  <!-- 顶部部分开始 -->
+      <div class="u-container">
+    <div class="u-header clearfix">
+        <div class="logo fl">
+            <a href="/"><img class="img-responsive" src="{% static "images/01-home-logo.png" %}" alt="logo"></a>
+        </div>
+
+    </div>
+    <div class="header w">
+        
+        <a href="/" class="home-link">
+            <div class="logo">
+                <img src="{% static "images/home-logo.png" %}" alt="" class="img-responsive">
+            </div>
+        </a>
+        
+        
+    </div> 
+      <div class="content">
+          <div class="content-left">
+              <span>"Hey, don't forget it again.<br>
+                        &nbsp;We are friend, ain't we"</span>
+          </div>
+          <div class="content-right">
+              <div>
+                  <a href="#"><input type="image" src="{% static "images/back-icon.png" %}" onclick="window.location.href='../register'" style="width:25px; height: 25px;margin:10px;"></a>
+              </div>
+              <div style="width:100%;text-align:center;margin-top:40px;">
+                  <img src="{% static "images/success.png" %}" style="width:60px;height:57px;"></a>
+              </div>
+              <div style="color:#FFF;font-size:28px;font-family:'Times New Roman';text-align:center;">
+                  <div style="margin-top:5px;letter-spacing:1.5px;">Congradulations!</div>
+                  <div style="font-size:14px;font-family:'宋体';margin-top:10px;">重置成功！欢迎进入<span style="font-size:16px;">CSinLA.com</span></div>
+                  
+              </div>
+              <div style="text-align:center;margin-top:50px;padding-bottom:50px;"><input style="width:60%;height:40px;border:0;border-radius:20px;font-size:18px;color:#fff;font-family:'Times New Roman';background-image:url(/static/images/01-home-login3.png);" type="button" value="Login" onClick="window.location='/accounts/login/'" /></div>
+          </div>
+      </div>
+       <div class="m-content">
+          <div class="m-content-left">
+             <span>"Hey, don't forget it again.<br>
+                        &nbsp;We are friend, ain't we"</span>
+          </div>
+          <div class="m-content-right">
+              <div>
+                  <a href="#"><input type="image" src="{% static "images/back-icon.png" %}" style="width:25px; height: 25px;margin:10px;"></a>
+              </div>
+              <div style="width:100%;text-align:center;margin-top:40px;">
+                  <img src="{% static "images/success.png" %}" style="width:60px;height:57px;"></a>
+              </div>
+              <div style="color:#FFF;font-size:28px;font-family:'Times New Roman';text-align:center;">
+                  <div style="margin-top:5px;letter-spacing:1.5px;">Congradulations!</div>
+                <div style="font-size:14px;font-family:'宋体';margin-top:10px;">重置成功！欢迎进入<span style="font-size:16px;">CSinLA.com</span></div> 
+              
+             <div style="text-align:center;margin-top:50px;padding-bottom:50px;"><input style="width:60%;height:40px;border:0;border-radius:20px;font-size:18px;color:#fff;font-family:'Times New Roman';background-image:url(/static/images/01-home-login3.png);" type="button" value="Login" onClick="window.location='/accounts/login/'" /></div>
+          </div>
+      </div>
+     
+     
+     <div style="margin-top:50px;"></div>
+     
+     
+
+       
+       
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{% static "js/jquery.min.js" %}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+default_app_config  = 'csinla_accounts.apps.Csinla_accountsConfig'

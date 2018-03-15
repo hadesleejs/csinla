@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+{% load static %}
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="ie-stand">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalabe=no">
+    <link rel="shortcut icon" href="/static/images/logo1.png">
+    <title>二手书</title>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-97624179-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?6784d0adea487eefbe595d28dbb08efb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+ {{ form.media }}
+ 
+    <!-- Bootstrap -->
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">  
+    <link href="{% static "css/EditNewPosts.css" %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static "css/font-awesome.min.css" %}"> 
+    <link rel="stylesheet" type="text/css" href="{% static "css/awesome-bootstrap-checkbox.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/flatpickr.min.css" %}">
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+   <!--  <script type="text/javascript" charset="utf-8" src="../umeditor.config.js"></script>  
+      -->
+    <!--使用版-->  
+    <!--<script type="text/javascript" charset="utf-8" src="../umeditor.all.js"></script>-->  
+  
+    <!--开发版-->  
+   <!--  <script type="text/javascript" charset="utf-8" src="{% static "editor_api.js" %}"></script>  
+    <script type="text/javascript" src="../lang/zh-cn/zh-cn.js"></script>  -->
+   
+  </head>
+  <body>
+  <!-- 顶部部分开始 -->
+      <div class="u-container">
+{% if request.user.is_authenticated %}
+    <div class="u-header clearfix">
+        <div class="logo fl">
+            <a href="/"><img class="img-responsive" src="{% static "images/01-home-logo.png" %}" alt="logo"></a>
+        </div>
+        <div class="login-status fr">
+            <div class="avatar-wrapper">
+              <a href="{% url "accounts:myPosts" %}">
+                <img src={{ user.avatar_url }} class="img-circle avatar" alt="Cinque Terre">
+              </a>
+            </div>
+            <div class="dropdown" style="display:inline-block;">
+                <button class="header-btn dropdown-toggle" type="button" data-toggle="dropdown">
+                    <i class="fa fa-cog" aria-hidden="true"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li><a href="{% url 'accounts:accountSecurity' %}">账户安全</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <!-- <li><a href="#">人工申述</a></li>
+                    <li role="presentation" class="divider"></li> -->
+                    <li><a href="{% url 'accounts:myhelpcenter' %}">联系我们</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="{% url 'accounts:logout' %}">登出</a></li>
+                </ul>
+            </div>
+            <div class="dropdown" style="display:inline-block;">
+                <a href="{% url "accounts:myInfo" %}" class="header-btn dropdown-toggle">
+                    <i class="fa fa-bell-o" aria-hidden="true"></i>
+                    {% if user.unread_message %}<span class="redpoint"><i>{{ user.unread_message }} </i></span>{% endif %}
+                </a>
+               <!--  <ul class="dropdown-menu">
+                    <li><a href="#">我的私信<span class="redpoint"><i>2</i></span></a>
+                    </li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="#">我的回复<span class="redpoint"><i>99+</i></span></a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="#">查看@提到我<span class="redpoint"><i>12</i></span></a></li>
+                </ul> -->
+            </div>
+            <div class="new-post-wrapper fr">
+                <a class="new-post" href="/posts/add">
+                    <span>发表新帖</span>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="header w">
+        <a href="#" class="mobile-nav-btn pull-right"><i class="fa fa-bars" aria-hidden="true"></i></a>
+        <a href="/" class="home-link">
+            <div class="logo">
+                <img src="{% static "images/home-logo.png" %}" alt="" class="img-responsive">
+            </div>
+        </a>
+    <div class="user">
+            <a href="#" class="remove-nav pull-right"><img src="{% static "./images/times.png" %}" alt="" class="img-responsive"></a>
+            <a href="/" class="home-nav-item special">
+                <span>首页</span>
+            </a>
+            <a href="/posts/add" class="home-nav-item special">
+                <span>发表新帖</span>
+            <a href="{% url "accounts:myPosts" %}" class="home-nav-item special">
+                <span>个人中心</span>
+            </a>
+         <!--    <a href="{% url "accounts:accountSecurity" %}" class="home-nav-item has-sub-item">
+                <span>设置</span>
+            </a> -->
+            
+            <a href="{% url 'accounts:logout' %}"  class="home-nav-item special">
+                <span>Sign out</span></a>
+            
+            </a>
+        </div>
+    {% else %}
+    <div class="u-header clearfix">
+        <div class="logo fl">
+            <a href="/"><img class="img-responsive" src="{% static "images/01-home-logo.png" %}" alt="logo"></a>
+        </div>
+        <div class="user" style="margin-top:18px;text-align:right;">
+            <a href="{% url 'accounts:login' %}" class="login home-nav-item">
+                <span>Log in</span>
+                <img src="{% static "images/home-login.png" %}" alt="">
+            </a>
+            <a href="{% url 'accounts:register' %}" class="register home-nav-item" style="margin-left:10px;">
+                <span>Register</span>
+                <img src="{% static "images/home-register.png" %}" alt="">
+            </a>
+
+        </div>
+
+    </div>
+    <div class="header w">
+        <a href="#" class="mobile-nav-btn pull-right"><i class="fa fa-bars" aria-hidden="true"></i></a>
+        <a href="/" class="home-link">
+            <div class="logo">
+                <img src="{% static "images/home-logo.png" %}" alt="" class="img-responsive">
+            </div>
+        </a>
+        
+        <div class="user">
+            <a href="#" class="remove-nav pull-right"><img src="{% static "./images/times.png" %}" alt="" class="img-responsive"></a>
+            <a href="/" class="home-nav-item special">
+                <span>首页</span>
+            </a>
+            
+            
+            <a href="{% url 'accounts:login' %}" class="login home-nav-item">
+                <span>Log in</span>
+                <img src="{% static "images/home-login.png" %}" alt="">
+            </a>
+            <a href="{% url 'accounts:register' %}" class="register home-nav-item">
+                <span>Register</span>
+                <img src="{% static "images/home-register.png" %}" alt="">
+            </a>
+            <!-- <a href="#" class="home-nav-item special">
+                <span>Live and Love</span>
+            </a> -->
+        </div>
+
+       {% endif %}
+    </div> 
+        
+
+     <!-- 顶部部分结束 -->
+     <!-- 个人中心内容开始 -->
+     <div class="content" style="border-radius:10px;background-color:#fff;">
+      <!-- <input type="image" src="{% static "images/back-icon1.png" %}" onclick="window.history.back();" style="width:25px; height: 25px;margin:10px;position:absolute;"> -->
+      <div id="pageurl"><a href="/">首页</a> <img src="{% static "images/url-lef.png" %}"> <a href="/posts/add">发帖中心</a> <img src="{% static "images/url-lef.png" %}">  <a href="">二手书</a></div>
+          <div class="content-title">
+          二手书
+          </div>
+         <div class="edit-content">
+            <form class="rentForm" method="post" action=""  id="uploadForm" enctype="multipart/form-data" onsubmit="return usedGoodsadd()">
+              {% csrf_token %}{% for error in errors %}{{error}}{%endfor%}
+            <div class="edit-content-title">
+              <img src="{% static "images/steps-icon.png" %}">
+            </div>
+            <div class="edit-content-point">
+              <img src="{% static "images/point2.jpg" %}">
+            </div>
+            <input id="book_detail_str" name="book_detail_str" value="{{ item.name }}" style="display:none">
+            <div class="edit-content-form" style="clear:both;">
+                <label class="checkbox" style="text-align:center;margin-left:-17px;"><span style="color:red">*</span>标题：</label>
+                <input type="text" name="title" id="title" style="width:35%;margin-left:49px;margin-top:20px;" {% if form.title.value %} value="{{ form.title.value }}" {% endif %}>{{ form.title.errors }}
+                <!--{{ rentForm.title}}-->
+             
+            </div>
+             <!-- <div class="edit-content-form" style="clear:both">
+                 <label class="checkbox check-title" style="text-align:center;margin-top:-5px"><span style="color:red">*</span>书籍名称：</label>
+                 <input type="text" class="name_text" id="bookname" value="{{ first_item.name }}" style="width:10%;margin-left:0px;margin-top:5px;">
+                  <span id="addtxt"></span><a href="javascript:" id="addgoods" onclick="add()"><img src="/static/images/add.png"></a>
+            </div>
+            <div class="edit-content-form" style="clear:both">
+                  <label class="checkbox check-title" style="text-align:center;margin-top:-5px"><span style="color:red">*</span>商品价格：</label>
+                  <input type="text" class="price_text" id="price" value="{{ first_item.price }}" style="width:10%;margin-left:0px;margin-top:5px;">
+                  <span id="addprice"></span>
+            </div>
+            <div class="edit-content-form" style="clear:both">
+                 <label class="checkbox check-title" style="text-align:center;margin-top:-5px"><span style="color:red">*</span>ISBN：</label>
+                 <input type="text" class="isbn_text" id="ISBN" value="{{ first_item.isbn }}" style="width:35%;margin-left:27px;margin-top:5px;">
+                 <div id="addisbn" style="margin-left:113px;width:35%"></div>
+            </div> -->
+             <div id="myCarousel" class="carousel slide">
+  <!-- 轮播（Carousel）指标 -->
+  <ol class="carousel-indicators" id="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active" style="margin-bottom: -40px;background-color:#000"></li>
+    {% for item in item_list %}
+        <li data-target="#myCarousel" id="li_{{ item.item_value.id }}" data-slide-to="{{item.item_index}}" style="margin-bottom: -40px;background-color:#000"></li>
+    {% endfor %}
+    <!-- <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li> -->
+  </ol>   
+  <!-- 轮播（Carousel）项目 -->
+  <div class="carousel-inner" id="carousel-inner">
+    <div class="item active">
+      <div class="edit-content-form" style="clear:both">
+                 <label class="checkbox check-title" style="text-align:center;margin-top:-5px"><span style="color:red">*</span>书籍名称：</label>
+                 <input type="text" class="name_text" id="bookname" value="{{first_item.name}}" style="width:35%;margin-left:0px;margin-top:5px;">
+                 <a href="javascript:"><img src="/static/images/add.png" onclick="add()"></a>
+            </div>
+            <div class="edit-content-form" style="clear:both">
+                  <label class="checkbox check-title" style="text-align:center;margin-top:-5px"><span style="color:red">*</span>商品价格：</label>
+                  <input type="text" class="price_text" id="price" value="{{first_item.price}}" style="width:10%;margin-left:0px;margin-top:5px;">
+                  <input type="text" value={{first_item.id}} class="iddd1" style="display:none">
+                  
+            </div>
+            <div class="edit-content-form" style="clear:both">
+                 <label class="checkbox check-title" style="text-align:center;margin-top:-5px;margin-left: 8px;">ISBN：</label>
+                 <input type="text" class="isbn_text" id="ISBN" value="{{first_item.isbn}}" placeholder="选填项" style="width:35%;margin-left:27px;margin-top:5px;">
+                 
+            </div>
+    </div>
+    {% for item in item_list %}
+      <div class="item" id="div_{{ item.item_value.id }}">
+          <div class="edit-content-form" style="clear:both;">
+              <label class="checkbox" style="text-align:center;margin-left:-17px;margin-top:-5px"><span style="color:red">*</span>书籍名称：</label>
+              <input type="text" name="goodsname" class="div_" id="goodsname" style="width:35%;margin-left:17px;margin-top:5px" value="{{ item.item_value.name }}"><span id="addtxt"></span> <a href="javascript:" id=""><img src="/static/images/add.png" onclick="add()"></a><a href="javascript:" id=""><img src="/static/images/useddel.png" onclick="del({{ item.item_value.id }})"></a>
+          </div>
+           <div class="edit-content-form" style="clear:both;">
+              <label class="checkbox" style="text-align:center;margin-left:-17px;margin-top:-5px"><span style="color:red">*</span>商品价格：</label>
+              <input type="text" name="price" onkeyup="math({{ item.item_value.price }})" id="price_{{ item.item_value.price }}" class="price_" style="width:10%;margin-left:17px;margin-top:5px;" value="{{ item.item_value.price }}"><span id="addprice"></span>
+                           <input type="text" value={{item.item_value.id}} class="iddd" id="inp_{{item.item_value.id}}" style="display:none">
+<!--                     <input type="text" value={{item.id}} class="idd" style="display:none">
+ -->
+          </div>
+          <div class="edit-content-form" style="clear:both">
+                 <label class="checkbox check-title" style="text-align:center;margin-top:-5px;margin-left: 8px;">ISBN：</label>
+                 <input type="text" class="isbn_text isbn_" id="ISBN" placeholder="选填项" value="{{item.item_value.isbn}}" style="width:35%;margin-left:27px;margin-top:5px;">
+            </div>
+      </div>
+    {% endfor %}
+  </div>
+  <!-- 轮播（Carousel）导航 -->
+   <a class="carousel-control left" href="#myCarousel" 
+     data-slide="prev" style="background:#fff;background: url(/static/images/carouselleft.png) no-repeat;background-position: center left;"></a>
+  <a class="carousel-control right" href="#myCarousel" style="background:#fff;background: url(/static/images/carouselright.png) no-repeat;background-position: center center;" data-slide="next"></a>
+</div> 
+ <!-- <div class="edit-content-form" style="clear:both;">
+                <label class="checkbox" style="margin-top:-5px;text-align:center;margin-left:-17px;"><span style="color:red">&nbsp;</span>商品标签：</label>
+                {{form.tags}} -->
+                <!--{{ rentForm.title}}-->
+       <!--      </div>
+ -->           <div class="edit-content-form"  style="clear:both">
+                <label class="checkbox check-title" style="margin-top:-5px;font-family:'微软雅黑';text-align:center;"><span style="color:red">*</span>地区:</label> 
+                <div class="radio" style="margin-left:42px;">
+                  <input type="radio" id="loc1" class="" name="district1" onclick="showinput()" value="USC" {% if form.district.value == "USC" %} checked {% endif %}>
+                  <label for="loc1" class="form-con">USC</label>
+                </div>
+               <div class="radio">
+                 <input type="radio" id="loc2" name="district1" onclick="showinput()" value="SMC" {% if form.district.value == "SMC" %} checked {% endif %}>
+                 <label for="loc2" class="form-con">SMC</label> 
+                </div> 
+                <div class="radio">
+                 <input type="radio" id="loc7" name="district1" onclick="showinput()" value="UCLA" {% if form.district.value == "UCLA" %} checked {% endif %}>
+                 <label for="loc7" class="form-con">UCLA</label> 
+                </div>      
+                <div class="radio">
+                  <input type="radio" id="loc6" class="" onclick="showinput()" name="district1" value="UCSB" {% if form.district.value == "UCSB" %} checked {% endif %}>
+                  <label for="loc6" class="form-con">UCSB</label>
+                </div>
+                <div class="radio">
+                 <input id="loc3" type="radio" name="district1" onclick="showinput()" value="UCSD" {% if form.district.value == "UCSD" %} checked {% endif %}>
+                 <label for="loc3" class="form-con">UCSD</label> 
+                </div> 
+                <div class="radio">
+                 <input id="loc4" type="radio" name="district1" onclick="showinput()" value="UCI" {% if form.district.value == "UCI" %} checked {% endif %}>
+                 <label for="loc4" class="form-con">UCI</label> 
+                </div> 
+                <div class="radio">
+                 <input id="loc8" type="radio" name="district1" onclick="showinput()" value="ELAC" {% if form.district.value == "ELAC" %} checked {% endif %}>
+                 <label for="loc8" class="form-con">ELAC</label> 
+                </div> 
+                <div class="radio">
+                 <input id="loc9" type="radio" name="district1" onclick="showinput()" value="PCC" {% if form.district.value == "PCC" %} checked {% endif %}>
+                 <label for="loc9" class="form-con">PCC</label> 
+                </div>  
+                <div class="radio">
+                 <input id="loc5" type="radio" name="district1" onclick="showinput()" value="OTHER" {% if form.district.value == "OTHER" %} checked {% endif %}>
+                 <label for="loc5" class="form-con">OTHER</label> 
+                 <input type="text" name="district" id="loc5txt" style="display:none;position:absolute;margin-top:7px;margin-left:10px;width:80px;" value={{ form.district.value}}>
+                </div>  
+  {{ form.district.errors }}
+            </div>
+            
+
+          
+
+           
+            <!-- <div class="edit-content-form" style="clear:both;">
+                <label class="checkbox" style="margin-top:-5px;text-align:center;margin-left:-12px;"> --><!-- <span style="color:red">*</span> --><!-- 具体地址：</label> -->
+                <!-- <input type="text" id="address" name="address" style="width:35%;margin-left:19px;" {% if form.address.value %} value="{{ form.address.value }}" {% endif %}> --><!-- {{ rentForm.address.errors }}  --> 
+                <!--{{ rentForm.contactor}}-->
+            <!-- </div> -->
+
+            <div class="edit-content-form" style="clear:both;">
+                <label class="checkbox" style="margin-top:-5px;text-align:center;margin-left:-18px;"><span style="color:red">*</span>联系人：</label>
+                <input type="text" id="connect_name" name="connect_name" style="width:35%;margin-left:35px;" {% if form.connect_name.value %} value={{ form.connect_name.value }} {% else %} {% if user.is_name %}value={{ user.username }} {% endif %} {% endif %}>{{ form.connect_name.errors }}  
+                <!--{{ rentForm.contactor}}-->
+            </div>
+
+             <!--<div class="edit-content-form" style="clear:both;">
+                <label class="checkbox" style="margin-top:-5px;text-align:center;margin-left:-18px;">联系方式：</label>
+                 <input type="text" name="contact_way" style="width:50%;margin-left:19px;" {% if rentForm.contact_way.value %} value={{ rentForm.contact_way.value }} {% endif %}> {{ rentForm.contact_way.errors }}
+            </div>-->
+
+            <div class="edit-content-form" style="clear:both;">
+                <label class="checkbox" style="margin-top:-5px;text-align:center;margin-left:-18px;"><span style="color:red">*</span>联系电话：</label>
+                 <input type="text" id="connect_phone" name="connect_phone" style="width:35%;margin-left:19px;" {% if form.connect_phone.value %} value={{ form.connect_phone.value }}{% else %} {% if user.is_phone %}  value={{ user.phone }} {% endif %}{% endif %}>{{ form.connect_phone.errors }}
+                  {% if not user.is_phone %}<a href="{% url "accounts:accountSecurity" %}" style="font-size:12px">设置发帖时自动填写</a>{% endif %}
+            </div>
+            <div class="edit-content-form" style="clear:both;">
+                <label class="checkbox" style="margin-top:-5px;text-align:center;margin-left:-18px;"><span style="color:red">*</span>联系微信：</label>
+                 <input type="text" id="connect_wx" name="connect_wx" style="width:35%;margin-left:19px;" {% if form.connect_wx.value %} value={{ form.connect_wx.value }}{% else %}{% if user.is_weixin %}value={{ user.weixin }}{% endif %}{% endif %}>{{ form.connect_wx.errors }}
+                {% if not user.is_weixin %}<a href="{% url "accounts:accountSecurity" %}" style="font-size:12px">设置发帖时自动填写</a>{% endif %}
+     
+            </div>
+            <!-- <div class="edit-content-form he" id="pcxx" style="clear:both;margin-bottom:50px;"> --><!-- height:300px; -->
+               <!--  <label class="checkbox" style="margin-top:-5px;text-align:center;margin-left:-18px;margin-right:15px;"><span style="color:red">*</span>详细内容：</label>
+              -->
+         <!-- {{ form.Name }} {{ form.Name.errors }} -->
+<!--           {{ form.content_detail }} {{ form.content_detail.errors }}
+ -->        
+           
+             
+                <!--{{ rentForm.content }}-->
+         <!--    </div> -->
+           
+ <div class="edit-content-form he" style="clear:both;">
+                <label class="checkbox" style="margin-top:-5px;text-align:center;margin-left:-18px;margin-right:15px;"><span style="color:red">&nbsp;</span>详细内容：</label>
+                <textarea name="content" id="myEditor" style="width:40%;height:280px;margin-left:4px;">{% if form.content.value %} {{ form.content.value }} {% endif %} </textarea> {{ form.content.errors }}
+            </div>
+            <div class="edit-content-form photo" style="clear:both;border:1px solid #ccc;">
+                <label class="checkbox" style="margin-top:-5px;text-align:left;width:90%;font-size:14px;">预览照片：</label>
+               
+                
+                
+
+                <ul id="dd" class="photo-img" style="width:90%;margin:0 auto;">
+             {% for pic in pictures %}
+            <li class="upload_append_list" id="uploadList_{{ pic.image.url }}">
+                 <a href="javascript:" class="upload_delete" title="删除">   
+                     <img src="/static/images/imgdele.png" style="height:16px">
+                 </a>
+                 <br />
+                 <img src={{ pic.image.url }} alt="" class="upload_image" style="width:auto;height:auto;max-width:100%;max-height:100%;"/>
+            </li>
+
+            
+            {% endfor %}
+                </ul>
+                
+                <label for="avatar-selector" class="avatar-btn ac">
+                   
+                   <input type="file" class="form-control" name="image" id="avatar-selector" accept="image/*"  multiple="multiple" style="padding: 0px;display:none" placeholder="&nbsp;上传文件">
+                   <div style="color:#000;border:1px solid #CCC;border-radius:5px;background-color:#FFF; width:90%;margin: 0 auto; height:30px;font-size:14px;text-align:center;line-height:30px;cursor:pointer;margin-top:50px;clear: both;">本地上传</div> 
+
+                </label>
+    
+    
+        
+  
+                   <input type="button" value="网络上传" style="color:#000;border:1px solid #ccc;border-radius:5px;background-color:#FFF; width:90%;margin-top:-100px;height:30px;font-size:14px;margin-top:5px;">
+                   <div id="dd1" style="margin-top:5px;text-align:center;width:90%;font-size:14px;;margin-bottom:5px;">
+                   
+                   </div>
+            </div>
+
+                 
+
+                  <div class="btn but" style="text-align:center;">
+
+                  
+                  <input type="button" id="push1" class="save-form" value="发表">      
+
+                   <a href="{% url "posts:listrent" %}"><button type="button" class="cancel-form">取消</button></a>    </div>  
+             </form>
+             <!-- <form> -->
+            
+<!-- =======
+                  <button type="reset" class="cancel-form">取消</button>   
+            </form> -->
+            <form method="post" action="" enctype="multipart/form-data">{% csrf_token %}
+<!-- >>>>>>> 54ec6ad6868bd5a474823d205cbeabcad01a01f8 -->
+            {% for error in errors %}{{error}}{%endfor%}
+            <div class="m-edit-content-form" style="clear:both;">
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;"><span style="color:red">*</span>标题：</label>
+               
+                <input type="text" name="title" id="mtitle" style="width:50%;margin-left:3px;margin-top:20px;height:30px;" {% if form.title.value %} value="{{ form.title.value }}" {% endif %}>
+                  
+            </div>
+            <input id="mbook_detail_str" name="book_detail_str" value="{{ item.name }}" style="display:none">
+             <div id="myCarousel2" class="carousel slide">
+  <!-- 轮播（Carousel）指标 -->
+  <ol class="carousel-indicators" id="carousel-indicators2">
+    <li data-target="#myCarousel2" data-slide-to="0" class="active" style="margin-bottom: -40px;background-color:#000"></li>
+    {% for item in item_list %}
+        <li data-target="#myCarousel2" id="mli_{{ item.item_value.id }}" data-slide-to="{{item.item_index}}" style="margin-bottom: -40px;background-color:#000"></li>
+    {% endfor %}
+    <!-- <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li> -->
+  </ol>   
+  <!-- 轮播（Carousel）项目 -->
+  <div class="carousel-inner" id="carousel-inner2">
+    <div class="item active">
+     <div class="m-edit-content-form" style="clear:both;">
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;"><span style="color:red">*</span>书籍名称：</label>
+              <input type="text" name="bookname" id="mbookname" style="width:50%;margin-left:3px;margin-top:20px;height:30px;" value="{{first_item.name}}"><a href="javascript:" id=""><img src="/static/images/add.png" onclick="madd()"></a>
+              <input type="text" value={{first_item.id}} class="middd1" style="display:none">
+            </div>
+             <div class="m-edit-content-form" style="clear:both;">
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;"><span style="color:red">*</span>书籍价格：</label>
+               
+                <input type="text" name="price" id="mprice" style="width:50%;margin-left:3px;margin-top:20px;height:30px;" value="{{first_item.price}}" style="width:10%;margin-left:0px;margin-top:5px;">
+                  
+            </div>
+            <div class="m-edit-content-form" style="clear:both;">
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;"><span style="color:red">&nbsp;</span>ISBN：</label>
+               
+                <input type="text" name="isbn" id="mISBN" placeholder="选填项" style="width:50%;margin-left:3px;margin-top:20px;height:30px;font-size:14px;color:#000" value="{{first_item.isbn}}">
+                 
+            </div>
+    </div>
+    {% for item in item_list %}
+      <div class="item" id="mdiv_{{ item.item_value.id }}">
+          <div class="m-edit-content-form" style="clear:both;">
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;"><span style="color:red">*</span>书籍名称：</label>
+              <input type="text" name="bookname" class="mdiv_" id="mbookname" style="width:50%;margin-left:3px;margin-top:20px;height:30px;" value="{{ item.item_value.name }}"><span id="addtxt"></span><a href="javascript:" id=""><img src="/static/images/add.png" onclick="madd()"></a><a href="javascript:" id=""><img src="/static/images/useddel.png" onclick="mdel({{ item.item_value.id }})"></a>
+              <input type="text" value="{{ item.item_value.id }}" id="minp_{{ item.item_value.id }}" style="display:none" class="middd">
+          </div>
+            <div class="m-edit-content-form" style="clear:both;">
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;"><span style="color:red">*</span>书籍价格：</label>
+               
+                <input type="text" name="price" onkeyup="mmath({{ item.item_value.price }})" id="mprice_{{ item.item_value.price }}" class="mprice_" style="width:50%;margin-left:3px;margin-top:20px;height:30px;" value="{{ item.item_value.price }}"><span id="addprice"></span>
+          </div>
+          <div class="m-edit-content-form" style="clear:both;">
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;"><span style="color:red">&nbsp;</span>ISBN：</label>
+               
+                <input type="text" name="isbn" id="mISBN" class="misbn_" placeholder="选填项" style="width:50%;margin-left:3px;margin-top:20px;height:30px;font-size:14px;color:#000" value="{{item.item_value.isbn}}">
+            </div>
+      </div>
+    {% endfor %}
+  </div>
+  <!-- 轮播（Carousel）导航 -->
+ <a class="carousel-control left" href="#myCarousel2" 
+     data-slide="prev" style="background:#fff;background: url(/static/images/carouselleft.png) no-repeat;background-position: center left;width: 40px;height: 30px;margin-top: 85px;"></a>
+  <a class="carousel-control right" href="#myCarousel2" 
+     data-slide="next" style="background:#fff;background: url(/static/images/carouselright.png) no-repeat;background-position: center center;width: 40px;height: 30px;margin-top: 85px;"></a>
+</div> 
+
+             <!-- <div class="m-edit-content-form" style="clear:both;">
+                <label class="checkbox check-title" style=";margin-right: 33px;font-family:"微软雅黑";font-size:18px;text-align:center;"><span style="color:red">&nbsp;</span>商品标签：</label>
+               
+                {{form.tags}}
+                  
+            </div> -->
+             
+            <div class="m-edit-content-form" style="clear:both;">
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;"><span style="color:red">*</span>地区：</label>
+                
+               <select name="district"  onchange="selectother()" id="mlocal" style="margin-left:0px">
+                  <option value="select">select</option>
+                  <option {% if form.district.value == "USC" %} selected {% endif %}>USC</option>
+                  <option {% if form.district.value == "SMC" %} selected {% endif %}>SMC</option>
+                  <option {% if form.district.value == "UCLA" %} selected {% endif %}>UCLA</option>
+                  <option {% if form.district.value == "UCSB" %} selected {% endif %}>UCSB</option>
+                  <option {% if form.district.value == "UCSD" %} selected {% endif %}>UCSD</option>
+                  <option {% if form.district.value == "UCI" %} selected {% endif %}>UCI</option>
+                  <option {% if form.district.value == "ELAC" %} selected {% endif %}>ELAC</option>
+                  <option {% if form.district.value == "PCC" %} selected {% endif %}>PCC</option>
+                  <option {% if form.district.value == "OTHER" %} selected {% endif %}>OTHER</option>
+                </select> 
+                 <input type="text" name="district_other" id="mlocaltxt" style="width:50%;margin-left:3px;margin-top:20px;height:30px;display:none;" value={{ form.district.value }}> 
+            </div>
+            
+            
+           <!--  <div class="m-edit-content-form" style="clear:both">
+                <label class="checkbox check-title" style="font-family:"微软雅黑";">地址：</label>
+               
+                 <input type="text" name="address" id="maddress" style="width:50%;margin-left:3px;margin-top:20px;height:30px;" {% if form.address.value %} value="{{ form.address.value }}" {% endif %}><span style="color:red">*</span> 
+                  
+            </div> -->
+            <div class="m-edit-content-form" style="clear:both;">
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;"><span style="color:red">*</span>联系人：</label>
+               
+                 <input type="text" name="connect_name" id="mconnect_name" style="width:50%;margin-left:3px;margin-top:20px;height:30px;" {% if form.connect_name.value %} value={{ form.connect_name.value }}{% else %} {% if user.is_name %}  value={{ user.username }} {% endif %}{% endif %}>
+            </div>
+           <!-- <div class="m-edit-content-form" style="clear:both;">
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;">联系方式：</label>
+               
+                 <input type="text" name="contact_way" style="width:50%;margin-left:3px;margin-top:20px;height:30px;" {% if rentForm.contact_way.value %} value={{ rentForm.contact_way.value }} {% endif %}>
+            </div>-->
+            <div class="m-edit-content-form" style="clear:both;">
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;"><span style="color:red">*</span>联系电话：</label>
+               
+                 <input type="text" name="connect_phone" id="mconnect_phone" style="width:50%;margin-left:3px;margin-top:20px;height:30px;" {% if form.connect_phone.value %} value={{ form.connect_phone.value }}{% else %} {% if user.is_phone %}  value={{ user.phone }} {% endif %}{% endif %}>
+                 {% if not user.is_phone %}<a href="{% url "accounts:accountSecurity" %}" class="set">设置发帖时自动填写</a>{% endif %}
+            </div>
+            <div class="m-edit-content-form" style="clear:both;">
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;"><span style="color:red">*</span>联系微信：</label>
+               
+                 <input type="text" name="connect_wx" id="mconnect_wx" style="width:50%;margin-left:3px;margin-top:20px;height:30px;" {% if form.connect_wx.value %} value={{ form.connect_wx.value }} {% else %}{% if user.is_weixin %}value={{ user.weixin }}{% endif %} {% endif %}>
+                 {% if not user.is_weixin %}<a href="{% url "accounts:accountSecurity" %}" class="set">设置发帖时自动填写</a>{% endif %}
+            </div>
+           <!--  <div class="m-edit-content-form" style="clear:both;">
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;">详细内容：</label>
+                 {{ form.content_detail }} {{ form.content_detail.errors }} -->
+               
+              <!--  <textarea name="content_detail" id="myEditor" class="mmyEditor" style="width:50%;min-height: 200px;height:auto;margin-left:5px;margin-top:20px;">{% if form.content.value %} {{ form.content.value }} {% endif %}</textarea> -->
+          <!--   </div> -->
+             <div class="m-edit-content-form" style="clear:both;">
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;"><span style="color:red">&nbsp;</span>详细内容:</label>
+                <br>
+                <textarea name="content" id="mmyEditor" style="width:95%;height:180px;margin-left:5px;margin-top:10px;">
+ {% if form.content.value %} {{ form.content.value }} {% endif %} </textarea> {{ form.content.errors }}
+            </div>
+            <div class="m-edit-content-form photo" style="clear:both;border:1px solid #ccc;width:80%;">
+                <label class="checkbox" style="margin-top:-5px;text-align:left;width:90%;font-size:14px;margin-left:0px;">预览照片：</label><br><br>
+               
+                <ul id="dd3" class="photo-img" style="width:90%;margin:0 auto;">
+                   {% for pic in pictures %}
+            <li class="mupload_append_list">
+               <a href="javascript:" class="mupload_delete" title="删除">
+                   <img src="/static/images/imgdele.png" style="height:16px"></a><br />
+               <img src={{ pic.image.url }} alt="" class="mupload_image" style="width:auto;height:auto;max-width:100%;max-height:100%;"/>
+
+            </li>
+
+            {% endfor %}
+                </ul>
+               <label for="avatar-selector1" class="avatar-btn ac">
+                   
+                   <input type="file" class="form-control" name="image" id="avatar-selector1" accept="image/*" multiple="multiple" style="padding: 0px;display:none" placeholder="&nbsp;上传文件">
+                   <div style="color:#000;border:1px solid #CCC;border-radius:5px;background-color:#FFF; width:90%;margin: 0 auto; height:30px;font-size:14px;text-align:center;line-height:30px;clear:both">本地上传</div> 
+
+                </label>
+                                       <input type="button" value="网络上传" style="color:#000;border:1px solid #ccc;border-radius:5px;background-color:#FFF; width:90%;margin-top:-100px;height:30px;font-size:14px;margin-top:5px;">
+                                       <div id="upnumber" style="margin-top:15px;text-align:center;width:90%;font-size:14px;;margin-bottom:20px;"><!-- 还可以上传0张 --></div>
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+           
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <div class="btn m-but" style="text-align:center;">
+                                                   
+                  <!-- <input type="submit" class="save-form" value="发表"> -->
+                  
+                  <input type="button" id="push2" class="save-form" value="发表">      
+                  <a href="{% url "posts:listrent" %}"><button type="button" class="cancel-form">取消</button></a>   </div>   
+             </form>
+             </div>
+         </div>
+          
+     </div>
+          
+         
+     
+     
+     
+     
+     <div style="margin-top:50px;"></div>
+      <canvas id="myCanvas"     style="display: none" ></canvas>
+     
+     
+<!-- <script src="https://cdn.rawgit.com/hammerjs/touchemulator/master/touch-emulator.js"></script> -->
+<!-- <script> TouchEmulator(); </script> -->
+<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+     <script src="/static/js/hammer.js""></script>
+       <script src="{% static "js/jquery-1.4.1.js" %}"></script>
+    
+    <script src="{% static "js/File.js" %}"></script>
+       
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{% static "js/jquery.min.js" %}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+    <script src="{% static "js/flatpickr.min.js" %}"></script>
+    <script src="{% static "js/main.js" %}"></script>
+    <script src="{% static "js/UsedBookAdd.js" %}"></script>
+    <script src="{% static "js/menu.js" %}"></script>
+    <script src="{% static "js/qtime.js" %}"></script>
+  
+
+
+    
+  
+  </body>
+</html>

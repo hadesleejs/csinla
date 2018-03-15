@@ -1,0 +1,365 @@
+@import "common/base.css";
+@import "common/header.css";
+@import "common/footer.css";
+
+/*主要内容部分开始*/
+
+
+.main {
+    height: 800px;
+    padding: 0 280px 60px 220px;
+}
+
+.main .search {
+    width: 100%;
+    height: 170px;
+    position: relative;
+}
+
+.search .text {
+    position: absolute;
+    top: 35px;
+    left: 158px;
+}
+
+.search .searchBlock {
+    width: 507px;
+    height: 38px;
+    position: absolute;
+    top: 135px;
+    left: 165px;
+    background: url(../images/home-searchBlock.png);
+}
+
+.search .searchBlock span {
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+    color: #fefdfe;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.search .searchBlock input {
+    position: absolute;
+    width: 455px;
+    height: 15px;
+    font-family: "Microsoft YaHei", "微软雅黑";
+    font-size: 12px;
+    line-height: 15px;
+    color: #8d868c;
+    left: 40px;
+    top: 12px;
+    background-color: transparent;
+}
+
+.main .nav {
+    width: 100%;
+    height: 300px;
+    padding-left: 110px;
+}
+
+.nav .life {
+    float: left;
+    width: 640px;
+    height: 300px;
+}
+
+.nav .life .lifeService,
+.nav .profession .professService,
+.nav .life .lifeServiceItem,
+.nav .profession .professServiceItem {
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3f000000', endColorstr='#3f000000');
+    background-color: rgba(255, 255, 255, .1);
+    border-radius: 5px;
+    border: 2px solid #dfdbdf;
+    position: relative;
+}
+
+.nav .life .box {
+    float: left;
+    width: 310px;
+    height: 200px;
+    overflow: hidden;
+    margin: 25px 0 0 0;
+    cursor: pointer;
+}
+
+.nav .life .lifeService {
+    width: 300px;
+    height: 200px;
+}
+
+.nav .life .lifeServiceItem {
+    width: 300px;
+    height: 200px;
+    display: none;
+}
+
+.nav .lifeServiceItem ul,
+.nav .professServiceItem ul {
+    text-align: center;
+    font-family: "Microsoft YaHei", "微软雅黑";
+}
+
+.nav .professServiceItem ul {
+    padding-top: 5px;
+}
+
+.nav .lifeServiceItem li,
+.nav .professServiceItem li {
+    margin-bottom: 4px;
+    font-size: 15px;
+}
+
+.nav .lifeServiceItem .twoItems {
+    padding-top: 35px;
+}
+
+.nav .lifeServiceItem .threeItems {
+    padding-top: 55px;
+}
+
+.nav .lifeServiceItem .fourItems {
+    padding-top: 20px;
+}
+
+.nav .lifeServiceItem ul a,
+.nav .professServiceItem ul a {
+    color: #f6f5f6;
+}
+
+.nav .profession {
+    float: left;
+    width: 130px;
+    height: 300px;
+    margin-left: 30px;
+}
+
+.nav .profession .professService {
+    width: 130px;
+    height: 300px;
+    margin: 20px 0 0 -25px;
+}
+
+.nav .profession .professServiceItem {
+    width: 130px;
+    height: 300px;
+    margin: 20px 0 0 -25px;
+    display: none;
+}
+
+.nav .professServiceItem .link {
+    text-decoration: underline;
+}
+
+.nav i {
+    width: 50px;
+    height: 50px;
+    display: block;
+    line-height: 50px;
+    font-size: 45px;
+    color: #f3f2f4;
+    position: absolute;
+    top: 25%;
+    left: 40%;
+}
+
+.nav .profession i {
+    top: 30%;
+    left: 36%;
+}
+
+.nav span {
+    display: block;
+    font-family: "Adobe 黑体 Std", "Adobe 黑体 Std R";
+    font-size: 18px;
+    color: #f7f6f7;
+    position: absolute;
+    top: 65%;
+    left: 41%;
+}
+
+.nav .profession span {
+    top: 55%;
+    left: 25%;
+}
+
+.nav .box,
+.nav .box2 {
+    -webkit-transition: -webkit-transform 1s;
+    -moz-transition: -moz-transform 1s;
+    -o-transition: -o-transform 1s;
+    transition: transform 1s;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.nav .flipped {
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    -o-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+}
+
+/*主要内容部分结束*/
+
+/*footer部分开始*/
+.footer .vote {
+    width: 40%;
+    height: 43px;
+    float: left;
+    padding-left: 40px;
+    position: relative;
+    z-index: 9;
+}
+
+.footer span {
+    height: 43px;
+    line-height: 43px;
+    font-size: 16px;
+    color: #fff;
+    display: inline-block;
+    margin-right: 12px;
+    margin-left: 1px;
+}
+
+.footer i {
+    font: 400 15px/15px "SimSun";
+    display: inline-block;
+    position: relative;
+    top: -3px;
+    right: -5px;
+    overflow: hidden;
+    height: 7px;
+    width: 15px;
+    z-index: 0;
+}
+
+.footer s {
+    position: absolute;
+    display: block;
+    top: 1px;
+    right: -2px;
+    color: #fff;
+    font-size: 20px;
+}
+
+.footer .video {
+    width: 32%;
+    height: 43px;
+    float: right;
+}
+
+.footer .w {
+    position: relative;
+    z-index: 8;
+}
+
+.footer .vote {
+    position: relative;
+}
+
+.vote .voteBox {
+    overflow: hidden;
+    width: 620px;
+    height: 0;
+    /*height: 314px;*/
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: #0b080a;
+    z-index: 10;
+}
+
+.vote .voteBox dl {
+    height: 100%;
+    padding-left: 10px;
+}
+
+.vote .voteBox dt {
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    font-family: "Microsoft YaHei", "微软雅黑";
+    font-size: 16px;
+    color: #fff;
+}
+
+.vote .voteBox span {
+    height: auto;
+}
+
+.vote .voteBox .dot {
+    width: 30px;
+    position: absolute;
+    font-size: 30px;
+    top: 0;
+    right: 10px;
+}
+
+.vote .voteBox dd {
+    width: 100%;
+    height: 60px;
+    font-family: "方正兰亭超细黑简体", "微软雅黑";
+    font-size: 14px;
+    color: #d5d5d5;
+}
+
+.vote .votePanel {
+    height: 100%;
+    /*margin-left: 50px;*/
+}
+
+.vote dd img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.vote dd span {
+    float: right;
+    margin-right: 15px;
+}
+
+.vote dd a {
+    font-family: "方正兰亭超细黑简体", "Microsoft YaHei";
+    font-size: 16px;
+    line-height: 16px;
+    color: #fff;
+}
+
+.footer .video {
+    position: relative;
+    z-index: 1;
+}
+
+.video .videoBox {
+    overflow: hidden;
+    width: 410px;
+    height: 0;
+    /*height: 255px;*/
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: #000000;
+    z-index: 2;
+}
+
+.vote .votePanel a {
+    height: 43px;
+}
+
+.video .videoPanel a {
+    height: 43px;
+}
+
+
+

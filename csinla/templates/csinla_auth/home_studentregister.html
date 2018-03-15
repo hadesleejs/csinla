@@ -1,0 +1,233 @@
+   
+              
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalabe=no">
+<meta name="renderer" content="ie-stand">
+    <title>首页-注册</title>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-97624179-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?6784d0adea487eefbe595d28dbb08efb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    <link rel="shortcut icon" href="/static/images/logo1.png">
+    <link rel="stylesheet" href="{% static "css/home-register.css" %}">
+    <link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}">
+     <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+    <script src="{% static "js/angular.min.js" %}"></script>
+</head>
+<body>
+
+<!-- <script>
+    var type = "student";
+    function selectType(sId) {
+        if (sId == "chooseRegister_Company") {
+            type = "company";
+            document.getElementById("select_Student").src = "{% static "images/unselect.png" %}";
+            document.getElementById("select_Company").src = "{% static "images/select.png" %}";
+
+        }
+        else if (sId == "chooseRegister_Student") {
+            type = "student";
+            document.getElementById("select_Student").src = "{% static "images/select.png" %}";
+            document.getElementById("select_Company").src = "{% static "images/unselect.png" %}";
+        }
+    }
+</script> -->
+
+<script>
+    var app = angular.module('registerApp', []);
+    app.controller('divCtrl', function ($scope) {
+        $scope.studentRegisterDiv = true;
+        $scope.companyRegisterDiv = true;
+        $scope.chooseTypeDiv = false;
+        $scope.toggle = function () {
+            if (type == "student") {
+                $scope.studentRegisterDiv = !$scope.studentRegisterDiv;
+                $scope.chooseTypeDiv = !$scope.chooseTypeDiv;
+            }
+            else if (type == "company") {
+                // $scope.companyRegisterDiv = !$scope.companyRegisterDiv;
+                // $scope.chooseTypeDiv = !$scope.chooseTypeDiv;
+            alert("此功能开发中！");
+            }
+
+        };
+        $scope.back = function () {
+            $scope.studentRegisterDiv = true;
+            $scope.companyRegisterDiv = true;
+            $scope.chooseTypeDiv = !$scope.chooseTypeDiv;
+        };
+    });
+</script>
+
+    <!--header部分-->
+   <div class="u-container">
+    <div class="u-header clearfix">
+        <div class="logo fl">
+            <a href="/"><img class="img-responsive" src="{% static "images/01-home-logo.png" %}" alt="logo"></a>
+        </div>
+
+    </div>
+    <div class="header w">
+        
+        <a href="/" class="home-link">
+            <div class="logo">
+                <img src="{% static "images/home-logo.png" %}" alt="" class="img-responsive">
+            </div>
+        </a>
+        
+        
+    </div> 
+    <!--主要内容部分-->
+    <div class="content">
+        <div class="content-left">
+           
+              <span>"Got it, show us something about you, wouldn't you"</span>
+          
+        </div>
+        <div class="content-right">
+            
+                    <!-- 学生注册页面 -->
+                    <div ng-hide="studentRegisterDiv" class="transparent_bg table_center" style="width:100%;">
+                      <div>
+                 <a href="{% url 'accounts:register' %}"> <input type="image" src="{% static "images/back-icon.png" %}" style="width:25px; height: 25px;margin:10px;"></a>
+              </div>
+              <div style="width:100%;text-align:center;margin-top:10px;font-size:25px;font-family:'宋体';color:#FFF;">
+                  学生注册
+              </div>
+                    
+                       
+                        <form class="studentForm" method="post" action="/accounts/registerstu/"  onsubmit="return regis()">
+
+                            {% csrf_token %} 
+
+                                <div class="form-con">
+                                <!--<div class="remind" style="width:100%;font-size:12px;color:#FF0000;text-align:center;">*逻辑判断</div>-->
+                                    用户名：
+                                    <input type="text" name="username" id="username" size="40" style="font-size:12px;border:0;border-bottom:1px solid #999;background:none;text-indent:0.5em;" placeholder="请输入用户名" {% if register_form.username.value %}value={{ register_form.username.value }}{% endif %}>{{ register_form.username.errors }}
+                                </div>
+                             <div class="form-con">
+                                    学生ID：
+                                    <input type="text" name="student_id" id="studengtID" size="40" style="font-size:12px;border:0;border-bottom:1px solid #999;background:none;text-indent:0.5em;" placeholder="请输入学生ID" {% if register_form.student_id.value %} value={{ register_form.student_id.value }}{% endif %}>{{ register_form.student_id.errors }}
+                             
+                            </div>
+                            <!--<div class="form-con" name="school">
+                                    学校：
+                                   <select id="school" style="font-size:12px;height:35px;">
+                                       <option disabled selected>请选择所在学校</option>
+                                      <option>USC</option>
+                                        <option>UCLA</option>
+                                        <option>UCSD</option>
+                                   </select>
+{#                                    {{ profileForm.school }}#}
+{#                                </div>#}-->
+
+                            <div class="form-con">
+                                    学校：
+                                    <select name=""  onchange="selectother()" id="school" style="color:#fff">
+                                     <option value="select">select</option>
+                                      <option value="USC">USC</option>
+                                      <option value="SMC">SMC</option>
+                                      <option value="UCLA">UCLA</option>
+                                       <option value="UCSB">UCSB</option>
+                                      <option value="UCSD">UCSD</option>
+                                      <option value="UCI">UCI</option>
+                                      <option value="ELAC">ELAC</option>
+                                      <option value="PCC">PCC</option>
+                                      <option value="OTHER">OTHER</option>
+                                    </select> 
+                                    <input type="text" name="school" id="schooltxt" size="40" style="font-size:12px;border:0;border-bottom:1px solid #999;background:none;text-indent:0.5em;display:none" placeholder="请输入所在学校">
+                             
+                            </div>
+                         
+
+                            <div class="form-con">
+                                    邮箱：
+                                    <input type="text" name="email" id="email" size="40" style="font-size:12px;border:0;border-bottom:1px solid #999;background:none;text-indent:0.5em;" placeholder="请输入邮箱地址" {% if register_form.email.value %} value={{ register_form.email.value }}{% endif %}>{{ register_form.email.errors }} 
+                                </div>
+                            
+
+                            <div class="form-con">
+                                    联系电话：
+                                    <input type="text" name="phone" id="phone" size="40" style="font-size:12px;border:0;border-bottom:1px solid #999;background:none;text-indent:0.5em;" placeholder="请输入联系电话" {% if register_form.phone.value %} value={{ register_form.phone.value }}{% endif %}>{{ register_form.phone.errors }}
+                             
+                            </div>
+
+                           <div class="form-con">
+                                    密码：
+                                    <input type="password" name="password" id="password" size="40" style="font-size:12px;border:0;border-bottom:1px solid #999;background:none;text-indent:0.5em;" placeholder="请输入密码">
+                                </div>
+                            <div class="form-con">
+                                重复密码：
+                                <input type="password" name="repeat_password" id="repeat_password" size="40" style="font-size:12px;border:0;border-bottom:1px solid #999;background:none;text-indent:0.5em;" placeholder="请再次输入密码">{{ register_form.repeat_password.errors }} 
+                                    
+
+                            </div>
+                            
+                            <div style="color:#FFF;font-size:14px;margin-left:25px;margin-top:10px;width:65%;text-align:right;">
+                                验证码：
+                               {{ register_form.captcha }}{{ register_form.captcha.errors }}
+                            </div>
+                            
+                            
+                            <div style="font-size:12px;text-align:center;color:#FFF;margin-top:10px;"><input type="checkbox" id="read" style="width:14px;height:14px;"/>&nbsp;&nbsp;<a href="javascript:" onclick="ShowDiv('MyDiv','fade')" style="color:#fff" >我已阅读并同意相关条约</a>
+                            </div>
+                            <input type="hidden" value="STU" name="reg_type">
+                            <div id="fade" class="black_overlay">
+</div>
+<div id="MyDiv" class="white_content">
+<div style="text-align: right; cursor: pointer; height: 40px;">
+<span style="font-size: 16px;" onclick="CloseDiv('MyDiv','fade')">X&nbsp;&nbsp;&nbsp;</span>
+</div>
+{{ protocol|linebreaks }}
+</div>
+                            <input type="hidden" value="STU" name="reg_type">
+                            
+                           
+                            <div style="text-align:center;margin-top:10px;">
+                                <input class="lacs-color-btn" type="submit" name="Student_Register" style="background-image:url(../../static/images/01-home-login3.png);border-radius:20px;border:0px;width:70%;height:35px;color:#FFF;margin-bottom:20px;" 
+                                       value="注册，并去邮箱验证">
+                            </div>
+                        </form>
+                    </div>
+                    <!-- 企业注册页面 -->
+
+                 
+              
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+ 
+</div>
+
+</div>
+   <script src="{% static "js/jquery.min.js" %}"></script>
+
+   <script src="{% static "js/jquery-1.11.1.min.js" %}"></script>
+   <script src="{% static "js/studentregister.js" %}"></script>
+ 
+
+</body>
+</html>
+

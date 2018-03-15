@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+{% load static %}
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />    
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalabe=no">
+
+        <link href="{% static "fun/css/index.css" %}" rel="stylesheet" />
+        <title>主页</title>
+    </head>
+
+    <body>
+        <div class="header">
+            <ul>
+                <li class="list"><a href="/fun/">主页</a></li>
+                <li><a href="/fun/activity/view">CSinLA fun</a></li>
+                <li><a href="/fun/contact">联系</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <img src="{% static "fun/image/index1.png" %}">
+           <!--<div style="font-family:'方正舒体';font-size:1.5em;color:#A0A0A4;">我们就应该把生命浪费在美好的事情上</div>-->
+            <img src="{% static "fun/image/index-2.png" %}" class="img2" width="741">
+            
+        </div>
+        <div class="footer">
+            <a href="activity/view"><img src="{% static "fun/image/foot.png" %}"></a>
+            <hr>
+            <span>fun.csinla.com</span>
+        </div>
+
+        <script src="{% static "fun/js/jquery.min.js" %}"></script>
+        <script src="{% static "fun/js/bootstrap.min.js" %}"></script>
+
+    </body>
+</html>

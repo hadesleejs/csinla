@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+
+<html lang="en">
+{% load static %}
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="renderer" content="ie-stand">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="shortcut icon" href="/static/images/logo1.png">
+    <title>CSinLA.com</title>
+    <style type="text/css">
+       .u-img-container {
+            width: 100%;
+            position: relative;
+            margin-bottom: 20px;
+
+        }
+        .img-wrapper {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.img-wrapper > img {
+    margin-right: 5px;
+    max-height: 90px;
+    max-width: 110px;
+    display: inline-block;
+    cursor: url(http://tb2.bdstatic.com/tb/static-hottopic/img/cur_zin_ae7c4cf.cur), pointer;
+}
+.gallery {
+    width: 100%;
+    position: relative;
+    text-align: center;
+    padding: 10px;
+    background-color: #f7f7f7;
+    border: 1px solid #e4e6eb;
+}
+.u-panel {
+    height: 30px;
+    line-height: 22px;
+    width: 100%;
+    /* margin-left: 17%; */
+}
+
+.u-panel a {
+    display: inline-block;
+    text-decoration: none;
+    margin-right: 15px;
+    color: #2d64b3;
+    font-size: 14px;
+}
+.to-prev {
+    left: 0;
+    cursor: url(http://tb2.bdstatic.com/tb/static-hottopic/img/bigpicprev_1245caf.cur), pointer;
+}
+.to-prev, .to-next {
+    width: 150px;
+    height: 100%;
+    position: absolute;
+    z-index: 11111;
+    background: #FFF;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+.to-next {
+    right: 0;
+    cursor: url(http://tb2.bdstatic.com/tb/static-hottopic/img/bigpicnext_437c161.cur), pointer;
+}
+.inpost {
+    background: #3e89fa;
+    color: #fff !important;
+    text-align: right;
+    position: absolute;
+    right: -80px;
+    margin-top: -15px;
+    margin-left: 20px;
+    padding: 2px 8px;
+    font-size: 14px !important;
+    border-radius: 3px;
+    border-bottom-color: #2b71d9;
+}
+
+    </style>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-97624179-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?6784d0adea487eefbe595d28dbb08efb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script type="text/javascript">
+     wx.config({
+   debug: false,  //调式模式，设置为ture后会直接在网页上弹出调试信息，用于排查问题
+   appId: 'wx910b80a91781c9df',
+   timestamp: {{ timestamp }},
+   nonceStr: '{{ nonceStr }}',
+   signature: '{{ signature }}',
+   jsApiList: [  //需要使用的网页服务接口
+       'checkJsApi',  //判断当前客户端版本是否支持指定JS接口
+       'onMenuShareTimeline', //分享给好友
+       'onMenuShareAppMessage', //分享到朋友圈
+       'onMenuShareQQ',  //分享到QQ
+       'onMenuShareWeibo' //分享到微博
+   ]
+ });
+ wx.ready(function () {   //ready函数用于调用API，如果你的网页在加载后就需要自定义分享和回调功能，需要在此调用分享函数。//如果是微信游戏结束后，需要点击按钮触发得到分值后分享，这里就不需要调用API了，可以在按钮上绑定事件直接调用。因此，微信游戏由于大多需要用户先触发获取分值，此处请不要填写如下所示的分享API
+            // 1 判断当前版本是否支持指定 JS 接口，支持批量判断
+                wx.checkJsApi({
+                    jsApiList: [
+                      'onMenuShareAppMessage'
+                    ],
+                    success: function (res) {
+                      //alert(JSON.stringify(res));
+                    }
+                });
+wx.onMenuShareTimeline({  //例如分享到朋友圈的API  
+   title: 'CSinLA.com', // 分享标题
+   link: 'http://www.csinla.com', // 分享链接
+   imgUrl: 'http://www.csinla.com/media/bg.jpg', // 分享图标
+   success: function () {
+       // 用户确认分享后执行的回调函数
+   },
+   cancel: function () {
+       // 用户取消分享后执行的回调函数
+   }
+});
+wx.onMenuShareAppMessage({
+    title: 'CSinLA.com', // 分享标题
+    desc: '洛杉矶留学生咨询就上CSinLA.com', // 分享描述
+    link: 'http://www.csinla.com', // 分享链接
+    imgUrl: 'http://www.csinla.com/media/bg.jpg', // 分享图标
+    type: '', // 分享类型,music、video或link，不填默认为link
+    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+    success: function () { 
+        // 用户确认分享后执行的回调函数
+    },
+    cancel: function () { 
+        // 用户取消分享后执行的回调函数
+    }
+});
+wx.onMenuShareQQ({
+    title: 'CSinLA.com', // 分享标题
+    desc: '洛杉矶留学生咨询就上CSinLA.com', // 分享描述
+    link: 'http://www.csinla.com', // 分享链接
+    imgUrl: 'http://www.csinla.com/media/bg.jpg', // 分享图标
+    success: function () { 
+       // 用户确认分享后执行的回调函数
+    },
+    cancel: function () { 
+       // 用户取消分享后执行的回调函数
+    }
+});
+}); 
+wx.error(function (res) {
+ alert(res.errMsg);  //打印错误消息。及把 debug:false,设置为debug:ture就可以直接在网页上看到弹出的错误提示
+});
+</script>
+
+
+    <link rel="stylesheet" type="text/css" href="{% static "css/home.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/font-awesome.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %}">
+
+    <style>
+        body {
+            font-size: 100%;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="{% static "css/video-js.min.css" %}">
+</head>
+<body>
+<div class="u-container">
+{% if request.user.is_authenticated %}
+    <div class="u-header clearfix">
+        <div class="logo fl">
+            <a href="/"><img class="img-responsive" src="{% static "images/01-home-logo.png" %}" alt="logo"></a>
+        </div>
+        <div class="login-status fr">
+            <div class="avatar-wrapper">
+              <a href="{% url "accounts:myPosts" %}">
+                <img src="{{ user.avatar_url }}" class="img-circle avatar" alt="Cinque Terre">
+              </a>
+            </div>
+            <div class="dropdown" style="display:inline-block;">
+                <button class="header-btn dropdown-toggle" type="button" data-toggle="dropdown">
+                    <i class="fa fa-cog" aria-hidden="true"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li><a href="{% url 'accounts:accountSecurity' %}">账户安全</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <!-- <li><a href="#">人工申述</a></li>
+                    <li role="presentation" class="divider"></li> -->
+                    <li><a href="{% url 'accounts:myhelpcenter' %}">联系我们</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="{% url 'accounts:logout' %}">登出</a></li>
+                </ul>
+            </div>
+            <div class="dropdown" style="display:inline-block;">
+                <a href="{% url "accounts:myInfo" %}" class="header-btn dropdown-toggle">
+                    <i class="fa fa-bell-o" aria-hidden="true"></i>
+                    {% if user.unread_message %}<span class="redpoint"><i>{{ user.unread_message }} </i></span>{% endif %}
+                </a>
+               <!--  <ul class="dropdown-menu">
+                    <li><a href="#">我的私信<span class="redpoint"><i>2</i></span></a>
+                    </li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="#">我的回复<span class="redpoint"><i>99+</i></span></a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="#">查看@提到我<span class="redpoint"><i>12</i></span></a></li>
+                </ul> -->
+            </div>
+            <div class="new-post-wrapper fr">
+                <a class="new-post" href="/posts/add">
+                    <span>发表新帖</span>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="header w">
+        <a href="#" class="mobile-nav-btn pull-right"><i class="fa fa-bars" aria-hidden="true"></i></a>
+        <a href="/" class="home-link">
+            <div class="logo">
+                <img src="{% static "images/home-logo.png" %}" alt="" class="img-responsive">
+            </div>
+        </a>
+    <div class="user">
+            <a href="#" class="remove-nav pull-right"><img src="{% static "./images/times.png" %}" alt="" class="img-responsive"></a>
+            <a href="/" class="home-nav-item special">
+                <span>首页</span>
+            </a>
+            <a href="/posts/add" class="home-nav-item special">
+                <span>发表新帖</span>
+            <a href="{% url "accounts:myPosts" %}" class="home-nav-item special">
+                <span>个人中心</span>
+            </a>
+         <!--    <a href="{% url "accounts:accountSecurity" %}" class="home-nav-item has-sub-item">
+                <span>设置</span>
+            </a> -->
+            
+            <a href="{% url 'accounts:logout' %}"  class="home-nav-item special">
+                <span>Sign out</span></a>
+            
+            </a>
+        </div>
+    {% else %}
+    <div class="u-header clearfix">
+        <div class="logo fl">
+            <a href="/"><img class="img-responsive" src="{% static "images/01-home-logo.png" %}" alt="logo"></a>
+        </div>
+        <div class="user" style="margin-top:18px;text-align:right;">
+            <a href="{% url 'accounts:login' %}" class="login home-nav-item">
+                <span>Log in</span>
+                <img src="{% static "images/home-login.png" %}" alt="">
+            </a>
+            <a href="{% url 'accounts:register' %}" class="register home-nav-item" style="margin-left:10px;">
+                <span>Register</span>
+                <img src="{% static "images/home-register.png" %}" alt="">
+            </a>
+
+        </div>
+
+    </div>
+    <div class="header w">
+        <a href="#" class="mobile-nav-btn pull-right"><i class="fa fa-bars" aria-hidden="true"></i></a>
+        <a href="/" class="home-link">
+            <div class="logo">
+                <img src="{% static "images/home-logo.png" %}" alt="" class="img-responsive">
+            </div>
+        </a>
+        
+        <div class="user">
+            <a href="#" class="remove-nav pull-right"><img src="{% static "./images/times.png" %}" alt="" class="img-responsive"></a>
+            <a href="/" class="home-nav-item special">
+                <span>首页</span>
+            </a>
+            
+            
+            <a href="{% url 'accounts:login' %}" class="login home-nav-item">
+                <span>Log in</span>
+                <img src="{% static "images/home-login.png" %}" alt="">
+            </a>
+            <a href="{% url 'accounts:register' %}" class="register home-nav-item">
+                <span>Register</span>
+                <img src="{% static "images/home-register.png" %}" alt="">
+            </a>
+            <!-- <a href="#" class="home-nav-item special">
+                <span>Live and Love</span>
+            </a> -->
+        </div>
+
+       {% endif %}
+    </div> 
+    <!--主要内容部分-->
+    <div class="main w">
+     <div class="text">“CSinLA keeps you company everyday.”</div>
+        <div class="search">
+           <!--  <img src="{% static "images/home-text1.png" %}" alt="" class="search-img"> -->
+
+    
+            <div class="searchBlock">
+
+                <!-- <form action="{% url 'search' %}" method="get"> -->
+                    <span class="fa fa-search"></span>
+                    <input type="text" name="keyword" placeholder="输入关键词" onKeyPress="return checkSubmit(event)">
+                <!-- </form> -->
+            </div>
+        </div>
+        <div id="search_info">
+           <p style="color:#fff; font-size: 16px;margin-left: 45px;">为您找到相关结果约<span style="text-decoration:underline">120</span>个租房信息<span style="text-decoration:underline">120</span>个贴吧信息<span style="text-decoration:underline">130</span>个其他信息</p>
+           <a href="/" style="color:#fff;font-size:16px;font-weight:bold;float: right;margin-top: -30px;"><<返回首页</a>
+           <div style="background:#fff;width:100%;font-size:14px">
+             <table style="width:100%">
+                 <tr style="border-bottom:1px solid #ccc">
+                   <td style="width:10px;padding: 15px;">个人转租</td>
+                   <td><a href="" style="display: block;margin-top:10px">[USC]单个客户打款工行看过很多看过快点恢复开工<span style="color:#ff5400">[图片&nbsp;1]</span></a>
+                        <span style="float:right;font-size:12px;margin-right:20px"><span style="color:#e10f0f;font-size:16px;">$111</span>/月</span>
+
+                                            <a href="#" style="margin: 5px 5px 15px 0;text-decoration: none;text-align: center;vertical-align: middle;/* width: 60px; */height: 27px;border: 1px solid #e1e1e1;color: #3f3f3f;display: inline-block;padding: 3px 10px;">整套: 111</a>
+                                            <a href="#" style="margin: 5px 5px 15px 0;text-decoration: none;text-align: center;vertical-align: middle;/* width: 60px; */height: 27px;border: 1px solid #e1e1e1;color: #3f3f3f;display: inline-block;padding: 3px 10px;">整套: 111</a>
+                                            <a href="#" style="margin: 5px 5px 15px 0;text-decoration: none;text-align: center;vertical-align: middle;/* width: 60px; */height: 27px;border: 1px solid #e1e1e1;color: #3f3f3f;display: inline-block;padding: 3px 10px;">整套: 111</a>
+                                    
+
+                   </td>
+                   <td valign="top"><span style="color:red;display: block;margin-top: 32px;">仅剩81天20小时</span></td>
+                 </tr>
+                 
+                 <tr style="border-bottom:1px solid #ccc">
+                   <td style="width:10px;padding: 15px;">个人转租</td>
+                   <td><a href="" style="display: block;margin-top:10px">[USC]单个客户打款工行看过很多看过快点恢复开工<span style="color:#ff5400">[图片&nbsp;1]</span></a>
+                        <span style="float:right;font-size:12px;margin-right:20px"><span style="color:#e10f0f;font-size:16px;">$111</span>/月</span>
+
+                                            <a href="#" style="margin: 5px 5px 15px 0;text-decoration: none;text-align: center;vertical-align: middle;/* width: 60px; */height: 27px;border: 1px solid #e1e1e1;color: #3f3f3f;display: inline-block;padding: 3px 10px;">整套: 111</a>
+                                            <a href="#" style="margin: 5px 5px 15px 0;text-decoration: none;text-align: center;vertical-align: middle;/* width: 60px; */height: 27px;border: 1px solid #e1e1e1;color: #3f3f3f;display: inline-block;padding: 3px 10px;">整套: 111</a>
+                                            <a href="#" style="margin: 5px 5px 15px 0;text-decoration: none;text-align: center;vertical-align: middle;/* width: 60px; */height: 27px;border: 1px solid #e1e1e1;color: #3f3f3f;display: inline-block;padding: 3px 10px;">整套: 111</a>
+                                     
+
+
+                   </td>
+                   <td valign="top"><span style="color:red;display: block;margin-top: 32px;">仅剩81天20小时</span></td>
+                 </tr>
+
+
+
+
+                 <tr style="border-bottom:1px solid #ccc">
+                   <td style="width:10px;padding: 15px;">留言</td>
+                   <td valign="top"><a href="" style="display: block;margin-top:10px">单个客户打款工行看过很多看过快点恢复开工</a>
+                        
+                                            
+                                     
+
+
+                   </td>
+                   <td valign="top"><span style="color:#999;display: block;margin-top: 32px;"><i class="fa fa-user"></i>&nbsp;owen&nbsp;&nbsp;13：20</span></td>
+                 </tr>
+
+
+
+
+
+
+
+
+                 <tr style="border-bottom:1px solid #ccc">
+                   <td style="width:10px;padding: 15px;">整套出租</td>
+                   <td><a href="" style="display: block;margin-top:10px">[USC]单个客户打款工行看过很多看过快点恢复开工<span style="color:#ff5400">[图片&nbsp;1]</span></a>
+                        <span style="float:right;font-size:12px;margin-right:20px"><span style="color:#e10f0f;font-size:16px;">$111</span>/月</span>
+
+                                            <a href="#" style="margin: 5px 5px 15px 0;text-decoration: none;text-align: center;vertical-align: middle;/* width: 60px; */height: 27px;border: 1px solid #e1e1e1;color: #3f3f3f;display: inline-block;padding: 3px 10px;">整套: 111</a>
+                                            <a href="#" style="margin: 5px 5px 15px 0;text-decoration: none;text-align: center;vertical-align: middle;/* width: 60px; */height: 27px;border: 1px solid #e1e1e1;color: #3f3f3f;display: inline-block;padding: 3px 10px;">整套: 111</a>
+                                            <a href="#" style="margin: 5px 5px 15px 0;text-decoration: none;text-align: center;vertical-align: middle;/* width: 60px; */height: 27px;border: 1px solid #e1e1e1;color: #3f3f3f;display: inline-block;padding: 3px 10px;">整套: 111</a>
+                                     <div class="imgBox">
+                                        <div class="u-img-container">
+                                            <!--缩略图-->
+                                            <div class="img-wrapper">
+                                                   <img src="/static/images/01-home-video_bg.png" alt="">
+                                              
+                                            </div>
+                                            <!--/缩略图-->
+
+                                            <!--大图-->
+                                            <div class="gallery hide">
+                                                <div class="u-panel">
+                                                    <a href="#" class="fl closeBtn">收起</a>
+                                                    <a href="#" class="fr rotateR">向右转</a>
+                                                    <a href="#" class="fr rotateL">向左转</a>
+                                                </div>
+                                                <div class="img-big-wrapper">
+                                                    <div class="to-prev"></div>
+                                                    <div class="to-next"></div>
+                                                    
+                                                        <img src="/static/images/01-home-video_bg.png" alt="" style="display:none;">
+                                                  
+                                                    <a href="/posts/{{exposure.id}}" class="btn_default btn_small inpost">进入贴子</a>
+                                                </div>
+
+                                            </div>
+                                            <!--/大图-->
+                                        </div>
+                                    </div>
+
+
+                   </td>
+                   <td valign="top"><span style="color:red;display: block;margin-top: 32px;">仅剩81天20小时</span></td>
+                 </tr>
+                 <tr style="border-bottom:1px solid #ccc">
+                   <td style="width:10px;padding: 15px;">朋友圈</td>
+                   <td><a href="" style="display: block;margin-top:10px">[USC]单个客户打款工行看过很多看过快点恢复开工<span style="color:#ff5400">[图片&nbsp;1]</span></a>
+                                     <div class="imgBox">
+                                        <div class="u-img-container">
+                                            <!--缩略图-->
+                                            <div class="img-wrapper">
+                                                   <img src="/static/images/01-home-video_bg.png" alt="">
+                                              
+                                            </div>
+                                            <!--/缩略图-->
+
+                                            <!--大图-->
+                                            <div class="gallery hide">
+                                                <div class="u-panel">
+                                                    <a href="#" class="fl closeBtn">收起</a>
+                                                    <a href="#" class="fr rotateR">向右转</a>
+                                                    <a href="#" class="fr rotateL">向左转</a>
+                                                </div>
+                                                <div class="img-big-wrapper">
+                                                    <div class="to-prev"></div>
+                                                    <div class="to-next"></div>
+                                                    
+                                                        <img src="/static/images/01-home-video_bg.png" alt="" style="display:none;">
+                                                  
+                                                    <a href="/posts/{{exposure.id}}" class="btn_default btn_small inpost">进入贴子</a>
+                                                </div>
+
+                                            </div>
+                                            <!--/大图-->
+                                        </div>
+                                    </div>
+
+
+                   </td>
+                   <td valign="top"><span style="color:red;display: block;margin-top: 32px;">仅剩81天20小时</span><span style="color:#999;display: block;margin-top: 32px;"><i class="fa fa-user"></i>&nbsp;owen&nbsp;&nbsp;13：20</span></td>
+                 </tr>
+
+             </table>
+             <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                            {% if UsedBook_list.has_previous %}
+                                <li>
+                                    <a href="?page={{ UsedBook_list.previous_page_number }}&locat={{filter_dic.locat}}" aria-label="Previous">上一页</a>
+                                </li>      
+                            {% endif %}
+                            <li><a href="?page=1">首页</a></li>
+                            {% for page in page_range %}
+                                {% if forloop.first %}
+                                    {% if page != 1 %}
+                                        <li ><a href="?page=1&locat={{filter_dic.locat}}">1</a></li>
+                                    {% endif %}
+                                {% endif %}
+                                <li {% if page == UsedBook_list.number %} class="active"{% endif %} ><a href="?page={{ page }}&locat={{filter_dic.locat}}">{{page}}</a></li>
+                                {% if forloop.last %}
+                                    {% if page != UsedBook_list.paginator.num_pages %}
+                                        <li><a href="?page={{ page|add:'1' }}&locat={{filter_dic.locat}}">...</a></li>
+                                        <li><a href="?page={{UsedBook_list.paginator.num_pages}}&locat={{filter_dic.locat}}">{{UsedBook_list.paginator.num_pages}}</a></li>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                            
+                            {% if UsedBook_list.has_next %}
+                                <li>
+                                    <a href="?page={{ UsedBook_list.next_page_number }}&locat={{filter_dic.locat}}" aria-label="Next">下一页</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+
+           </div>
+        </div>
+    </div>
+   
+    
+   <!--  <div style="text-align:center;margin-top:50px;">
+       <a href="/accounts/parking2/" style="color:#fff;font-size:12px"><img src="{% static "images/stop.png" %}" style="width:32px;height:32px;margin-right:42px"><span style="margin:40px 0px 0 -103px;position:absolute;">暑假免费室内停车</span></a>
+       <a href="/curricular/" style="color:#fff;font-size:12px"><img src="{% static "images/shouy.png" %}" style="width:32px;height:32px;margin-left:42px;margin-right:42px"><span style="margin: 40px 0px 0 -76px;position:absolute;">SMC Prochooser</span></a><br><br><br>
+       <a href="/accounts/airport/" style="color:#fff;font-size:12px" target="_blank"><img src="{% static "images/air.png" %}" style="width:32px;height:32px;margin-left:-12px;"><span style="margin:40px 0px 0 -70px;position:absolute;">USC新生接机服务</span></a>
+       <a href="/accounts/carfax/" style="color:#fff;font-size:12px" target="_blank"><img src="" style="width:32px;height:32px;margin-left:82px;"><span style="margin:40px 0px 0 -37px;position:absolute;">CarFax</span></a>
+      margin:40px 0px 0 -67px
+   </div> -->
+    <!--页面底部-->
+    
+    </div>
+       <div class="w">
+
+            <div class="video">
+                <!-- <div class="videoPanel" id="videoPanel">
+                    <a href="#">
+                        <span class="fa fa-youtube-play"></span>
+                        <span>Live and Love</span>
+                    </a>
+                    <a href="javascript:;"><i><s>◇</s></i></a>
+                </div> -->
+                <div class="videoBox">
+                    <video id="home_video" class="video-js vjs-default-skin vjs-big-play-centered" controls
+                           preload="none"
+                           width="410px"
+                           height="255px" poster="http://vjs.zencdn.net/v/oceans.png" data-setup="{}">
+                        <source src="http://vjs.zencdn.net/v/oceans.mp4" type="video/mp4">
+                        <source src="http://vjs.zencdn.net/v/oceans.webm" type="video/webm">
+                        <source src="http://vjs.zencdn.net/v/oceans.ogv" type="video/ogg">
+                        <track kind="captions" src="../shared/example-captions.vtt" srclang="en"
+                               label="English"></track>
+                        <!-- Tracks need an ending tag thanks to IE9 -->
+                        <track kind="subtitles" src="../shared/example-captions.vtt" srclang="en"
+                               label="English"></track>
+                        <!-- Tracks need an ending tag thanks to IE9 -->
+                        <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a
+                            web
+                            browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports
+                                HTML5
+                                video</a></p>
+                    </video>
+                </div>
+            </div>
+        </div>
+       </div>
+           
+                 
+       
+    
+<script src="{% static "js/videojs-ie8.min.js" %}"></script>
+<script src="{% static "js/video.min.js" %}"></script>
+<script src="{% static "js/jquery-1.11.1.min.js" %}"></script>
+<script src="{% static "js/home.js" %}"></script>
+<script src="{% static "js/bootstrap.min.js" %}"></script>
+<script src="{% static "js/menu.js" %}"></script>
+<script src="/static/js/imageViewer.js"></script>
+
+
+<!-- 
+ // function tishi(){alert("此功能开发中")}
+     
+
+    -->
+
+</body>
+</html>

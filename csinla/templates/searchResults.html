@@ -1,0 +1,28 @@
+{% block bodycontent %}
+    {% if SearchStatus == 'Error' %}
+        <div class="well fade in daytips">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>作者水平有限,并没有关于<font color="red"><b>"{{ search }}"</b></font>的内容,请换一个词试试</strong>
+        </div>
+    {% endif %}
+    {% if SearchStatus == 'Success' %}
+        <div class="well fade in daytips">
+            <strong>关于<font color="red"><b>"{{ search }}"</b></font>的搜索结果一共有<font
+                    color="red"><b>"{{ ResultAmount }}"</b></font>条</strong>
+        </div>
+        <div id="article-list">
+            {% for x in SearchResult %}
+                <article class="excerpt excerpt-first">
+                    <header><a class="cat" href="#" id="wybtype"> {{ x.belong_to }} <i></i></a>
+                        <h2><a class="gotoArchive"
+                               title="{{ x.title }}">{{ x.title }}</a></h2>
+                    </header>
+                    <p class="meta">
+                    <span class="posttime">
+                        {{ x.post_date }}
+                    </span>
+                </article>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}

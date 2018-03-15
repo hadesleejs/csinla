@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+{% load static %}
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="ie-stand">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalabe=no">
+    <title>发布贴吧</title>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-97624179-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?6784d0adea487eefbe595d28dbb08efb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    <link rel="shortcut icon" href="/static/images/logo1.png">
+
+    <!-- Bootstrap -->
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">  
+    <link href="{% static "css/EditNewPosts.css" %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static "css/font-awesome.min.css" %}"> 
+    <link rel="stylesheet" type="text/css" href="{% static "css/awesome-bootstrap-checkbox.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/flatpickr.min.css" %}">
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" charset="utf-8" src="../umeditor.config.js"></script>  
+  
+    <!--使用版-->  
+    <!--<script type="text/javascript" charset="utf-8" src="../umeditor.all.js"></script>-->  
+  
+    <!--开发版-->  
+    <script type="text/javascript" charset="utf-8" src="{% static "editor_api.js" %}"></script>  
+    <script type="text/javascript" src="../lang/zh-cn/zh-cn.js"></script> 
+   
+  </head>
+  <body>
+  <!-- 顶部部分开始 -->
+      <div class="u-container">
+{% if request.user.is_authenticated %}
+    <div class="u-header clearfix">
+        <div class="logo fl">
+            <a href="/"><img class="img-responsive" src="{% static "images/01-home-logo.png" %}" alt="logo"></a>
+        </div>
+        <div class="login-status fr">
+            <div class="avatar-wrapper">
+              <a href="{% url "accounts:myPosts" %}">
+                <img src={{ user.avatar_url }} class="img-circle avatar" alt="Cinque Terre">
+              </a>
+            </div>
+            <div class="dropdown" style="display:inline-block;">
+                <button class="header-btn dropdown-toggle" type="button" data-toggle="dropdown">
+                    <i class="fa fa-cog" aria-hidden="true"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li><a href="{% url 'accounts:accountSecurity' %}">账户安全</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <!-- <li><a href="#">人工申述</a></li>
+                    <li role="presentation" class="divider"></li> -->
+                    <li><a href="{% url 'accounts:myhelpcenter' %}">联系我们</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="{% url 'accounts:logout' %}">登出</a></li>
+                </ul>
+            </div>
+            <div class="dropdown" style="display:inline-block;">
+                <a href="{% url "accounts:myInfo" %}" class="header-btn dropdown-toggle">
+                    <i class="fa fa-bell-o" aria-hidden="true"></i>
+                    {% if user.unread_message %}<span class="redpoint"><i>{{ user.unread_message }} </i></span>{% endif %}
+                </a>
+               <!--  <ul class="dropdown-menu">
+                    <li><a href="#">我的私信<span class="redpoint"><i>2</i></span></a>
+                    </li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="#">我的回复<span class="redpoint"><i>99+</i></span></a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="#">查看@提到我<span class="redpoint"><i>12</i></span></a></li>
+                </ul> -->
+            </div>
+            <div class="new-post-wrapper fr">
+                <a class="new-post" href="/posts/add">
+                    <span>发表新帖</span>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="header w">
+        <a href="#" class="mobile-nav-btn pull-right"><i class="fa fa-bars" aria-hidden="true"></i></a>
+        <a href="/" class="home-link">
+            <div class="logo">
+                <img src="{% static "images/home-logo.png" %}" alt="" class="img-responsive">
+            </div>
+        </a>
+    <div class="user">
+            <a href="#" class="remove-nav pull-right"><img src="{% static "./images/times.png" %}" alt="" class="img-responsive"></a>
+            <a href="/" class="home-nav-item special">
+                <span>首页</span>
+            </a>
+            <a href="/posts/add" class="home-nav-item special">
+                <span>发表新帖</span>
+            <a href="{% url "accounts:myPosts" %}" class="home-nav-item special">
+                <span>个人中心</span>
+            </a>
+         <!--    <a href="{% url "accounts:accountSecurity" %}" class="home-nav-item has-sub-item">
+                <span>设置</span>
+            </a> -->
+            
+            <a href="{% url 'accounts:logout' %}"  class="home-nav-item special">
+                <span>Sign out</span></a>
+            
+            </a>
+        </div>
+    {% else %}
+    <div class="u-header clearfix">
+        <div class="logo fl">
+            <a href="/"><img class="img-responsive" src="{% static "images/01-home-logo.png" %}" alt="logo"></a>
+        </div>
+        <div class="user" style="margin-top:18px;text-align:right;">
+            <a href="{% url 'accounts:login' %}" class="login home-nav-item">
+                <span>Log in</span>
+                <img src="{% static "images/home-login.png" %}" alt="">
+            </a>
+            <a href="{% url 'accounts:register' %}" class="register home-nav-item" style="margin-left:10px;">
+                <span>Register</span>
+                <img src="{% static "images/home-register.png" %}" alt="">
+            </a>
+
+        </div>
+
+    </div>
+    <div class="header w">
+        <a href="#" class="mobile-nav-btn pull-right"><i class="fa fa-bars" aria-hidden="true"></i></a>
+        <a href="/" class="home-link">
+            <div class="logo">
+                <img src="{% static "images/home-logo.png" %}" alt="" class="img-responsive">
+            </div>
+        </a>
+        
+        <div class="user">
+            <a href="#" class="remove-nav pull-right"><img src="{% static "./images/times.png" %}" alt="" class="img-responsive"></a>
+            <a href="/" class="home-nav-item special">
+                <span>首页</span>
+            </a>
+            
+            
+            <a href="{% url 'accounts:login' %}" class="login home-nav-item">
+                <span>Log in</span>
+                <img src="{% static "images/home-login.png" %}" alt="">
+            </a>
+            <a href="{% url 'accounts:register' %}" class="register home-nav-item">
+                <span>Register</span>
+                <img src="{% static "images/home-register.png" %}" alt="">
+            </a>
+            <!-- <a href="#" class="home-nav-item special">
+                <span>Live and Love</span>
+            </a> -->
+        </div>
+
+       {% endif %}
+    </div> 
+        
+
+     <!-- 顶部部分结束 -->
+     <!-- 个人中心内容开始 -->
+     <div class="content" style="border-radius:10px;background-color:#fff;">
+      <!-- <input type="image" src="{% static "images/back-icon1.png" %}" onclick="window.history.back();" style="width:25px; height: 25px;margin:10px;position:absolute;"> -->
+      <div id="pageurl"><a href="/">首页</a> <img src="{% static "images/url-lef.png" %}"> <a href="/posts/add">发帖中心</a> <img src="{% static "images/url-lef.png" %}">  <a href="/posts/exposure/add">万能朋友圈</a></div>
+          <div class="content-title">
+          发帖中心
+          </div>
+         <div class="edit-content">
+            <form class="rentForm" method="post" action="" onsubmit="return PRent()" id="uploadForm" enctype="multipart/form-data">
+              {% csrf_token %}
+            <div class="edit-content-title">
+              <img src="{% static "images/steps-icon.png" %}">
+         	  </div>
+            <div class="edit-content-point">
+              <img src="{% static "images/point2.jpg" %}">
+            </div>
+            
+            
+            <div class="edit-content-form" style="clear:both;">
+                <label class="checkbox" style="margin-top:-5px;text-align:center;margin-left:-17px;">帖子标题：</label>
+                <input type="text" name="title" id="title" style="width:35%;margin-left:17px;" {% if form.title.value %} value="{{ form.title.value }}" {% endif %}><span style="color:red">*</span>{{ Form.title.errors }}
+                <!--{{ rentForm.title}}-->
+            </div>
+           
+
+           <!--  <div class="edit-content-form" style="clear:both;">
+                <label class="checkbox" style="margin-top:-5px;text-align:center;margin-left:-17px;">帖子标签：</label>
+                {{form.tags}}
+             
+            </div> -->
+          
+            <div class="edit-content-form he" style="clear:both;"><!-- height:300px; -->
+                <label class="checkbox" style="margin-top:-5px;text-align:center;margin-left:-18px;">详细内容：</label>
+                <textarea name="content" id="myEditor" style="width:35%;height:280px;margin-left:20px;">{% if form.content.value %} {{ form.content.value }} {% endif %}</textarea><span style="color:red">*</span> <!-- {{ rentForm.content.errors }} -->
+                <!--{{ rentForm.content }}-->
+            </div>
+            <div class="edit-content-form photo" style="clear:both;border:1px solid #ccc;">
+                <label class="checkbox" style="margin-top:-5px;text-align:left;width:90%;font-size:14px;">预览照片：</label><br><br>
+               
+                
+                
+
+                <ul id="dd" class="photo-img" style="width:90%;margin:0 auto;clear:both">
+               {% for pic in pictures %}
+ <li class="upload_append_list" id="uploadList_{{ pic.image.url }}">
+                 <a href="javascript:" class="upload_delete" title="删除">   
+                     <img src="/static/images/imgdele.png" style="height:16px">
+                 </a>
+                 <br />
+                 <img src={{ pic.image.url }} alt="" class="upload_image" style="width:auto;height:auto;max-width:100%;max-height:100%;"/>
+            </li>
+                        {% endfor %}
+                </ul>
+                
+                <label for="avatar-selector" class="avatar-btn ac">
+                   
+                   <input type="file" class="form-control" name="image" id="avatar-selector" accept="image/*"  multiple="multiple" style="padding: 0px;display:none" placeholder="&nbsp;上传文件">
+                   <div style="color:#000;border:1px solid #CCC;border-radius:5px;background-color:#FFF; width:90%;margin: 0 auto; height:30px;font-size:14px;text-align:center;line-height:30px;cursor:pointer;    clear: both;">本地上传</div> 
+
+                </label>
+    
+    
+        
+  
+                   <input type="button" value="网络上传" style="color:#000;border:1px solid #ccc;border-radius:5px;background-color:#FFF; width:90%;margin-top:-100px;height:30px;font-size:14px;margin-top:5px;">
+                   <div id="dd1" style="margin-top:15px;text-align:center;width:90%;font-size:14px;;margin-bottom:20px;">
+                   
+                   </div>
+            </div>
+<!-- <<<<<<< HEAD
+                 
+            <div class="btn but" style="text-align:center;">
+======= -->
+                  <div class="btn but" style="text-align:center;">
+<!-- >>>>>>> 54ec6ad6868bd5a474823d205cbeabcad01a01f8 -->
+                                                   
+                  <!-- <input type="submit" class="save-form" value="发表"> -->
+                  
+                  <input type="button" id="push1" class="save-form" value="发表">      
+<!-- <<<<<<< HEAD
+ -->                  <a href="{% url "posts:listrent" %}"><button type="button" class="cancel-form">取消</button></a>    </div>  
+             </form>
+             <!-- <form> -->
+            
+<!-- =======
+                  <button type="reset" class="cancel-form">取消</button>   
+            </form> -->
+            <form method="post" action="" onsubmit="return mPRent()" enctype="multipart/form-data">{% csrf_token %}
+<!-- >>>>>>> 54ec6ad6868bd5a474823d205cbeabcad01a01f8 -->
+            {{form.errors}}
+            
+            <div class="m-edit-content-form" style="clear:both;">
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;">贴子标题：</label>
+               
+                <input type="text" name="title" id="mtitle" style="width:50%;margin-left:3px;margin-top:20px;height:30px;" {% if form.title.value %} value="{{ form.title.value }}" {% endif %}><span style="color:red">*</span>
+                  
+            </div>
+             <!-- <div class="m-edit-content-form" style="clear:both;">
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;">标签：</label>
+               
+                {{form.tags}}
+                  
+            </div> -->
+            
+            <div class="m-edit-content-form" id="xxnr" style="clear:both;">
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;">详细内容：</label>
+               
+               <textarea name="content" id="mmyEditor" class="mmyEditor" style="width:50%;height: 280px;margin-left:5px;margin-top:20px;">{% if form.content.value %} {{ form.content.value }} {% endif %}</textarea>
+            </div>
+            
+            <div class="m-edit-content-form photo" style="clear:both;border:1px solid #ccc;width:80%;">
+                <label class="checkbox" style="margin-top:-5px;text-align:left;width:90%;font-size:14px;margin-left:0px;">预览照片：</label><br><br>
+               
+                <ul id="dd3" class="photo-img" style="width:90%;margin:0 auto;clear:both">
+                   {% for pic in pictures %}
+ <li class="mupload_append_list">
+              <a href="javascript:" class="mupload_delete" title="删除"><img src="/static/images/imgdele.png" style="height:16px"></a><br /> 
+              <img src={{ pic.image.url }} class="mupload_image" style="width:auto;height:auto;max-width:100%;max-height:100%;"/>
+             
+          </li>            {% endfor %}
+                </ul>
+               <label for="avatar-selector1" class="avatar-btn ac">
+                   
+                   <input type="file" class="form-control" name="image" id="avatar-selector1" accept="image/*" multiple="multiple" style="padding: 0px;display:none" placeholder="&nbsp;上传文件">
+                   <div style="color:#000;border:1px solid #CCC;border-radius:5px;background-color:#FFF; width:90%;margin: 0 auto; height:30px;font-size:14px;text-align:center;line-height:30px;clear:both;">本地上传</div> 
+
+                </label>
+                                       <input type="button" value="网络上传" style="color:#000;border:1px solid #ccc;border-radius:5px;background-color:#FFF; width:90%;margin-top:-100px;height:30px;font-size:14px;margin-top:5px;">
+                                       <div id="upnumber" style="margin-top:15px;text-align:center;width:90%;font-size:14px;;margin-bottom:20px;"><!-- 还可以上传0张 --></div>
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <div class="btn m-but" style="text-align:center;">
+                                                   
+                  <!-- <input type="submit" class="save-form" value="发表"> -->
+                  
+                  <input type="button" id="push2" class="save-form" value="发表">      
+                  <a href="{% url "posts:listrent" %}"><button type="button" class="cancel-form">取消</button></a>   </div>   
+             </form>
+             </div>
+         </div>
+          
+     </div>
+          
+         
+     
+     
+     
+     
+     <div style="margin-top:50px;"></div>
+     
+<canvas id="myCanvas"     style="display: none" ></canvas>
+
+     
+
+       <script src="{% static "js/jquery-1.4.1.js" %}"></script>
+    
+    <script src="{% static "js/File.js" %}"></script>
+       
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{% static "js/jquery.min.js" %}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+    <script src="{% static "js/flatpickr.min.js" %}"></script>
+    <script src="{% static "js/main.js" %}"></script>
+    <script src="{% static "js/exposureadd.js" %}"></script>
+    <script src="{% static "js/menu.js" %}"></script>
+    <script src="{% static "js/qtime.js" %}"></script>
+
+
+    
+  
+  </body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+{% load static %}
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />    
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalabe=no">
+        <link rel="stylesheet" href="{% static "fun/css/bootstrap.min.css" %}" />
+        <link rel="stylesheet" href="{% static "fun/css/fun.css" %}" />
+        <title>主页</title>
+        <script>
+            function hidde() {
+                var less = document.getElementById(less);
+                var more = document.getElementById(more);
+                if(less.style.display=="block"){
+                    less.style.display = "none";
+                    more.style.display = "block";
+                }else{
+                    more.style.display = "none";
+                    less.style.display = "block";
+                }
+            }
+        </script>
+    </head>
+
+    <body>
+        <div class="header">
+            <ul>
+                <li class="list"><a href="/fun/">主页</a></li>
+                <li><a href="/fun/activity/view">CSinLA fun</a></li>
+                <li><a href="/fun/contact">联系</a></li>
+            </ul>
+        </div>
+    <div class="content"> 
+        <div class="content-1">Activities Name Use the toolbar Symbols icon to add symbols to your <a href="/fun/activity/view/">点此跳到列表页</a></div>
+        <img src="{% static "fun/image/fun-2.png" %}" class="content-img">
+        <div class="content-header"><img src="{{activity.hoster.photo.url}}"></div>
+        <div class="content-name">Hoster Name</div>
+        <div class="content-email"><img src="{% static "fun/image/emil1.png" %}"><div class="content-chat">联系我</div></div>
+        <div id="less" style="width:100%;text-align:left;margin-top:30px;height:50px;font-family:'微软雅黑';font-size:14px;color:#666;overflow: hidden;">{{activity.desc}}<a id="hidd" href="javascript:void(0) " onclick="hidde()">展开更多</a></div>
+        <div id="more" style="display: none;width:100%;text-align:left;margin-top:30px;height:50px;font-family:'微软雅黑';font-size:14px;color:#666;">hoster summary or introduction……To update text layers that are using a shared text style, simply click the sync arrows that appear to the right of the style’s name in the Inspector. To reset unsynced changes.adhadhakdhakdakdhakdhakhdskdhsakdhaskdh</div>
+        <h2 style="width:100%;text-align:left;font-family:'微软雅黑';color:#645c52;">Detil Plan</h2>
+        <div style="width:98%;height:700px;overflow-y: scroll;border:1px solid #ccc;border-radius:8px;">
+            <div style="width:95%;text-align:left;color:#666;font-family:'微软雅黑';font-size:14px;">
+                {% for paragraph in activity.paragraph_set.all %}
+                    {% if paragraph.content_text %}
+                        <p>{{paragraph.content_text|linebreaksbr}}</p>
+                    {% endif %}
+                    {% if paragraph.content_img %}
+                        <img src="{{paragraph.content_img.url}}">
+                    {% endif %}
+                    <br>
+                {% endfor %}
+            </div>
+        </div>
+        <form>
+            <div style="width:100%;text-align:center;color:#666;font-family:'微软雅黑';">
+                <ul class="content-pay">
+                    <li>
+                        <div style="font-size:14px;float:left;margin-left:10px;">选择人数</div>
+                        <div style="font-size:8px;float:left;margin-left:25%;margin-top:4px;">已报{{activity.current_time_item.1.join_count}}人</div><br>
+                        <select style="width:80%;margin-left:0px;">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </li>
+                    <li>
+                        <div style="font-size:14px;text-align:left;margin-left:10px;margin-top:1px;">选择时间</div>
+                        <select style="width:100%">
+                            {% for item in activity.current_time_item %}
+                                <option value="{{item.id}}">{{item.activity_time}}</option>
+                            {% endfor %}
+                        </select>
+                    </li>
+                </ul>
+                <div class="content-pay1">
+                    <div style="font-size:14px;margin-top:20px;float:left;width:50%;margin-left:10px;text-align:left;">支付方式</div>
+                    <div style="font-size:14px;margin-top:20px;float:right;color:#666;font-family:'微软雅黑';font-weight: bold;margin-right:20px;">Entry fee:${{activity.pre_price}}</div>
+                    <br>
+                    <select class="pay">
+                        <option value="1">支付宝</option>
+                        <option value="1">支付宝</option>
+                        <option value="1">支付宝</option>
+                    </select>
+                    <br>
+                    <input type="submit" name="" class="btn" value="报名">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="footer">
+        <a href="/fun/contact"><img src="{% static "fun/image/emil1.png" %}" style="width:20px;height:15px;">
+        <div style="font-size:13px;margin-top:8px;color:#ccc;font-family:'微软雅黑'">联系我们</div></a>
+        <hr>
+        <span>fun.csinla.com</span>
+    </div>
+    <script src="{% static "fun/js/jquery.min.js" %}"></script>
+    <script src="{% static "fun/js/bootstrap.min.js" %}"></script>
+    </body>
+</html>

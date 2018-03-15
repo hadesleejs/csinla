@@ -1,0 +1,28 @@
+<h2>{{ object.title }}</h2>
+<p>{{ object.content}}</p>
+{{belong_to}}
+{{author}}
+{{phone}}
+{{weixin}}
+{{car_id}}
+{{car_type}}
+{{car_type_other}}
+{{brand}}
+{{vehicle_age}}
+{{vehicle_miles}}
+{{fee}}
+{{fee2}}
+{{price}}
+{{price2}}
+{{level_type}}
+{{level_type_other}}
+{{transmission_type}}
+{{displacement}}
+{{drive_type}}
+{{inside_color}}
+{{outside_color}}
+{{oil_type}}
+{{turbo}}
+{{vin_number}}
+{{contactor}}
+{{contact_way}}

@@ -1,0 +1,19 @@
+<h2>{{ object.title }}</h2>
+<p>{{ object.content}}</p>
+{{belong_to}}
+{{author}}
+{{phone}}
+{{weixin}}
+{{house_id}}
+{{district}}
+{{district_other}}
+{{fee}}
+{{house_type_other}}
+{{pet}}
+{{smoke}}
+{{parking}}
+{{gender_require}}
+{{address}}
+{{contactor}}
+{{contact_way}}
+{{pak_nums}}

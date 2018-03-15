@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="{% static "fun/css/bootstrap.min.css" %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static "fun/css/cropper.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "fun/css/userCenter.css" %}">
+    <style>
+    .cropper-view-box {
+        border-radius: 50%;
+    }
+    </style>
+    <script src="{% static "fun/js/echarts.common.min.js" %}"></script>
+    <title>个人中心</title>
+</head>
+<body>
+   
+
+
+            <div class="u-main-content row">
+                <div class="col-md-12">
+                    <div class="u-main-section">
+                                      <div class="">
+                                            
+                                            <div id="avatar_preview" style="width:233px;height:523px;overflow:hidden;margin:auto;float:right;margin-top: 55px;margin-right:210px"></div>
+
+                                            <div style="margin: 10px auto;float:right">
+                                            <div class="ac" style="color:#333;font-size:14px;">头像预览</div>
+                                            <label for="avatar-selector" class="avatar-btn ac">
+              <!--<form name="avatar-from-1" class="form-horizontal rect-form" style="" method="post" enctype="multipart/form-data" id="avatar-from-1" >
+                --> 
+                                           
+              <!-- </form> -->
+
+                                            </label>
+                                            </div>
+                                           
+
+                                             <!-- <div class="upload-img" style="width:100%;height: 100%;">
+                                              <img src={{ user.avatar.url }} style="width:150px;"/>
+                                            </div> -->
+                                            <div id="image_preview" class="upload-img" style="width:550px;height: 550px;">
+                                            <img id="image" src="{{image.url}}"  alt=""><!-- {{ user.avatar.url }} -->
+                                            </div>
+                                            <div style="margin-top:20px;" class="ac">
+                                             <button id="upload_btn" style="color: #5ddcb3; border: 1px solid #5ddcb3;padding: 4px 10px;border-radius: 4px;background:none;">上传头像</button><!-- {% csrf_token %} -->
+                                             <input id="btn1" type="file" accept="image/*,camera" capture="camera" style="opacity: 0;" name="image"/>
+                                             <button id="image_save" style="color: #5ddcb3; border: 1px solid #5ddcb3;padding: 4px 10px;border-radius: 4px;background:none;position:absolute;margin-top:-46px;margin-left:90px">保存头像</button> 
+                                            </div>
+                  <!-- </form> -->
+                                        </div>
+  <!-- end of sidebar -->
+            </div>  <!-- end of main-content -->
+            
+    </div>
+    </div>
+    
+    <script src="{% static "fun/js/jquery-1.11.1.min.js" %}"></script>
+    <script src="{% static "fun/js/bootstrap.min.js" %}"></script>
+    <script src="{% static "fun/js/bootstrap-datepicker.min.js" %}"></script>
+    <script src="{% static "fun/js/cropper.min.js" %}"></script>
+    <script src="{% static "fun/js/main.js" %}"></script>
+    <script type="text/javascript">
+     var filterInt = function (value) {
+      if(/^(\-|\+)?([0-9]+|Infinity)$/.test(value))
+        return Number(value);
+      return NaN;
+    }
+$(function() {
+  console.log('cropper图片上传。。。');
+
+  //触发input file
+  $('#upload_btn').click(function() {
+    console.log('模拟点击。。。');
+    $('#btn1').trigger('click');
+  });
+
+  //图片上传
+  var $image = $('.upload-img > img');
+  $image.cropper({
+      viewMode: 1,
+//      preview: '.img-preview', //不同尺寸预览区
+      aspectRatio: 1, //裁剪比例，NaN-自由选择区域
+      autoCropArea: 0.7, //初始裁剪区域占图片比例
+      dragMode: 'move',
+      aspectRatio: 233 / 523 ,
+      preview: '#avatar_preview',
+      movable: false,
+      zoomable: false,
+                minCropBoxWidth: 100,
+                minCropBoxHeight: 100,    
+               
+      crop: function(data) { //裁剪操作回调
+      }
+  });
+  var fileName; //选择上传的文件名
+  $('#btn1').change(function(){
+      var file = this.files[0];
+      fileName = file.name;
+      var reader = new FileReader();
+      //reader回调，重新初始裁剪区
+      reader.onload = function(){
+          // 通过 reader.result 来访问生成的 DataURL
+          var url = reader.result;
+          //选择图片后重新初始裁剪区
+          $image.cropper('reset', true).cropper('replace', url);
+      };
+      reader.readAsDataURL(file);
+  });
+
+  /*
+   * 上传图片
+   */
+  $('#image_save').click(function() {
+      var type = $image.attr('src').split(';')[0].split(':')[1];
+
+      var canVas = $image.cropper("getCroppedCanvas", {});
+      //将裁剪的图片加载到face_image
+      $('#avatar_preview').attr('src', canVas.toDataURL());
+      canVas.toBlob(function(blob) {
+          var formData = new FormData();
+          formData.append("image", blob, fileName);
+          var name="cover_images"
+
+          $.ajax({
+              type: "POST",
+              url: '',
+              data: formData,
+              contentType: false, //必须
+              processData: false, //必须
+              dataType: "json",
+              success: function(retJson){
+                  //清空上传文件的值
+                  $('#btn1').val('');
+
+                  //上传成功
+                  console.log('retJson:', retJson);
+              },
+              error : function() {
+                  //清空上传文件的值
+                  $(_pageId + '#btn1').val('');
+              }
+          });
+      }, type);
+  });
+
+  //取消
+  $("#image_cancel").click(function() {
+    //清空上传文件的值
+    $(_pageId + inputFileId).val('');
+  });
+});</script>
+    
+    
+</body>
+</html>

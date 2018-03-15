@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="ie-stand">
+    <link rel="shortcut icon" href="/static/images/logo1.png">
+    <link rel="stylesheet" type="text/css" href="{% static "css/font-awesome.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/house-renting.css" %}">
+    <script type="text/javascript" src="../../static/js/house.js"></script>
+    <title>租房</title>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-97624179-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?6784d0adea487eefbe595d28dbb08efb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+<body>
+<div class="u-container">
+{% if request.user.is_authenticated %}
+    <div class="u-header clearfix">
+        <div class="logo fl">
+            <a href="/"><img class="img-responsive" src="{% static "images/01-home-logo.png" %}" alt="logo"></a>
+        </div>
+        <div class="login-status fr">
+            <div class="avatar-wrapper">
+              <a href="{% url "accounts:myPosts" %}">
+                <img src={{ user.avatar_url }} class="img-circle avatar" alt="Cinque Terre">
+              </a>
+            </div>
+            <div class="dropdown" style="display:inline-block;">
+                <button class="header-btn dropdown-toggle" type="button" data-toggle="dropdown">
+                    <i class="fa fa-cog" aria-hidden="true"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li><a href="{% url 'accounts:accountSecurity' %}">账户安全</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <!-- <li><a href="#">人工申述</a></li>
+                    <li role="presentation" class="divider"></li> -->
+                    <li><a href="{% url 'accounts:myhelpcenter' %}">联系我们</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="{% url 'accounts:logout' %}">登出</a></li>
+                </ul>
+            </div>
+            <div class="dropdown" style="display:inline-block;">
+                <a href="{% url "accounts:myPosts" %}" class="header-btn dropdown-toggle">
+                    <i class="fa fa-bell-o" aria-hidden="true"></i>
+                    {% if user.unread_message %}<span class="redpoint"><i>{{ user.unread_message }} </i></span>{% endif %}
+                </a>
+               <!--  <ul class="dropdown-menu">
+                    <li><a href="#">我的私信<span class="redpoint"><i>2</i></span></a>
+                    </li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="#">我的回复<span class="redpoint"><i>99+</i></span></a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="#">查看@提到我<span class="redpoint"><i>12</i></span></a></li>
+                </ul> -->
+            </div>
+            <div class="new-post-wrapper fr">
+                <a class="new-post" href="/posts/add">
+                    <span>发表新帖</span>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="header w">
+        <a href="#" class="mobile-nav-btn pull-right"><i class="fa fa-bars" aria-hidden="true"></i></a>
+        <a href="/" class="home-link">
+            <div class="logo">
+                <img src="{% static "images/home-logo.png" %}" alt="" class="img-responsive">
+            </div>
+        </a>
+    <div class="user">
+            <a href="#" class="remove-nav pull-right"><img src="{% static "./images/times.png" %}" alt="" class="img-responsive"></a>
+            <a href="/" class="home-nav-item special">
+                <span>首页</span>
+            </a>
+            <a href="/posts/add" class="home-nav-item special">
+                <span>发表新帖</span>
+            <a href="{% url "accounts:myPosts" %}" class="home-nav-item special">
+                <span>个人中心</span>
+            </a>
+         <!--    <a href="{% url "accounts:accountSecurity" %}" class="home-nav-item has-sub-item">
+                <span>设置</span>
+            </a> -->
+            
+            <a href="{% url 'accounts:logout' %}"  class="home-nav-item special">
+                <span>Sign out</span></a>
+            
+            </a>
+        </div>
+    {% else %}
+    <div class="u-header clearfix">
+        <div class="logo fl">
+            <a href="/"><img class="img-responsive" src="{% static "images/01-home-logo.png" %}" alt="logo"></a>
+        </div>
+        <div class="user" style="margin-top:18px;text-align:right;">
+            <a href="{% url 'accounts:login' %}" class="login home-nav-item">
+                <span>Log in</span>
+                <img src="{% static "images/home-login.png" %}" alt="">
+            </a>
+            <a href="{% url 'accounts:register' %}" class="register home-nav-item" style="margin-left:10px;">
+                <span>Register</span>
+                <img src="{% static "images/home-register.png" %}" alt="">
+            </a>
+
+        </div>
+
+    </div>
+    <div class="header w">
+        <a href="#" class="mobile-nav-btn pull-right"><i class="fa fa-bars" aria-hidden="true"></i></a>
+        <a href="/" class="home-link">
+            <div class="logo">
+                <img src="{% static "images/home-logo.png" %}" alt="" class="img-responsive">
+            </div>
+        </a>
+        
+        <div class="user">
+            <a href="#" class="remove-nav pull-right"><img src="{% static "./images/times.png" %}" alt="" class="img-responsive"></a>
+            <a href="/" class="home-nav-item special">
+                <span>首页</span>
+            </a>
+            
+            
+            <a href="{% url 'accounts:login' %}" class="login home-nav-item">
+                <span>Log in</span>
+                <img src="{% static "images/home-login.png" %}" alt="">
+            </a>
+            <a href="{% url 'accounts:register' %}" class="register home-nav-item">
+                <span>Register</span>
+                <img src="{% static "images/home-register.png" %}" alt="">
+            </a>
+            <!-- <a href="#" class="home-nav-item special">
+                <span>Live and Love</span>
+            </a> -->
+        </div>
+
+       {% endif %}
+    </div> 
+     <!-- 顶部部分结束 -->
+     <!-- 个人中心内容开始 -->
+     
+    <div class="u-main well well-lg">
+      
+        <!-- <input type="image" src="{% static "images/back-icon1.png" %}" onclick="window.history.back();" style="width:25px; height: 25px;margin:10px;position:absolute;"> -->
+        <div id="pageurl"><a href="/">首页</a> <img src="{% static "images/url-lef.png" %}"> <a href="/posts/Roommate">找室友合租</a></div>
+        <h2 class="u-main-title ac">租房</h2>
+
+        <div class="u-main-search clearfix">
+            <div class="duration row">
+                <a href="{% url 'posts:listrent' %}" id="long" style="float:left;" class="u-block1">个人转租</a>
+               <!--  <a href="{% url 'posts:roommate' %}" id="short" style="float:left;margin-left:20px;" class="u-block">求室友合租</a> -->
+            </div>
+            <div class="location row">
+                <span>地区：</span>
+                <input id="allLocations" type="radio" name="location" value="全部" checked>
+                <label for="allLocations">全部</label>
+                <input id="school1" type="radio" name="location" value="USC">
+                <label for="school1">USC</label>
+                <input id="school2" type="radio" name="location" value="SMC UCLA">
+                <label for="school2">SMC UCLA</label>
+                <input id="school3" type="radio" name="location" value="UCSB">
+                <label for="school3">UCSB</label>
+                <input id="school4" type="radio" name="location" value="UCSD">
+                <label for="school4">UCSD</label>
+                <input id="school5" type="radio" name="location" value="UCI">
+                <label for="school5">UCI</label>
+                <input id="otherLocation" type="radio" name="location" value="other">
+                <label for="otherLocation">其他</label>
+            </div>
+            <div class="price row">
+                <span>月租：</span>
+                <input id="allPrice" type="radio" name="price" value="全部" checked>
+                <label for="allPrice">全部</label>
+                <input id="price1" type="radio" name="price" value="500">
+                <label for="price1">500元以下</label>
+                <input id="price2" type="radio" name="price" value="1000">
+                <label for="price2">500-1000元</label>
+                <input id="price3" type="radio" name="price" value="1500">
+                <label for="price3">1000-1500元</label>
+                <input id="otherPrice" type="radio" name="price" value="other">
+                <label for="otherPrice">其他</label>
+            </div>
+            <div class="type row">
+                <span>方式：</span>
+                <input id="all" type="radio" name="type" value="全部" checked>
+                <label for="all">全部</label>
+                <input id="private" type="radio" name="type" value="private">
+                <label for="private">private</label>
+                <input id="share" type="radio" name="type" value="share">
+                <label for="share">share</label>
+            </div>
+            <input type="button" id="search1" class="searchBtn" value="搜索" onclick="sendRentingType2()" style="background:none;">
+        </div>
+        <div class="m-main-search">
+            <form>            
+            <div class="duration2 ac">
+                 <a href="{% url 'posts:listrent' %}" id="long" style="float:left;font-size:16px;" class="u-block1">个人转租</a>
+                <!-- <a href="{% url 'posts:roommate' %}" id="short" style="float:left;margin-left:20px;font-size:16px;" class="u-block">求室友合租</a> -->
+            </div>
+
+            <div class="row" style="clear:both">
+            
+            <div class="form-group" style="margin-top:10px;width:30%;float:left;margin-left:3%;">
+                <label for="" class="col-sm-4 control-label">地区</label>
+                <select class="form-control">
+                    <option>全部</option>
+                    <option>USC</option>
+                    <option>UCLA</option>
+                    <option>UCSD</option>
+                    <option>UCI</option>
+                    <option>其他</option>
+                </select>
+            </div>
+           
+            
+            <div class="form-group" style="margin-top:10px;width:30%;float:left;margin-left:5px;">
+                <label for="" class="col-sm-4 control-label">月租</label>
+                <select class="form-control">
+                    <option value="全部">全部</option>
+                    <option value="500">500元以下</option>
+                    <option value="1000">500-1000元</option>
+                    <option value="1500">1000-1500元</option>
+                    <option value="other">其他</option>
+                </select>
+            </div>
+            
+          
+            <div class="form-group" style="margin-top:10px;width:30%;float:left;margin-left:5px;">
+                <label for="" class="col-sm-4 control-label">方式</label>
+                <select class="form-control">
+                    <option>全部</option>
+                    <option>private</option>
+                    <option>share</option>
+                </select>
+            </div>
+            </div>
+            
+            <button class="ac house-search-btn">搜索</button>
+            </form>
+        </div>
+        <div class="u-main-content row">
+            <div class="col-md-9">
+                <div class="u-main-section">
+                    <table class="u-table table table-hover ac">
+                        <tbody>
+                            {% for rent in Rents %}
+                              <tr id="listt">
+                                    <td class="title">
+                                        <div class="content">
+                                            <a href="{% url 'posts:detail' rent.id %}" style="color:#338dfd;font-size:16px;">[{{ rent.district }}]&nbsp;</a>
+                                            <a href="{% url 'posts:detail' rent.id %}" style="color:#338dfd;font-size:16px;">{{ rent.title}}</a>
+                                           
+                                            {% if rent.rentpicture_set.all %}<a href="{% url 'posts:detail' rent.id %}"><span style="color: #ff5400;font-size:16px;">[图片&nbsp;{{ rent.rentpicture_set.all.count }}]</span></a>{% endif %}
+                                        </div>
+                                        <div class="tagBox" style="color:#3f3f3f;font-size:14px;">
+<<<<<<< HEAD
+                                            <a href="#">出租{{ rent.house_type }}</a>
+                                            <a href="#">中的{{ rent.room_type }}</a>
+                                            <a href="#">{% if rent.parking == "有" %} 有车位 {% else %} {% if rent.parking == "无" %} 无车位 {% else %} {{ rent.parking }}{% endif %}{% endif %}</a>
+                                            <span style="float:right;font-size:12px;"><span style="color:#e10f0f;font-size:16px;">${{rent.fee}}</span>/月</span>
+=======
+                                        <span style="float:right;font-size:12px;"><span style="color:#e10f0f;font-size:16px;">${{rent.fee}}</span>/月</span>
+                                            <a href="#">出租: {{ rent.house_type }}</a>
+                                            <a href="#">中的: {{ rent.room_type }}</a>
+                                            <a href="#">{% if rent.parking == "有" %} 有车位 {% else %} {% if rent.parking == "无" %} 无车位 {% else %} {{ rent.parking }}{% endif %}{% endif %}</a>
+                                             
+>>>>>>> 022647bee1e6946327c66a65668eba84a2d8dd43
+                                        </div>
+
+
+
+                                        
+                                    </td>
+                                    <td class="time">
+                                        <div class="remainingTime" style="margin-top:10px;">
+                                            <!-- <span>仅剩&nbsp;2天&nbsp;3:30:15</span> -->
+                                            <span style="font-size:12px;color:#e10f0f;">仅剩&nbsp;{{ rent.get_date }}</span>
+                                        </div>
+                                       <div class="info" style="margin-top:10px">
+                                            <ul style="list-style:none;">
+                                              
+                                              <!-- <li style="font-size:14px;color:#3d3d3c;"><i class="fa fa-user" style="color:#999;"></i>&nbsp;{{ rent.author.username }}</li> -->
+                                              <li style="font-size:12px;color:#838383;">{{ rent.post_date }}</li>
+                                            </ul>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr id="mlistt">
+                                       <div class="mcontent">
+                                            <a href="{% url 'posts:detail' rent.id %}" style="color:#338dfd;font-size:16px;">[{{ rent.district }}]&nbsp;</a>
+                                            <a href="{% url 'posts:detail' rent.id %}" style="color:#338dfd;font-size:16px;">{{ rent.title}}</a>
+                                           
+                                            {% if rent.rentpicture_set.all %}<a href="{% url 'posts:detail' rent.id %}"><span style="color: #ff5400;font-size:16px;">[图片&nbsp;{{ rent.rentpicture_set.all.count }}]</span></a>{% endif %}
+                                            <span style="float:right;font-size:12px;"><span style="color:#e10f0f;font-size:16px;">${{rent.fee}}</span>/月</span>
+                                        </div>
+                                        <div class="mtagBox" style="color:#3f3f3f;font-size:14px;">
+                                        
+                                            <a href="#">出租{{ rent.house_type }}</a>
+                                            <a href="#">中的{{ rent.room_type }}</a>
+                                            <a href="#">{% if rent.parking == "有" %} 有车位 {% else %} {% if rent.parking == "无" %} 无车位 {% else %} {{ rent.parking }}{% endif %}{% endif %}</a>
+                                            
+                                        </div>
+
+
+
+                                        
+                                    
+                                    
+                                        <div class="mremainingTime" style="padding-bottom:10px;">
+                                            <!-- <span>仅剩&nbsp;2天&nbsp;3:30:15</span> -->
+                                            <span style="font-size:12px;color:#e10f0f;">仅剩&nbsp;{{ rent.get_date }}</span>
+                                       
+                                       
+                                            <ul style="list-style:none;float:right">
+                                              
+                                              <!-- <li style="font-size:14px;color:#3d3d3c;"><i class="fa fa-user" style="color:#999;"></i>&nbsp;{{ rent.author.username }}</li> -->
+                                              <li style="font-size:12px;color:#838383;">{{ rent.post_date }}</li>
+                                            </ul>
+
+                                        </div>
+                                   
+                                </tr>
+                     
+                     
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="new-post-wrapper" style="text-align:center">
+                        <a class="new-post btn publish" href="/posts/add">
+                    <span>发表新帖</span>
+                        </a>
+                    </div>
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                            <li>
+                                {% if Rents.has_previous %}
+                                <a href="?page={{ Rents.previous_page_number }}" aria-label="Previous">上一页
+                                </a>
+                                {% endif %}
+                            </li>
+                            <li><a href="?page=1">首页</a></li>
+                            {% for page in Rents.paginator.page_range %}
+                            <!-- <span class="current">1</span> -->
+                                {% if page == Rents.number %}
+                                <li class="active"><a href="#">{{ page }}</a></li>                                
+                                {% else %}
+                                <li><a href="?page={{ page }}">{{ page }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            <li><a href="?page={{ Rents.paginator.num_pages }}">尾页</a></li>
+                            <li>
+                            {% if Rents.has_next %}
+                                <a href="?page={{ Rents.next_page_number }}" aria-label="Next">
+                                    下一页
+                                </a>
+                            {% endif %}
+                            </li>
+                        </ul>
+                    </nav>
+                    
+                </div>
+
+            </div><!-- end of col-xs-9 -->
+
+            <div class="col-md-3 ac">
+            </div>  <!-- end of sidebar -->
+        </div>  <!-- end of main-content -->
+
+    </div>
+</div>
+<div class="u-main-footer ac">
+    <span>洛杉矶留学生资讯网&nbsp;版权所有</span>
+</div>
+<script src="{% static "js/jquery-1.11.1.min.js" %}"></script>
+<script src="{% static "js/bootstrap.min.js" %}"></script>
+<script src="{% static "js/houseRenting.js" %}"></script>
+<script src="{% static "js/menu.js" %}"></script>
+
+</body>
+</html>

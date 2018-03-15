@@ -1,0 +1,36 @@
+.u-main-search label {
+    display: inline-block;
+    cursor: pointer;
+    position: relative;
+    padding-left: 25px !important;
+    margin-right: 15px !important;
+    font-size: 13px !important;
+    font-family: "Microsoft YaHei";
+    color: #fff;
+}
+
+.u-main-search label:before {
+    content: "";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    margin-right: 10px;
+    position: absolute;
+    left: 0;
+    bottom: 1px;
+    background-color: #FFFFFF;
+    box-shadow: inset 0px 2px 3px 0px rgba(0, 0, 0, .3), 0px 1px 0px 0px rgba(255, 255, 255, .8);
+}
+
+.u-main-search input[type=radio] {
+    display: none;
+}
+
+.u-main-search input[type=radio]:checked + label:before {
+    content: "\2022";
+    color: #5bddb2;
+    font-size: 37px !important;
+    text-align: center;
+    line-height: 11px !important;
+}

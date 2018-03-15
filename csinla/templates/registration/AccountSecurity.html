@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+{% load static %}
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalabe=no">
+    <title>账户安全</title>
+    <link rel="shortcut icon" href="/static/images/logo1.png">
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-97624179-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?6784d0adea487eefbe595d28dbb08efb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+<style>.cropper-container{
+  width: 180px !important;
+ 
+}
+</style>
+    <!-- Bootstrap -->
+      <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %}">
+    <link href="{% static "css/AccountSecurity.css" %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static "css/font-awesome.min.css" %}"> 
+    <link rel="stylesheet" type="text/css" href="{% static "css/cropper.min.css" %}">
+  
+    <link rel="stylesheet" type="text/css" href="{% static "css/awesome-bootstrap-checkbox.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/flatpickr.min.css" %}">
+    <script src="{% static "js/echarts.common.min.js" %}"></script>
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+   <style>.checkbox label::after {
+  display: inline-block;
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  left: 0;
+  top: 3px;
+  margin-left: -13px;
+  padding-left: 3px;
+  padding-top: 0px;
+  font-size: 11px;
+  color: #5ddcb3;
+}
+/* .cropper-canvas{left: 3px !important}
+ */</style>
+  </head>
+  <body>
+  <!-- 顶部部分开始 -->
+   <div class="u-container">
+{% if request.user.is_authenticated %}
+    <div class="u-header clearfix">
+        <div class="logo fl">
+            <a href="/"><img class="img-responsive" src="{% static "images/01-home-logo.png" %}" alt="logo"></a>
+        </div>
+        <div class="login-status fr">
+            <div class="avatar-wrapper">
+              <a href="{% url "accounts:myPosts" %}">
+                <img src="{{ user.avatar_url }}" class="img-circle avatar" alt="Cinque Terre">
+              </a>
+            </div>
+            <div class="dropdown" style="display:inline-block;">
+                <button class="header-btn dropdown-toggle" type="button" data-toggle="dropdown">
+                    <i class="fa fa-cog" aria-hidden="true"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li><a href="{% url 'accounts:accountSecurity' %}">账户安全</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <!-- <li><a href="#">人工申述</a></li>
+                    <li role="presentation" class="divider"></li> -->
+                    <li><a href="{% url 'accounts:myhelpcenter' %}">联系我们</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="{% url 'accounts:logout' %}">登出</a></li>
+                </ul>
+            </div>
+            <div class="dropdown" style="display:inline-block;">
+                <a href="{% url "accounts:myInfo" %}" class="header-btn dropdown-toggle">
+                    <i class="fa fa-bell-o" aria-hidden="true"></i>
+                    {% if user.unread_message %}<span class="redpoint"><i>{{ user.unread_message }} </i></span>{% endif %}
+                </a>
+               <!--  <ul class="dropdown-menu">
+                    <li><a href="#">我的私信<span class="redpoint"><i>2</i></span></a>
+                    </li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="#">我的回复<span class="redpoint"><i>99+</i></span></a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="#">查看@提到我<span class="redpoint"><i>12</i></span></a></li>
+                </ul> -->
+            </div>
+            <div class="new-post-wrapper fr">
+                <a class="new-post" href="/posts/add">
+                    <span>发表新帖</span>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="header w">
+        <a href="#" class="mobile-nav-btn pull-right"><i class="fa fa-bars" aria-hidden="true"></i></a>
+        <a href="/" class="home-link">
+            <div class="logo">
+                <img src="{% static "images/home-logo.png" %}" alt="" class="img-responsive">
+            </div>
+        </a>
+    <div class="user">
+            <a href="#" class="remove-nav pull-right"><img src="{% static "./images/times.png" %}" alt="" class="img-responsive"></a>
+            <a href="/" class="home-nav-item special">
+                <span>首页</span>
+            </a>
+            <a href="/posts/add" class="home-nav-item special">
+                <span>发表新帖</span>
+            <a href="{% url "accounts:myPosts" %}" class="home-nav-item special">
+                <span>个人中心</span>
+            </a>
+         <!--    <a href="{% url "accounts:accountSecurity" %}" class="home-nav-item has-sub-item">
+                <span>设置</span>
+            </a> -->
+            
+            <a href="{% url 'accounts:logout' %}"  class="home-nav-item special">
+                <span>Sign out</span></a>
+            
+            </a>
+        </div>
+    {% else %}
+    <div class="u-header clearfix">
+        <div class="logo fl">
+            <a href="/"><img class="img-responsive" src="{% static "images/01-home-logo.png" %}" alt="logo"></a>
+        </div>
+        <div class="user" style="margin-top:18px;text-align:right;">
+            <a href="{% url 'accounts:login' %}" class="login home-nav-item">
+                <span>Log in</span>
+                <img src="{% static "images/home-login.png" %}" alt="">
+            </a>
+            <a href="{% url 'accounts:register' %}" class="register home-nav-item" style="margin-left:10px;">
+                <span>Register</span>
+                <img src="{% static "images/home-register.png" %}" alt="">
+            </a>
+
+        </div>
+
+    </div>
+    <div class="header w">
+        <a href="#" class="mobile-nav-btn pull-right"><i class="fa fa-bars" aria-hidden="true"></i></a>
+        <a href="/" class="home-link">
+            <div class="logo">
+                <img src="{% static "images/home-logo.png" %}" alt="" class="img-responsive">
+            </div>
+        </a>
+        
+        <div class="user">
+            <a href="#" class="remove-nav pull-right"><img src="{% static "./images/times.png" %}" alt="" class="img-responsive"></a>
+            <a href="/" class="home-nav-item special">
+                <span>首页</span>
+            </a>
+            
+            
+            <a href="{% url 'accounts:login' %}" class="login home-nav-item">
+                <span>Log in</span>
+                <img src="{% static "images/home-login.png" %}" alt="">
+            </a>
+            <a href="{% url 'accounts:register' %}" class="register home-nav-item">
+                <span>Register</span>
+                <img src="{% static "images/home-register.png" %}" alt="">
+            </a>
+            <!-- <a href="#" class="home-nav-item special">
+                <span>Live and Love</span>
+            </a> -->
+        </div>
+
+       {% endif %}
+    </div> 
+     <!-- 顶部部分结束 -->
+     <!-- 个人中心内容开始 -->
+     
+     <!-- 顶部部分结束 -->
+     <!-- 个人中心内容开始 -->
+      <!--  <div class="content" style="border-radius:10px;">
+          <div class="content-title" style="float:left;">
+          个人中心
+          </div>
+          <!-- m-个人信息 -->
+        <!-- <div class="m-info" style="text-align:center;margin-top:20px;padding-bottom:10px;">
+              
+                  <div class="aa" style="margin-left:0px;float:left;">
+                    <img src={{ user.avatar_url }} class="img-circle" alt="dummy-head" width="95" height="95">
+                     <h4 class="username"><a style="vertical-align:middle;padding-left:30px;" href="#">{{ user.username }}</a>
+                     <span style="margin-left:6px;"><img src="{% static "images/man.png" %}" alt="man icon"></span></h4>
+                    
+                 <p style="font-size:12px;">吧龄:1年&nbsp;&nbsp;发帖:100&nbsp;&nbsp;所属学校:UCLA
+                 </p></div>
+                 <div class="safety-container ac ab" style="margin-right:0px;">
+                                    <div style="font-size:18px;margin-top:20px;">您的安全评分:69</div>
+                                    <div class="safe" style="font-size:24px;margin-top:10px;">较安全</div>
+                                    <div id="safety-chart" style="display:inline-block;width:120px;height:120px;" data-value="69">
+                                    </div>
+                                </div> -->
+          
+         <!--  </div> --> 
+           <div class="content" style="border-radius:10px;">
+           <div id="pageurl"><a href="/">首页</a> <img src="{% static "images/url-lef.png" %}"> <a href="{% url "accounts:myPosts" %}">个人中心</a> <img src="{% static "images/url-lef.png" %}">  <a href="{% url "accounts:accountSecurity" %}">账户安全</a></div>
+           <!-- <input type="image" src="{% static "images/back-icon1.png" %}" onclick="window.history.back();" style="width:25px; height: 25px;margin:10px;position:absolute;"> -->
+          <div class="content-title">
+          个人中心
+          </div>
+          <!-- m-个人信息 -->
+       <!--  <div class="m-info" style="text-align:center;margin-top:20px;padding-bottom:10px;">
+              
+                  
+                    <a href="{% url "accounts:accountSecurity" %}"><img src={{ user.avatar_url }} class="img-circle" alt="dummy-head" width="95" height="95"></a>
+                     <h4 class="username"><a style="vertical-align:middle;padding-left:30px;" href="#">{{ user.username }}</a>
+                     <span style="margin-left:6px;"><img src={% if user.gender == "male" %} "{% static "images/man.png" %}" {% else %} "{% static "images/girl.png" %}" {% endif %} alt="man icon"></span></h4>
+                    
+                 <p style="font-size:12px;">吧龄:{{ user.get_age }}&nbsp;&nbsp;发帖:{{ user.reply_total }}&nbsp;&nbsp;所属学校:{{user.school}}
+                 </p>
+          
+          </div> -->
+          
+          <div class="content-navigation" style="clear:both;">
+              <ul style="font-family:'微软雅黑';">
+                    <li role="presentation" class="content-tit"><a href="{% url "accounts:myPosts" %}"><img src="{% static "images/file.png" %}" style="margin-top:-11px;" width="18" height="21"><br>
+                    <div>我的帖子</div></a></li>
+                     <li role="presentation" class="content-tit"><a href="{% url "accounts:myFavorites" %}"><img src="{% static "images/star.png" %}" style="margin-top:-11px;" width="20" height="20"><br>
+                    <div>我的收藏</div></a></li>
+                    <li role="presentation" class="content-tit"><a href="{% url "accounts:myInfo" %}"><img src="{% static "images/bell.png" %}" style="margin-top:-11px;" width="22" height="22"><br>
+                    <div>我的消息</div></a></li>
+                    <li role="presentation" class="content-tit active"><a href="{% url "accounts:accountSecurity" %}"><img src="{% static "images/safe.png" %}" style="margin-top:-11px;" width="20" height="20"><br>
+                    <div>账户安全</div></a></li>
+                    <li role="presentation" class="content-tit"><a href="{% url "accounts:myhelpcenter" %}"><img src="{% static "images/light.png" %}" style="margin-top:-11px;" width="20" height="20"><br>
+                    <div>联系我们</div></a></li>
+             </ul>
+          </div>
+          <div class="row" style="width:100%;margin-left:0px;">
+               <div class="list col-md-9 col-sm-9" style="width:77%;">
+               
+                <div class="u-main-section">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-3">
+                                <!-- <div class="safety-container ac safe1"> -->
+                                    <!-- <div style="font-size:18px;margin-top:20px;">您的安全评分:69</div>
+                                    <div class="safe" style="font-size:24px;margin-top:10px;">较安全</div>
+                                    <div id="safety-chart" style="display:inline-block;width:120px;height:120px;" data-value="69">
+                                    </div> -->
+                                <!-- </div> -->
+                                <ul class="side-nav ac"> 
+                                    <li><a href="#" class="active">个人资料</a></li>
+                                    <li><a href="#">修改密码</a></li>
+                                   <!--  <li><a href="#">密保问题</a></li> -->
+                                </ul>
+                            </div>
+                            <div class="col-md-9 col-sm-9" style="margin-bottom:30px;padding:10px;width:75%">
+                                <div class="side-nav-contents">
+                                    <div class="side-nav-content side-nav-content5 clearfix active" >
+                                        <div class="avatar-form-wrapper">
+                                        <div class="avatar-form-inner-wrapper" style="width:65%;margin-left:-15px;">
+
+                                        <form class="form-horizontal rect-form" style="" method="post" id="save" enctype="multipart/form-data">{% csrf_token %}
+
+                                          {{form.errors}}
+
+                                          <div class="form-group" >
+                                            <label for="username" class="col-xs-5 control-label">用户名:</label>
+                                            <div class="col-xs-7">
+                                              <input type="text" class="form-control" id="username" placeholder="" name="username" value="{{ form.username.value }}">
+                                            </div>
+                                          </div>
+                                         <!-- <div class="form-group">
+                                            <label for="realname" class="col-xs-5 control-label">真实姓名:</label>
+                                            <div class="col-xs-7">
+                                              <input type="text" class="form-control" id="realname" placeholder="" name="real_name" value={{ form.real_name.value }}>
+                                            </div>
+                                          </div>-->
+                                          <div class="form-group" >
+                                            <label for="school" class="col-xs-5 control-label">我的学校:</label>
+                                            <div class="col-xs-7">
+                                              <input type="text" class="form-control" id="school" placeholder="" name="school" value={{ form.school.value }}>
+                                            </div>
+                                          </div>
+                                          <div class="form-group" >
+                                            <label for="studentID" class="col-xs-5 control-label">学生ID:</label>
+                                            <div class="col-xs-7">
+                                              <input type="text" class="form-control" id="studentID" placeholder="" name="student_id" value={{ form.student_id.value }}>
+                                            </div>
+                                          </div>
+                                          <div class="form-group">
+                                            <label class="col-xs-5 control-label">性别:</label>
+                                            <div class="col-xs-7">
+                                            <div class="radio col-xs-4">
+                                                <input type="radio" name="gender" id="gender1" value="male" {% if form.gender.value == "male" %} checked="" {% endif %}>
+                                                <label for="gender1">男</label>
+                                            </div>
+                                            <div class="radio col-xs-4">
+                                                <input type="radio" name="gender" id="gender2" value="female" {% if form.gender.value == "female" %} checked="" {% endif %}>
+                                                <label for="gender2">女</label>
+                                            </div>
+                                            </div>
+                                          
+                                          
+
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="realname" class="col-xs-5 control-label">联系微信:</label>
+                                            <div class="col-xs-7">
+                                              <input type="text" class="form-control" id="weixin" name="weixin" {% if form.weixin.value %} value={{ form.weixin.value }} {% else %} placeholder="设置发帖时自动填写更方便"  {% endif %}>
+                                            </div>
+                                          </div>
+                                          <!--<div class="form-group">
+                                            <label for="birthday" class="col-xs-5 control-label">生日:</label>
+                                            <div class="col-xs-7">
+                                              <input type="text" class="form-control" id="birthday" placeholder="" name="birth_date" {% if form.birth_date.value %} value={{ form.birth_date.value }} {% endif %}>
+              
+                                            </div>
+                                          </div>-->
+                                          <div class="form-group">
+                                            <label for="phone" class="col-xs-5 control-label">联系电话:</label>
+                                            <div class="col-xs-7">
+                                              <input type="text" class="form-control" id="phone"  name="phone" {% if form.phone.value %} value={{ form.phone.value }} {% else %} placeholder="设置发帖时自动填写更方便"  {% endif %}>
+              
+                                            </div>
+                                          </div>
+                                          <div class="form-group">
+                                            <label class="col-xs-5 control-label">绑定邮箱:</label>
+                                            <div class="col-xs-7" style="padding-top:7px;margin-left:-15px;">
+                                              <span>{{ user.email }}</span><!-- &nbsp;|&nbsp;<a href="#" class="safe">申请更改</a> -->
+                                            </div>
+                                          </div>
+                                         <!-- <div class="form-group">
+                                            <label class="col-xs-5 control-label">我的学校:</label>
+                                            <div class="col-xs-7" style="padding-top:7px;margin-left:-15px;">
+                                              <span>{{ user.school }}</span>&nbsp;|&nbsp;<a href="#" class="safe">申请更改</a>
+                                            </div>
+                                          </div>-->
+                                          <div class="form-group">
+                                            <label class="col-xs-5 control-label" style="text-decoration:underline;">发帖自动填写:</label>
+                                            <div class="col-xs-7" style="margin-left:-15px;">
+                                               <div class="checkbox col-xs-12" style="position:absolute;">
+                                                <input type="checkbox" name="is_weixin" id="metadata1" value="True" {% if is_weixin %} checked {% endif %}>
+                                                <label for="metadata1">联系微信</label>&nbsp;&nbsp;&nbsp;
+                                              <br>
+                                                <input type="checkbox" name="is_phone" id="metadata2" value="True" {% if is_phone %} checked {% endif %}>
+                                                <label for="metadata2">联系电话</label>&nbsp;&nbsp;&nbsp;
+                                             <br>
+                                                <input type="checkbox" name="is_name" id="metadata3" value="True" {% if is_name %} checked {% endif %}>
+                                                <label for="metadata3">联系人（用户名）</label>
+                                                <br>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <!-- <div class="form-group">
+                                            <label class="col-xs-5 control-label" style="text-decoration:underline;">隐私:</label>
+                                            <div class="col-xs-7">
+                                              <div class="checkbox col-xs-12" style="margin-left:-15px;">
+                                                <input type="checkbox" name="privacy" id="privacy" value="">
+                                                <label for="privacy">不允许任何人关注我，并隐藏我的动态</label>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="form-group">
+                                            <label class="col-xs-5 control-label" style="text-decoration:underline;">防打扰:</label>
+                                            <div class="col-xs-7" style="margin-left:-15px;">
+                                              <div class="checkbox col-xs-12">
+                                                <input type="checkbox" name="disturb" id="disturb1" value="">
+                                                <label for="disturb1">关闭私信提醒</label>
+                                              </div>
+                                              <div class="checkbox col-xs-12">
+                                                <input type="checkbox" name="disturb" id="disturb2" value="">
+                                                <label for="disturb2">关闭回复提醒</label>
+                                              </div>
+                                              <div class="checkbox col-xs-12">
+                                                <input type="checkbox" name="disturb" id="disturb3" value="">
+                                                <label for="disturb3">关闭@我提醒</label>
+                                              </div>
+                                              <div class="checkbox col-xs-12">
+                                                <input type="checkbox" name="disturb" id="disturb4" value="">
+                                                <label for="disturb4">关闭系统提示</label>
+                                              </div>
+                                            </div>
+                                          </div> -->
+                                          <div class="form-group" style="margin-top:50px">
+                                            <div class="col-xs-offset-5 col-xs-7">
+                                              <button type="button"  id="image_save" class="save-form">保存资料</button>
+                                            </div>
+                                          </div>
+                                        </form>
+                                        </div>
+                                        </div>
+
+
+
+
+
+                                        
+                                        <div class="avatar-upload-wrapper">
+                                            <div class="ac" style="color:#333;font-size:14px;">头像预览</div>
+                                            <div id="avatar_preview" style="width:100px;height:100px;overflow:hidden;border-radius:50px;margin:auto;"></div>
+                                            <div style="margin: 10px auto;">
+                                            <label for="avatar-selector" class="avatar-btn ac">
+              <!--<form name="avatar-from-1" class="form-horizontal rect-form" style="" method="post" enctype="multipart/form-data" id="avatar-from-1" >
+                --> 
+                                            <button id="upload_btn" style="color: #5ddcb3; border: 1px solid #5ddcb3;padding: 4px 10px;border-radius: 4px;background:none;">上传头像</button>{% csrf_token %}
+                                             <input id="btn1" type="file" accept="image/*,camera" capture="camera" style="opacity: 0;" name="avatar"/>
+              <!-- </form> -->
+
+                                            </label>
+                                            </div>
+                                            <div class="ac" style="margin: 10px auto 15px;">
+                                            选择本地照片，调整合适大小<br>
+                                            支持jpg、jpeg、gif、png格式
+                                            </div>
+
+                                             <!-- <div class="upload-img" style="width:100%;height: 100%;">
+                                              <img src={{ user.avatar_url }} style="width:150px;"/>
+                                            </div> -->
+                                            <div id="image_preview" class="upload-img" style="width:180px;height: 180px;margin:10px">
+                                            <img id="image" src="{{ user.avatar_url }}"  alt="">
+                                            </div>
+                                            <div style="margin-top:20px;" class="ac">
+                                               <!-- <button style="color: #5ddcb3; border: 1px solid #5ddcb3;padding: 4px 10px;border-radius: 4px;background:none;">保存头像</button>  -->
+                                            </div>
+                  <!-- </form> -->
+                                        </div>
+                                    </div>
+                                    <div class="side-nav-content side-nav-content6">
+                                      <h3 class="ac">请重新设置您的密码</h3>
+                                      <div class="reset-password clearfix">
+                                      <form class="form-horizontal rect-form" method="post" action="/password/change/" enctype="multipart/form-data">{% csrf_token %}
+                                          <div class="form-group">
+                                           <div class="error">{{error}}</div>
+                                            <label for="old_password" class="col-xs-3 control-label">原密码:</label>
+                                            <div class="col-xs-9 input-decorator">
+                                              <input type="password" class="form-control" id="old_password" name="old_password" placeholder="">
+                                              <!--<span><img class="img-responsive" src="{% static "images/success.png" %}" alt=""></span>-->
+                                            </div>
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="password1" class="col-xs-3 control-label">输入新密码:</label>
+                                            <div class="col-xs-9 input-decorator">
+                                              <input type="password" class="form-control" id="password1" name="password1" placeholder="">
+                                              <span><img class="img-responsive" src="{% static "images/success.png" %}" alt=""></span>
+                                            </div>
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="password2" class="col-xs-3 control-label">重复密码:</label>
+                                            <div class="col-xs-9 input-decorator">
+                                              <input type="password" class="form-control" id="password2" name="password2" placeholder="">
+                                              <span><img class="img-responsive" src="{% static "images/success.png" %}" alt=""></span>
+                                            
+                                            </div>
+                                          </div>
+                                          <div class="form-group" style="margin-top:50px;">
+                                            <div class="col-xs-offset-5 col-xs-7">
+                                              <button type="submit" class="save-form">确认修改</button>
+                                            </div>
+                                          </div>
+                                        </form>
+                                        </div>
+                                    </div>
+
+                                    <!-- <div class="side-nav-content side-nav-content7"> -->
+                                       <!--  <h3 class="ac">首次登陆请填写问题答案</h3>
+                                        <div class="password-qn clearfix">
+                                        <form class="form-horizontal rect-form">
+                                          <div class="form-group">
+                                            <label for="qn1" class="col-xs-3 control-label">问题一:</label>
+                                            <div class="col-xs-9">
+                                              <select id="qn1" name="" class="form-control">
+                                              <option value="">您的中学名称是？</option>
+                                              </select>
+                                            </div>
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="as1" class="col-xs-3 control-label">答案一:</label>
+                                            <div class="col-xs-9">
+                                              <input type="text" class="form-control" id="as1" name="" placeholder="">
+                                            </div>
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="qn2" class="col-xs-3 control-label">问题二:</label>
+                                            <div class="col-xs-9">
+                                              <select id="qn2" name="" class="form-control">
+                                              <option value="">您父亲的名字是？</option>
+                                              </select>
+                                            </div>
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="as2" class="col-xs-3 control-label">答案二:</label>
+                                            <div class="col-xs-9">
+                                              <input type="text" class="form-control" id="as2" name="" placeholder="">
+                                            </div>
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="qn3" class="col-xs-3 control-label">问题三:</label>
+                                            <div class="col-xs-9">
+                                              <select id="qn3" name="" class="form-control">
+                                              <option value="">您母亲的名字是？</option>
+                                              </select>
+                                            </div>
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="as3" class="col-xs-3 control-label">答案三:</label>
+                                            <div class="col-xs-9">
+                                              <input type="text" class="form-control" id="as3" name="" placeholder="">
+                                            </div>
+                                          </div>
+                                          <div class="form-group" style="margin-top:50px;">
+                                            <div class="col-xs-offset-3 col-xs-7">
+                                              <button type="submit" class="save-form">确认保存</button>
+                                            </div>
+                                          </div>
+                                        </form>
+                                        </div> -->
+                                    <!-- </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+              
+                       
+                  
+               
+               </div>
+
+                      
+                  <div style="width:100%;background-color:#FFF;">
+                <div class="m-list" style="width:96%;">
+               
+                <div class="u-main-section">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-3">
+                                <!-- <div class="safety-container ac safe">
+                                    <div style="font-size:18px;margin-top:20px;">您的安全评分:69</div>
+                                    <div class="safe" style="font-size:24px;margin-top:10px;">较安全</div>
+                                    <div id="safety-chart" style="display:inline-block;width:120px;height:120px;" data-value="69">
+                                    </div>
+                                </div> -->
+                                <ul class="side-nav ac">
+                                    <li><a href="#" class="active">个人资料</a></li>
+                                    <li><a href="#">修改密码</a></li>
+                                    <!-- <li><a href="#">密保问题</a></li> -->
+                                </ul>
+                            </div>
+                            <div class="col-md-9 col-sm-9" style="margin-bottom:30px;padding:10px;width:75%">
+                                <div class="side-nav-contents">
+                                    <div class="side-nav-content side-nav-content5 clearfix active" >
+                                        <div class="avatar-form-wrapper">
+                                        <div class="avatar-form-inner-wrapper" style="width:65%;margin-left:-15px;">
+                                        <form class="form-horizontal rect-form" style="" method="post" enctype="multipart/form-data" id="save2" onsubmit="return change1()">{% csrf_token %}
+                                          <div class="form-group" >
+                                            <label for="username" class="col-xs-5 control-label">用户名:</label>
+                                            <div class="col-xs-7">
+                                              <input type="text" class="form-control" id="username1" placeholder="" name="username" value="{{ form.username.value }}">
+                                            </div>
+                                          </div>
+                                          <div class="form-group" >
+                                            <label for="school" class="col-xs-5 control-label">我的学校:</label>
+                                            <div class="col-xs-7">
+                                              <input type="text" class="form-control" id="school1" placeholder="" name="school" value={{ form.school.value }}>
+                                            </div>
+                                          </div>
+                                          <!--<div class="form-group">
+                                            <label for="realname" class="col-xs-5 control-label">真实姓名:</label>
+                                            <div class="col-xs-7">
+                                              <input type="text" class="form-control" id="realname" placeholder="" name="real_name" value={{ form.real_name.value }}>
+                                            </div>-->
+                                          <div class="form-group" >
+                                            <label for="studentID" class="col-xs-5 control-label">学生ID:</label>
+                                            <div class="col-xs-7">
+                                              <input type="text" class="form-control" id="studentID1" placeholder="" name="student_id" value={{ form.student_id.value }}>
+                                            </div>
+                                          </div>
+                                          <div class="form-group">
+                                            <label class="col-xs-5 control-label">性别:</label>
+                                            <div class="col-xs-7">
+                                            <div class="radio col-xs-4">
+                                                <input type="radio" name="gender1" id="gender1" value="男" checked="">
+                                                <label for="gender1">男</label>
+                                            </div>
+                                            <div class="radio col-xs-4">
+                                                <input type="radio" name="gender1" id="gender2" value="女">
+                                                <label for="gender2">女</label>
+                                            </div>
+                                            </div>
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="realname" class="col-xs-5 control-label">联系微信:</label>
+                                            <div class="col-xs-7">
+                                              <input type="text" class="form-control" id="weixin1" placeholder="" name="weixin" value={{ form.weixin.value }}>
+                                            </div>
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="phone" class="col-xs-5 control-label">联系电话:</label>
+                                            <div class="col-xs-7">
+                                              <input type="text" class="form-control" id="phone1" placeholder="" name="phone" value={{ form.phone.value }}>
+                                            </div>
+                                          </div>
+
+                                          <!--<div class="form-group">
+                                            <label for="birthday" class="col-xs-5 control-label">生日:</label>
+                                            <div class="col-xs-7">
+                                              <input type="text" class="form-control" id="birthday" placeholder="" name="birth_date" {% if form.birth_date.value %} value={{ form.birth_date.value }} {% endif %}>
+                                            </div>
+                                          </div>-->
+
+                                          <div class="form-group">
+                                            <label class="col-xs-5 control-label">绑定邮箱:</label>
+                                            <div class="col-xs-7" style="padding-top:7px;margin-left:-15px;">
+                                              <span>{{ user.email }}</span><!-- &nbsp;|&nbsp;<a href="#" class="safe">申请更改</a> -->
+                                            </div>
+                                          </div>
+                                          <!--<div class="form-group">
+                                            <label class="col-xs-5 control-label">我的学校:</label>
+                                            <div class="col-xs-7" style="padding-top:7px;margin-left:-15px;">
+                                              <span>{{ user.school }}</span>&nbsp;|&nbsp;<a href="#" class="safe">申请更改</a>
+                                            </div>
+                                          </div>-->
+                                          <div class="form-group">
+                                            <label class="col-xs-5 control-label" style="text-decoration:underline;">发帖自动填写:</label>
+                                            <div class="col-xs-7" style="margin-left:-15px;">
+                                              <div class="checkbox col-xs-12" style="position:absolute;">
+                                                <input type="checkbox" name="metadata" id="metadata4" value="">
+                                                <label for="metadata4">联系微信</label>&nbsp;&nbsp;&nbsp;
+                                                <br>
+                                                <input type="checkbox" name="metadata" id="metadata5" value="">
+                                                <label for="metadata5">联系电话</label>&nbsp;&nbsp;&nbsp;
+                                                <br>
+                                                <input type="checkbox" name="metadata" id="metadata6" value="">
+                                                <label for="metadata6">联系人（用户名）</label>
+                                                <br>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <!-- <div class="form-group">
+                                            <label class="col-xs-5 control-label" style="text-decoration:underline;">隐私:</label>
+                                            <div class="col-xs-7">
+                                              <div class="checkbox col-xs-12" style="margin-left:-15px;">
+                                                <input type="checkbox" name="privacy" id="privacy" value="">
+                                                <label for="privacy">不允许任何人关注我，并隐藏我的动态</label>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="form-group">
+                                            <label class="col-xs-5 control-label" style="text-decoration:underline;">防打扰:</label>
+                                            <div class="col-xs-7" style="margin-left:-15px;">
+                                              <div class="checkbox col-xs-12">
+                                                <input type="checkbox" name="disturb" id="disturb1" value="">
+                                                <label for="disturb1">关闭私信提醒</label>
+                                              </div>
+                                              <div class="checkbox col-xs-12">
+                                                <input type="checkbox" name="disturb" id="disturb2" value="">
+                                                <label for="disturb2">关闭回复提醒</label>
+                                              </div>
+                                              <div class="checkbox col-xs-12">
+                                                <input type="checkbox" name="disturb" id="disturb3" value="">
+                                                <label for="disturb3">关闭@我提醒</label>
+                                              </div>
+                                              <div class="checkbox col-xs-12">
+                                                <input type="checkbox" name="disturb" id="disturb3" value="">
+                                                <label for="disturb3">关闭系统提示</label>
+                                              </div>
+                                            </div>
+                                          </div> -->
+                                          <div class="form-group" style="margin-top:50px;">
+                                            <div class="col-xs-offset-5 col-xs-7">
+                                              <button type="button"  id="image_save2" class="save-form">保存资料</button>
+                                            </div>
+                                          </div>
+                                        </form>
+                                        </div>
+                                        </div>
+                                        <div class="avatar-upload-wrapper1">
+                                            <div class="ac" style="color:#333;font-size:14px;">头像预览</div>
+                                            <div id="avatar_preview2" style="width:100px;height:100px;overflow:hidden;border-radius:50px;margin:auto;"></div>
+                                            <div style="margin: 10px auto;">
+                                            <label for="avatar-selector" class="avatar-btn ac">
+              <!-- <form name="avatar-from-1" class="form-horizontal rect-form" style="" method="post" enctype="multipart/form-data" id="avatar-from-1" >
+                --> 
+                                            <button id="upload_btn2" style="color: #5ddcb3; border: 1px solid #5ddcb3;padding: 4px 10px;border-radius: 4px;background:none;">上传头像</button>
+                                             <input id="btn3" type="file" accept="image/*,camera" capture="camera" style="opacity: 0;" name="avatar" />
+              <!-- </form> -->
+                                            </label>
+                                            </div>
+                                            <div class="ac" style="margin: 10px auto 15px;">
+                                            选择本地照片，调整合适大小<br>
+                                            支持jpg、jpeg、gif、png格式
+                                            </div>
+                                             <div class="upload-img2" style="width:180px;height: 180px;margin:10px">
+                                              <img src="{{ user.avatar_url }}" style="width:150px;"/>
+                                            </div>
+                                            <div style="margin-top:20px;" class="ac">
+                                               <!-- <button id="image_save2" style="color: #5ddcb3; border: 1px solid #5ddcb3;padding: 4px 10px;border-radius: 4px;background:none;">保存头像</button>  -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="side-nav-content side-nav-content6">
+                                      <h3 class="ac">请重新设置您的密码</h3>
+                                      <div class="reset-password clearfix">
+                                      <form class="form-horizontal rect-form">{% csrf_token %}
+                                          <div class="form-group">
+                                            <label for="old_password" class="col-xs-3 control-label">原密码:</label>
+                                            <div class="col-xs-9 input-decorator">
+                                              <input type="password" class="form-control" id="old_password" name="old_password" placeholder="">
+                                              <span><img class="img-responsive" src="{% static "images/success.png" %}" alt=""></span>
+                                            </div>
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="password1" class="col-xs-3 control-label">输入新密码:</label>
+                                            <div class="col-xs-9 input-decorator">
+                                              <input type="password" class="form-control" id="password1" name="password1" placeholder="">
+                                              <span><img class="img-responsive" src="{% static "images/success.png" %}" alt=""></span>
+                                            </div>
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="password2" class="col-xs-3 control-label">重复密码:</label>
+                                            <div class="col-xs-9 input-decorator">
+                                              <input type="password" class="form-control" id="password2" name="password2" placeholder="">
+                                              <span><img class="img-responsive" src="{% static "images/success.png" %}" alt=""></span>
+                                            </div>
+                                          </div>
+                                          <div class="form-group" style="margin-top:50px;">
+                                            <div class="col-xs-offset-3 col-xs-7">
+                                              <button type="submit" class="save-form">确认修改</button>
+                                            </div>
+                                          </div>
+                                        </form>
+                                        </div>
+                                    </div>
+                                    <div class="side-nav-content side-nav-content7">
+                                        <h3 class="ac">首次登陆请填写问题答案</h3>
+                                        <div class="password-qn clearfix">
+                                        <form class="form-horizontal rect-form">
+                                          <div class="form-group">
+                                            <label for="qn1" class="col-xs-3 control-label">问题一:</label>
+                                            <div class="col-xs-9">
+                                              <select id="qn1" name="" class="form-control">
+                                              <option value="">您的中学名称是？</option>
+                                              </select>
+                                            </div>
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="as1" class="col-xs-3 control-label">答案一:</label>
+                                            <div class="col-xs-9">
+                                              <input type="text" class="form-control" id="as1" name="" placeholder="">
+                                            </div>
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="qn2" class="col-xs-3 control-label">问题二:</label>
+                                            <div class="col-xs-9">
+                                              <select id="qn2" name="" class="form-control">
+                                              <option value="">您父亲的名字是？</option>
+                                              </select>
+                                            </div>
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="as2" class="col-xs-3 control-label">答案二:</label>
+                                            <div class="col-xs-9">
+                                              <input type="text" class="form-control" id="as2" name="" placeholder="">
+                                            </div>
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="qn3" class="col-xs-3 control-label">问题三:</label>
+                                            <div class="col-xs-9">
+                                              <select id="qn3" name="" class="form-control">
+                                              <option value="">您母亲的名字是？</option>
+                                              </select>
+                                            </div>
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="as3" class="col-xs-3 control-label">答案三:</label>
+                                            <div class="col-xs-9">
+                                              <input type="text" class="form-control" id="as3" name="" placeholder="">
+                                            </div>
+                                          </div>
+                                          <div class="form-group" style="margin-top:50px;">
+                                            <div class="col-xs-offset-3 col-xs-7">
+                                              <button type="submit" class="save-form">确认保存</button>
+                                            </div>
+                                          </div>
+                                        </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+              
+                       
+                  
+               
+               </div>
+  
+                                           
+                      <ul id="myTab" class="nav nav-tabs">
+                           <li class="active" style="margin-top:10px;"><a href="#infor" data-toggle="tab">
+                              个人资料</a>
+                           </li>
+                           <li style="margin-top:10px;"><a href="#pw" data-toggle="tab">修改密码</a></li>
+                           <!-- <li style="margin-top:10px;"><a href="#ques" data-toggle="tab">密保问题</a></li> -->
+                              </ul>
+                           </li>
+                        </ul>
+                        <div id="myTabContent" class="tab-content">
+                           <div class="tab-pane fade in active" id="infor">
+                                                  <div class="ac" style="color:#333;font-size:14px;margin-top:20px;">头像预览</div>
+                                           <div id="avatar_preview1" style="width:100px;height:100px;overflow:hidden;border-radius:50px;margin:auto;"></div>
+                                            <div style="margin: 10px auto;">
+                                            <label for="avatar-selector" class="avatar-btn ac">
+              <!-- <form name="avatar-from-1" class="form-horizontal rect-form" style="" method="post" enctype="multipart/form-data" id="avatar-from-1" >
+                --> 
+                                            <button id="upload_btn1" style="color: #5ddcb3; border: 1px solid #5ddcb3;padding: 4px 10px;border-radius: 4px;background:none;">上传头像</button>
+                                             <input id="btn2" type="file" accept="image/*,camera" capture="camera" name="avatar" style="opacity: 0;"/>
+              <!-- </form> -->
+                                            </label>
+                                            </div>
+                                            <div class="ac" style="margin: 10px auto 15px;">
+                                            选择本地照片，调整合适大小<br>
+                                            支持jpg、jpeg、gif、png格式
+                                            </div>
+                                             <div class="upload-img1"  style="width:180px;height: 180px;margin:0 auto">
+                                              <img src="{{ user.avatar_url }}" style="width:180px;"/>
+                                            </div>
+                                            <div style="margin-top:20px;" class="ac">
+                                               <!-- <button id="image_save1" style="color: #5ddcb3; border: 1px solid #5ddcb3;padding: 4px 10px;border-radius: 4px;background:none;">保存头像</button>  -->
+                                            </div>
+                           
+                             <form class="form-horizontal rect-form" onsubmit="return change2()" style="width:87.5%;margin:0 auto;" id="save1" method="post" enctype="multipart/form-data">{% csrf_token %}
+                                           <div class="form-group" style="margin-top:20px;">
+                                                    <label for="username" class="control-label">用户名:</label>
+                                                    
+                                                      <input type="text" class="form-control te" style="width:70%" id="username2" placeholder="" name="username" value="{{ form.username.value }}">
+                                                    
+                                                </div>
+                                          <!--<div class="form-group">
+                                                    <label for="realname" class="control-label">真实姓名:</label>
+                                                    
+                                                      <input type="text" class="form-control te" style="width:70%" id="realname" placeholder="" name="real_name" value={{ form.real_name.value }}>
+                                                    
+                                                </div>-->
+                                           <div class="form-group" style="margin-top:20px;">
+                                                    <label for="school" class="control-label">我的学校:</label>
+                                                    
+                                                      <input type="text" class="form-control te" style="width:70%" id="school2" placeholder="" name="school" value={{ form.school.value }}>
+                                                    
+                                                </div>
+                                            <div class="form-group">
+                                                    <label for="studentID" class="control-label">学生ID:</label>
+                                                    
+                                                      <input type="text" class="form-control te" style="width:70%" id="studentID2" placeholder="" name="student_id" value={{ form.student_id.value }}>
+                                                    
+                                                </div>
+
+                                           <div class="form-group">
+                                                    <label class="control-label">性别:</label>
+                                                    
+                                                    <div class="radio" style="margin-top:-22px;margin-left:30%;">
+                                                        <input type="radio" name="gender2" id="gender1" value="male" {% if form.gender.value == "male" %} checked="" {% endif %}>
+                                                        <label for="gender1">男</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <input type="radio" name="gender2" id="gender2" value="female" {% if form.gender.value == "female" %} checked="" {% endif %}>
+                                                        <label for="gender2">女</label>
+                                                    </div>
+                                                    
+                                                  </div>
+                                                <div class="form-group">
+                                                    <label for="realname" class="control-label">联系微信:</label>
+
+                                                    
+
+                                                      <input type="text" class="form-control te" style="width:70%" id="weixin2" placeholder="" name="weixin" value={{ form.weixin.value }}>
+
+                                                    
+
+                                                </div>
+
+                                          
+                                         
+                                          <!--<div class="form-group">
+                                                    <label for="birthday1" class="control-label">生日:</label>
+                                                    
+                                                      <input type="text" class="form-control te" style="width:70%" id="birthday1" placeholder="" name="birth_date" {% if form.birth_date.value %} value={{ form.birth_date.value }} {% endif %}>
+                                                    
+                                                </div>-->
+                                          <div class="form-group">
+                                                    <label for="phone" class="control-label">联系电话:</label>
+                                                    
+                                                      <input type="text" class="form-control te" style="width:70%" id="phone2" placeholder="" name="phone" value={{ form.phone.value }}>
+                                                    
+                                                </div>
+                                          <div class="form-group">
+                                            <label class="control-label">绑定邮箱:</label>
+                                            <div style="float:right;">
+                                              <span>{{ user.email }}</span><!-- &nbsp;|&nbsp;<a href="#" class="safe">申请更改</a> -->
+                                            </div>
+                                          </div>
+                                        <!--  <div class="form-group">
+                                            <label class="control-label">我的学校:</label>
+                                             <div style="float:right;">
+                                              <span>XXSYU</span>&nbsp;|&nbsp;<a href="#" class="safe">申请更改</a>
+                                            </div>
+                                          </div>-->
+                                          <div class="form-group">
+                                            <label class="control-label" style="text-decoration:underline;">发帖自动填写:</label>
+                                           
+                                               <div class="checkbox" style="margin-left:30%;font-size:14px;margin-top: -28px;">
+                                                <input type="checkbox" name="is_weixin" id="metadata7" value="True" {% if is_weixin %} checked {% endif %}>
+                                                <label for="metadata7">联系微信</label>&nbsp;&nbsp;&nbsp;
+                                              <br>
+                                                <input type="checkbox" name="is_phone" id="metadata8" value="True" {% if is_phone %} checked {% endif %}>
+                                                <label for="metadata8">联系电话</label>&nbsp;&nbsp;&nbsp;
+                                             <br>
+                                                <input type="checkbox" name="is_name" id="metadata9" value="True" {% if is_name %} checked {% endif %}>
+                                                <label for="metadata9">联系人（用户名）</label>
+                                                
+                                              </div>
+                                          </div>
+                                         <!--  <div class="form-group" style="clear:both;">
+                                            <label class=" control-label" style="text-decoration:underline;">隐私:</label>
+                                            
+                                              <div class="checkbox" style="margin-top:-30px;margin-left:26%;width:75%">
+                                                <input type="checkbox" name="privacy" id="privacy" value="">
+                                                <label for="privacy">不允许任何人关注我，并隐藏我的动态</label>
+                                              
+                                            </div>
+                                          </div>
+                                          <div class="form-group">
+                                            <label class="control-label" style="text-decoration:underline;">防打扰:</label>
+                                             <select id="qtype" class="form-control" style="width:68%;height:30px;margin-left:33%;margin-top:-30px;">
+                                                <option value="">关闭私信提醒</option>
+                                                <option value="">关闭回复提醒</option>
+                                                <option value="">关闭@我提醒</option>
+                                                <option value="">关闭系统提示</option>
+                                                </select>
+                                           
+                                          </div> -->
+                                          
+                                            <div style="text-align:center;width:40%;margin:0 auto;padding:0px;margin-bottom:20px;padding:20px;">
+                                                   
+                                                      <button type="button" id="image_save1" class="save-form">保存资料</button>
+                                                 </div>
+                                        </form>
+                                        
+                                        
+                           </div>
+                           <div class="tab-pane fade" id="pw">
+                                <h3 class="ac">请重新设置您的密码</h3>
+                                      <div class="reset-password clearfix">
+                                      <form class="form-horizontal rect-form">{% csrf_token %}
+                                          <div class="form-group">
+                                            <label for="old_password" class="col-xs-4 control-label">原密码:</label>
+                                            <div class="col-xs-8 input-decorator">
+                                              <input type="password" class="form-control" id="old_password" name="" placeholder="">
+                                              <span><img class="img-responsive" src="{% static "images/success.png" %}" alt="" style="margin-left:-20px;"></span>
+                                            </div>
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="password1" class="col-xs-4 control-label">输入新密码:</label>
+                                            <div class="col-xs-8 input-decorator">
+                                              <input type="password" class="form-control" id="password1" name="" placeholder="">
+                                              <span><img class="img-responsive" src="{% static "images/success.png" %}" alt="" style="margin-left:-20px;"></span>
+                                            </div>
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="password2" class="col-xs-4 control-label">重复密码:</label>
+                                            <div class="col-xs-8 input-decorator">
+                                              <input type="password" class="form-control" id="password2" name="" placeholder="">
+                                              <span><img class="img-responsive" src="{% static "images/success.png" %}" alt="" style="margin-left:-20px;"></span>
+                                            </div>
+                                          </div>
+                                          <div class="form-group" style="margin-top:50px;">
+                                            <div class="col-xs-offset-3 col-xs-7">
+                                              <button type="submit" class="save-form">确认修改</button>
+                                            </div>
+                                          </div>
+                                        </form>
+                                        </div>
+                           </div>
+                           <div class="tab-pane fade" id="ques">
+                               
+                                        <h3 class="ac">首次登陆请填写问题答案</h3>
+                                        <div class="password-qn clearfix">
+                                        <form class="form-horizontal rect-form">
+                                          <div class="form-group">
+                                            <label for="qn1" class="col-xs-3 control-label">问题一:</label>
+                                            <div class="col-xs-9">
+                                              <select id="qn1" name="" class="form-control">
+                                              <option value="">您的中学名称是？</option>
+                                              </select>
+                                            </div>
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="as1" class="col-xs-3 control-label">答案一:</label>
+                                            <div class="col-xs-9">
+                                              <input type="text" class="form-control" id="as1" name="" placeholder="">
+                                            </div>
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="qn2" class="col-xs-3 control-label">问题二:</label>
+                                            <div class="col-xs-9">
+                                              <select id="qn2" name="" class="form-control">
+                                              <option value="">您父亲的名字是？</option>
+                                              </select>
+                                            </div>
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="as2" class="col-xs-3 control-label">答案二:</label>
+                                            <div class="col-xs-9">
+                                              <input type="text" class="form-control" id="as2" name="" placeholder="">
+                                            </div>
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="qn3" class="col-xs-3 control-label">问题三:</label>
+                                            <div class="col-xs-9">
+                                              <select id="qn3" name="" class="form-control">
+                                              <option value="">您母亲的名字是？</option>
+                                              </select>
+                                            </div>
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="as3" class="col-xs-3 control-label">答案三:</label>
+                                            <div class="col-xs-9">
+                                              <input type="text" class="form-control" id="as3" name="" placeholder="">
+                                            </div>
+                                          </div>
+                                          <div class="form-group" style="margin-top:50px;">
+                                            <div class="col-xs-offset-3 col-xs-7">
+                                              <button type="submit" class="save-form">确认保存</button>
+                                            </div>
+                                          </div>
+                                        </form></div>
+                           </div>
+                           
+                        </div>
+                       <!--  <script>
+                           $(function () {
+                              $('#myTab li:eq(1) a').tab('show');
+                           });
+                        </script> -->
+                       
+                       
+                                
+                           
+              
+             <div class="info col-md-3 col-sm-3" style="text-align:center;width:23%;">
+                <div style="margin-top:30px;">
+                     <a href="{% url "accounts:accountSecurity" %}"><img src="{{ user.avatar_url }}" class="img-circle" alt="dummy-head" width="95" height="95"></a>
+                </div>
+                     <h4 class="username"><a style="vertical-align:middle;padding-left:30px;" href="#" class="useruser">{{ user.username }}</a>
+                     <span style="margin-left:6px;">{% if user.gender != "null" %}<img src={% if user.gender == "male" %} "{% static "images/man.png" %}" {% else %} "{% static "images/girl.png" %}" {% endif %} alt="man icon">{% endif %}</span></h4>
+                       <!--  <div style="font-size:12px;">吧龄:{{ user.get_age }}&nbsp;&nbsp;发帖:{{ user.reply_total }}&nbsp;&nbsp;所属学校:{{ user.school }}</div>
+                       
+                        </div>
+                         -->
+             </div> 
+          </div>
+          
+         </div> 
+     </div>  
+     
+     
+     <div style="margin-top:50px;"></div>
+     
+     
+
+       
+       
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{% static "js/jquery-1.11.1.min.js" %}" type="text/javascript"></script>
+    <script src="{% static "js/canvas-toBlob.js" %}" type="text/javascript"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+    <script src="{% static "js/flatpickr.min.js" %}"></script>
+    <script src="{% static "js/cropper.min.js" %}"></script>
+    <script src="{% static "js/main.js" %}"></script>
+    <script src="{% static "js/menu.js" %}"></script>
+    <script src="{% static "js/AccountSecurity.js" %}"></script>
+    
+  </body>
+</html>

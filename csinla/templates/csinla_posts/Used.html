@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+{% load static %}
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="ie-stand">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalabe=no">
+    <title>个人转租</title>
+
+ {{ form.media }}
+ 
+    <!-- Bootstrap -->
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">  
+    <link href="{% static "css/EditNewPosts.css" %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static "css/font-awesome.min.css" %}"> 
+    <link rel="stylesheet" type="text/css" href="{% static "css/awesome-bootstrap-checkbox.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/flatpickr.min.css" %}">
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" charset="utf-8" src="../umeditor.config.js"></script>  
+  
+    <!--使用版-->  
+    <!--<script type="text/javascript" charset="utf-8" src="../umeditor.all.js"></script>-->  
+  
+    <!--开发版-->  
+    <script type="text/javascript" charset="utf-8" src="{% static "editor_api.js" %}"></script>  
+    <script type="text/javascript" src="../lang/zh-cn/zh-cn.js"></script> 
+   
+  </head>
+  <body>
+  <!-- 顶部部分开始 -->
+      <div class="u-container">
+{% if request.user.is_authenticated %}
+    <div class="u-header clearfix">
+        <div class="logo fl">
+            <a href="/"><img class="img-responsive" src="{% static "images/01-home-logo.png" %}" alt="logo"></a>
+        </div>
+        <div class="login-status fr">
+            <div class="avatar-wrapper">
+              <a href="{% url "accounts:myPosts" %}">
+                <img src={{ user.avatar_url }} class="img-circle avatar" alt="Cinque Terre">
+              </a>
+            </div>
+            <div class="dropdown" style="display:inline-block;">
+                <button class="header-btn dropdown-toggle" type="button" data-toggle="dropdown">
+                    <i class="fa fa-cog" aria-hidden="true"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li><a href="{% url 'accounts:accountSecurity' %}">账户安全</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <!-- <li><a href="#">人工申述</a></li>
+                    <li role="presentation" class="divider"></li> -->
+                    <li><a href="{% url 'accounts:myhelpcenter' %}">联系我们</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="{% url 'accounts:logout' %}">登出</a></li>
+                </ul>
+            </div>
+            <div class="dropdown" style="display:inline-block;">
+                <a href="{% url "accounts:myPosts" %}" class="header-btn dropdown-toggle">
+                    <i class="fa fa-bell-o" aria-hidden="true"></i>
+                    {% if user.unread_message %}<span class="redpoint"><i>{{ user.unread_message }} </i></span>{% endif %}
+                </a>
+               <!--  <ul class="dropdown-menu">
+                    <li><a href="#">我的私信<span class="redpoint"><i>2</i></span></a>
+                    </li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="#">我的回复<span class="redpoint"><i>99+</i></span></a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li><a href="#">查看@提到我<span class="redpoint"><i>12</i></span></a></li>
+                </ul> -->
+            </div>
+            <div class="new-post-wrapper fr">
+                <a class="new-post" href="/posts/add">
+                    <span>发表新帖</span>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="header w">
+        <a href="#" class="mobile-nav-btn pull-right"><i class="fa fa-bars" aria-hidden="true"></i></a>
+        <a href="/" class="home-link">
+            <div class="logo">
+                <img src="{% static "images/home-logo.png" %}" alt="" class="img-responsive">
+            </div>
+        </a>
+    <div class="user">
+            <a href="#" class="remove-nav pull-right"><img src="{% static "./images/times.png" %}" alt="" class="img-responsive"></a>
+            <a href="/" class="home-nav-item special">
+                <span>首页</span>
+            </a>
+            <a href="/posts/add" class="home-nav-item special">
+                <span>发表新帖</span>
+            <a href="{% url "accounts:myPosts" %}" class="home-nav-item special">
+                <span>个人中心</span>
+            </a>
+         <!--    <a href="{% url "accounts:accountSecurity" %}" class="home-nav-item has-sub-item">
+                <span>设置</span>
+            </a> -->
+            
+            <a href="{% url 'accounts:logout' %}"  class="home-nav-item special">
+                <span>Sign out</span></a>
+            
+            </a>
+        </div>
+    {% else %}
+    <div class="u-header clearfix">
+        <div class="logo fl">
+            <a href="/"><img class="img-responsive" src="{% static "images/01-home-logo.png" %}" alt="logo"></a>
+        </div>
+        <div class="user" style="margin-top:18px;text-align:right;">
+            <a href="{% url 'accounts:login' %}" class="login home-nav-item">
+                <span>Log in</span>
+                <img src="{% static "images/home-login.png" %}" alt="">
+            </a>
+            <a href="{% url 'accounts:register' %}" class="register home-nav-item" style="margin-left:10px;">
+                <span>Register</span>
+                <img src="{% static "images/home-register.png" %}" alt="">
+            </a>
+
+        </div>
+
+    </div>
+    <div class="header w">
+        <a href="#" class="mobile-nav-btn pull-right"><i class="fa fa-bars" aria-hidden="true"></i></a>
+        <a href="/" class="home-link">
+            <div class="logo">
+                <img src="{% static "images/home-logo.png" %}" alt="" class="img-responsive">
+            </div>
+        </a>
+        
+        <div class="user">
+            <a href="#" class="remove-nav pull-right"><img src="{% static "./images/times.png" %}" alt="" class="img-responsive"></a>
+            <a href="/" class="home-nav-item special">
+                <span>首页</span>
+            </a>
+            
+            
+            <a href="{% url 'accounts:login' %}" class="login home-nav-item">
+                <span>Log in</span>
+                <img src="{% static "images/home-login.png" %}" alt="">
+            </a>
+            <a href="{% url 'accounts:register' %}" class="register home-nav-item">
+                <span>Register</span>
+                <img src="{% static "images/home-register.png" %}" alt="">
+            </a>
+            <!-- <a href="#" class="home-nav-item special">
+                <span>Live and Love</span>
+            </a> -->
+        </div>
+
+       {% endif %}
+    </div> 
+        
+
+     <!-- 顶部部分结束 -->
+     <!-- 个人中心内容开始 -->
+     <div class="content" style="border-radius:10px;background-color:#fff;">
+      <!-- <input type="image" src="{% static "images/back-icon1.png" %}" onclick="window.history.back();" style="width:25px; height: 25px;margin:10px;position:absolute;"> -->
+      <div id="pageurl"><a href="/">首页</a> <img src="{% static "images/url-lef.png" %}"> <a href="/posts/add">发帖中心</a> <img src="{% static "images/url-lef.png" %}">  <a href="/posts/add/rent">二手商品</a></div>
+          <div class="content-title">
+          二手商品
+          </div>
+         <div class="edit-content">
+            <form class="rentForm" method="post" action="" id="uploadForm" enctype="multipart/form-data">
+              {% csrf_token %}
+            <div class="edit-content-title">
+              <img src="{% static "images/steps-icon.png" %}">
+            </div>
+            <div class="edit-content-point">
+              <img src="{% static "images/point2.jpg" %}">
+            </div>
+            
+            
+            <div class="edit-content-form" style="clear:both;">
+                <label class="checkbox" style="text-align:center;margin-left:-17px;"><span style="color:red">*</span>商品名称：</label>
+                <input type="text" name="title" id="title" style="width:10%;margin-left:17px;margin-top:20px;" {% if rentForm.title.value %} value="{{ rentForm.title.value }}" {% endif %}><span id="addtxt"></span><a href="javascript:" id="addgoods" onclick="add()"><img src="/static/images/add.png"></a>{{ rentForm.title.errors }}
+                <!--{{ rentForm.title}}-->
+             
+            </div>
+             <div class="edit-content-form" style="clear:both;">
+                <label class="checkbox" style="text-align:center;margin-left:-17px;margin-top:-5px"><span style="color:red">*</span>商品价格：</label>
+                <input type="text" name="title" id="price" style="width:10%;margin-left:17px;margin-top:5px;" {% if rentForm.title.value %} value="{{ rentForm.title.value }}" {% endif %}><span id="addprice"></span>{{ rentForm.title.errors }}
+                
+                <!--{{ rentForm.title}}-->
+             
+            </div>
+             
+            <div class="edit-content-form" style="clear:both;">
+                <label class="checkbox check-title" style="margin-top:-5px;font-family:'微软雅黑';text-align:center;"><span style="color:red">*</span>地区:</label> 
+                <div class="radio" style="margin-left:42px;">
+                  <input type="radio" id="loc1" class="" name="district" value="USC" {% if rentForm.district.value == "USC" %} checked {% endif %}>
+                  <label for="loc1" class="form-con">USC</label>
+                </div>
+               <div class="radio" style="margin-left:12px;">
+                 <input type="radio" id="loc2" name="district" value="SMC UCLA" {% if rentForm.district.value == "SMC UCLA" %} checked {% endif %}>
+                 <label for="loc2" class="form-con">SMC UCLA</label> 
+                </div>    
+                <div class="radio" style="margin-left:12px;">
+                  <input type="radio" id="loc6" class="" name="district" value="UCSB" {% if rentForm.district.value == "UCSB" %} checked {% endif %}>
+                  <label for="loc6" class="form-con">UCSB</label>
+                </div>
+      <div class="radio" style="margin-left:12px;">
+                 <input id="loc3" type="radio" name="district" value="UCSD" {% if rentForm.district.value == "UCSD" %} checked {% endif %}>
+                 <label for="loc3" class="form-con">UCSD</label> 
+                </div> 
+      <div class="radio" style="margin-left:12px;">
+                 <input id="loc4" type="radio" name="district" value="UCI" {% if rentForm.district.value == "UCI" %} checked {% endif %}>
+                 <label for="loc4" class="form-con">UCI</label> 
+                </div>  
+      <div class="radio" style="margin-left:12px;">
+                 <input id="loc5" type="radio" name="district" value="OTHER" {% if rentForm.district.value == "OTHER" %} checked {% endif %}>
+                 <label for="loc5" class="form-con">OTHER</label> 
+                 <input type="text" name="district_other" id="loc5txt" style="display:none;position:absolute;margin-top:7px;margin-left:10px;width:80px;" {% if rentForm.district.value == "OTHER" %} value={{ rentForm.district_other.value}} {% endif %}>
+                </div>  
+  {{ rentForm.district.errors }}
+            </div>
+            
+           
+
+          
+
+           
+            <div class="edit-content-form" style="clear:both;">
+                <label class="checkbox" style="margin-top:-5px;text-align:center;margin-left:-18px;"><span style="color:red">*</span>具体地址：</label>
+                <input type="text" id="alladdress" name="address" style="width:35%;margin-left:19px;" {% if rentForm.address.value %} value="{{ rentForm.address.value }}" {% endif %}>{{ rentForm.address.errors }}  
+                <!--{{ rentForm.contactor}}-->
+            </div>
+
+            <div class="edit-content-form" style="clear:both;">
+                <label class="checkbox" style="margin-top:-5px;text-align:center;margin-left:-18px;"><span style="color:red">*</span>联系人：</label>
+                <input type="text" id="contactor" name="contactor" style="width:35%;margin-left:35px;" {% if rentForm.contactor.value %} value={{ rentForm.contactor.value }}{% else %} {% if user.is_name %}value={{ user.username }} {% endif %} {% endif %}>{{ rentForm.contactor.errors }}  
+                <!--{{ rentForm.contactor}}-->
+            </div>
+
+             <!--<div class="edit-content-form" style="clear:both;">
+                <label class="checkbox" style="margin-top:-5px;text-align:center;margin-left:-18px;">联系方式：</label>
+                 <input type="text" name="contact_way" style="width:50%;margin-left:19px;" {% if rentForm.contact_way.value %} value={{ rentForm.contact_way.value }} {% endif %}> {{ rentForm.contact_way.errors }}
+            </div>-->
+
+            <div class="edit-content-form" style="clear:both;">
+                <label class="checkbox" style="margin-top:-5px;text-align:center;margin-left:-18px;"><span style="color:red">*</span>联系电话：</label>
+                 <input type="text" id="phone" name="phone" style="width:35%;margin-left:19px;" {% if rentForm.phone.value %} value={{ rentForm.phone.value }} {% else %} {% if user.is_phone %}value={{ user.phone }} {% endif %} {% endif %}>{{ rentForm.phone.errors }}
+ {% if not user.is_phone %}<a href="{% url "accounts:accountSecurity" %}" style="font-size:12px">设置发帖时自动填写</a>{% endif %}
+            </div>
+            <div class="edit-content-form" style="clear:both;">
+                <label class="checkbox" style="margin-top:-5px;text-align:center;margin-left:-18px;"><span style="color:red">*</span>联系微信：</label>
+                 <input type="text" id="weixin" name="weixin" style="width:35%;margin-left:19px;" {% if rentForm.phone.value %} value={{ rentForm.weixin.value }}{% else %} {% if user.is_weixin %}value={{ user.weixin }}{% endif %} {% endif %}>{{ rentForm.weixin.errors }}
+{% if not user.is_weixin %}<a href="{% url "accounts:accountSecurity" %}" style="font-size:12px">设置发帖时自动填写</a>{% endif %}
+     
+            </div>
+            <div class="edit-content-form he" style="clear:both;"><!-- height:300px; -->
+                <label class="checkbox" style="margin-top:-5px;text-align:center;margin-left:-18px;"><span style="color:red">*</span>详细内容：</label>
+             
+         {{ form.Name }} {{ form.Name.errors }}
+          {{ form.Content }} {{ form.Content.errors }}
+        
+           
+             
+                <!--{{ rentForm.content }}-->
+            </div>
+           
+
+                 
+
+                  <div class="btn but" style="text-align:center;">
+
+                  
+                  <input type="submit" id="push1" class="save-form" value="发表">      
+
+                   <a href="{% url "posts:listrent" %}"><button type="button" class="cancel-form">取消</button></a>    </div>  
+             </form>
+             <!-- <form> -->
+            
+<!-- =======
+                  <button type="reset" class="cancel-form">取消</button>   
+            </form> -->
+            <form method="post" action="" enctype="multipart/form-data">{% csrf_token %}
+<!-- >>>>>>> 54ec6ad6868bd5a474823d205cbeabcad01a01f8 -->
+            
+            
+            <div class="m-edit-content-form" style="clear:both;">
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;">商品名称：</label>
+               
+                <input type="text" name="title" id="mtitle" style="width:50%;margin-left:3px;margin-top:20px;height:30px;" {% if rentForm.title.value %} value="{{ rentForm.title.value }}" {% endif %}><span style="color:red">*</span>
+                  
+            </div>
+            
+            <div class="m-edit-content-form" style="clear:both;">
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;">地区：</label>
+                
+               <select name="district"  onchange="selectother()" id="mlocal">
+                  <option {% if rentForm.district.value == "USC" %} selected {% endif %}>USC</option>
+                  <option {% if rentForm.district.value == "SMC UCLA" %} selected {% endif %}>SMC UCLA</option>
+                   <option {% if rentForm.district.value == "UCSB" %} selected {% endif %}>UCSB</option>
+                  <option {% if rentForm.district.value == "UCSD" %} selected {% endif %}>UCSD</option>
+                  <option {% if rentForm.district.value == "UCI" %} selected {% endif %}>UCI</option>
+                  <option {% if rentForm.district.value == "OTHER" %} selected {% endif %}>OTHER</option>
+                </select> 
+                 <input type="text" name="district_other" id="mlocaltxt" style="width:50%;margin-left:3px;margin-top:20px;height:30px;display:none;" {% if rentForm.district.value == "OTHER" %} value={{ rentForm.district_other.value }} {% endif %}> 
+            </div>
+            
+            
+            <div class="m-edit-content-form" style="clear:both">
+                <label class="checkbox check-title" style="font-family:"微软雅黑";">地址：</label>
+               
+                 <input type="text" name="address" id="malladdress" style="width:50%;margin-left:3px;margin-top:20px;height:30px;" {% if rentForm.address.value %} value="{{ rentForm.address.value }}" {% endif %}><span style="color:red">*</span> {{ sharedForm.address.errors }}
+                  
+            </div>
+            <div class="m-edit-content-form" style="clear:both;">
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;">联系人：</label>
+               
+                 <input type="text" name="contactor" id="mcontactor" style="width:50%;margin-left:3px;margin-top:20px;height:30px;" {% if rentForm.contactor.value %} value={{ rentForm.contactor.value }} {% endif %}><span style="color:red">*</span>
+            </div>
+           <!-- <div class="m-edit-content-form" style="clear:both;">
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;">联系方式：</label>
+               
+                 <input type="text" name="contact_way" style="width:50%;margin-left:3px;margin-top:20px;height:30px;" {% if rentForm.contact_way.value %} value={{ rentForm.contact_way.value }} {% endif %}>
+            </div>-->
+            <div class="m-edit-content-form" style="clear:both;">
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;">联系电话：</label>
+               
+                 <input type="text" name="phone" id="mphone" style="width:50%;margin-left:3px;margin-top:20px;height:30px;" {% if rentForm.phone.value %} value={{ rentForm.phone.value }} {% else %} value={{ user.phone }} {% endif %}><span style="color:red">*</span>
+            </div>
+            <div class="m-edit-content-form" style="clear:both;">
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;">联系微信：</label>
+               
+                 <input type="text" name="weixin" id="mweixin" style="width:50%;margin-left:3px;margin-top:20px;height:30px;" {% if rentForm.weixin.value %} value={{ rentForm.weixin.value }} {% else %} value={{ user.weixin }}  {% endif %}><span style="color:red">*</span>
+            </div>
+            <div class="m-edit-content-form" style="clear:both;">
+                <label class="checkbox check-title" style="font-family:"微软雅黑";font-size:18px;text-align:center;">详细内容：</label>
+               
+               <textarea name="content" id="myEditor" class="mmyEditor" style="width:50%;height:auto;margin-left:5px;margin-top:20px;">{% if rentForm.content.value %} {{ rentForm.content.value }} {% endif %}</textarea>
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <div class="btn m-but" style="text-align:center;">
+                                                   
+                  <!-- <input type="submit" class="save-form" value="发表"> -->
+                  
+                  <input type="submit" id="push2" class="save-form" value="发表">      
+                  <a href="{% url "posts:listrent" %}"><button type="button" class="cancel-form">取消</button></a>   </div>   
+             </form>
+             </div>
+         </div>
+          
+     </div>
+          
+         
+     
+     
+     
+     
+     <div style="margin-top:50px;"></div>
+     
+     
+
+       <script src="{% static "js/jquery-1.4.1.js" %}"></script>
+    
+    <script src="{% static "js/File.js" %}"></script>
+       
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{% static "js/jquery.min.js" %}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+    <script src="{% static "js/flatpickr.min.js" %}"></script>
+    <script src="{% static "js/main.js" %}"></script>
+    <script src="{% static "js/yanzheng.js" %}"></script>
+    
+<script>
+var params = {
+  fileInput: $("#avatar-selector").get(0),
+  //dragDrop: $("#fileDragArea").get(0),
+ upButton: $("#fileSubmit").get(0),
+  //url: $("#uploadForm").attr("action"),
+  filter: function(files) {
+    var arrFiles = [];
+    for (var i = 0, file; file = files[i]; i++) {
+      if (file.type.indexOf("image") == 0 && i<9) {
+        // if (file.size >= 3512000) {
+        //   alert('您这张"'+ file.name +'"图片大小过大，应小于500k');  
+        // } else {
+          arrFiles.push(file);  
+          
+        // }     
+      } else {
+         
+      }
+    }
+    return arrFiles;
+  },
+  onSelect: function(files) {
+    var html = '', i = 0;
+    $("#dd").html('<div class="upload_loading"></div>');
+    var funAppendImage = function() {
+      file = files[i];
+      if (file&&i<9) {
+        var reader = new FileReader()
+        reader.onload = function(e) {
+          html = html + '<li id="uploadList_'+ i +'" class="upload_append_list">'+ 
+            '<a href="javascript:" class="upload_delete" title="删除" data-index="'+ i +'"><img src="/static/images/imgdele.png" style="height:16px"></a><br />' +
+            '<img id="uploadImage_' + i + '" src="' + e.target.result + '" class="upload_image" />'+ 
+             
+          '</li>';
+          
+          i++;
+          funAppendImage();
+
+        }
+       
+        reader.readAsDataURL(file);
+      } else {
+        $("#dd").html(html);
+        var num=9-i;
+        $("#dd1").html("还可以上传"+num+"张");
+        if (html) {
+          //删除方法
+          $(".upload_delete").click(function() {
+            ZXXFILE.funDeleteFile(files[parseInt($(this).attr("data-index"))]);
+            return false; 
+          });
+          //提交按钮显示
+          //$("#fileSubmit").show();  
+        } else {
+          //提交按钮隐藏
+         // $("#fileSubmit").hide();  
+        }
+      }
+    };
+    funAppendImage();   
+  },
+  onDelete: function(file) {
+    $("#uploadList_" + file.index).fadeOut();
+  },
+  onDragOver: function() {
+    $(this).addClass("upload_drag_hover");
+  },
+  onDragLeave: function() {
+    $(this).removeClass("upload_drag_hover");
+  },
+  onProgress: function(file, loaded, total) {
+    // var eleProgress = $("#uploadProgress_" + file.index), percent = (loaded / total * 100).toFixed(2) + '%';
+    // eleProgress.show().html(percent);
+  },
+  onSuccess: function(file, response) {
+   // $("#uploadInf").append("<p>上传成功，图片地址是：" + response + "</p>");
+  },
+  onFailure: function(file) {
+   // $("#uploadInf").append("<p>图片" + file.name + "上传失败！</p>");  
+   // $("#uploadImage_" + file.index).css("opacity", 0.2);
+  },
+  //onComplete: function() {
+    //提交按钮隐藏
+    //$("#fileSubmit").hide();
+    //file控件value置空
+   // $("#fileImage").val("");
+    //$("#uploadInf").append("<p>当前图片全部上传完毕，可继续添加上传。</p>");
+  //}
+};
+ZXXFILE = $.extend(ZXXFILE, params);
+ZXXFILE.init();
+</script>
+
+    <script>
+//上传图片选择文件改变后刷新预览图
+$("#avatar-selector").change(function(e){
+    //获取目标文件
+    var file = e.target.files||e.dataTransfer.files;
+    //如果目标文件存在
+    if(file){
+        //定义一个文件阅读器
+        var reader = new FileReader();
+        //文件装载后将其显示在图片预览里
+        reader.onload=function(){
+            $("#img_preview").attr("src", this.result);
+        }
+        //装载文件
+        reader.readAsDataURL(file[0]);
+    }
+});
+</script>
+<script type="text/javascript">
+
+    //下面用于多图片上传预览功能
+
+    function setImagePreviews(avalue) {
+
+        var docObj = document.getElementById("avatar-selector1");
+
+        var dd3 = document.getElementById("dd3");
+
+        dd3.innerHTML = "";
+
+        var fileList = docObj.files;
+
+        for (var i = 0; i < 10; i++) {            
+
+          if(i<9){
+
+            dd3.innerHTML += "<li style='float:left;margin-top:30px' > <img id='img" + i + "'  /> </li>";
+
+            var imgObjPreview = document.getElementById("img"+i); 
+            if(i<8){
+            var nu=9-i;
+            document.getElementById("upnumber").innerHTML="还可以上传"+nu+"张";}
+            else{
+              var nu=8-i;
+            document.getElementById("upnumber").innerHTML="还可以上传"+nu+"张";
+          
+            }}
+            else{alert('只能上传9张');}
+            
+
+            if (docObj.files && docObj.files[i]) {
+
+                //火狐下，直接设img属性
+
+                imgObjPreview.style.display = 'block';
+
+                imgObjPreview.style.width = '100%';
+
+                imgObjPreview.style.height = '100%';
+
+                //imgObjPreview.src = docObj.files[0].getAsDataURL();
+
+                //火狐7以上版本不能用上面的getAsDataURL()方式获取，需要一下方式
+
+                imgObjPreview.src = window.URL.createObjectURL(docObj.files[i]);
+
+            }
+
+            else {
+
+                //IE下，使用滤镜
+
+                docObj.select();
+
+                var imgSrc = document.selection.createRange().text;
+
+                alert(imgSrc)
+
+                var localImagId = document.getElementById("img" + i);
+
+                //必须设置初始大小
+
+                localImagId.style.width = "100%";
+
+                localImagId.style.height = "100%";
+
+                //图片异常的捕捉，防止用户修改后缀来伪造图片
+
+                try {
+
+                    localImagId.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+
+                    localImagId.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;
+
+                }
+
+                catch (e) {
+
+                    alert("您上传的图片格式不正确，请重新选择!");
+
+                    return false;
+
+                }
+
+                imgObjPreview.style.display = 'none';
+
+                document.selection.empty();
+
+
+            }
+
+        }  
+
+
+
+        return true;
+
+    }
+
+
+
+</script>
+<script type="text/javascript"> 
+   
+thisURL = document.URL; 
+thisHREF = document.location.href; 
+thisSLoc = self.location.href; 
+thisDLoc = document.location; 
+strwrite = thisURL ;
+
+document.write( strwrite ); 
+document.write(strwrite.substring(str.length-1,3))
+    </script>
+    <script>
+   
+//判断两个单选组被选中的值是否等于空
+// if($('#birthday').text())
+// if($(":radio[name='r1']:checked").val()==null)
+// alert("有题目为空，请补充完整");
+// else
+// document.location.href="https://123.sogou.com/";
+// })
+$(function($) {
+
+    $('.mobile-nav-btn').click(function(e) {
+        e.preventDefault();
+        $('.user').slideDown();
+    });
+    $('.remove-nav').click(function(e) {
+        e.preventDefault();
+        $('.user').slideUp();
+    });
+    $('.has-sub-item').click(function(e) {
+        e.preventDefault();
+        $(this).next('.home-nav-sub-item').slideToggle();
+    })
+    $('#birthday').flatpickr({
+      
+         minDate:"today",
+         enableTime:false,
+      //   onClose:function(dateObj,dateStr,instance){
+      //   alert($('#birthday').val())
+      // }
+         maxDate:new Date().fp_incr(90)
+         
+        });
+     $('#birthday4').flatpickr({
+          minDate:"today",
+         enableTime:false,
+      //   onClose:function(dateObj,dateStr,instance){
+      //   alert($('#birthday').val())
+      // }
+         maxDate:new Date().fp_incr(90)
+         
+        });
+     $('#birthday5').flatpickr({
+         //  disable:[
+         // {
+         //  from:"today",
+         //  to:new Date().fp_incr(60)
+         // }
+         // ]
+        });
+     $('#birthday6').flatpickr({
+          
+        });
+      $('#birthday7').flatpickr({
+          
+        });
+     $('#birthday8').flatpickr({
+          
+        });
+});
+</script>
+    <script type="text/javascript">
+    $('#qtime').flatpickr({
+        enableTime: true
+    });
+    
+     i = 1;
+     function add(){
+    if (i<5) {
+  document.getElementById("addtxt").innerHTML+='<input name="text" id="div_'+i+'" name="text_'+i+'" type="text" value="" style="width:10%;margin-left:10px;"  /><input type="button" id="dele_'+i+'" value="删除"  onclick="del('+i+')"/>';
+  document.getElementById("addprice").innerHTML+='<input name="text" id="price_'+i+'" name="text_'+i+'" type="text" value="" style="width:10%;margin-left:10px;"  />';
+  i = i + 1;
+}
+else{
+  alert("最多只能添加5件商品")
+}}
+function del(o){
+ document.getElementById("addtxt").removeChild(document.getElementById("div_"+o));
+ document.getElementById("addtxt").removeChild(document.getElementById("dele_"+o));
+ document.getElementById("addprice").removeChild(document.getElementById("price_"+o));
+}
+
+     
+    </script>
+    
+  
+  </body>
+</html>
